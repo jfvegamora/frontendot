@@ -24,6 +24,7 @@ import { fetchDioptriaParametros } from "../../../redux/slices/utilsSlice";
 
 import { OTGrillaEnum } from "../../Enums";
 import TableComponent2 from "../../components/TableComponent2";
+import axios from "axios";
 // import OTPrimaryButtons from "../../components/OTPrimaryButtons";
 // import { OTGrillaEnum } from "../../Enums";
 // import axios from "axios";
@@ -412,18 +413,6 @@ const MOT: React.FC = () => {
       },
 
       {
-        name: "_establecimiento",
-        label: "Establecimiento",
-        type: "select",
-        selectUrl: "/api/establecimientos/",
-        styles: {
-          styles: "!w-[20vw] labelInput inputStyles",
-          container:
-            "!w-[25vw] translate-x-[4vw] !z-30  !text-[1vw] !translate-y-[0.3rem]",
-          labelProps: "labelInput",
-        },
-      },
-      {
         name: "_punto_venta",
         label: "Punto de Venta",
         type: "select",
@@ -451,6 +440,22 @@ const MOT: React.FC = () => {
   );
 
   console.log(OTPkToDelete.value);
+
+  // const fetchOTData = async () => {
+  //   try {
+  //     const response: any = await axios.get<any>(
+  //       "https://gestiondev.mtoopticos.cl/api/ot/listado/v2/?query=14&_origen=50&&_limit=0"
+  //     );
+
+  //     setDataOT(JSON.parse(response.data));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchOTData();
+  // }, []);
 
   return (
     <div className="mantenedorContainer °bg-yellow-500">
@@ -506,7 +511,6 @@ const MOT: React.FC = () => {
           </FilterButton>
         )}
       </Suspense>
-
       <div
         className={`width100 scroll ${
           filterToggle.value ? "!mt-[13rem] !h-[25rem]" : "!mt-[1rem] !h-[58vh]"
@@ -521,6 +525,7 @@ const MOT: React.FC = () => {
           selectedRows={selectedRows}
           handleDeleteSelected={handleDeleteSelected}
           // pkToDelete={pkToDelete}
+          // data={dataOT}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           tableHead={table_head_OT_diaria2}

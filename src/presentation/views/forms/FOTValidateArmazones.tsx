@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import {
   A1_CR_OD,
@@ -12,16 +12,12 @@ import {
   reiniciarValidationNivel3,
   tipo_de_anteojo,
   updateOT,
-  validationBodegaCristales,
   validationBodegaSchema,
   validationNivel3,
 } from "../../utils";
+
 // import { toast } from 'react-toastify';
 import {
-  validateBodegaCristal1_od,
-  validateBodegaCristal1_oi,
-  validateBodegaCristal2_od,
-  validateBodegaCristal2_oi,
   validationCodigoArmazon_1,
   validationCodigoArmazon_2,
   validationCodigoCristal1_od,
@@ -33,7 +29,7 @@ import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import { fetchOT } from "../../../redux/slices/OTSlice";
 import { paramsOT } from "../../views/mantenedores/MOT";
 import { toast } from "react-toastify";
-import { OTAreasEnum, OTGrillaEnum } from "../../Enums";
+import { OTGrillaEnum } from "../../Enums";
 import { signal } from "@preact/signals-react";
 import { Checkbox } from "@material-tailwind/react";
 import {
@@ -48,13 +44,9 @@ import soundError from "../../../assets/error-call-to-attention-129258.mp3";
 import {
   dataOTSignal,
   resultValidarBodega,
-  structureCristalesBodega,
   valueConfirmOT,
 } from "../../components/OTPrimaryButtons";
 import TextInputInteractive from "../../components/forms/TextInputInteractive";
-import TableValidationCristales from "../../components/OTForms/TableValidationCristales";
-import axios from "axios";
-import { URLBackend } from "../../utils/config";
 
 export const focusFirstInput = (
   strInputName: string,
@@ -75,64 +67,15 @@ const validation_cristal1_oi = signal("");
 const validation_cristal2_od = signal("");
 const validation_cristal2_oi = signal("");
 
-const validationNivelCristales = signal([
-  { campo: "validar_cristal1_od", valor: 0 },
-  { campo: "validar_cristal1_oi", valor: 0 },
-  { campo: "validar_cristal2_od", valor: 0 },
-  { campo: "validar_cristal2_oi", valor: 0 },
-]);
-
-const optionBodega = signal<any>({
-  aproximar: {
-    cr1_od: false,
-    cr1_oi: false,
-  },
-  adquisiciones: {
-    cr1_od: false,
-    cr1_oi: false,
-  },
-  laboratorio: {
-    cr1_od: false,
-    cr1_oi: false,
-  },
-});
-
 interface IFOTValidarBodega {
   handleClose?: any;
   pkToDelete?: any;
 }
 
-const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
-  // console.log(optionBodega.value.aproximar)
-
-  // query 18
-
-  // const [optionBodega, setOptionBodega] = useState<any>({
-  //   aproximar: {
-  //     cr1_od: false,
-  //     cr1_oi: false,
-  //     cr2_od: false,
-  //     cr2_oi: false,
-  //   },
-  //   adquisiciones: {
-  //     cr1_od: false,
-  //     cr1_oi: false,
-  //     cr2_od: false,
-  //     cr2_oi: false,
-  //   },
-  //   laboratorio: {
-  //     cr1_od: false,
-  //     cr1_oi: false,
-  //     cr2_od: false,
-  //     cr2_oi: false,
-  //   },
-  // });
+const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
+  console.log(dataOTSignal.value);
 
   const [formValues, setFormValues] = React.useState();
-  const [isAproximarCR1OD, setIsAproximarCR1OD] = React.useState(false);
-  const [isAproximarCR1OI, setIsAproximarCR1OI] = React.useState(false);
-  const [isAproximarCR2OD, setIsAproximarCR2OD] = React.useState(false);
-  const [isAproximarCR2OI, setIsAproximarCR2OI] = React.useState(false);
   const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
   const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id);
   const [OT, setOT] = React.useState<any>(dataOTSignal.value);
@@ -168,8 +111,31 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
   const inputsRef = {
     a1_od: React.useRef<any>(null),
     a1_oi: React.useRef<any>(null),
+    a1_armazon: React.useRef<any>(null),
     a2_od: React.useRef<any>(null),
     a2_oi: React.useRef<any>(null),
+    a2_armazon: React.useRef<any>(null),
+  };
+
+  const inputArmazonProps: any = {
+    a1_armazon: () => {
+      return {
+        label: "Armazon 1",
+        labelArmazon: OT[OTGrillaEnum.a1_armazon_id],
+        name: "a1_armazon",
+        data: validationA1_armazon.value,
+        inputRefArmazon: inputsRef.a1_armazon,
+      };
+    },
+    a2_armazon: () => {
+      return {
+        label: "Armazon 2",
+        labelArmazon: OT[OTGrillaEnum.a2_armazon_id],
+        name: "a2_armazon",
+        data: validationA2_armazon.value,
+        inputsRefArmazon: inputsRef.a2_armazon,
+      };
+    },
   };
 
   const inputCristalProps: any = {
@@ -180,10 +146,8 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         name: "a1_od",
         data: validation_cristal1_od.value,
         inputsRefCristal: inputsRef.a1_od,
+        onChangeCheckLab: (e: any) => handleCR1_OD_LABChange(e.target),
         checkedVariable: CR1_OD_LAB.value,
-        // aproximar_nombre: "cr1_od_aproximar",
-        // aproximar_value: optionBodega.value.aproximar.cr1_od,
-        // aproximar_checked: optionBodega.value.aproximar.cr1_od,
       };
     },
     a1_oi: () => {
@@ -193,10 +157,8 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         name: "a1_oi",
         data: validation_cristal1_oi.value,
         inputsRefCristal: inputsRef.a1_oi,
+        onChangeCheckLab: (e: any) => handleCR1_OI_LABChange(e.target),
         checkedVariable: CR1_OI_LAB.value,
-        // aproximar_nombre: "cr1_oi_aproximar",
-        // aproximar_value: optionBodega.value.aproximar.cr1_oi,
-        // aproximar_checked: optionBodega.value.aproximar.cr1_oi,
       };
     },
     a2_od: () => {
@@ -206,6 +168,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         name: "a2_od",
         data: validation_cristal2_od.value,
         inputsRefCristal: inputsRef.a2_od,
+        onChangeCheckLab: (e: any) => handleCR2_OD_LABChange(e.target),
         checkedVariable: CR2_OD_LAB.value,
       };
     },
@@ -216,6 +179,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         name: "a2_oi",
         data: validation_cristal2_oi.value,
         inputsRefCristal: inputsRef.a2_oi,
+        onChangeCheckLab: (e: any) => handleCR2_OI_LABChange(e.target),
         checkedVariable: CR2_OI_LAB.value,
       };
     },
@@ -227,13 +191,16 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       name,
       data,
       labelCristal,
+      onChangeCheckLab,
       checkedVariable,
       inputsRefCristal,
     } = inputCristalProps[cristal]();
 
     return (
       <div className="rowForm !h-[5rem] relative mb-4">
-        <label className="labelInput  ml-4">{labelCristal}</label>
+        <label className="labelInput cursor-not-allowed select-none  ml-4">
+          {labelCristal}
+        </label>
         <TextInputInteractive
           type="text"
           label={label}
@@ -247,36 +214,59 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           inputRef={inputsRefCristal}
           validarBodega={true}
           onlyRead={checkedVariable}
+          onKeyDown={(event: any) => {
+            if ((event.ctrlKey || event.metaKey) && event.key === "v") {
+              event.preventDefault();
+            }
+          }}
+          onPaste={(event: any) => {
+            event.preventDefault();
+          }}
         />
-        <div className="absolute top-10 right-[2vw] items-center flex inputStyles">
-          <Checkbox
-            label="LAB"
-            color="orange"
-            // onChange={(e) => onChangeCheckLab(e)}
-            checked={checkedVariable}
-          />
-        </div>
-        {/* {cristal === "a1_od" && isAproximarCR1OD && (
-          <div className="w-full h-full absolute left-[28vw] top-4">
-            <TableValidationCristales />
-          </div>
-        )}
 
-        {cristal === "a1_oi" && isAproximarCR1OI && (
-          <div className="w-full h-full absolute left-[28vw] top-4">
-            <TableValidationCristales />
+        {casoEjecutar === "ProcesarTB" && (
+          <div className="absolute top-10 right-[2vw] items-center flex inputStyles">
+            <Checkbox
+              label="LAB"
+              color="orange"
+              onChange={(e) => onChangeCheckLab(e)}
+              checked={checkedVariable}
+            />
           </div>
         )}
-        {cristal === "a2_od" && isAproximarCR2OD && (
-          <div className="w-full h-full absolute left-[28vw] top-4">
-            <TableValidationCristales />
-          </div>
-        )}
-        {cristal === "a2_oi" && isAproximarCR2OI && (
-          <div className="w-full h-full absolute left-[28vw] top-4">
-            <TableValidationCristales />
-          </div>
-        )} */}
+      </div>
+    );
+  };
+
+  const resnderInputArmazon = (armazon: string) => {
+    const { label, name, data, labelArmazon, inputsRefArmazon } =
+      inputArmazonProps[armazon]();
+    return (
+      <div className="rowForm !h-[5rem] relative mb-4">
+        <label className="labelInput cursor-not-allowed ml-4 select-none">
+          {labelArmazon}
+        </label>
+        <TextInputInteractive
+          type="text"
+          label={label}
+          name={name}
+          handleChange={handleInputChange}
+          isOT={true}
+          data={data}
+          control={control}
+          textAlign="text-left"
+          customWidth={"labelInput inputStyles w-[26vw]"}
+          inputRef={inputsRefArmazon}
+          validarBodega={true}
+          onKeyDown={(event: any) => {
+            if ((event.ctrlKey || event.metaKey) && event.key === "v") {
+              event.preventDefault();
+            }
+          }}
+          onPaste={(event: any) => {
+            event.preventDefault();
+          }}
+        />
       </div>
     );
   };
@@ -355,17 +345,13 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
 
     if (name === "a1_od") {
       if (formatValue === "") {
-        validateBodegaCristal1_od("");
+        validationCodigoCristal1_od("");
       }
-      if (
-        structureCristalesBodega.value[name].codigos.some(
-          (a1od: any) => a1od.codigo === formatValue
-        ) &&
-        value.length >= 11
-      ) {
+
+      if (OT && OT[OTGrillaEnum.cr1_od] === formatValue && value.length >= 11) {
         console.log("render");
         validation_cristal1_od.value = value;
-        validateBodegaCristal1_od(formatValue, alreadyValidate);
+        validationCodigoCristal1_od(formatValue, alreadyValidate);
         focusFirstInput("a1_oi", inputsRef["a1_oi"]);
       } else {
         if (value.length <= 11) {
@@ -374,7 +360,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           console.log("render");
           validation_cristal1_od.value = "";
           errorSound.play();
-          validateBodegaCristal1_od("");
+          validationCodigoCristal1_od("");
           toast.error("Código Cristal OD no corresponde.", {
             autoClose: 500,
           });
@@ -386,24 +372,19 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
 
     if (name === "a1_oi") {
       if (value.trim() === "") {
-        validateBodegaCristal1_oi("");
+        validationCodigoCristal1_oi("");
       }
-      if (
-        structureCristalesBodega.value[name].codigos.some(
-          (a1oi: any) => a1oi.codigo === formatValue
-        ) &&
-        value.length >= 11
-      ) {
-        validateBodegaCristal1_oi(value, alreadyValidate);
+      if (OT && OT[OTGrillaEnum.cr1_oi] === formatValue && value.length >= 11) {
+        validationCodigoCristal1_oi(value, alreadyValidate);
         validation_cristal1_oi.value = value;
-        // focusFirstInput("a2_armazon", inputsRef["a2_armazon"]);
+        focusFirstInput("a2_armazon", inputsRef["a2_armazon"]);
       } else {
         if (value.length <= 11) {
           return;
         } else {
           validation_cristal1_oi.value = "";
           errorSound.play();
-          validateBodegaCristal1_oi("");
+          validationCodigoCristal1_oi("");
           toast.error("Código Cristal OI no correspsonde.", {
             autoClose: 500,
           });
@@ -414,19 +395,51 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       }
     }
 
-    if (name === "a2_od") {
+    if (name === "a1_armazon") {
       if (value.trim() === "") {
-        validateBodegaCristal2_od("");
+        validationCodigoArmazon_1("");
       }
-      console.log(OT && OT[OTGrillaEnum.cr2_od]);
       if (
-        structureCristalesBodega.value[name].codigos.some(
-          (a2od: any) => a2od.codigo === formatValue
-        ) &&
+        OT &&
+        OT[OTGrillaEnum.a1_armazon_id] === formatValue &&
         value.length >= 11
       ) {
+        validationCodigoArmazon_1(value, alreadyValidate);
+        validationA1_armazon.value = value;
+        if (CR1_OD_LAB.value === true) {
+          if (CR1_OI_LAB.value === true) {
+            focusFirstInput("a2_armazon", inputsRef["a2_armazon"]);
+          } else {
+            focusFirstInput("a1_oi", inputsRef["a1_oi"]);
+          }
+        } else {
+          focusFirstInput("a1_od", inputsRef["a1_od"]);
+        }
+      } else {
+        if (value.lenght <= 11) {
+          console.log(value);
+          return;
+        } else {
+          validationA1_armazon.value = "";
+          errorSound.play();
+          validationCodigoArmazon_1("");
+          toast.error("Código Armazon 1 no corresponde.", {
+            autoClose: 500,
+          });
+          resetField("a1_armazon");
+          setFormValues({ [name]: "" } as any);
+        }
+      }
+    }
+
+    if (name === "a2_od") {
+      if (value.trim() === "") {
+        validationCodigoCristal2_od("");
+      }
+      console.log(OT && OT[OTGrillaEnum.cr2_od]);
+      if (OT && OT[OTGrillaEnum.cr2_od] === formatValue && value.length >= 11) {
         validation_cristal2_od.value = value;
-        validateBodegaCristal2_od(value, alreadyValidate);
+        validationCodigoCristal2_od(value, alreadyValidate);
         focusFirstInput("a2_oi", inputsRef["a2_oi"]);
       } else {
         if (value.length <= 11) {
@@ -434,7 +447,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         } else {
           validation_cristal2_od.value = "";
           errorSound.play();
-          validateBodegaCristal2_od("");
+          validationCodigoCristal2_od("");
           toast.error("Codigo Cristal 2 OD no corresponde.", {
             autoClose: 500,
           });
@@ -446,16 +459,11 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
 
     if (name === "a2_oi") {
       if (value.trim() === "") {
-        validateBodegaCristal2_oi("");
+        validationCodigoCristal2_oi("");
       }
-      if (
-        structureCristalesBodega.value[name].codigos.some(
-          (a2oi: any) => a2oi.codigo === formatValue
-        ) &&
-        value.length >= 11
-      ) {
+      if (OT && OT[OTGrillaEnum.cr2_oi] === formatValue && value.length >= 11) {
         validation_cristal2_oi.value = value;
-        validateBodegaCristal2_oi(value, alreadyValidate);
+        validationCodigoCristal2_oi(value, alreadyValidate);
         // focusFirstInput('a2_armazon', inputsRef["a2_armazon"])
       } else {
         if (value.length <= 11) {
@@ -463,7 +471,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         } else {
           validation_cristal2_oi.value = "";
           errorSound.play();
-          validateBodegaCristal2_oi("");
+          validationCodigoCristal2_oi("");
           toast.error("Código de Cristal 2 OI no corresponde.", {
             autoClose: 500,
           });
@@ -471,6 +479,42 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           setFormValues({ [name]: "" } as any);
         }
         // toast.error('Anteojo 2, Código cristal OI no son iguales')
+      }
+    }
+
+    if (name === "a2_armazon") {
+      if (value.trim() === "") {
+        validationCodigoArmazon_2("");
+      }
+      if (
+        OT &&
+        OT[OTGrillaEnum.a2_armazon_id] === formatValue &&
+        value.length >= 11
+      ) {
+        validationCodigoArmazon_2(value, alreadyValidate);
+        validationA2_armazon.value = value;
+        if (CR2_OD_LAB.value === true) {
+          if (CR2_OI_LAB.value === true) {
+            return;
+          } else {
+            focusFirstInput("a2_oi", inputsRef["a2_oi"]);
+          }
+        } else {
+          focusFirstInput("a2_od", inputsRef["a2_od"]);
+        }
+      } else {
+        if (value.lenght <= 11) {
+          return;
+        } else {
+          validationA2_armazon.value = "";
+          errorSound.play();
+          validationCodigoArmazon_2("");
+          toast.error("Código Armazon 2 no corresponde.", {
+            autoClose: 500,
+          });
+          resetField("a2_armazon");
+          setFormValues({ [name]: "" } as any);
+        }
       }
     }
 
@@ -491,8 +535,8 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       A2_CR_OD.value = OT[OTGrillaEnum.cr2_od];
       A2_CR_OI.value = OT[OTGrillaEnum.cr2_oi];
 
-      // a1_armazon.value = OT[OTGrillaEnum.a1_armazon_id];
-      // a2_armazon.value = OT[OTGrillaEnum.a2_armazon_id];
+      a1_armazon.value = OT[OTGrillaEnum.a1_armazon_id];
+      a2_armazon.value = OT[OTGrillaEnum.a2_armazon_id];
 
       tipo_de_anteojo.value = OT[OTGrillaEnum.tipo_anteojo_id];
 
@@ -500,21 +544,22 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
 
       if (OT[OTGrillaEnum.cr1_od] === "") {
         CR1_OD_LAB.value = true;
-        validateBodegaCristal1_od("32", true);
+        validationCodigoCristal1_od("32", true);
       }
 
       if (OT[OTGrillaEnum.cr1_oi] === "") {
         CR1_OI_LAB.value = true;
-        validateBodegaCristal1_oi("32", true);
+        validationCodigoCristal1_oi("32", true);
       }
     }
     if (OT && OT[OTGrillaEnum.tipo_anteojo_id] !== 3) {
       console.log("render");
-      validateBodegaCristal2_od("32", true);
-      validateBodegaCristal2_oi("32", true);
+      validationCodigoArmazon_2("32", true);
+      validationCodigoCristal2_od("32", true);
+      validationCodigoCristal2_oi("32", true);
       if (casoEjecutar === "sinCristales") {
-        validateBodegaCristal1_od("32", true);
-        validateBodegaCristal1_oi("32", true);
+        validationCodigoCristal1_od("32", true);
+        validationCodigoCristal1_oi("32", true);
       }
     }
 
@@ -523,19 +568,117 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       OT[OTGrillaEnum.tipo_anteojo_id] === 3 &&
       casoEjecutar === "sinCristales"
     ) {
-      validateBodegaCristal1_od("32", true);
-      validateBodegaCristal1_oi("32", true);
-      validateBodegaCristal2_od("32", true);
-      validateBodegaCristal2_oi("32", true);
+      validationCodigoCristal1_od("32", true);
+      validationCodigoCristal1_oi("32", true);
+      validationCodigoCristal2_od("32", true);
+      validationCodigoCristal2_oi("32", true);
     }
-    // focusFirstInput("a1_armazon", inputsRef["a1_armazon"]);
+    focusFirstInput("a1_armazon", inputsRef["a1_armazon"]);
   }, [OT]);
 
-  const sumatoriaNivelCristalesBodega = validationBodegaCristales.value.reduce(
+  const sumatoriaNivel3 = validationNivel3.value.reduce(
     (index, objecto) => index + objecto.valor,
     0
   );
 
+  // const onSubmit = (e:any, type?:string) => {
+  //     console.log('renderr')
+  //     e.preventDefault();
+
+  //     console.log(type)
+
+  //     let jsondata:any   = [];
+  //     let origen         = OTAreas["areaActual"]
+  //     let formValues:any = []
+  //     let data           = OT
+  //     let cristalOri     = cristales
+  //     let armazonOri     = armazones
+  //     let user           = UsuarioID
+
+  //     let destino;
+  //     let estado:any
+
+  //     let observaciones;
+  //     let isMasivo;
+  //     let situacion;
+  //     let validarBodega;
+  //     let validacion_complete
+
+  //     switch (type) {
+  //         case 'Procesar':
+  //             destino       = OTAreas["areaSiguiente"]
+  //             estado        = 20
+
+  //             observaciones = ''
+  //             isMasivo      = false
+  //             situacion          = '0'
+  //             validacion_complete = true;
+
+  //             break;
+  //         case 'cristales-externos':
+  //             break;
+  //         case 'cristales-internos':
+  //             break;
+  //         default:
+  //             break;
+  //     }
+
+  //     updateOT(
+  //         jsondata,
+  //         origen,
+  //         destino,
+  //         estado,
+  //         formValues,
+  //         data,
+  //         cristalOri,
+  //         armazonOri,
+  //         user,
+  //         observaciones,
+  //         isMasivo,
+  //         situacion,
+  //         validarBodega,
+  //         "",
+  //         validacion_complete
+  //     )
+
+  //     const toastLoading = toast.loading('Cargando...');
+  //     console.log(OT)
+  //     console.log(OT[OTGrillaEnum.estado_impresion] === '0')
+  //     if(OT[OTGrillaEnum.estado_impresion] === '0'){
+  //         toast.dismiss(toastLoading)
+  //         return toast.error(`OT ${pkToDelete.filter((ot:any)=> ot.estado_impresion === '0').map((ot:any)=>ot.folio)} no ha sido impresa.`)
+  //     }
+
+  //     let estaado_standBy = 25;
+  //     console.log(UsuarioID)
+  //     updateOT(
+  //         [],
+  //         OTAreas["areaActual"],
+  //         OTAreas["areaSiguiente"],
+  //         estaado_standBy,
+  //         [],
+  //         OT,
+  //         cristales,
+  //         armazones,
+  //         UsuarioID,
+  //         "",
+  //         true,
+  //         '',
+  //         true
+  //     ).then(()=>{
+  //         handleClose()
+  //         toast.dismiss(toastLoading)
+  //         toast.success('OT Procesada Correctamente.')
+  //         dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+  //         valueConfirmOT.value = ""
+
+  //     }).catch((e)=>{
+  //         console.log(e)
+  //         console.log('error')
+  //         toast.dismiss(toastLoading);
+  //     })
+
+  // }
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -567,15 +710,15 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         "22782064-0",
         "CRISTIAN EDUARDO RODRÍGUEZ PINTO",
         "2024-06-21",
-        3,
+        1,
         "Lejos",
         "4020000040208",
         "4020000040024",
         " ",
         "100010011240",
         "100010009970",
-        "100010011240",
-        "100010011240",
+        " ",
+        " ",
         "2",
         "0",
         0,
@@ -596,18 +739,9 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
   }, [dataOTSignal.value]);
 
   React.useEffect(() => {
-    console.log(validationBodegaCristales.value);
-    console.log(sumatoriaNivelCristalesBodega);
-    console.log(validationBodegaCristales.value.length);
-    if (
-      sumatoriaNivelCristalesBodega === validationBodegaCristales.value.length
-    ) {
+    if (sumatoriaNivel3 === validationNivel3.value.length) {
       //VALIDA QUE HAYA DATA EN TODOS LOS CAMPOS SINO RETORNA
-      let validation =
-        formValues &&
-        Object.values(formValues as any).some((value) => value == "");
-
-      if (validation) {
+      if (Object.values(formValues as any).some((value) => value === "")) {
         return;
       }
 
@@ -619,9 +753,6 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       let validarBodega = false;
       let isMasivo = true;
       let cristalStock = "1";
-      let estadoValidacionCristal = "1";
-
-      let _p2 = "1";
 
       let destino;
       let estado: any;
@@ -637,25 +768,24 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           {
             codigo: OT[OTGrillaEnum.cr1_od],
             opcion_vta: cristalStock,
-            estado: estadoValidacionCristal,
           },
           {
             codigo: OT[OTGrillaEnum.cr1_oi],
             opcion_vta: cristalStock,
-            estado: estadoValidacionCristal,
           },
           {
             codigo: OT[OTGrillaEnum.cr2_od],
             opcion_vta: cristalStock,
-            estado: estadoValidacionCristal,
           },
           {
             codigo: OT[OTGrillaEnum.cr2_oi],
             opcion_vta: cristalStock,
-            estado: estadoValidacionCristal,
           },
         ],
-        armazones: [],
+        armazones: [
+          { codigo: OT[OTGrillaEnum.a1_armazon_id] },
+          { codigo: OT[OTGrillaEnum.a2_armazon_id] },
+        ],
       };
 
       // const dataP1 = `cristales1_od_opcion_vta="${CR1_OD_LAB.value === true ? 2 : 1}",cristales1_oi_opcion_vta="${CR1_OI_LAB.value === true ? 2 : 1}",cristales2_od_opcion_vta="${CR2_OD_LAB.value === true ? 2 : 1}",cristales2_oi_opcion_vta="${CR2_OI_LAB.value === true ? 2 : 1}",cristales1_od="${CR1_OD_LAB.value === true ? '' : OT[OTGrillaEnum.cr1_od].trim()}",cristales1_oi="${CR1_OI_LAB.value === true ? '' : OT[OTGrillaEnum.cr1_oi].trim()}",cristales2_od="${CR2_OD_LAB.value === true ? '' : OT[OTGrillaEnum.cr2_od].trim()}", cristales2_oi="${CR2_OI_LAB.value === true ? '' : OT[OTGrillaEnum.cr2_oi].trim()}" ${CR2_OI_LAB.value === true ? ', a1_grupo_od=""' : ''}`
@@ -680,7 +810,6 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
 
       console.log(dataP1);
       const toastLoading = toast.loading("Cargando...");
-      console.log(casoEjecutar);
 
       switch (casoEjecutar) {
         case "ProcesarTB_1":
@@ -693,58 +822,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
               : OTAreas["areaSiguiente"];
           estado = "15";
           situacion = "0";
-          console.log("render");
-          updateOT(
-            jsondata,
-            origen,
-            destino,
-            estado,
-            [],
-            data,
-            cristalOri,
-            armazonOri,
-            user,
-            observaciones,
-            isMasivo,
-            situacion,
-            validarBodega,
-            "",
-            false,
-            dataP1,
-            _p2
-          )
-            .then(() => {
-              handleClose();
-              toast.dismiss(toastLoading);
-              toast.success("OT Procesada Correctamente.");
-              dispatch(
-                fetchOT({
-                  OTAreas: OTAreas["areaActual"],
-                  searchParams: paramsOT.value,
-                })
-              );
-              valueConfirmOT.value = "";
-              resetFields();
-            })
-            .catch((e) => {
-              console.log(e);
-              resetFields();
-              console.log("error");
-              toast.dismiss(toastLoading);
-            });
 
-          break;
-        case "ProcesarTB_2":
-          destino =
-            CR1_OD_LAB.value === true ||
-            CR1_OI_LAB.value === true ||
-            CR2_OD_LAB.value === true ||
-            CR2_OI_LAB.value === true
-              ? "30"
-              : OTAreasEnum["Taller Biselado 2"];
-          estado = "15";
-          situacion = "0";
-          console.log("render");
           updateOT(
             jsondata,
             origen,
@@ -761,8 +839,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
             validarBodega,
             "",
             false,
-            dataP1,
-            _p2
+            dataP1
           )
             .then(() => {
               handleClose();
@@ -882,155 +959,84 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           break;
       }
     }
-  }, [sumatoriaNivelCristalesBodega]);
+  }, [sumatoriaNivel3]);
 
   React.useEffect(() => {
     reiniciarValidationNivel3();
   }, []);
 
-  const handleOptionBodega = async (event: any) => {
-    const { id, checked } = event.target;
+  const handleCR1_OD_LABChange = useCallback(
+    (event: any) => {
+      const { checked } = event;
 
-    switch (id) {
-      case "aproximar_cr1_od":
-        // optionBodega.value.aproximar.cr1_od = true;
-        optionBodega.value = {
-          ...optionBodega.value,
-          aproximar: {
-            ...optionBodega.value.aproximar,
-            cr1_od: !optionBodega.value.aproximar.cr1_od,
-          },
-          // adquisiciones: {
-          //   ...optionBodega.value.adquisiciones,
-          //   cr1_od: false,
-          // },
-          // laboratorio: {
-          //   ...optionBodega.value.laboratorio,
-          //   cr1_od: false,
-          // },
-        };
-        setIsAproximarCR1OD(checked);
-        break;
-      // case "adquisiciones_cr1_od":
-      //   console.log("render");
-      //   optionBodega.value = {
-      //     ...optionBodega.value,
-      //     aproximar: {
-      //       ...optionBodega.value.aproximar,
-      //       cr1_od: false,
-      //     },
-      //     adquisiciones: {
-      //       ...optionBodega.value.adquisiciones,
-      //       cr1_od: true,
-      //     },
-      //     laboratorio: {
-      //       ...optionBodega.value.laboratorio,
-      //       cr1_od: false,
-      //     },
-      //   };
-      //   break;
-      case "laboratorio_cr1_od":
-        optionBodega.value = {
-          ...optionBodega.value,
-          aproximar: {
-            ...optionBodega.value.aproximar,
-            cr1_od: false,
-          },
-          adquisiciones: {
-            ...optionBodega.value.adquisiciones,
-            cr1_od: false,
-          },
-          laboratorio: {
-            ...optionBodega.value.laboratorio,
-            cr1_od: true,
-          },
-        };
-        break;
-      case "aproximar_cr1_oi":
-        optionBodega.value = {
-          ...optionBodega.value,
-          aproximar: {
-            ...optionBodega.value.aproximar,
-            cr1_oi: !optionBodega.value.aproximar.cr1_od,
-          },
-          // adquisiciones: {
-          //   ...optionBodega.value.adquisiciones,
-          //   cr1_oi: false,
-          // },
-          // laboratorio: {
-          //   ...optionBodega.value.laboratorio,
-          //   cr1_oi: false,
-          // },
-        };
-        setIsAproximarCR1OI(checked);
-        break;
-      // case "adquisiciones_cr1_oi":
-      // optionBodega.value = {
-      //   ...optionBodega.value,
-      //   aproximar: {
-      //     ...optionBodega.value.aproximar,
-      //     cr1_oi: false,
-      //   },
-      //   adquisiciones: {
-      //     ...optionBodega.value.adquisiciones,
-      //     cr1_oi: true,
-      //   },
-      //   laboratorio: {
-      //     ...optionBodega.value.laboratorio,
-      //     cr1_oi: false,
-      //   },
-      // };
-      // break;
-      // case "laboratorio_cr1_oi":
-      // optionBodega.value = {
-      //   ...optionBodega.value,
-      //   aproximar: {
-      //     ...optionBodega.value.aproximar,
-      //     cr1_oi: false,
-      //   },
-      //   adquisiciones: {
-      //     ...optionBodega.value.adquisiciones,
-      //     cr1_oi: false,
-      //   },
-      //   laboratorio: {
-      //     ...optionBodega.value.laboratorio,
-      //     cr1_oi: true,
-      //   },
-      // };
-      // break;
+      if (checked === true) {
+        A1_CR_OD.value = "";
+        validation_cristal1_od.value = "";
+        validationCodigoCristal1_od("32", true);
+      } else {
+        validationCodigoCristal1_od("");
+      }
 
-      case "aproximar_cr2_od":
-        setIsAproximarCR2OD(checked);
-        break;
-      case "aproximar_cr2_oi":
-        setIsAproximarCR2OI(checked);
-        break;
-      default:
-        break;
-    }
-  };
+      CR1_OD_LAB.value = checked;
+    },
+    [CR1_OD_LAB.value]
+  );
 
-  const fetchAproximarCristales = async (folio: any) => {
-    try {
-      const { data } = await axios(`${URLBackend}/api/cristales/`);
-    } catch (error) {
-      console.log(error);
-      return error;
-    }
-  };
+  const handleCR1_OI_LABChange = useCallback(
+    (event: any) => {
+      const { checked } = event;
+      if (checked === true) {
+        A1_CR_OI.value = "";
+        validation_cristal1_oi.value = "";
+        validationCodigoCristal1_oi("32", true);
+      } else {
+        validationCodigoCristal1_oi("");
+      }
+
+      CR1_OI_LAB.value = checked;
+    },
+    [CR1_OI_LAB.value]
+  );
+
+  const handleCR2_OD_LABChange = useCallback(
+    (event: any) => {
+      const { checked } = event;
+      if (checked === true) {
+        A2_CR_OD.value = "";
+        validation_cristal2_od.value = "";
+        validationCodigoCristal2_od("32", true);
+      } else {
+        validationCodigoCristal2_od("");
+      }
+
+      CR2_OD_LAB.value = checked;
+    },
+    [CR2_OD_LAB.value]
+  );
+
+  const handleCR2_OI_LABChange = useCallback(
+    (event: any) => {
+      const { checked } = event;
+      console.log(checked);
+
+      if (checked === true) {
+        A2_CR_OI.value = "";
+        validation_cristal2_oi.value = "";
+        validationCodigoCristal2_oi("32", true);
+      } else {
+        validationCodigoCristal2_oi("");
+      }
+
+      CR2_OI_LAB.value = checked;
+    },
+    [CR2_OI_LAB.value]
+  );
 
   return (
     <div
-      className={` ${
-        isAproximarCR1OD ||
-        isAproximarCR1OI ||
-        isAproximarCR2OD ||
-        isAproximarCR2OI
-          ? "w-[65vw] !left-[20vw]"
-          : "w-[35vw]"
-      } bg-[#676f9d] w-[35vw] mx-auto   absolute  ${
+      className={` bg-[#676f9d] w-[35vw] mx-auto  xl:left-[35rem]  absolute  ${
         OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3
-          ? "top-[0.5vw] !left-[30vw]"
+          ? "top-[-1vw] !left-[30vw]"
           : "top-[6vw] !left-[30vw]"
       } right-auto rounded-xl shadow-md overflow-hidden lg:left-[18rem]  z-40`}
     >
@@ -1044,7 +1050,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         <button
           onClick={() => {
             resetFields();
-            // handleClose();
+            handleClose();
           }}
           className="userFormBtnClose mr-4"
         >
@@ -1052,68 +1058,189 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         </button>
       </div>
       <h1 className="h-8"></h1>
-      <form className="p-8 space-y-6">
+      <form
+        className="p-8 space-y-6"
+        // onSubmit={handleSubmit((data:any)=>onSubmit(data))}
+        // onSubmit={handleSubmit((data) => onSubmit(data))}
+        // onSubmit={handleSubmit(onSubmit)}
+      >
         {OT && (
           <div className="!w-[34vw]">
-            <h1 className="text-center text-white text-4xl">
+            <h1 className="text-center text-white text-2xl">
               Anteojo{" "}
-              <span className="text-orange-300">
-                {OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3
-                  ? "Lejos"
-                  : OT && OT[OTGrillaEnum.tipo_anteojo]}
-              </span>
+              {OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3
+                ? "Lejos"
+                : OT && OT[OTGrillaEnum.tipo_anteojo]}
             </h1>
-            {/* {resnderInputArmazon('a1_armazon')} */}
+            {/* <div className='rowForm !h-[5rem] relative mb-4'>
+                    <TextInputInteractive
+                    type='text'
+                    label='Armazon 1'
+                        name='a1_armazon'
+                        handleChange={handleInputChange}
+                        isOT={true}
+                        data={formValues && formValues["a1_armazon"]}
+                        control={control}
+                        textAlign='text-left'
+                        customWidth={"labelInput inputStyles w-[28vw]"}
+                        error={errors.a1_armazon}
+                        inputRef={inputsRef.a1_armazon}
+                        validarBodega={true}
+                    />
+                </div> */}
+
+            {/* <label className='labelInput  ml-4'>{OT[OTGrillaEnum.a1_armazon_id]}</label>       */}
+            {resnderInputArmazon("a1_armazon")}
 
             {casoEjecutar !== "sinCristales" &&
               OT[OTGrillaEnum.cr1_od] !== "" &&
-              renderInputCristal("a1_od")}
+              // <div className='rowForm  !h-[5rem] relative mb-4'>
+              //     <label className='labelInput ml-4 '>{OT[OTGrillaEnum.cr1_od]}</label>
+              //     <TextInputInteractive
+              //         type='text'
+              //         label='OD'
+              //         name='a1_od'
+              //         handleChange={handleInputChange}
+              //         // handleFocus={handleInputChange}
+              //         control={control}
+              //         isOT={true}
+              //         // defaultValue={}
+              //         data={validation_cristal1_od.value || formValues && formValues["a1_od"]}
+              //         textAlign='text-left'
+              //         customWidth={"labelInput inputStyles  w-[26vw]"}
+              //         error={errors.a1_od}
+              //         inputRef={inputsRef.a1_od}
+              //         // validarBodega={true}
+              //         onlyRead={CR1_OD_LAB.value}
+              //     />
 
-            {/* <div className="bg-white w-[20vw] h-[3vw] !z-30 ml-2">
-              <div className="mx-6 my-2  translate-y-[0.2rem] flex">
-                <div className="flex">
-                  <input
-                    type="checkbox"
-                    id="aproximar_cr1_od"
-                    // name="aproximar_cr1_od"
-                    name="radioGroup_cr1_od"
-                    className="mx-2 h-[1.5rem] w-[1.5rem]"
-                    value="aproximar_cr1_od"
-                    // value={optionBodega.aproximar.cr1_od}
-                    // value={optionBodega.value.aproximar.cr1_od}
-                    checked={optionBodega.value.aproximar.cr1_od || false}
-                    onChange={(e: any) => {
-                      handleOptionBodega(e);}}
-                  />
-                  <label htmlFor="aproximar_cr1_od" className="">
-                    Aprox.
-                  </label>
-                </div>
-              </div>
-            </div> */}
+              //     {casoEjecutar === 'ProcesarTB' && (
+              //         <div className="absolute top-10 -right-2 items-center flex inputStyles">
+              //             <Checkbox  label="LAB" color="orange" onChange={(e)=>handleCR1_OD_LABChange(e.target)} checked={ CR1_OD_LAB.value} />
+              //         </div>
+              //     )}
+              // </div>
+              renderInputCristal("a1_od")}
 
             {casoEjecutar !== "sinCristales" &&
               OT[OTGrillaEnum.cr1_oi] !== "" &&
+              // <div className=' relative rowForm  !h-[5rem]'>
+              //     <label className='labelInput ml-4 '>{OT[OTGrillaEnum.cr1_oi]}</label>
+              //     <TextInputInteractive
+              //         type='text'
+              //         label='OI'
+              //         name='a1_oi'
+              //         handleChange={handleInputChange}
+              //         control={control}
+              //         isOT={true}
+              //         data={formValues && formValues["a1_oi"]}
+              //         textAlign='text-left'
+              //         customWidth={"labelInput inputStyles  w-[26vw]"}
+              //         error={errors.a1_oi}
+              //         inputRef={inputsRef.a1_oi}
+              //         validarBodega={true}
+              //         onlyRead={CR1_OI_LAB.value}
+              //     />
+
+              //     {casoEjecutar === 'ProcesarTB' && (
+              //       <div className="absolute top-10 -right-2 items-center flex inputStyles">
+              //         <Checkbox  label="LAB" color="orange" onChange={(e)=>handleCR1_OI_LABChange(e.target)} checked={ CR1_OI_LAB.value} />
+              //     </div>
+              //     )}
+              // </div>
+
               renderInputCristal("a1_oi")}
           </div>
         )}
 
         {OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 && (
           <div className="!w-[34vw]">
-            <h1 className="text-center text-4xl text-white ">
-              Anteojo <span className="text-orange-300">Cerca</span>
-            </h1>
-            {/* {resnderInputArmazon('a2_armazon')} */}
+            <h1 className="text-center text-2xl text-white ">Anteojo Cerca</h1>
+            {/* <div className='rowForm !h-[5rem] '>
+                <label className='labelInput  !translate-y-[3rem] ml-4'>{OT[OTGrillaEnum.a2_armazon_id]}</label>    
+                <TextInputInteractive
+                    type='text'
+                    label='Armazon 2'
+                    name='a2_armazon'
+                    handleChange={handleInputChange}
+                    isOT={true}
+                    data={formValues && formValues["a2_armazon"]}
+                    control={control}
+                    textAlign='text-left'
+                    error={errors.a2_armazon}
+                    inputRef={inputsRef.a2_armazon}
+                    customWidth={"labelInput inputStyles"}
+                    validarBodega={true}
+                    onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
+                    />
+                </div> */}
+
+            {resnderInputArmazon("a2_armazon")}
 
             {casoEjecutar !== "sinCristales" &&
               OT[OTGrillaEnum.cr2_od] !== "" &&
-              renderInputCristal("a2_od")}
+              // <div className='rowForm !h-[5rem] relative'>
+              // <label className='labelInput ml-4'>{OT[OTGrillaEnum.cr2_od]}</label>
+              // <TextInputInteractive
+              //     type='text'
+              //     label='OD'
+              //     name='a2_od'
+              //     handleChange={handleInputChange}
+              //     isOT={true}
+              //     data={formValues && formValues["a2_od"]}
+              //     control={control}
+              //     textAlign='text-left'
+              //     error={errors.a2_od}
+              //     inputRef={inputsRef.a2_od}
+              //     customWidth={"labelInput inputStyles w-[26vw]"}
+              //     validarBodega={true}
+              //     onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
+              // />
 
+              //     {casoEjecutar === 'ProcesarTB' && (
+              //         <div className="absolute top-10 -right-2 items-center flex inputStyles">
+              //             <Checkbox  label="LAB" color="orange" onChange={(e)=>handleCR2_OD_LABChange(e.target)} checked={ CR2_OD_LAB.value} />
+              //         </div>
+              //     )}
+
+              // </div>
+              renderInputCristal("a2_od")}
             {casoEjecutar !== "sinCristales" &&
               OT[OTGrillaEnum.cr2_oi] !== "" &&
+              // <div className='rowForm !h-[5rem] relative  '>
+              // <label className='labelInput ml-4'>{OT[OTGrillaEnum.cr2_oi]}</label>
+              // <TextInputInteractive
+              //     type='text'
+              //     label='OI'
+              //     name='a2_oi'
+              //     handleChange={handleInputChange}
+              //     isOT={true}
+              //     data={formValues && formValues["a2_oi"]}
+              //     control={control}
+              //     textAlign='text-left'
+              //     customWidth={"labelInput inputStyles w-[26vw]"}
+              //     error={errors.a2_oi}
+              //     inputRef={inputsRef.a2_oi}
+              //     validarBodega={true}
+              //     onlyRead={OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 ? false : true}
+              // />
+
+              // {casoEjecutar === 'ProcesarTB' && (
+              //         <div className="absolute top-10 -right-2 items-center flex inputStyles">
+              //             <Checkbox  label="LAB" color="orange" onChange={(e)=>handleCR2_OI_LABChange(e.target)} checked={ CR2_OI_LAB.value} />
+              //         </div>
+              //     )}
+              // </div>
+
               renderInputCristal("a2_oi")}
           </div>
         )}
+
+        {/* 
+                {sumatoriaNivel3 === validationNivel3.value.length && (
+                    <Button className='translate-x-8' color='green' type='submit'  onClick={(e) =>onSubmit(e, 'Procesar')}>Procesar</Button>
+                )} */}
+
         <div></div>
         <div></div>
       </form>
@@ -1121,4 +1248,4 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
   );
 };
 
-export default FOTValidateCristales;
+export default FOTValidateArmazones;

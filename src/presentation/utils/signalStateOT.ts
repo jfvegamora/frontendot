@@ -1142,7 +1142,10 @@ export const updateOT = async (
   isValidateBodega?: boolean,
   tipo_evento?: string,
   validation_Complete?: boolean,
-  p1?: any
+  p1?: any,
+  p2?: any,
+  cristalNew?: any,
+  armazonNew?: any
 ) => {
   // let usuarioData =
   //   tipo_evento === "Procesada"
@@ -1180,9 +1183,10 @@ export const updateOT = async (
       //     ? `area="${_destino}", estado="${_estado}",ubicacion=""`
       //     : `area="${_destino}", estado="${_estado}",ubicacion="", ${p1}`
       // }`,
-      _p2: isValidateBodega
-        ? `${data[OTGrillaEnum.tipo_anteojo_id]}`
-        : data && data.tipo_anteojo.toString(),
+      // _p2: isValidateBodega
+      //   ? `${data[OTGrillaEnum.tipo_anteojo_id]}`
+      //   : data && data.tipo_anteojo.toString(),
+      _p2: p2 ? `${p2}` : "0",
       _p3: "",
       _proyecto: isValidateBodega
         ? `${data[OTGrillaEnum.proyecto_titulo]}`
@@ -1193,7 +1197,7 @@ export const updateOT = async (
       _origen: _origen.toString(),
       _rut: ``,
       _destino: _destino.toString(),
-      _estado: _estado || "20",
+      _estado: `${_estado}` || "20",
       _usuario: `${user}`,
       _situacion: situacion || "0",
       _obs: _obs || "",
@@ -1732,7 +1736,8 @@ export const updateOT = async (
   const query = {
     query: "04",
     _p1,
-    _p2: tipo_de_anteojo.value.toString(),
+    // _p2: tipo_de_anteojo.value.toString(),
+    _p2: p2 ? p2 : "0",
     _p3: _p3 || "",
     _proyecto: `${codigoProyecto.value}`,
     _folio: `${data && data[EnumGrid.folio]}`,

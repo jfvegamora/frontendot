@@ -779,10 +779,6 @@ const FOT: React.FC<IFOTProps> = ({
       formValues?.receta.observaciones || ""
     }",${rbd_ubicacion},${rbd_cantidad}, ${rep_cantidad},"${estado_validacion}", "${
       isToggleMontajeValidation.value === true ? 1 : 0
-    }", "${CR1_OD_LAB.value === true ? 2 : 1}" ,"${
-      CR1_OI_LAB.value === true ? 2 : 1
-    }" ,"${CR2_OD_LAB.value === true ? 2 : 1}" ,"${
-      CR2_OI_LAB.value === true ? 2 : 1
     }"`;
 
     let dataJSON = [
@@ -797,7 +793,7 @@ const FOT: React.FC<IFOTProps> = ({
       query: "03",
       _p1,
       _p3: `${_p3}`,
-      _p2: `${jsonData.tipo_anteojo_id}`,
+      _p2: `${jsonData.tipo_anteojo_id || tipo_de_anteojo.value}`,
       _rut: _rut.trim(),
       _proyecto: `${jsonData.proyecto_codigo}`,
       _origen,
@@ -1321,10 +1317,32 @@ const FOT: React.FC<IFOTProps> = ({
       }
     };
 
+    const scrollThreshold = 200; // Ajusta este valor según tus necesidades
+    let scrollAccumulator = 0; // Variable para acumular el desplazamiento
+
+    const handleScroll = (event: WheelEvent) => {
+      const delta = event.deltaY; // Usar deltaY para scroll vertical
+      scrollAccumulator += delta;
+
+      if (Math.abs(scrollAccumulator) >= scrollThreshold) {
+        if (scrollAccumulator > 0) {
+          // Desplazamiento hacia abajo
+          setSelectedTab((prevTab) => (prevTab + 1 + 6) % 6);
+        } else {
+          // Desplazamiento hacia arriba
+          setSelectedTab((prevTab) => (prevTab - 1 + 6) % 6);
+        }
+
+        // Reinicia el acumulador de desplazamiento
+        scrollAccumulator = 0;
+      }
+    };
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("wheel", handleScroll); // Para el scroll con el mouse
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("wheel", handleScroll); // Limpia el evento de scroll
     };
   }, []);
 
@@ -1422,10 +1440,23 @@ const FOT: React.FC<IFOTProps> = ({
     return campoEncontrado && campoEncontrado.valor === 1;
   });
 
-  console.log(OTPermissions[PermisosBotones.anular] === "1");
+  console.log(OTPermissions[PermisosBotones.pausar] === "1");
   console.log(permiso_anular_usuario);
 
-  console.log(OTPermissions);
+  console.log(OTPermissions && OTPermissions[PermisosBotones.pausar] === "1");
+
+  console.log(permiso_usuario_btn_pausar);
+
+  console.log(isEditting);
+  console.log(escritura_lectura);
+  console.log(!isMOT);
+
+  // OTPermissions &&
+  //             !isMOT &&
+  //             isEditting &&
+  //             escritura_lectura &&
+  //             OTPermissions[PermisosBotones.pausar] === "1" &&
+  //             permiso_usuario_btn_pausar && (
 
   return (
     <div className="useFormContainerOT top-[0%]  w-full h-[100%] !z-40">
@@ -1806,6 +1837,7 @@ const FOT: React.FC<IFOTProps> = ({
               isEditting &&
               escritura_lectura &&
               OTPermissions[PermisosBotones.derivar] === "1" &&
+              OTAreas["areaActual"] !== 60 &&
               // sumatoriaNivel1  === validationNivel1.value.length &&
               permiso_usuario_btn_derivar &&
               data &&

@@ -38,4 +38,6 @@ export enum OTGrillaEnum {
 
   usuario = 33,
   estado_wsp = 34,
+  opcion_montaje = 35,
+  require_guia = 36,
 }

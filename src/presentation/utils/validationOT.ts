@@ -13,6 +13,7 @@ import {
   a2_armazon,
   dioptrias_receta,
   tipo_de_anteojo,
+  validationBodegaCristales,
   validationNivel1,
   validationNivel3,
 } from ".";
@@ -403,6 +404,125 @@ export const validationCodigoCristal1_oi = (
     }
 
     if (value === A1_CR_OI.value) {
+      return (item.valor = 1);
+    } else {
+      return (item.valor = 0);
+    }
+  }
+};
+
+export const validateBodegaCristal1_od = (
+  value: any,
+  alreadyValidate?: boolean
+) => {
+  const item = validationBodegaCristales.value.find(
+    (item: any) => item.campo === "validar_cristal1_od"
+  );
+
+  if (item && value === "") {
+    item.valor = 0;
+    return;
+  }
+  if (alreadyValidate && item) {
+    item.valor = 1;
+    return;
+  }
+
+  if (item) {
+    if (value === "") {
+      return (item.valor = 0);
+    }
+
+    if (value === A1_CR_OD.value) {
+      return (item.valor = 1);
+    } else {
+      return (item.valor = 0);
+    }
+  }
+};
+
+export const validateBodegaCristal1_oi = (
+  value: any,
+  alreadyValidate?: boolean
+) => {
+  const item = validationBodegaCristales.value.find(
+    (item: any) => item.campo === "validar_cristal1_oi"
+  );
+
+  if (item && value === "") {
+    item.valor = 0;
+    return;
+  }
+  if (alreadyValidate && item) {
+    item.valor = 1;
+    return;
+  }
+
+  if (item) {
+    if (value === "") {
+      return (item.valor = 0);
+    }
+
+    if (value === A1_CR_OI.value) {
+      return (item.valor = 1);
+    } else {
+      return (item.valor = 0);
+    }
+  }
+};
+
+export const validateBodegaCristal2_od = (
+  value: any,
+  alreadyValidate?: boolean
+) => {
+  const item = validationBodegaCristales.value.find(
+    (item: any) => item.campo === "validar_cristal2_od"
+  );
+
+  if (item && value === "") {
+    item.valor = 0;
+    return;
+  }
+  if (alreadyValidate && item) {
+    item.valor = 1;
+    return;
+  }
+
+  if (item) {
+    if (value === "") {
+      return (item.valor = 0);
+    }
+
+    if (value === A2_CR_OD.value) {
+      return (item.valor = 1);
+    } else {
+      return (item.valor = 0);
+    }
+  }
+};
+export const validateBodegaCristal2_oi = (
+  value: any,
+  alreadyValidate?: boolean
+) => {
+  const item = validationBodegaCristales.value.find(
+    (item: any) => item.campo === "validar_cristal2_oi"
+  );
+
+  if (item && value === "") {
+    item.valor = 0;
+    return;
+  }
+  if (alreadyValidate && item) {
+    item.valor = 1;
+    return;
+  }
+
+  if (item) {
+    if (value === "") {
+      return (item.valor = 0);
+    }
+
+    if (value === A2_CR_OI.value) {
       return (item.valor = 1);
     } else {
       return (item.valor = 0);
