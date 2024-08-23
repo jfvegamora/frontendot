@@ -24,7 +24,6 @@ import { fetchDioptriaParametros } from "../../../redux/slices/utilsSlice";
 
 import { OTGrillaEnum } from "../../Enums";
 import TableComponent2 from "../../components/TableComponent2";
-import axios from "axios";
 // import OTPrimaryButtons from "../../components/OTPrimaryButtons";
 // import { OTGrillaEnum } from "../../Enums";
 // import axios from "axios";
@@ -144,11 +143,12 @@ const MOT: React.FC = () => {
     let cristalStock = "1";
 
     const newPkToDelete = selectedRows?.map((row: number) => ({
-      folio: OTs.data[row] && OTs.data[row][OTGrillaEnum.folio],
-      estado_id: OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_id],
-      estado: OTs.data[row] && OTs.data[row][OTGrillaEnum.estado],
-      estado_impresion:
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_impresion],
+      folio: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.folio]}`,
+      estado_id: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_id]}`,
+      estado: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.estado]}`,
+      estado_impresion: `${
+        OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_impresion]
+      }`,
       armazones: [
         { codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.a1_armazon_id] },
         { codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.a2_armazon_id] },
@@ -171,33 +171,45 @@ const MOT: React.FC = () => {
           opcion_vta: cristalStock,
         },
       ],
-      proyecto_codigo:
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.proyecto_titulo],
-      proyecto: OTs.data[row] && OTs.data[row][OTGrillaEnum.proyecto],
-      punto_venta: OTs.data[row] && OTs.data[row][OTGrillaEnum.punto_venta],
-      tipo_anteojo:
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.tipo_anteojo_id],
-      estado_validacion:
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_validacion],
-      numero_envio: OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_envio],
-      numero_reporte_firma:
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_reporte_firma],
-      numero_reporte_atencion:
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_reporte_atencion],
-      numero_orden_compra:
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_oc],
-      numero_factura:
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_factura],
-      numero_guia: OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_guia],
-      usuario_id: OTs.data[row] && OTs.data[row][OTGrillaEnum.usuario],
-      ot_ubicacion: OTs.data[row] && OTs.data[row][OTGrillaEnum.ubicacion],
+      proyecto_codigo: `${
+        OTs.data[row] && OTs.data[row][OTGrillaEnum.proyecto_titulo]
+      }`,
+      proyecto: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.proyecto]}`,
+      punto_venta: `${
+        OTs.data[row] && OTs.data[row][OTGrillaEnum.punto_venta]
+      }`,
+      tipo_anteojo: `${
+        OTs.data[row] && OTs.data[row][OTGrillaEnum.tipo_anteojo_id]
+      }`,
+      estado_validacion: `${
+        OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_validacion]
+      }`,
+      numero_envio: `${
+        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_envio]
+      }`,
+      numero_reporte_firma: `${
+        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_reporte_firma]
+      }`,
+      numero_reporte_atencion: `${
+        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_reporte_atencion]
+      }`,
+      numero_orden_compra: `${
+        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_oc]
+      }`,
+      numero_factura: `${
+        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_factura]
+      }`,
+      numero_guia: `${
+        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_guia]
+      }`,
+      usuario_id: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.usuario]}`,
+      ot_ubicacion: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.ubicacion]}`,
     }));
 
     OTPkToDelete.value = newPkToDelete;
     setPkToDelete(newPkToDelete);
 
     checkCount.value = newPkToDelete.length;
-
     totoalTrabajosSeleccionados.value = newPkToDelete?.reduce(
       (acc: any, ot: any) => {
         if (ot["tipo_anteojo"] === 3) {
@@ -408,19 +420,6 @@ const MOT: React.FC = () => {
           with: "labelInput inputStyles !w-[8vw]",
           container:
             "!relative w-[8vw] translate-y-[-5.7vw] translate-x-[-12vw] ml-14",
-          labelProps: "labelInput",
-        },
-      },
-
-      {
-        name: "_punto_venta",
-        label: "Punto de Venta",
-        type: "select",
-        selectUrl: "/api/puntosventa/",
-        styles: {
-          styles: "!w-[20vw] labelInput inputStyles",
-          container:
-            " !w-[25vw] !translate-x-[-10.5vw] !z-30 !text-[1vw] translate-y-[5.5vw]",
           labelProps: "labelInput",
         },
       },

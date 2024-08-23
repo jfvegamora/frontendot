@@ -1143,9 +1143,9 @@ export const updateOT = async (
   tipo_evento?: string,
   validation_Complete?: boolean,
   p1?: any,
-  p2?: any,
-  cristalNew?: any,
-  armazonNew?: any
+  p2?: any
+  // cristalNew?: any,
+  // armazonNew?: any
 ) => {
   // let usuarioData =
   //   tipo_evento === "Procesada"

@@ -1,25 +1,27 @@
-const TableValidationCristales = () => {
+interface ITableValidationCristales {
+  data: any;
+}
+
+const TableValidationCristales: React.FC<ITableValidationCristales> = ({
+  data,
+}) => {
+  console.log(data);
+
   return (
-    <table className="w-full">
+    <table className="w-full h-full">
       <thead>
         <tr>
-          <th>ALT1</th>
-          <th>UBIC1</th>
-          <th>ALT2</th>
-          <th>UBIC2</th>
-          <th>ALT3</th>
-          <th>UBIC3</th>
+          <th>CODIGO</th>
+          <th>UBICACION</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>DATA1</td>
-          <td>DATA1</td>
-          <td>DATA1</td>
-          <td>DATA1</td>
-          <td>DATA1</td>
-          <td>DATA1</td>
-        </tr>
+        {data.map((codigos: any) => (
+          <tr key={codigos.codigo}>
+            <td className="text-black">{codigos.codigo}</td>
+            <td className="text-black">ubicacion</td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );

@@ -1,20 +1,17 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import {
   A1_CR_OD,
   A1_CR_OI,
   A2_CR_OD,
   A2_CR_OI,
-  a1_armazon,
-  a2_armazon,
   codigoProyecto,
   reiniciarValidationNivel3,
   tipo_de_anteojo,
   updateOT,
   validationBodegaCristales,
   validationBodegaSchema,
-  validationNivel3,
 } from "../../utils";
 // import { toast } from 'react-toastify';
 import {
@@ -22,12 +19,6 @@ import {
   validateBodegaCristal1_oi,
   validateBodegaCristal2_od,
   validateBodegaCristal2_oi,
-  validationCodigoArmazon_1,
-  validationCodigoArmazon_2,
-  validationCodigoCristal1_od,
-  validationCodigoCristal1_oi,
-  validationCodigoCristal2_od,
-  validationCodigoCristal2_oi,
 } from "../../utils/validationOT";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import { fetchOT } from "../../../redux/slices/OTSlice";
@@ -53,8 +44,6 @@ import {
 } from "../../components/OTPrimaryButtons";
 import TextInputInteractive from "../../components/forms/TextInputInteractive";
 import TableValidationCristales from "../../components/OTForms/TableValidationCristales";
-import axios from "axios";
-import { URLBackend } from "../../utils/config";
 
 export const focusFirstInput = (
   strInputName: string,
@@ -74,28 +63,6 @@ const validation_cristal1_od = signal("");
 const validation_cristal1_oi = signal("");
 const validation_cristal2_od = signal("");
 const validation_cristal2_oi = signal("");
-
-const validationNivelCristales = signal([
-  { campo: "validar_cristal1_od", valor: 0 },
-  { campo: "validar_cristal1_oi", valor: 0 },
-  { campo: "validar_cristal2_od", valor: 0 },
-  { campo: "validar_cristal2_oi", valor: 0 },
-]);
-
-const optionBodega = signal<any>({
-  aproximar: {
-    cr1_od: false,
-    cr1_oi: false,
-  },
-  adquisiciones: {
-    cr1_od: false,
-    cr1_oi: false,
-  },
-  laboratorio: {
-    cr1_od: false,
-    cr1_oi: false,
-  },
-});
 
 interface IFOTValidarBodega {
   handleClose?: any;
@@ -129,10 +96,6 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
   // });
 
   const [formValues, setFormValues] = React.useState();
-  const [isAproximarCR1OD, setIsAproximarCR1OD] = React.useState(false);
-  const [isAproximarCR1OI, setIsAproximarCR1OI] = React.useState(false);
-  const [isAproximarCR2OD, setIsAproximarCR2OD] = React.useState(false);
-  const [isAproximarCR2OI, setIsAproximarCR2OI] = React.useState(false);
   const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
   const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id);
   const [OT, setOT] = React.useState<any>(dataOTSignal.value);
@@ -220,20 +183,15 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       };
     },
   };
-
   const renderInputCristal = (cristal: string) => {
-    const {
-      label,
-      name,
-      data,
-      labelCristal,
-      checkedVariable,
-      inputsRefCristal,
-    } = inputCristalProps[cristal]();
+    const { label, name, data, checkedVariable, inputsRefCristal } =
+      inputCristalProps[cristal]();
 
     return (
-      <div className="rowForm !h-[5rem] relative mb-4">
-        <label className="labelInput  ml-4">{labelCristal}</label>
+      <div className="rowForm !h-[9rem] relative mb-4">
+        {/* <label className="labelInput  ml-4">
+          {labelCristal}|{codigosAlternativos}
+        </label> */}
         <TextInputInteractive
           type="text"
           label={label}
@@ -248,7 +206,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           validarBodega={true}
           onlyRead={checkedVariable}
         />
-        <div className="absolute top-10 right-[2vw] items-center flex inputStyles">
+        <div className="absolute top-2 right-[2vw] items-center flex inputStyles">
           <Checkbox
             label="LAB"
             color="orange"
@@ -256,6 +214,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
             checked={checkedVariable}
           />
         </div>
+
         {/* {cristal === "a1_od" && isAproximarCR1OD && (
           <div className="w-full h-full absolute left-[28vw] top-4">
             <TableValidationCristales />
@@ -888,150 +847,12 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     reiniciarValidationNivel3();
   }, []);
 
-  const handleOptionBodega = async (event: any) => {
-    const { id, checked } = event.target;
-
-    switch (id) {
-      case "aproximar_cr1_od":
-        // optionBodega.value.aproximar.cr1_od = true;
-        optionBodega.value = {
-          ...optionBodega.value,
-          aproximar: {
-            ...optionBodega.value.aproximar,
-            cr1_od: !optionBodega.value.aproximar.cr1_od,
-          },
-          // adquisiciones: {
-          //   ...optionBodega.value.adquisiciones,
-          //   cr1_od: false,
-          // },
-          // laboratorio: {
-          //   ...optionBodega.value.laboratorio,
-          //   cr1_od: false,
-          // },
-        };
-        setIsAproximarCR1OD(checked);
-        break;
-      // case "adquisiciones_cr1_od":
-      //   console.log("render");
-      //   optionBodega.value = {
-      //     ...optionBodega.value,
-      //     aproximar: {
-      //       ...optionBodega.value.aproximar,
-      //       cr1_od: false,
-      //     },
-      //     adquisiciones: {
-      //       ...optionBodega.value.adquisiciones,
-      //       cr1_od: true,
-      //     },
-      //     laboratorio: {
-      //       ...optionBodega.value.laboratorio,
-      //       cr1_od: false,
-      //     },
-      //   };
-      //   break;
-      case "laboratorio_cr1_od":
-        optionBodega.value = {
-          ...optionBodega.value,
-          aproximar: {
-            ...optionBodega.value.aproximar,
-            cr1_od: false,
-          },
-          adquisiciones: {
-            ...optionBodega.value.adquisiciones,
-            cr1_od: false,
-          },
-          laboratorio: {
-            ...optionBodega.value.laboratorio,
-            cr1_od: true,
-          },
-        };
-        break;
-      case "aproximar_cr1_oi":
-        optionBodega.value = {
-          ...optionBodega.value,
-          aproximar: {
-            ...optionBodega.value.aproximar,
-            cr1_oi: !optionBodega.value.aproximar.cr1_od,
-          },
-          // adquisiciones: {
-          //   ...optionBodega.value.adquisiciones,
-          //   cr1_oi: false,
-          // },
-          // laboratorio: {
-          //   ...optionBodega.value.laboratorio,
-          //   cr1_oi: false,
-          // },
-        };
-        setIsAproximarCR1OI(checked);
-        break;
-      // case "adquisiciones_cr1_oi":
-      // optionBodega.value = {
-      //   ...optionBodega.value,
-      //   aproximar: {
-      //     ...optionBodega.value.aproximar,
-      //     cr1_oi: false,
-      //   },
-      //   adquisiciones: {
-      //     ...optionBodega.value.adquisiciones,
-      //     cr1_oi: true,
-      //   },
-      //   laboratorio: {
-      //     ...optionBodega.value.laboratorio,
-      //     cr1_oi: false,
-      //   },
-      // };
-      // break;
-      // case "laboratorio_cr1_oi":
-      // optionBodega.value = {
-      //   ...optionBodega.value,
-      //   aproximar: {
-      //     ...optionBodega.value.aproximar,
-      //     cr1_oi: false,
-      //   },
-      //   adquisiciones: {
-      //     ...optionBodega.value.adquisiciones,
-      //     cr1_oi: false,
-      //   },
-      //   laboratorio: {
-      //     ...optionBodega.value.laboratorio,
-      //     cr1_oi: true,
-      //   },
-      // };
-      // break;
-
-      case "aproximar_cr2_od":
-        setIsAproximarCR2OD(checked);
-        break;
-      case "aproximar_cr2_oi":
-        setIsAproximarCR2OI(checked);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const fetchAproximarCristales = async (folio: any) => {
-    try {
-      const { data } = await axios(`${URLBackend}/api/cristales/`);
-    } catch (error) {
-      console.log(error);
-      return error;
-    }
-  };
-
   return (
     <div
-      className={` ${
-        isAproximarCR1OD ||
-        isAproximarCR1OI ||
-        isAproximarCR2OD ||
-        isAproximarCR2OI
-          ? "w-[65vw] !left-[20vw]"
-          : "w-[35vw]"
-      } bg-[#676f9d] w-[35vw] mx-auto   absolute  ${
+      className={`bg-[#676f9d]  mx-auto   absolute  ${
         OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3
-          ? "top-[0.5vw] !left-[30vw]"
-          : "top-[6vw] !left-[30vw]"
+          ? "top-[6vw] !left-[18vw] w-[60vw]"
+          : "top-[6vw] !left-[30vw] w-[35vw]"
       } right-auto rounded-xl shadow-md overflow-hidden lg:left-[18rem]  z-40`}
     >
       <div className="absolute right-0 userFormBtnCloseContainer">
@@ -1052,7 +873,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         </button>
       </div>
       <h1 className="h-8"></h1>
-      <form className="p-8 space-y-6">
+      <form className="p-8 space-y-6 flex">
         {OT && (
           <div className="!w-[34vw]">
             <h1 className="text-center text-white text-4xl">
@@ -1063,47 +884,32 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
                   : OT && OT[OTGrillaEnum.tipo_anteojo]}
               </span>
             </h1>
-            {/* {resnderInputArmazon('a1_armazon')} */}
 
             {casoEjecutar !== "sinCristales" &&
               OT[OTGrillaEnum.cr1_od] !== "" &&
               renderInputCristal("a1_od")}
-
-            {/* <div className="bg-white w-[20vw] h-[3vw] !z-30 ml-2">
-              <div className="mx-6 my-2  translate-y-[0.2rem] flex">
-                <div className="flex">
-                  <input
-                    type="checkbox"
-                    id="aproximar_cr1_od"
-                    // name="aproximar_cr1_od"
-                    name="radioGroup_cr1_od"
-                    className="mx-2 h-[1.5rem] w-[1.5rem]"
-                    value="aproximar_cr1_od"
-                    // value={optionBodega.aproximar.cr1_od}
-                    // value={optionBodega.value.aproximar.cr1_od}
-                    checked={optionBodega.value.aproximar.cr1_od || false}
-                    onChange={(e: any) => {
-                      handleOptionBodega(e);}}
-                  />
-                  <label htmlFor="aproximar_cr1_od" className="">
-                    Aprox.
-                  </label>
-                </div>
-              </div>
-            </div> */}
+            <div className="w-[75%] ml-4 bg-white -translate-y-[6rem] h-[30%] ">
+              <TableValidationCristales
+                data={structureCristalesBodega.value["a1_od"].codigos}
+              />
+            </div>
 
             {casoEjecutar !== "sinCristales" &&
               OT[OTGrillaEnum.cr1_oi] !== "" &&
               renderInputCristal("a1_oi")}
+            <div className="w-[75%] ml-4 bg-white -translate-y-[6rem]">
+              <TableValidationCristales
+                data={structureCristalesBodega.value["a1_oi"].codigos}
+              />
+            </div>
           </div>
         )}
 
         {OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 && (
-          <div className="!w-[34vw]">
+          <div className="!w-[34vw] bg-red-300">
             <h1 className="text-center text-4xl text-white ">
               Anteojo <span className="text-orange-300">Cerca</span>
             </h1>
-            {/* {resnderInputArmazon('a2_armazon')} */}
 
             {casoEjecutar !== "sinCristales" &&
               OT[OTGrillaEnum.cr2_od] !== "" &&

@@ -200,11 +200,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
     const [isFOTGuiaDespacho, setIsFOTGuiaDespeacho] = useState(false);
     const [isFOTFactura, setIsFOTFactura] = useState(false);
 
-    const [isFOTPreFactura, setIsFOTPreFactura] = useState(false);
-    const [isFOTVistoBueno, setIsFOTVistoBueno] = useState(false);
-    const [isFOTNumeroFactura, setIsFOTNumeroFactura] = useState(false);
-    const [isFOTConfirmaPago, setIsFOTConfirmaPago] = useState(false);
-
     const {
       permiso_usuario_btn_nuevo,
       // permiso_usuario_btn_editar,
@@ -621,8 +616,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       console.log("click");
       setIsWhastApp((prev) => !prev);
     };
-    console.log(OTAreas["areas"]);
-    console.log(OTAreas["areaActual"]);
+    console.log(OTPkToDelete.value);
 
     const handleProcesarMasivo = async () => {
       if (OTPkToDelete.value.length === 0) {
@@ -725,11 +719,20 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             const filterPkToDeleteFirmaEnvio = OTPkToDelete.value.filter(
               (OT: any) =>
                 (OT.numero_envio === "0" || OT.numero_envio === null) &&
-                OT.numero_reporte_firma === 0
+                OT.numero_reporte_firma === "0"
             );
+
             const filterPkToDeleteGuia = OTPkToDelete.value.filter(
-              (OT: any) => OT.numero_guia === 0
+              (OT: any) => OT.numero_guia === "0"
             );
+            if (
+              filterPkToDeleteGuia.length > 0 &&
+              filterPkToDeleteFirmaEnvio.length > 0
+            ) {
+              return toast.error(
+                "OT Debe tener Numero de Guia o Reporte de Firmas"
+              );
+            }
 
             if (filterPkToDeleteFirmaEnvio.length > 0) {
               const folios = filterPkToDeleteFirmaEnvio.map(
@@ -759,6 +762,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               }
             }
           }
+
           const toastLoading = toast.loading("Cargando...");
 
           const updatePromises = OTPkToDelete.value.map(async (ot: any) => {
@@ -766,7 +770,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               if (ot.numero_envio !== "0") {
                 estado = "50";
               }
-              if (ot.numero_reporte_firma !== 0) {
+              if (ot.numero_reporte_firma !== "0") {
                 estado = "15";
               }
             }
@@ -1097,6 +1101,27 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             BUTTON_MESSAGES.Whatsapp
           )}
 
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.ingresar] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_ingresar && (
+            <Tooltip content={BUTTON_MESSAGES.bln_ingreso}>
+              {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
+              <Button
+                type="submit"
+                className="otActionButton mx-4 bg-blue-500"
+                onClick={() => {
+                  if (OTPkToDelete.value.length === 0) {
+                    return toast.error("No hay OT seleccionada.");
+                  }
+                  handleIngresoMasivo();
+                }}
+              >
+                Ingresar
+              </Button>
+            </Tooltip>
+          )}
+
         {OTAreas["areaActual"] === 60 && User.cargo === 1 && (
           <Tooltip content={BUTTON_MESSAGES.procesar}>
             {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
@@ -1190,27 +1215,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                 }}
               >
                 Derivar
-              </Button>
-            </Tooltip>
-          )}
-
-        {areaPermissions &&
-          areaPermissions[PermisosBotones.ingresar] === "1" &&
-          permisos_usuario_areas !== "0" &&
-          permiso_usuario_btn_ingresar && (
-            <Tooltip content={BUTTON_MESSAGES.bln_ingreso}>
-              {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
-              <Button
-                type="submit"
-                className="otActionButton mx-4 bg-blue-500"
-                onClick={() => {
-                  if (OTPkToDelete.value.length === 0) {
-                    return toast.error("No hay OT seleccionada.");
-                  }
-                  handleIngresoMasivo();
-                }}
-              >
-                Ingresar
               </Button>
             </Tooltip>
           )}
@@ -1491,7 +1495,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             <Button
               className="otActionButton mt-3 mx-5"
               onClick={() => {
-                if (pktoDelete.length < 1) {
+                if (OTPkToDelete.value.length < 1) {
                   return toast.error("No hay OT Seleccionada");
                 }
                 // if (validateAreaArchivo) {

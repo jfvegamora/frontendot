@@ -140,7 +140,6 @@ import { usePermission } from "../../hooks";
 
 import { useModal } from "../../hooks/useModal";
 import { paramsOT } from "../mantenedores/MOT";
-import { EnumAreas } from "../../components/OTPrimaryButtons";
 import {
   changeCodigoCristal_A1,
   changeCodigoCristal_A2,

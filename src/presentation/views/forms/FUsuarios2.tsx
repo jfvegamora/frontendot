@@ -131,7 +131,7 @@ const editablesIndices = [12, 13, 15, 20, 21, 22, 23, 24, 25, 26];
 function generatePermisosBotonesString(jsonData: any): string {
   return Object.values(PermisosBotones)
     .filter((value) => typeof value === "number")
-    .map((index: number) => {
+    .map((index: any) => {
       if (editablesIndices.includes(index)) {
         const permisoClave = permisos_botones[editablesIndices.indexOf(index)];
         return permisoClave && jsonData[permisoClave] === "Lectura" ? "0" : "1";
@@ -191,7 +191,7 @@ export function transformUpdateQuery(
       .map((permiso) =>
         jsonData[permiso] === "Lectura"
           ? // jsonData[permiso] === "Lectura" || jsonData[permiso] === "No"
-          "0"
+            "0"
           : "1"
       )
       .join("")}"`,
@@ -415,27 +415,63 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
 
     useEffect(() => {
       if (data) {
-        setValue("permiso_editar_armazon", data[EnumGrid.permiso_editar_armazon]);
-        setValue("permiso_editar_cristal_opcion_vta", data[EnumGrid.permiso_editar_cristal_opcion_vta]);
-        setValue("permiso_editar_estado_impresion", data[EnumGrid.permiso_editar_estado_impresion]);
-        setValue("permiso_editar_validar_parametrizacion", data[EnumGrid.permiso_editar_validar_parametrizacion]);
-        setValue("permiso_editar_opcion_montaje", data[EnumGrid.permiso_editar_opcion_montaje]);
-        setValue("permiso_editar_grupo_dioptria", data[EnumGrid.permiso_editar_grupo_dioptria]);
+        setValue(
+          "permiso_editar_armazon",
+          data[EnumGrid.permiso_editar_armazon]
+        );
+        setValue(
+          "permiso_editar_cristal_opcion_vta",
+          data[EnumGrid.permiso_editar_cristal_opcion_vta]
+        );
+        setValue(
+          "permiso_editar_estado_impresion",
+          data[EnumGrid.permiso_editar_estado_impresion]
+        );
+        setValue(
+          "permiso_editar_validar_parametrizacion",
+          data[EnumGrid.permiso_editar_validar_parametrizacion]
+        );
+        setValue(
+          "permiso_editar_opcion_montaje",
+          data[EnumGrid.permiso_editar_opcion_montaje]
+        );
+        setValue(
+          "permiso_editar_grupo_dioptria",
+          data[EnumGrid.permiso_editar_grupo_dioptria]
+        );
         setValue("permiso_editar_receta", data[EnumGrid.permiso_editar_receta]);
-        setValue("permiso_editar_validar_cristales", data[EnumGrid.permiso_editar_validar_cristales]);
-        setValue("permiso_editar_validar_armazones", data[EnumGrid.permiso_editar_validar_armazones]);
-        setValue("permiso_editar_worktracking", data[EnumGrid.permiso_editar_worktracking]);
+        setValue(
+          "permiso_editar_validar_cristales",
+          data[EnumGrid.permiso_editar_validar_cristales]
+        );
+        setValue(
+          "permiso_editar_validar_armazones",
+          data[EnumGrid.permiso_editar_validar_armazones]
+        );
+        setValue(
+          "permiso_editar_worktracking",
+          data[EnumGrid.permiso_editar_worktracking]
+        );
 
         setValue("permiso_nguia", data[EnumGrid.permiso_nguia]);
         setValue("permiso_nenvio", data[EnumGrid.permiso_nenvio]);
         setValue("permiso_nfirma", data[EnumGrid.permiso_nfirma]);
-        setValue("permiso_nreporte_entrega", data[EnumGrid.permiso_nreporte_entrega]);
+        setValue(
+          "permiso_nreporte_entrega",
+          data[EnumGrid.permiso_nreporte_entrega]
+        );
         setValue("permiso_noc", data[EnumGrid.permiso_noc]);
-        setValue("permiso_confirmar_entrega", data[EnumGrid.permiso_confirmar_entrega]);
+        setValue(
+          "permiso_confirmar_entrega",
+          data[EnumGrid.permiso_confirmar_entrega]
+        );
         setValue("permiso_pre_facturar", data[EnumGrid.permiso_pre_facturar]);
         setValue("permiso_vb", data[EnumGrid.permiso_vb]);
         setValue("permiso_facturar", data[EnumGrid.permiso_facturar]);
-        setValue("permiso_confirmar_pago", data[EnumGrid.permiso_confirmar_pago]);
+        setValue(
+          "permiso_confirmar_pago",
+          data[EnumGrid.permiso_confirmar_pago]
+        );
       }
     }, [data]);
 
@@ -933,7 +969,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                                 formValues["Opcion Vta. Cristal"]) ||
                               (data &&
                                 data[
-                                EnumGrid.permiso_editar_cristal_opcion_vta
+                                  EnumGrid.permiso_editar_cristal_opcion_vta
                                 ])
                             }
                             options={["Lectura", "Escritura"]}
@@ -981,8 +1017,8 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                               (formValues && formValues["Validar Param."]) ||
                               (data &&
                                 data[
-                                EnumGrid
-                                  .permiso_editar_validar_parametrizacion
+                                  EnumGrid
+                                    .permiso_editar_validar_parametrizacion
                                 ])
                             }
                             options={["Lectura", "Escritura"]}

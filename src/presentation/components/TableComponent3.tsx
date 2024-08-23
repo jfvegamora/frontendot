@@ -1,21 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect, useCallback, Suspense } from "react";
-import { usePermission } from "../hooks";
-import {
-  clearAllCheck,
-  clearIndividualCheck,
-  disabledIndividualCheck,
-} from "../utils";
-import { AppStore, useAppSelector } from "../../redux/store";
-
-import { OTGrillaEnum, PermisosBotones } from "../Enums";
-
-import { Text } from "@chakra-ui/react";
-import { signal } from "@preact/signals-react";
-import { usePermissionBotonesUser } from "../hooks/usePermissionBotonesUser";
-import axios from "axios";
+import React from "react";
 import { useTable } from "react-table";
-import OTGrillaButtons from "./OTGrillaButtons";
 
 interface ITableComponentProps<T> {
   tableHead: {
@@ -58,8 +43,6 @@ interface ITableComponentProps<T> {
 
 const TableComponent3: React.FC<ITableComponentProps<any>> = React.memo(
   ({ data }) => {
-    const [selectedRows, setSelectedRows] = useState<number[]>([]);
-
     const columns: any = [
       {
         Header: "Checkbox",
@@ -209,8 +192,10 @@ const TableComponent3: React.FC<ITableComponentProps<any>> = React.memo(
 
     console.log(data);
 
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-      useTable({ columns, data });
+    const { getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
+      columns,
+      data,
+    });
 
     console.log(headerGroups);
 

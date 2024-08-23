@@ -9,8 +9,6 @@ import { useEntityUtils } from "../../hooks";
 import { TITLES, table_head_OT_historica } from "../../utils";
 // import { OptionValuesMotivo } from "./MOT";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
-import { Button } from "@material-tailwind/react";
-import { toast } from "react-toastify";
 // import axios from "axios";
 // import { URLBackend } from "../../hooks/useCrud";
 import { clearData } from "../../../redux/slices/OTSlice";
@@ -37,13 +35,6 @@ const StateCountBarOT = React.lazy(
   () => import("../../components/StateCountBarOT")
 );
 const FOT = React.lazy(() => import("../forms/FOT"));
-const FOTFactura = React.lazy(() => import("../forms/FOTFactura"));
-const FOTGuiaDespacho = React.lazy(() => import("../forms/FOTGuiaDespacho"));
-const FOTOrdenCompra = React.lazy(() => import("../forms/FOTOrdenCompra"));
-const FOTReporteEntrega = React.lazy(
-  () => import("../forms/FOTRepeorteEntrega")
-);
-const ExportCSV = React.lazy(() => import("../../components/ExportToCsv"));
 const FilterButton = React.lazy(() => import("../../components/FilterButton"));
 
 export enum EnumGrid {
@@ -299,10 +290,6 @@ const permissionsOTArchivo = signal<any>("");
 // }
 
 const MOTHistorica: React.FC = () => {
-  const [showOrdenCompra, setShowOrdenCompra] = useState(false);
-  const [showGuia, setShowGuia] = useState(false);
-  const [showFactura, setShowFactura] = useState(false);
-  const [showRepEntrega, setShowRepEntrega] = useState(false);
   const [pktoDelete, setPkToDelete] = useState([]);
   const { CustomModal } = useModal();
 
@@ -310,7 +297,6 @@ const MOTHistorica: React.FC = () => {
 
   const [params, setParams] = useState([]);
   const OTs: any = useAppSelector((store: AppStore) => store.OTS);
-  const user: any = useAppSelector((store: AppStore) => store.user);
   const areas: any = useAppSelector((store: AppStore) => store.OTAreas.areas);
   const areaActual: any = useAppSelector(
     (store: AppStore) => store.OTAreas.areaActual
