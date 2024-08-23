@@ -35,6 +35,7 @@ import FOTReporteEntrega from "../views/forms/FOTRepeorteEntrega";
 import FOTOrdenCompra from "../views/forms/FOTOrdenCompra";
 import FOTFactura from "../views/forms/FOTFactura";
 import { usePermissionBotonesUser } from "../hooks/usePermissionBotonesUser";
+import FOTValidateArmazones from "../views/forms/FOTValidateArmazones";
 // import { OTAreasEnum } from '../Enums/OTAreasEnum';
 // import { OTGrillaEnum } from '../Enums';
 // import { CR1_OD_LAB, CR1_OI_LAB, CR2_OD_LAB, CR2_OI_LAB } from '../utils/FOTCristales_utils';
@@ -65,6 +66,9 @@ export const resultValidarBodega = signal<any>({
 
 export const valueSearchOT = signal<any>("");
 export const valueConfirmOT = signal<any>("");
+
+export const valueConfirmArmazon = signal<any>("");
+export const valueConfirmCristal = signal<any>("");
 const strEntidad = "Ordenen de Trabajo";
 const strBaseUrl = "/api/ot/";
 
@@ -193,6 +197,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
     const [isFOTValidarEmpaque, setIsFOTValidarEmpaque] = useState(false);
     const [isFOTUbicacion, setIsFOTUbicacion] = useState(false);
     const [isFOTValidateBodegaCristales, setisFOTValidateBodegaCristales] =
+      useState(false);
+    const [isFOTValidateBodegaArmazones, setISFOTValidateBodegaArmazones] =
       useState(false);
 
     const [isFOTReporteEntrega, setIsFOTReporteEntrega] = useState(false);
@@ -616,7 +622,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       console.log("click");
       setIsWhastApp((prev) => !prev);
     };
-    console.log(OTPkToDelete.value);
 
     const handleProcesarMasivo = async () => {
       if (OTPkToDelete.value.length === 0) {
@@ -844,39 +849,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       setIsFOTUbicacion((prev) => !prev);
     };
 
-    const handleProcesarConfirm = async (folio: any, toastLoading?: any) => {
-      try {
-        const dataOT = OTData.map((ot: any) => ot).filter(
-          (filterot: any) => filterot[1] === folio
-        );
-
-        console.log(dataOT);
-
-        if (dataOT.length === 0) {
-          // setValueConfirmOT('')
-          valueConfirmOT.value = "";
-          setIsFOTValidarBodega(false);
-          toast.dismiss(toastLoading);
-          return toast.error(`OT ${folio}: No se encuentra en esta área.`);
-        }
-
-        // if(result.status !== 200 || result?.data[0][EnumGrid.area_id] !== 60){
-        //   // setValueConfirmOT('')
-        //   valueConfirmOT.value = '';
-        //   toast.dismiss(toastLoading)
-        //   return toast.error(`OT ${folio}: No se encuentra en esta área`)
-        // }
-
-        toast.dismiss(toastLoading);
-        dataOTSignal.value = dataOT;
-        setIsFOTValidarBodega(true);
-      } catch (error: any) {
-        toast.dismiss(toastLoading);
-        toast.error(error);
-        setIsFOTValidarBodega(false);
-      }
-    };
-
     const handleProcesarBodegaCristales = async (
       folio: any,
       toastLoading?: any
@@ -906,6 +878,12 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           console.log(dataAproximarCristales);
 
           const keys = ["a1_od", "a1_oi", "a2_od", "a2_oi"];
+          structureCristalesBodega.value = {
+            a1_od: { codigos: [], estado: "", opcion_vta: "" },
+            a1_oi: { codigos: [], estado: "", opcion_vta: "" },
+            a2_od: { codigos: [], estado: "", opcion_vta: "" },
+            a2_oi: { codigos: [], estado: "", opcion_vta: "" },
+          };
 
           await dataAproximarCristales.reduce(
             (acc: any, row: any, index: any) => {
@@ -945,8 +923,10 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                 }
 
                 // Asignar estado y opción de venta
-                acc[keys[index]].estado = row[aproximarEnum.estado];
-                acc[keys[index]].opcion_vta = row[aproximarEnum.opcion_vta];
+                acc[keys[index]].estado = `${row[aproximarEnum.estado]}`;
+                acc[keys[index]].opcion_vta = `${
+                  row[aproximarEnum.opcion_vta]
+                }`;
               }
               return acc;
             },
@@ -961,6 +941,21 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           setisFOTValidateBodegaCristales(false);
           return toast.error(error as string);
         }
+      }
+    };
+
+    const handleProcesarBodegaArmazones = async (folio: any) => {
+      try {
+        const dataOT = OTData.map((ot: any) => ot).filter(
+          (filterot: any) => filterot[1] === folio
+        );
+
+        dataOTSignal.value = dataOT;
+        console.log(dataOTSignal.value);
+        setISFOTValidateBodegaArmazones(true);
+      } catch (error) {
+        console.log(error);
+        return error;
       }
     };
 
@@ -1233,7 +1228,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                 className="text-xl"
                 color="orange"
                 // value={valueConfirmOT.value as any}
-                value={valueConfirmOT.value as any}
+                value={valueConfirmArmazon.value as any}
                 onChange={async (e: any) => {
                   if (e.target.value !== "") {
                     let validateValue = e.target.value;
@@ -1241,19 +1236,21 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                     if (validateValue.length >= 10) {
                       console.log(validateValue);
                       const regex = /^0+/;
-                      valueConfirmOT.value = validateValue.replace(regex, "");
+                      valueConfirmArmazon.value = validateValue.replace(
+                        regex,
+                        ""
+                      );
 
-                      const toastLoading: any = toast.loading("cargando...");
-                      await handleProcesarConfirm(
-                        parseInt(valueConfirmOT.value),
-                        toastLoading
+                      // const toastLoading: any = toast.loading("cargando...");
+                      // setISFOTValidateBodegaArmazones(true);
+                      await handleProcesarBodegaArmazones(
+                        parseInt(valueConfirmArmazon.value)
                       ).then(() => {
-                        toast.dismiss(toastLoading);
-                        //  valueConfirmOT.value = "";
+                        valueConfirmArmazon.value = "";
                       });
                     }
                   }
-                  valueConfirmOT.value =
+                  valueConfirmArmazon.value =
                     e.target.value === ""
                       ? e.target.value
                       : parseInt(e.target.value);
@@ -1276,7 +1273,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                 className="text-xl"
                 color="orange"
                 // value={valueConfirmOT.value as any}
-                value={valueConfirmOT.value as any}
+                value={valueConfirmCristal.value as any}
                 onChange={async (e: any) => {
                   if (e.target.value !== "") {
                     let validateValue = e.target.value;
@@ -1284,19 +1281,23 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                     if (validateValue.length >= 10) {
                       console.log(validateValue);
                       const regex = /^0+/;
-                      valueConfirmOT.value = validateValue.replace(regex, "");
+                      valueConfirmCristal.value = validateValue.replace(
+                        regex,
+                        ""
+                      );
 
                       const toastLoading: any = toast.loading("cargando...");
                       await handleProcesarBodegaCristales(
-                        parseInt(valueConfirmOT.value),
+                        parseInt(valueConfirmCristal.value),
                         toastLoading
                       ).then(() => {
                         toast.dismiss(toastLoading);
+                        valueConfirmCristal.value = "";
                         //  valueConfirmOT.value = "";
                       });
                     }
                   }
-                  valueConfirmOT.value =
+                  valueConfirmCristal.value =
                     e.target.value === ""
                       ? e.target.value
                       : parseInt(e.target.value);
@@ -1776,6 +1777,14 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           {isFOTValidateBodegaCristales && (
             <FOTValidateCristales
               handleClose={() => setisFOTValidateBodegaCristales(false)}
+            />
+          )}
+        </Suspense>
+
+        <Suspense>
+          {isFOTValidateBodegaArmazones && (
+            <FOTValidateArmazones
+              handleClose={() => setISFOTValidateBodegaArmazones(false)}
             />
           )}
         </Suspense>

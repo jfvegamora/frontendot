@@ -3,7 +3,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { filterToggle } from "../components/FilterButton";
-import FOTValidateCristales from "../views/forms/FOTValidateCristales";
+// import FOTValidateCristales from "../views/forms/FOTValidateCristales";
+import FOTValidateArmazones from "../views/forms/FOTValidateArmazones";
 // import WhastappForm from "../components/WhastappForm";
 // import WhastappForm from "../components/WhastappForm";
 // import WhastappForm from "../components/WhastappForm";
@@ -125,7 +126,8 @@ const LandingPage: React.FC = () => {
 
         {/* <WhastappForm/> */}
 
-        <FOTValidateCristales />
+        {/* <FOTValidateCristales /> */}
+        <FOTValidateArmazones />
       </div>
     </div>
   );

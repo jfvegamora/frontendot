@@ -353,12 +353,6 @@ const FOT: React.FC<IFOTProps> = ({
   }, [permiso_usuario_grupo_dioptria]);
 
   // console.log(permiso)
-  const permisosAreasUsuario = useAppSelector(
-    (store: AppStore) => store.user?.permisos_areas
-  );
-
-  let permiso_anular_usuario =
-    permisosAreasUsuario && permisosAreasUsuario[0] === "1" ? true : false;
 
   const handleCloseForm = () => {
     closeModal();
@@ -1438,24 +1432,6 @@ const FOT: React.FC<IFOTProps> = ({
     );
     return campoEncontrado && campoEncontrado.valor === 1;
   });
-
-  console.log(OTPermissions[PermisosBotones.pausar] === "1");
-  console.log(permiso_anular_usuario);
-
-  console.log(OTPermissions && OTPermissions[PermisosBotones.pausar] === "1");
-
-  console.log(permiso_usuario_btn_pausar);
-
-  console.log(isEditting);
-  console.log(escritura_lectura);
-  console.log(!isMOT);
-
-  // OTPermissions &&
-  //             !isMOT &&
-  //             isEditting &&
-  //             escritura_lectura &&
-  //             OTPermissions[PermisosBotones.pausar] === "1" &&
-  //             permiso_usuario_btn_pausar && (
 
   return (
     <div className="useFormContainerOT top-[0%]  w-full h-[100%] !z-40">

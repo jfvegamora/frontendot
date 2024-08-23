@@ -729,6 +729,17 @@ export const reiniciarValidationNivel3 = () => {
   });
 };
 
+export const reiniciarValidationNivel3BodegaCristales = () => {
+  validationBodegaCristales.value.forEach((item) => {
+    item.valor = 0;
+  });
+};
+
+export const reiniciarValidationNivel3BodegaArmazones = () => {
+  validationBodegaArmazones.value.forEach((item) => {
+    item.valor = 0;
+  });
+};
 export const clearArmazonesData = () => {
   localStorage.removeItem("a1_armazon");
   localStorage.removeItem("a2_armazon");
@@ -1166,8 +1177,8 @@ export const updateOT = async (
 
   //TODO: INICIO PROCESAR MASIVO
   if (isMasivo) {
-    const amrazones =
-      data.tipo_anteojo === 3 ? data.armazones : data.armazones.shift();
+    // const amrazones =
+    //   data.tipo_anteojo === 3 ? data.armazones : data.armazones.shift();
 
     console.log(_origen);
     const strP1 =
@@ -1178,11 +1189,6 @@ export const updateOT = async (
     const query = {
       query: "04",
       _p1: `${p1 === "" || p1 === undefined ? strP1 : `${strP1}, ${p1}`}`,
-      // _p1: `${
-      //   p1 === "" || p1 === undefined
-      //     ? `area="${_destino}", estado="${_estado}",ubicacion=""`
-      //     : `area="${_destino}", estado="${_estado}",ubicacion="", ${p1}`
-      // }`,
       // _p2: isValidateBodega
       //   ? `${data[OTGrillaEnum.tipo_anteojo_id]}`
       //   : data && data.tipo_anteojo.toString(),
@@ -1209,7 +1215,7 @@ export const updateOT = async (
         : JSON.stringify(data.cristales.filter((ot: any) => ot.codigo !== " ")),
       _armazonJSONOri: isValidateBodega
         ? JSON.stringify(armazonOri)
-        : JSON.stringify(amrazones),
+        : JSON.stringify(data.armazones),
       // _cristalJSONNew: [],
       // _cristalJSONNew: isValidateBodega
       //   ? JSON.stringify(cristalOri)
@@ -1218,6 +1224,7 @@ export const updateOT = async (
       _motivo: `${motivo}`,
     };
 
+    console.log(data.armazones);
     console.log(query);
 
     try {

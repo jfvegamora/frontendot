@@ -13,6 +13,7 @@ import {
   a2_armazon,
   dioptrias_receta,
   tipo_de_anteojo,
+  validationBodegaArmazones,
   validationBodegaCristales,
   validationNivel1,
   validationNivel3,
@@ -404,6 +405,63 @@ export const validationCodigoCristal1_oi = (
     }
 
     if (value === A1_CR_OI.value) {
+      return (item.valor = 1);
+    } else {
+      return (item.valor = 0);
+    }
+  }
+};
+
+export const validateBodegaArmazon1 = (
+  value: any,
+  alreadyValidate?: boolean
+) => {
+  const item = validationBodegaArmazones.value.find(
+    (item: any) => item.campo === "validar_armazon1"
+  );
+  if (item && value === "") {
+    item.valor = 0;
+    return;
+  }
+  if (alreadyValidate && item) {
+    item.valor = 1;
+    return;
+  }
+
+  if (item) {
+    if (value === "") {
+      return (item.valor = 0);
+    }
+
+    if (value === A1_CR_OD.value) {
+      return (item.valor = 1);
+    } else {
+      return (item.valor = 0);
+    }
+  }
+};
+export const validateBodegaArmazon2 = (
+  value: any,
+  alreadyValidate?: boolean
+) => {
+  const item = validationBodegaArmazones.value.find(
+    (item: any) => item.campo === "validar_armazon2"
+  );
+  if (item && value === "") {
+    item.valor = 0;
+    return;
+  }
+  if (alreadyValidate && item) {
+    item.valor = 1;
+    return;
+  }
+
+  if (item) {
+    if (value === "") {
+      return (item.valor = 0);
+    }
+
+    if (value === A1_CR_OD.value) {
       return (item.valor = 1);
     } else {
       return (item.valor = 0);
