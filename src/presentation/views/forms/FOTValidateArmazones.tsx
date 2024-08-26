@@ -242,6 +242,7 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
 
   React.useEffect(() => {
     if (OT) {
+      focusFirstInput("a1_oi", inputsRef["a1_armazon"]);
       a1_armazon.value = OT[OTGrillaEnum.a1_armazon_id];
       a2_armazon.value = OT[OTGrillaEnum.a2_armazon_id];
 
@@ -410,28 +411,6 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           },
         ],
       };
-
-      console.log(validationA1_armazon.value);
-      console.log(data);
-      // const dataP1 = `cristales1_od_opcion_vta="${CR1_OD_LAB.value === true ? 2 : 1}",cristales1_oi_opcion_vta="${CR1_OI_LAB.value === true ? 2 : 1}",cristales2_od_opcion_vta="${CR2_OD_LAB.value === true ? 2 : 1}",cristales2_oi_opcion_vta="${CR2_OI_LAB.value === true ? 2 : 1}",cristales1_od="${CR1_OD_LAB.value === true ? '' : OT[OTGrillaEnum.cr1_od].trim()}",cristales1_oi="${CR1_OI_LAB.value === true ? '' : OT[OTGrillaEnum.cr1_oi].trim()}",cristales2_od="${CR2_OD_LAB.value === true ? '' : OT[OTGrillaEnum.cr2_od].trim()}", cristales2_oi="${CR2_OI_LAB.value === true ? '' : OT[OTGrillaEnum.cr2_oi].trim()}" ${CR2_OI_LAB.value === true ? ', a1_grupo_od=""' : ''}`
-      // const dataP1 = `"${CR1_OD_LAB.value === true ? ',cristales1_od_opcion_vta="2"' : ""}" "${CR1_OI_LAB.value === true ? ',cristales1_oi_opcion_vta="2"' : ""}" "${CR2_OD_LAB.value === true ? ',cristales2_od_opcion_vta="2"': ""} "${CR2_OI_LAB.value === true ? ',cristales2_oi_opcion_vta="2"' : ""}" "${CR1_OD_LAB.value === true ? ',cristales1_od=""' : ""}" "${CR1_OI_LAB.value === true ? ',cristales1_oi=""' : ""}" "${CR2_OD_LAB.value === true ? ',cristales2_od=""' : ""}" ${CR2_OI_LAB.value === true ? ',cristales2_oi=""' : ""}" ${CR2_OI_LAB.value === true ? ',a1_grupo_od=""' : ''}`
-      // const dataP1 = `${
-      //   CR1_OD_LAB.value === true
-      //     ? 'cristales1_od_opcion_vta="2", a1_grupo_od="",cristales1_od="",'
-      //     : 'cristales1_od_opcion_vta = "1",'
-      // } ${
-      //   CR1_OI_LAB.value === true
-      //     ? 'cristales1_oi_opcion_vta="2",a1_grupo_oi="",cristales1_oi="",'
-      //     : 'cristales1_oi_opcion_vta = "1",'
-      // } ${
-      //   CR2_OD_LAB.value === true
-      //     ? 'cristales2_od_opcion_vta="2",a2_grupo_od="",cristales2_od="",'
-      //     : 'cristales2_od_opcion_vta = "1",'
-      // } ${
-      //   CR2_OI_LAB.value === true
-      //     ? 'cristales2_oi_opcion_vta="2", a2_grupo_oi="",cristales2_oi=""'
-      //     : 'cristales2_oi_opcion_vta = "1"'
-      // } `;
 
       const toastLoading = toast.loading("Cargando...");
 
@@ -630,94 +609,6 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
   React.useEffect(() => {
     reiniciarValidationNivel3BodegaArmazones();
   }, []);
-
-  // const handleDerivacionValidarArmazon = async () => {
-  //   const toastLoading = toast.loading("Cargando...");
-
-  //   try {
-  //     let jsondata: any = [];
-  //     let origen = OTAreas["areaActual"];
-  //     let cristalOri = cristales;
-  //     let armazonOri = armazones;
-  //     let user = UsuarioID;
-  //     let validarBodega = false;
-  //     let isMasivo = true;
-  //     let estadoValidaArmazon = "1";
-
-  //     let _p2 = "1";
-
-  //     let destino = "10";
-  //     let estado = "40";
-
-  //     let observaciones;
-  //     let situacion;
-  //     let data = {
-  //       folio: OT[OTGrillaEnum.folio],
-  //       tipo_anteojo: parseInt(OT[OTGrillaEnum.tipo_anteojo_id]),
-  //       proyecto_codigo: OT[OTGrillaEnum.proyecto_titulo],
-  //       punto_venta: OT[OTGrillaEnum.punto_venta],
-  //       cristales: [],
-  //       armazones: [
-  //         {
-  //           codigo:
-  //             validationA1_armazon.value !== ""
-  //               ? validationA1_armazon.value
-  //               : "",
-  //           estado: estadoValidaArmazon,
-  //         },
-  //         {
-  //           codigo:
-  //             validationA2_armazon.value !== ""
-  //               ? validationA2_armazon.value
-  //               : "",
-  //           estado: estadoValidaArmazon,
-  //         },
-  //       ],
-  //     };
-
-  //     updateOT(
-  //       jsondata,
-  //       origen,
-  //       destino,
-  //       estado,
-  //       [],
-  //       data,
-  //       cristalOri,
-  //       armazonOri,
-  //       user,
-  //       observaciones,
-  //       isMasivo,
-  //       situacion,
-  //       validarBodega,
-  //       "",
-  //       false,
-  //       "",
-  //       _p2
-  //     )
-  //       .then(() => {
-  //         handleClose();
-  //         toast.dismiss(toastLoading);
-  //         toast.success("OT Procesada Correctamente.");
-  //         dispatch(
-  //           fetchOT({
-  //             OTAreas: OTAreas["areaActual"],
-  //             searchParams: paramsOT.value,
-  //           })
-  //         );
-  //         valueConfirmOT.value = "";
-  //         resetFields();
-  //       })
-  //       .catch((e) => {
-  //         console.log(e);
-  //         console.log("error");
-  //         resetFields();
-  //         toast.dismiss(toastLoading);
-  //       });
-  //   } catch (error) {
-  //     console.log(error);
-  //     return error;
-  //   }
-  // };
 
   return (
     <div

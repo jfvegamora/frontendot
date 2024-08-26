@@ -204,6 +204,9 @@ const MOT: React.FC = () => {
       }`,
       usuario_id: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.usuario]}`,
       ot_ubicacion: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.ubicacion]}`,
+      validar_parametrizacion: `${
+        OTs.data[row] && OTs.data[row][OTGrillaEnum.validar_parametrizacionm]
+      }`,
     }));
 
     OTPkToDelete.value = newPkToDelete;

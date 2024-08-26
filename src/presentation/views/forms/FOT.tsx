@@ -326,7 +326,8 @@ const FOT: React.FC<IFOTProps> = ({
   let permiso_area_worktraking = false;
 
   if (!isMOT) {
-    const permisosAreas = OTAreaActual && (permissions(OTAreaActual)[6] as any);
+    const permisosAreas = OTAreaActual && (permissions(OTAreaActual)[7] as any);
+    console.log(permisosAreas);
     permiso_areas_armazones =
       permisosAreas && permisosAreas[0] === "1" ? true : false;
     permiso_areas_cristales =
@@ -366,6 +367,7 @@ const FOT: React.FC<IFOTProps> = ({
     dispatch(clearCodigos());
     clearSelectInput.value = false;
     keepForm.value = false;
+    codigoProyecto.value = "";
   };
 
   useEffect(() => {

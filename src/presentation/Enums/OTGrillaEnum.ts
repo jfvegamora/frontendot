@@ -40,4 +40,5 @@ export enum OTGrillaEnum {
   estado_wsp = 34,
   opcion_montaje = 35,
   require_guia = 36,
+  validar_parametrizacionm = 37,
 }

@@ -97,7 +97,7 @@ export const A1_GRUPO_OI = signal("");
 export const A2_GRUPO_OD = signal("");
 export const A2_GRUPO_OI = signal("");
 
-export const punto_venta = signal("");
+export const punto_venta = signal<any>(undefined);
 export const oftalmologo_id = signal("");
 
 export const clearSelectInput = signal(true);
@@ -1131,7 +1131,7 @@ export const inputChangeActions: InputChangeActions = {
     codigoProyecto.value = Object.values(data)[0] as string;
   },
   punto_venta_id: (data: any) => {
-    punto_venta.value = Object.values(data)[0] as string;
+    punto_venta.value = parseInt(Object.values(data)[0] as any);
   },
 };
 
