@@ -31,7 +31,7 @@ const idMenu = 11;
 
 const MAlmacenes: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -58,12 +58,14 @@ const MAlmacenes: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_p1"; // _p3/_p1/_pkToDelete
 
-  useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.id]}`);
-    const combinedPks = newPkToDelete.join(',');
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map(
+      (row: number) => `${entities[row][EnumGrid.id]}`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
@@ -77,43 +79,44 @@ const MAlmacenes: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Descripción", type: "text",
-                styles:{
-                  styles:"labelInput inputStyles",
-                  container:"!w-[20vw]  text-[1vw]", 
-                  labelProps: "labelInput"
-                }
-               },
               {
-                name      : "_p2",
-                label     : "Tipo",
-                type      : "select",
-                selectUrl : "/api/tipos/",
-                tipos     : "AlmacenesTipos",
-                styles    :  {
-                  styles:"labelInput inputStyles",
-                  container:"!w-[20vw]  text-[1vw] translate-x-[1vw]  ", 
-                  labelProps: "labelInput"
-                }
+                name: "_p1",
+                label: "Descripción",
+                type: "text",
+                styles: {
+                  styles: "labelInput inputStyles",
+                  container: "!w-[20vw]  text-[1vw]",
+                  labelProps: "labelInput",
+                },
               },
               {
-                name      : "_p3",
-                label     : "Categoría",
-                type      : "select",
-                selectUrl : "/api/tipos/",
-                tipos     : "TipoInsumo",
-                styles    :  {
-                  styles:"labelInput inputStyles",
-                  container:"!w-[20vw]  text-[1vw] translate-x-[-0.5vw]", 
-                  labelProps: "labelInput"
-                }
-
+                name: "_p2",
+                label: "Tipo",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "AlmacenesTipos",
+                styles: {
+                  styles: "labelInput inputStyles",
+                  container: "!w-[20vw]  text-[1vw] translate-x-[1vw]  ",
+                  labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_p3",
+                label: "Categoría",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "TipoInsumo",
+                styles: {
+                  styles: "labelInput inputStyles",
+                  container: "!w-[20vw]  text-[1vw] translate-x-[-0.5vw]",
+                  labelProps: "labelInput",
+                },
               },
             ]}
-            classNameSearchButton=" translate-x-[2vw] "
+            classNameSearchButton=" translate-x-[-1vw] "
           />
         </div>
-
 
         <div className="w-[15%]">
           <PrimaryButtonsComponent
@@ -132,9 +135,7 @@ const MAlmacenes: React.FC = () => {
             comilla={false}
             idMenu={idMenu}
             classname={"translate-x-[2.5vw]  !w-[14vw]"}
-
           />
-
         </div>
       </div>
 
@@ -157,8 +158,6 @@ const MAlmacenes: React.FC = () => {
         />
       </div>
 
-
-  
       {isModalInsert && (
         <FAlmacenes
           label={`${TITLES.ingreso} ${strEntidad}`}

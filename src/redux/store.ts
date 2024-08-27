@@ -2,9 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { TypedUseSelectorHook, useDispatch } from "react-redux";
 import {
+  ORReuder,
   userReducer,
   funcionaliddadesReducer,
-  ORReuder,
   OTAreasReducer,
   listBoxTiposReducer,
   listboxReuder,
@@ -31,7 +31,7 @@ export const store = configureStore<AppStore>({
     OTAreas: OTAreasReducer,
     listBoxTipos: listBoxTiposReducer,
     listBox: listboxReuder,
-    OTS: ORReuder ?? (() => null),
+    OTS: ORReuder,
     utils: Utils,
   },
 });

@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <ThemeProvider>
       <Provider store={store}>
-          <App />
+        <App />
       </Provider>
     </ThemeProvider>
   </BrowserRouter>

@@ -376,21 +376,20 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         .every((ot: any) => ot.proyecto_codigo === primerProyectoCodigo);
       // const impresaAnteriormente  = OTPkToDelete.value.every((ot:any) => ot.estado_impresion === '0');
 
-      const validateUsuario = OTPkToDelete.value.every(
-        (ot: any) => ot["usuario_id"] === `${User.id}`
-      );
+      // const validateUsuario = OTPkToDelete.value.every(
+      //   (ot: any) => ot["usuario_id"] === `${User.id}`);
       const listaFolios = folios.map((num: number) => `${num}`).join(",");
       // console.log(listaFolios)
 
-      if (!validateUsuario) {
-        toast.dismiss(toastLoading);
-        console.log("render");
-        disabledIndividualCheck.value = false;
-        clearAllCheck.value = false;
-        setSelectedRows([]);
-        toast.error(`OT ${folios} no pertenece al Usuario ${User.nombre}`);
-        return;
-      }
+      // if (!validateUsuario) {
+      //   toast.dismiss(toastLoading);
+      //   console.log("render");
+      //   disabledIndividualCheck.value = false;
+      //   clearAllCheck.value = false;
+      //   setSelectedRows([]);
+      //   toast.error(`OT ${folios} no pertenece al Usuario ${User.nombre}`);
+      //   return;
+      // }
       // console.log(OTPkToDelete.value)
       // console.log(impresaAnteriormente)
 
@@ -740,33 +739,39 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               );
             }
 
-            if (filterPkToDeleteFirmaEnvio.length > 0) {
+            if (
+              filterPkToDeleteFirmaEnvio.length > 0 ||
+              filterPkToDeleteGuia.length > 0
+            ) {
               const folios = filterPkToDeleteFirmaEnvio.map(
                 (OT: any) => OT.folio
               );
-              const resultFirmaEnvio = confirm(
-                "Los siguientes folios no tienen Número de envío o Reporte de fírmas: " +
-                  "\n" +
-                  folios +
-                  "\n¿Desea Continuar?"
+              return toast.error(
+                `OT:${folios}, Debe tener Numero de Guia o Reporte de Firmas`
               );
-              if (!resultFirmaEnvio) {
-                return;
-              }
+              // const resultFirmaEnvio = confirm(
+              //   "Los siguientes folios no tienen Número de envío o Reporte de fírmas: " +
+              //     "\n" +
+              //     folios +
+              //     "\n¿Desea Continuar?"
+              // );
+              // if (!resultFirmaEnvio) {
+              //   return;
+              // }
             }
 
-            if (filterPkToDeleteGuia.length > 0) {
-              const folios = filterPkToDeleteGuia.map((OT: any) => OT.folio);
-              const resultFirmaEnvio = confirm(
-                "Los siguientes folios no tienen Número de Guía: " +
-                  "\n" +
-                  folios +
-                  "\n¿Desea Continuar?"
-              );
-              if (!resultFirmaEnvio) {
-                return;
-              }
-            }
+            // if (filterPkToDeleteGuia.length > 0) {
+            //   const folios = filterPkToDeleteGuia.map((OT: any) => OT.folio);
+            //   const resultFirmaEnvio = confirm(
+            //     "Los siguientes folios no tienen Número de Guía: " +
+            //       "\n" +
+            //       folios +
+            //       "\n¿Desea Continuar?"
+            //   );
+            //   if (!resultFirmaEnvio) {
+            //     return;
+            //   }
+            // }
           }
 
           const toastLoading = toast.loading("Cargando...");

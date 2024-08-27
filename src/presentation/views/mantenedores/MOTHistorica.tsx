@@ -3,7 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Suspense, useEffect, useState } from "react";
 
-import { PrimaryKeySearch } from "../../components";
+// import { PrimaryKeySearch } from "../../components";
 import { useEntityUtils } from "../../hooks";
 // import FUsuarios from "../forms/FUsuarios";
 import { TITLES, table_head_OT_historica } from "../../utils";
@@ -21,6 +21,7 @@ import TableComponent2 from "../../components/TableComponent2";
 import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 import OTPrimaryButtons from "../../components/OTPrimaryButtons";
 import { PermisosBotones } from "../../Enums";
+import FilterComponent from "../../components/FilterComponent";
 
 // import ExportCSV  from "../../components/ExportToCsv";
 
@@ -493,7 +494,7 @@ const MOTHistorica: React.FC = () => {
     <div className="mantenedorContainer">
       <Suspense>
         <FilterButton isOT={true} className="top-[10rem] left-[3rem]">
-          <PrimaryKeySearch
+          <FilterComponent
             baseUrl={strBaseUrl}
             updateParams={updateParams}
             strQuery={strQuery}
@@ -506,7 +507,7 @@ const MOTHistorica: React.FC = () => {
                 type: "text",
                 styles: {
                   with: "labelInput inputStyles w-full",
-                  container: "w-[10vw] !h-[6vh] translate-x-[-2vw]",
+                  container: "w-[10vw] !h-[6vh]",
                   labelProps: "labelInput",
                 },
               },
@@ -516,7 +517,7 @@ const MOTHistorica: React.FC = () => {
                 type: "text",
                 styles: {
                   with: "labelInput inputStyles w-full",
-                  container: "w-[10vw] !h-[6vh]    translate-x-[-6vw]",
+                  container: "w-[10vw] !h-[6vh]",
                   labelProps: "labelInput",
                 },
               },
@@ -526,7 +527,7 @@ const MOTHistorica: React.FC = () => {
                 type: "date",
                 styles: {
                   styles: "labelInput inputStyles",
-                  container: "w-[11vw] translate-x-[-2vw]",
+                  container: "w-[11vw]",
                 },
               },
               {
@@ -535,7 +536,7 @@ const MOTHistorica: React.FC = () => {
                 type: "date",
                 styles: {
                   styles: "labelInput inputStyles",
-                  container: "w-[11vw] translate-x-[-5.5vw]",
+                  container: "w-[11vw]",
                 },
               },
 
@@ -547,8 +548,7 @@ const MOTHistorica: React.FC = () => {
                 tipos: "OTEstadosFiltro",
                 styles: {
                   styles: "labelInput inputStyles w-[25vw]",
-                  container:
-                    "!w-[25vw] -translate-x-[-0.5vw] translate-y-[18%] ml-2 ",
+                  container: "!w-[25vw]",
                   labelProps: "labelInput",
                 },
               },
@@ -560,9 +560,8 @@ const MOTHistorica: React.FC = () => {
                 selectUrl: "/api/establecimientos/",
                 styles: {
                   styles: "labelInput inputStyles",
-                  container:
-                    "!w-[20vw]  text-[1vw] translate-x-[9.5vw] translate-y-[18%] ",
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]",
+                  container: "!w-[20vw]  text-[1vw]",
+                  labelProps: " !text-[1.2vw] !font-[2vw]",
                 },
               },
 
@@ -572,8 +571,8 @@ const MOTHistorica: React.FC = () => {
                 type: "text",
                 styles: {
                   with: "labelInput inputStyles w-full",
-                  container: "!w-[20vw]  text-[1vw] translate-x-[-6vw] ",
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]",
+                  container: "!w-[20vw]  text-[1vw] ",
+                  labelProps: " !text-[1.2vw] !font-[2vw]",
                 },
               },
               {
@@ -582,8 +581,8 @@ const MOTHistorica: React.FC = () => {
                 type: "text",
                 styles: {
                   with: "labelInput inputStyles w-full",
-                  container: "!w-[16vw]  text-[1vw] translate-x-[-3vw] ",
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]",
+                  container: "!w-[16vw]  text-[1vw]  ",
+                  labelProps: " !text-[1.2vw] !font-[2vw]",
                 },
               },
 

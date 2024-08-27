@@ -159,8 +159,8 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
 
     switch (baseUrl) {
       case "/api/othistorica/":
-        className =
-          "grid grid-rows-3 grid-cols-2  !w-[40rem] px-0 py-4 h-[35vh]  items-center";
+        // className ="grid grid-rows-3 grid-cols-2  !w-[40rem] px-0 py-4 h-[35vh]  items-center";
+        className = "containerOTPrimaryKey";
         break;
       case "/api/ot/":
         // className ="grid grid-rows-3 !grid-cols-2  !w-[29vw] px-0  h-[35vh]   items-center transition-all duration-500";

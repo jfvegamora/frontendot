@@ -118,7 +118,7 @@ const MAccesorios: React.FC = () => {
                 selectUrl: "/api/almacenes/",
                 styles: {
                   styles: "labelInput  inputStyles",
-                  container: "!w-[17  vw] !ml-4  text-[1vw]",
+                  container: "!w-[17vw] !ml-4  text-[1vw]",
                   labelProps: "labelInput",
                 },
                 _p1: "3",
