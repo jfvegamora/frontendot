@@ -375,8 +375,9 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         .slice(1)
         .every((ot: any) => ot.proyecto_codigo === primerProyectoCodigo);
       // const impresaAnteriormente  = OTPkToDelete.value.every((ot:any) => ot.estado_impresion === '0');
+
       const validateUsuario = OTPkToDelete.value.every(
-        (ot: any) => ot["usuario_id"] === User.id
+        (ot: any) => ot["usuario_id"] === `${User.id}`
       );
       const listaFolios = folios.map((num: number) => `${num}`).join(",");
       // console.log(listaFolios)
