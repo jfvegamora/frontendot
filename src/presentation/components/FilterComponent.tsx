@@ -89,7 +89,7 @@ interface PrimaryKeySearchProps {
 export const resetFilters = signal(false);
 export const filterTextValue = signal("");
 
-const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
+const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
   ({
     setEntities,
     primaryKeyInputs,
@@ -164,16 +164,15 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         break;
       case "/api/ot/":
         // className ="grid grid-rows-3 !grid-cols-2  !w-[29vw] px-0  h-[35vh]   items-center transition-all duration-500";
-        className = "container2PrimaryKey";
+        className = "containerOTPrimaryKey";
         break;
       case "/api/cristales/":
-        // className = "grid grid-rows-3 grid-cols-2 !w-[90%] px-0 py-4 h-[30vh]  items-center";
-        className = "containerCristalesPrimaryKey";
+        className =
+          "grid grid-rows-3 grid-cols-2 !w-[90%] px-0 py-4 h-[30vh]  items-center";
         break;
       default:
         // className = "flex mb-auto items-cente w-[80vw]  items-center ";
         className = "containerPrimaryKey";
-        // className = ""
         break;
     }
 
@@ -265,17 +264,12 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     );
 
     const renderInputs = React.useMemo(() => {
-      // const inputGroups = [];
-      // for (let i = 0; i < primaryKeyInputs.length; i += 6) {
-      //   inputGroups.push(primaryKeyInputs.slice(i, i + 6));
-      // }
-
       return [primaryKeyInputs].map((group, groupIndex) => (
         <div key={groupIndex} className={className}>
           {group.map((input, inputIndex) => (
             <div
               key={inputIndex}
-              className="items-center rowForm flex justify-around  !w-[17vw] "
+              className="items-center rowForm flex justify-around   !w-[12.5vw] "
             >
               {input.type === "number" ? (
                 <div
@@ -402,61 +396,54 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 </div>
               ) : input.type === "select" ? (
                 input.tipos ? (
-                  <div
-                    className={`input-container relative  ${input.styles?.container}`}
-                  >
-                    <Suspense>
-                      <SelectInputTiposComponent
-                        label={input.label}
-                        name={input.name}
-                        showRefresh={true}
-                        control={control}
-                        entidad={
-                          input._p1 ? [input.tipos, input._p1] : input.tipos
-                        }
-                        inputName={input.name}
-                        inputValues={inputValues}
-                        setHandleSearch={handleSearch}
-                        handleSelectChange={handleSelectChange}
-                        customWidth={`h-[2.8vw] ${input.styles?.styles}`}
-                        labelProps={input.styles?.labelProps}
-                      />
-                    </Suspense>
+                  <div className={` ${input.styles?.container}`}>
+                    <SelectInputTiposComponent
+                      label={input.label}
+                      name={input.name}
+                      showRefresh={true}
+                      control={control}
+                      entidad={
+                        input._p1 ? [input.tipos, input._p1] : input.tipos
+                      }
+                      inputName={input.name}
+                      inputValues={inputValues}
+                      setHandleSearch={handleSearch}
+                      handleSelectChange={handleSelectChange}
+                      customWidth={` w-[14vw] ${input.styles?.styles}`}
+                      labelProps={input.styles?.labelProps}
+                    />
                   </div>
                 ) : (
-                  <div
-                    className={`input-container  ${input.styles?.container}`}
-                  >
-                    <Suspense>
-                      <SelectInputComponent
-                        label={input.label}
-                        name={input.name}
-                        showRefresh={true}
-                        control={control}
-                        entidad={
-                          input._p1
-                            ? [input.selectUrl, "02", input._p1]
-                            : [input.selectUrl, "02"]
-                        }
-                        inputName={input.name}
-                        inputValues={inputValues}
-                        setHandleSearch={handleSearch}
-                        handleSelectChange={handleSelectChange}
-                        customWidth={` h-[2.8vw] ${input.styles?.styles}`}
-                        labelProps={input.styles?.labelProps}
-                        // className={` ${input.styles?.with}`}
-                      />
-                    </Suspense>
+                  <div className={`${input.styles?.container}`}>
+                    <SelectInputComponent
+                      label={input.label}
+                      name={input.name}
+                      showRefresh={true}
+                      control={control}
+                      entidad={
+                        input._p1
+                          ? [input.selectUrl, "02", input._p1]
+                          : [input.selectUrl, "02"]
+                      }
+                      inputName={input.name}
+                      inputValues={inputValues}
+                      setHandleSearch={handleSearch}
+                      handleSelectChange={handleSelectChange}
+                      customWidth={`${input.styles?.styles}`}
+                      labelProps={input.styles?.labelProps}
+                      // className={` ${input.styles?.with}`}
+                    />
                   </div>
                 )
               ) : input.type === "date" ? (
-                <div
-                  className={`input-container relative  ${input.styles?.container} `}
-                >
+                <div className={` ${input.styles?.container} `}>
                   <label
-                    className={`primaryKeyLabel items-center text-base mt-1 absolute top-[-1.1rem] ${input.styles?.label}`}
+                    htmlFor={input.label}
+                    className={`${
+                      input.styles?.labelProps ? input.styles?.labelProps : ""
+                    } labelInput absolute !translate-y-[-0.45vw] translate-x-3 !bg-white z-20`}
                   >
-                    {input.label}
+                    {input?.label}
                   </label>
                   <Controller
                     name={input.name}
@@ -466,9 +453,10 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       <Input
                         type="date"
                         color="orange"
-                        className={`h-[3rem] border border-gray-500 rounded ${input.styles?.styles}`}
+                        className={`w-[13vw] border border-gray-500 rounded ${input.styles?.styles}`}
                         {...field}
                         value={field.value || ""}
+                        labelProps={{ className: "inputStyles" }}
                         onChange={(e) => {
                           changeFilterSearchTitle(e, input.label);
                           field.onChange(e.target.value);
@@ -478,7 +466,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                   />
                 </div>
               ) : input.type === "switch" ? (
-                <div className={`input-container  ${input.styles?.container}`}>
+                <div className={` ${input.styles?.container}`}>
                   <Suspense>
                     <label className="text-[#f39c12] labelStyles mr-4">
                       {input?.label}
@@ -532,7 +520,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                         <Input
                           color="orange"
                           tabIndex={1}
-                          className={`  ${input?.styles?.with || ""}`}
+                          className={` w-[13vw]  ${input?.styles?.with || ""}`}
                           {...field}
                           type={input.type}
                           // label={input.label}
@@ -580,9 +568,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       <form className="primaryKeyContainer !items-center relative !text-[2vw]">
         {renderInputs}
         <div
-          className={`h-auto !items-center w-[9vw] flex ${classNameSearchButton}  ${
+          className={`h-auto !items-center w-[14vw] flex ${classNameSearchButton}  ${
             baseUrl === "/api/ot/" || baseUrl === "/api/othistorica/"
-              ? "absolute left-[89vw] top-0 flex flex-col !py-6 !my-4 !w-[4vw] "
+              ? "absolute left-[78vw] top-[10vw] flex px-4 !py-6 !my-4 !w-[12vw] "
               : ""
           } `}
         >
@@ -638,4 +626,4 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
   }
 );
 
-export default PrimaryKeySearch;
+export default FilterComponent;

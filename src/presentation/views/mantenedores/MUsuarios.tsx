@@ -77,10 +77,7 @@ export enum EnumGrid {
   permiso_vb = 55,
   permiso_facturar = 56,
   permiso_confirmar_pago = 57,
-
 }
-
-
 
 const strEntidad = "Usuario ";
 const strEntidadExcel = "Usuarios";
@@ -91,7 +88,7 @@ const idMenu = 24;
 const MUsuarios: React.FC = () => {
   const [params, setParams] = useState([]);
   const [totalRowIndex, _setTotalRowIndex] = useState([]);
-  const [shotRow, _setShotRow] = useState(undefined)
+  const [shotRow, _setShotRow] = useState(undefined);
   const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
@@ -121,24 +118,25 @@ const MUsuarios: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-
   useEffect(() => {
     totalRowIndex.map((row) => {
       if (row === shotRow) {
-        setSelectedRows((prev) => [...prev, row])
+        setSelectedRows((prev) => [...prev, row]);
       }
-    })
+    });
     if (shotRow !== undefined && !totalRowIndex.includes(shotRow)) {
-      alert('no esta')
+      alert("no esta");
     }
-  }, [shotRow, totalRowIndex])
+  }, [shotRow, totalRowIndex]);
 
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_p1"; // _p3/_p1/_pkToDelete
 
   useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.id]}`);
-    const combinedPks = newPkToDelete.join(',');
+    const newPkToDelete = selectedRows.map(
+      (row: number) => `${entities[row][EnumGrid.id]}`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
@@ -158,10 +156,10 @@ const MUsuarios: React.FC = () => {
                 type: "text",
                 styles: {
                   with: "labelInput inputStyles w-full",
-                  container: "w-[35vw] !text-[2vw] translate-y-[-0.2vw]",
+                  container: "w-[35vw] !text-[2vw]",
                   // labelProps: "!translate-y-[0.1vw] !text-[1.2vw] !font-[2vw] !z-30"
-                  labelProps: "labelInput"
-                }
+                  labelProps: "labelInput",
+                },
               },
               {
                 name: "_p2",
@@ -171,11 +169,10 @@ const MUsuarios: React.FC = () => {
                 styles: {
                   with: "",
                   styles: "labelInput inputStyles w-full",
-                  container: "!w-[35vw]  text-[1vw] translate-x-[2vw]",
+                  container: "!w-[35vw]  text-[1vw]",
                   // labelProps: "!translate-y-[-2vh] !text-[1.2vw] !font-[2vw]"
-                  labelProps: "labelInput"
-
-                }
+                  labelProps: "labelInput",
+                },
               },
             ]}
             classNameSearchButton=" translate-x-[-7rem]"
@@ -220,11 +217,9 @@ const MUsuarios: React.FC = () => {
           idMenu={idMenu}
           leftEdit={true}
           togglePermisoOTModal={togglePermisoOTModal}
-        // setTotalRowIndex={setTotalRowIndex}
+          // setTotalRowIndex={setTotalRowIndex}
         />
       </div>
-
-
 
       {isModalInsert && (
         <FUsuarios
@@ -246,7 +241,7 @@ const MUsuarios: React.FC = () => {
           data={entity}
           closeModal={closeModal}
           isEditting={true}
-        // escritura_lectura={escritura_lectura}
+          // escritura_lectura={escritura_lectura}
         />
       )}
 

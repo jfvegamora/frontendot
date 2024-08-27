@@ -24,12 +24,11 @@ const strEntidad = "Permiso de Usuario ";
 const strEntidadExcel = "Permisos_de_usuario";
 const strBaseUrl = "/api/permisos/";
 const strQuery = "01";
-const idMenu   = 26;
-
+const idMenu = 26;
 
 const MPermisos: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -56,13 +55,17 @@ const MPermisos: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_pkToDelete' // _p3/_p1/_pkToDelete
-  
-  useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => 
-     `{"pk1":"${entities[row][EnumGrid.usuario_id]}", "pk2":"${entities[row][EnumGrid.funcionalidad_id]}"}`);
-    const combinedPks = newPkToDelete.join(',');
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_pkToDelete"; // _p3/_p1/_pkToDelete
+
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map(
+      (row: number) =>
+        `{"pk1":"${entities[row][EnumGrid.usuario_id]}", "pk2":"${
+          entities[row][EnumGrid.funcionalidad_id]
+        }"}`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
   }, [selectedRows]);
@@ -81,30 +84,29 @@ const MPermisos: React.FC = () => {
                 label: "Usuario",
                 type: "select",
                 selectUrl: "/api/usuarios/",
-                styles:{
-                  styles:"labelInput inputStyles w-full",
-                  container:"!w-[35vw]  text-[1vw] translate-x-[2vw]", 
-                  labelProps: "labelInput"
-                }
+                styles: {
+                  styles: "labelInput inputStyles w-full",
+                  container: "!w-[35vw]  text-[1vw] ",
+                  labelProps: "labelInput",
+                },
               },
               {
                 name: "_p3",
                 label: "Funcionalidad",
                 type: "select",
                 selectUrl: "/api/funcionalidades/",
-                styles:{
-                  styles:"labelInput inputStyles w-full",
-                  container:"!w-[35vw]  text-[1vw] translate-x-[2vw]", 
-                  labelProps: "labelInput"
-                }
+                styles: {
+                  styles: "labelInput inputStyles w-full",
+                  container: "!w-[35vw]  text-[1vw]",
+                  labelProps: "labelInput",
+                },
               },
             ]}
             classNameSearchButton="translate-x-[8vw]"
           />
         </div>
 
-
-         <div className="w-[15%]">
+        <div className="w-[15%]">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}
@@ -121,8 +123,7 @@ const MPermisos: React.FC = () => {
             idMenu={idMenu}
             classname={"translate-x-[14vw] !w-[12vw]"}
           />
-         </div>
-
+        </div>
       </div>
 
       <div className="width70 scroll">
@@ -143,7 +144,6 @@ const MPermisos: React.FC = () => {
           leftEdit={true}
         />
       </div>
-
 
       {isModalInsert && (
         <FPermisos

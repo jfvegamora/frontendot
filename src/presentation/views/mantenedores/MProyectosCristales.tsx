@@ -45,26 +45,21 @@ export enum EnumGrid {
   cilindrico_hasta = 22,
   valor_neto_cristal = 23,
 
+  armazon_material_id = 24,
+  armazon_material = 25,
+  valor_neto_armazon = 26,
 
-  armazon_material_id      = 24,
-  armazon_material         = 25,
-  valor_neto_armazon       = 26,
-
-  
-  valor_neto_total         = 27,
-  observaciones            = 28,
+  valor_neto_total = 27,
+  observaciones = 28,
 }
-
-
 
 const MProyectosCristales: React.FC = () => {
   const [params, setParams] = useState([]);
   const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
-    setParams(Object.keys(newParams).map((key) => newParams[key]))
+    setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
-
 
   const {
     //entities state
@@ -89,13 +84,17 @@ const MProyectosCristales: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_pkToDelete' // _p3/_p1/_pkToDelete
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_pkToDelete"; // _p3/_p1/_pkToDelete
 
   useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) =>
-      `{"pk1":"${entities[row][EnumGrid.proyecto]}", "pk2":"${entities[row][EnumGrid.cod_grupo]}"}`);
-    const combinedPks = newPkToDelete.join(',');
+    const newPkToDelete = selectedRows.map(
+      (row: number) =>
+        `{"pk1":"${entities[row][EnumGrid.proyecto]}", "pk2":"${
+          entities[row][EnumGrid.cod_grupo]
+        }"}`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
   }, [selectedRows]);
@@ -113,31 +112,37 @@ const MProyectosCristales: React.FC = () => {
                 name: "_p1",
                 label: "Proyecto (?)",
                 type: "select",
-                selectUrl: "/api/proyectos/", 
-                styles: { 
-                  styles:"labelInput inputStyles w-[30vw]",
-                  container:"!w-[23vw]  text-[1vw] translate-x-[0.5vw]", 
-                  labelProps: "labelInput"
+                selectUrl: "/api/proyectos/",
+                styles: {
+                  styles: "labelInput inputStyles w-[19vw]",
+                  container: "!w-[19vw]  text-[1vw] ",
+                  labelProps: "labelInput",
                 },
               },
-              { name: "_p2", label: "Código Proyecto", type: "text", 
-                styles: { 
-                  with: "labelInput inputStyles w-full",
-                  container:"w-[15vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[11vw]", 
-                  labelProps: "labelInput"
-                }, },
-              { name: "_p3", label: "Código Licitación", type: "text", 
+              {
+                name: "_p2",
+                label: "Código Proyecto",
+                type: "text",
                 styles: {
                   with: "labelInput inputStyles w-full",
-                  container:"w-[15vw] !text-[2vw] translate-y-[-0.2vw] translate-x-[10vw]", 
-                  labelProps: "labelInput"
-                  }, },
+                  container: "w-[15vw] !text-[2vw]",
+                  labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_p3",
+                label: "Código Licitación",
+                type: "text",
+                styles: {
+                  with: "labelInput inputStyles w-full",
+                  container: "w-[15vw] !text-[2vw] ",
+                  labelProps: "labelInput",
+                },
+              },
             ]}
             classNameSearchButton=" translate-x-[6vw]"
-
           />
         </div>
-
 
         <div className="w-[15%]">
           <PrimaryButtonsComponent
@@ -157,10 +162,8 @@ const MProyectosCristales: React.FC = () => {
             showRefreshButton={true}
             idMenu={idMenu}
             classname={"translate-x-[7vw] !w-[15vw]"}
-
           />
         </div>
-
       </div>
 
       <div className="width100 scroll">
@@ -181,8 +184,6 @@ const MProyectosCristales: React.FC = () => {
           leftEdit={true}
         />
       </div>
- 
- 
 
       {isModalInsert && (
         <FProyectosGrupos

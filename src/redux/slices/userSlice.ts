@@ -28,7 +28,6 @@ export const userSlice = createSlice({
         UserKey,
         JSON.stringify({ ...userData, ultimoMovimiento: new Date().getTime() })
       );
-      console.log(userData);
       return { ...userData, ultimoMovimiento: new Date().getTime() };
     },
     logout: (_state) => {
@@ -37,7 +36,6 @@ export const userSlice = createSlice({
       return null;
     },
     actualizarUltimoMovimiento: (): any => {
-      console.log("render");
       return { ...initialState, ultimoMovimiento2: new Date().getTime() };
     },
   },

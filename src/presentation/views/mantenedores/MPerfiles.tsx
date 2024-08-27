@@ -24,12 +24,11 @@ const strEntidad = "perfil de cargo ";
 const strEntidadExcel = "Perfil_de_cargos";
 const strBaseUrl = "/api/perfiles/";
 const strQuery = "01";
-const idMenu   = 25;
-
+const idMenu = 25;
 
 const MPerfiles: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -56,15 +55,17 @@ const MPerfiles: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
-  console.log("selectedRows", selectedRows);
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_pkToDelete"; // _p3/_p1/_pkToDelete
 
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_pkToDelete' // _p3/_p1/_pkToDelete
-  
-  useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => 
-     `{"pk1":"${entities[row][EnumGrid.cargo_id]}", "pk2":"${entities[row][EnumGrid.funcionalidad_id]}"}`);
-    const combinedPks = newPkToDelete.join(',');
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map(
+      (row: number) =>
+        `{"pk1":"${entities[row][EnumGrid.cargo_id]}", "pk2":"${
+          entities[row][EnumGrid.funcionalidad_id]
+        }"}`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=[${combinedPks}]`]);
   }, [selectedRows]);
@@ -83,47 +84,45 @@ const MPerfiles: React.FC = () => {
                 label: "Cargo",
                 type: "select",
                 selectUrl: "/api/cargos/",
-                styles:{
-                  styles:"labelInput inputStyles w-full",
-                  container:"!w-[35vw]  text-[1vw] translate-x-[1vw]", 
-                  labelProps: "labelInput"
-                }
+                styles: {
+                  styles: "labelInput inputStyles w-full",
+                  container: "!w-[35vw]  text-[1vw]",
+                  labelProps: "labelInput",
+                },
               },
               {
                 name: "_p3",
                 label: "Funcionalidad",
                 type: "select",
                 selectUrl: "/api/funcionalidades/",
-                styles:{
-                  styles:"labelInput inputStyles w-full",
-                  container:"!w-[35vw]  text-[1vw] translate-x-[3vw]", 
-                  labelProps: "labelInput"
-                }
+                styles: {
+                  styles: "labelInput inputStyles w-full",
+                  container: "!w-[35vw]  text-[1vw]",
+                  labelProps: "labelInput",
+                },
               },
             ]}
             classNameSearchButton=" translate-x-[8vw]"
           />
         </div>
 
-
         <div className="w-[15%]">
-            <PrimaryButtonsComponent
-              handleAddPerson={openModal}
-              handleDeleteSelected={handleDeleteSelected}
-              handleRefresh={resetEntities}
-              params={params}
-              pkToDelete={pkToDelete}
-              strEntidad={strEntidadExcel}
-              strBaseUrl={strBaseUrl}
-              showAddButton={true}
-              showExportButton={true}
-              showDeleteButton={true}
-              showForwardButton={false}
-              showRefreshButton={true}
-              idMenu={idMenu}
-              classname={"translate-x-[14vw] !w-[12vw]"}
-
-            />
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            params={params}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showExportButton={true}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={true}
+            idMenu={idMenu}
+            classname={"translate-x-[14vw] !w-[12vw]"}
+          />
         </div>
       </div>
 
@@ -146,7 +145,6 @@ const MPerfiles: React.FC = () => {
         />
       </div>
 
-  
       {isModalInsert && (
         <FPerfiles
           label={`${TITLES.ingreso} ${strEntidad}`}

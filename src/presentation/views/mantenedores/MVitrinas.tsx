@@ -13,10 +13,10 @@ import FVitrinas from "../forms/FVitrinas";
 import { TITLES, table_head_vitrinas } from "../../utils";
 
 export enum EnumGrid {
-  id             = 1,
-  descripcion    = 2,
+  id = 1,
+  descripcion = 2,
   punto_venta_id = 3,
-  punto_venta    = 4,
+  punto_venta = 4,
 }
 
 const strEntidad = "Vitrina ";
@@ -27,7 +27,7 @@ const idMenu = 37;
 
 const MVitrinas: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -54,12 +54,14 @@ const MVitrinas: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_p1"; // _p3/_p1/_pkToDelete
 
-  useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.id]}`);
-    const combinedPks = newPkToDelete.join(',');
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map(
+      (row: number) => `${entities[row][EnumGrid.id]}`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
@@ -73,29 +75,31 @@ const MVitrinas: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Descripción", type: "text", 
-                styles:{
-                  with: "labelInput inputStyles w-full",
-                  container:"!w-[15vw] !text-[2vw] translate-y-[-0.2vw]", 
-                  labelProps: "labelInput"
-                } },
               {
-                name      : "_p2",
-                label     : "Punto de Venta",
-                type      : "select",
-                selectUrl : "/api/puntosventa/",
-                styles:{
-                  styles:"labelInput inputStyles w-[25vw]",
-                  container:"!w-[25vw]  text-[1vw]  translate-y-[0.3rem] ", 
-                  labelProps: "labelInput"
-                }
+                name: "_p1",
+                label: "Descripción",
+                type: "text",
+                styles: {
+                  with: "labelInput inputStyles w-full",
+                  container: "!w-[15vw] !text-[2vw]",
+                  labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_p2",
+                label: "Punto de Venta",
+                type: "select",
+                selectUrl: "/api/puntosventa/",
+                styles: {
+                  styles: "labelInput inputStyles w-[25vw]",
+                  container: "!w-[25vw]  text-[1vw]  ",
+                  labelProps: "labelInput",
+                },
               },
             ]}
             classNameSearchButton=" translate-x-[9vw] "
           />
         </div>
-
-
 
         <div className="w-[15vw]">
           <PrimaryButtonsComponent
@@ -114,10 +118,8 @@ const MVitrinas: React.FC = () => {
             comilla={false}
             idMenu={idMenu}
             classname={"translate-x-[9vw] !w-[12vw]"}
-
           />
         </div>
-
       </div>
 
       <div className="width70 scroll">
@@ -138,8 +140,6 @@ const MVitrinas: React.FC = () => {
           leftEdit={true}
         />
       </div>
-
-
 
       {isModalInsert && (
         <FVitrinas

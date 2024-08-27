@@ -48,16 +48,13 @@ const Login: React.FC = React.memo(() => {
   });
 
   const handleChange: SubmitHandler<LoginFormValues> = (data) => {
-    // const toastLoading = toast.loading('Cargando...');
     setIsLoading(true);
     try {
       loginEntity(data)
         .then((user) => {
           if (user.length === 0) {
-            // toast.dismiss(toastLoading)
             return show({ message: LOGIN.loginError, type: "error" });
           }
-          console.log(user);
           const response: any = jwtDecode(user[0]);
           const usuario = { ...response, token: user[0] };
           dispatch(login(usuario));
@@ -74,30 +71,21 @@ const Login: React.FC = React.memo(() => {
           } else {
             navigate("/landing");
           }
-          // navigate("/landing");
           toast.success("Sesion Iniciada", {
             autoClose: 500,
           });
-          // show({ message: LOGIN.loginSuccess, type: "success" });
-          // toast.dismiss(toastLoading)
-          // toast.dismiss(toastLoading)
         })
         .catch((_e) => {
-          // toast.dismiss(toastLoading)
-          // toast.error(_e.toString() as string)
           show({ message: LOGIN.loginError, type: "error" });
+          setIsLoading(false);
         })
         .finally(() => {
-          console.log("render");
-          // toast.dismiss(toastLoading)
+          setIsLoading(false);
         });
-      // toast.dismiss(toastLoading)
     } catch (error: any) {
-      // toast.dismiss(toastLoading)
+      setIsLoading(false);
       show({ message: LOGIN.loginError, type: "error" });
     }
-
-    // toast.dismiss(toastLoading)
   };
 
   React.useEffect(() => {

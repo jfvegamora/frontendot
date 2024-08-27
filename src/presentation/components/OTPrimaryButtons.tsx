@@ -239,7 +239,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
     // const [];
 
     // const [barCode, setBarCode]                       = useState('')
-    const [dataOT, setDataOT] = useState();
+    const [dataOT, setDataOT] = useState<any>();
     // const [valueSearchOT, setValueSearchOT]           = useState<any>();
     // const [valueConfirmOT, setValueConfirmOT]         = useState<any>()
     const searchOTRef = useRef<any>();
@@ -771,14 +771,16 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           const toastLoading = toast.loading("Cargando...");
 
           const updatePromises = OTPkToDelete.value.map(async (ot: any) => {
-            if (OTAreas["areaActual"] === 90 || OTAreas["areaActual"] === 100) {
-              if (ot.numero_envio !== "0") {
-                estado = "50";
-              }
-              if (ot.numero_reporte_firma !== "0") {
-                estado = "15";
-              }
-            }
+            // if (OTAreas["areaActual"] === 90 || OTAreas["areaActual"] === 100) {
+
+            //   if (ot.numero_envio !== "0") {
+            //     estado = "50";
+            //   }
+
+            //   if (ot.numero_reporte_firma !== "0") {
+            //     estado = "15";
+            //   }
+            // }
 
             let cristales: any = ot.cristales || [];
             let armazones = ot.armazones || [];
@@ -894,7 +896,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   ubicacion: row[aproximarEnum.ubicacion1],
                 });
 
-                // Añadir los códigos alternativos y sus ubicaciones
                 for (
                   let i = aproximarEnum.cod_alt1;
                   i <= aproximarEnum.cod_alt3;
@@ -908,7 +909,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   }
                 }
 
-                // Añadir los códigos de fabricación sin ubicación
                 for (
                   let i = aproximarEnum.cod_fab1;
                   i <= aproximarEnum.cod_fab4;
@@ -952,12 +952,17 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         dataOTSignal.value = dataOT;
         console.log(dataOTSignal.value);
+
         setISFOTValidateBodegaArmazones(true);
       } catch (error) {
+        setISFOTValidateBodegaArmazones(false);
         console.log(error);
         return error;
       }
     };
+
+    console.log(dataOTSignal.value.length !== 0);
+    console.log(dataOTSignal.value);
 
     return (
       <div className="flex items-center   ml-[4rem] !w-full">
@@ -1189,7 +1194,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           permisos_usuario_areas !== "0" &&
           permiso_usuario_btn_derivar && (
             <Tooltip content={BUTTON_MESSAGES.derivar}>
-              {/* <button className='bg-green-400 mx-4 transition-transform transform hover:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
+              {/* <button className='bg-green-400 mx-4 transition-transform transform hove2r:scale-110 active:scale-95 w-[10rem] h-[2.5rem]  text-white '  */}
               <Button
                 type="submit"
                 className="otActionButton mx-4 bg-red-900"
@@ -1782,7 +1787,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         </Suspense>
 
         <Suspense>
-          {isFOTValidateBodegaArmazones && (
+          {isFOTValidateBodegaArmazones && dataOTSignal.value.length !== 0 && (
             <FOTValidateArmazones
               handleClose={() => setISFOTValidateBodegaArmazones(false)}
             />

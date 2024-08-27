@@ -36,10 +36,9 @@ const strBaseUrl = "/api/puntosventa/";
 const strQuery = "01";
 const idMenu = 4;
 
-
 const MPuntosVenta: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -66,12 +65,14 @@ const MPuntosVenta: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
-  
-  useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.id]}`);
-    const combinedPks = newPkToDelete.join(',');
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_p1"; // _p3/_p1/_pkToDelete
+
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map(
+      (row: number) => `${entities[row][EnumGrid.id]}`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
@@ -85,43 +86,46 @@ const MPuntosVenta: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-                { name: "_p1", label: "Descripción", type: "text", 
-                  styles:{
-                    with: "labelInput inputStyles w-full",
-                    container:"w-[15vw] !text-[2vw] translate-y-[-0.2vw]", 
-                    labelProps: "labelInput"
-                  }, },
               {
-                name      : "_p2",
-                label     : "Tipo",
-                type      : "select",
-                selectUrl : "/api/tipos/",
-                tipos     : "PuntosVentaTipos", 
-                styles:{
-                  styles:"labelInput inputStyles w-full",
-                  container:"!w-[20vw]  text-[1vw] translate-x-[0.5vw]", 
-                  labelProps: "labelInput"
+                name: "_p1",
+                label: "Descripción",
+                type: "text",
+                styles: {
+                  with: "labelInput inputStyles w-full",
+                  container: "w-[15vw] !text-[2vw] ",
+                  labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_p2",
+                label: "Tipo",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "PuntosVentaTipos",
+                styles: {
+                  styles: "labelInput inputStyles w-full",
+                  container: "!w-[20vw]  text-[1vw]",
+                  labelProps: "labelInput",
                 },
               },
               {
                 name: "_p3",
                 label: "Bodega Armazones",
                 type: "select",
-                selectUrl: "/api/almacenes/", 
-                styles:{
-                  styles:"labelInput inputStyles w-[30vw]",
-                  container:"!w-[30vw]  text-[1vw] translate-x-[0.5vw]", 
-                  labelProps: "labelInput"
+                selectUrl: "/api/almacenes/",
+                styles: {
+                  styles: "labelInput inputStyles w-[25vw]",
+                  container: " text-[1vw] ",
+                  labelProps: "labelInput",
                 },
-                _p1: "1"
+                _p1: "1",
               },
-              ]}
-              classNameSearchButton=" translate-x-[12vw] translate-[0.4rem]"
-
+            ]}
+            classNameSearchButton=" translate-x-[10vw] translate-[0.4rem]"
           />
         </div>
 
-          <div className="w-[15%]">
+        <div className="w-[15%]">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}
@@ -138,9 +142,8 @@ const MPuntosVenta: React.FC = () => {
             comilla={false}
             idMenu={idMenu}
             classname={"translate-x-[14vw] !w-[12vw]"}
-
           />
-          </div>
+        </div>
       </div>
 
       <div className="width90 scroll">
@@ -162,7 +165,6 @@ const MPuntosVenta: React.FC = () => {
         />
       </div>
 
-      
       {isModalInsert && (
         <FPuntosVenta
           label={`${TITLES.ingreso} ${strEntidad}`}

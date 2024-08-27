@@ -1200,9 +1200,9 @@ export const updateOT = async (
       _folio: isValidateBodega
         ? `${data[OTGrillaEnum.folio]}`
         : `${data && data.folio}`,
-      _origen: _origen.toString(),
+      _origen: `${_origen}`,
       _rut: ``,
-      _destino: _destino.toString(),
+      _destino: `${_destino}`,
       _estado: `${_estado}` || "20",
       _usuario: `${user}`,
       _situacion: situacion || "0",

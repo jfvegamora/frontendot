@@ -14,16 +14,13 @@ import FilterButton, { filterToggle } from "../../components/FilterButton";
 import { handleContainerClick } from "../../pages/LandingPage";
 import { CristalesEnum } from "../../Enums/CristalesEnum";
 
-
-const FCristales = React.lazy(()=>import("../forms/FCristales"))
-
+const FCristales = React.lazy(() => import("../forms/FCristales"));
 
 const strEntidad = "Cristal ";
 const strEntidadExcel = "Cristales";
 const strBaseUrl = "/api/cristales/";
 const strQuery = "01";
 const idMenu = 7;
-
 
 const MCristales: React.FC = () => {
   const [params, setParams] = useState([]);
@@ -54,13 +51,14 @@ const MCristales: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_p1"; // _p3/_p1/_pkToDelete
 
   useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][CristalesEnum.codigo]}'`);
-    const combinedPks = newPkToDelete.join(',');
+    const newPkToDelete = selectedRows.map(
+      (row: number) => `'${entities[row][CristalesEnum.codigo]}'`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
@@ -69,22 +67,24 @@ const MCristales: React.FC = () => {
 
   return (
     <div className="mantenedorContainer" onClick={handleContainerClick}>
-      <FilterButton
-       
-      >
+      <FilterButton>
         <div className="mantenedorHeadFlex width100 relative ">
-          <div className="w-[95%] mx-auto h-[35vh] ">
+          <div className="w-[95%] h-[35vh] ">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               updateParams={updateParams}
               setEntities={setEntities}
               primaryKeyInputs={[
-                { name: "_p1", label: "Código", type: "text", 
-                  styles: { 
-                    styles:"labelInput inputStyles",
-                  container:"!w-[28vw]  text-[1vw] translate-x-[-1vw] ", 
-                  labelProps: "labelInput"
-                  } },
+                {
+                  name: "_p1",
+                  label: "Código",
+                  type: "text",
+                  styles: {
+                    styles: "labelInput inputStyles",
+                    container: "!w-[28vw]  text-[1vw] ",
+                    labelProps: "labelInput",
+                  },
+                },
                 // { name: "_p2", label: "Código FAB", type: "text", styles:{with:"!w-[17rem]"}},
 
                 {
@@ -92,11 +92,11 @@ const MCristales: React.FC = () => {
                   label: "Indice",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesIndices", 
+                  tipos: "CristalesIndices",
                   styles: {
-                    styles:"labelInput inputStyles w-[20vw]",
-                    container:"!w-[20vw]  text-[1vw] -translate-x-[-0.5vw] translate-y-[18%] ", 
-                    labelProps: "labelInput"
+                    styles: "labelInput inputStyles w-[20vw]",
+                    container: "!w-[20vw]  text-[1vw] ",
+                    labelProps: "labelInput",
                   },
                 },
 
@@ -105,37 +105,45 @@ const MCristales: React.FC = () => {
                   label: "Material",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesMateriales", 
+                  tipos: "CristalesMateriales",
                   styles: {
-                    styles:"labelInput inputStyles w-[20vw]",
-                    container:"!w-[20vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
-                    labelProps: "labelInput"
+                    styles: "labelInput inputStyles w-[20v]",
+                    container: "!w-[20vw]   text-[1vw]",
+                    labelProps: "labelInput",
                   },
                 },
 
-                { name: "_pDiametro", label: "Diámetro", type: "number", 
-                  styles:{
-                    styles:"labelInput inputStyles",
-                    container:"!w-[17.5vw]  text-[1vw] ml-2 ", 
-                    labelProps: "labelInput"
-                  }},
-                { name: "_pEsferico", label: "Esférico", type: "number", 
-                  styles:{
-                    styles:"labelInput inputStyles",
-                    container:"!w-[20vw]  text-[1vw] translate-x-[-1vw] ", 
-                    labelProps: "labelInput"
-                  } },
+                {
+                  name: "_pDiametro",
+                  label: "Diámetro",
+                  type: "number",
+                  styles: {
+                    styles: "labelInput inputStyles",
+                    container: "!w-[17.5vw]  text-[1vw] ml-2 ",
+                    labelProps: "labelInput",
+                  },
+                },
+                {
+                  name: "_pEsferico",
+                  label: "Esférico",
+                  type: "number",
+                  styles: {
+                    styles: "labelInput inputStyles",
+                    container: "!w-[20vw]  text-[1vw]",
+                    labelProps: "labelInput",
+                  },
+                },
                 {
                   name: "_pMarca",
                   label: "Marca",
                   type: "select",
-                  selectUrl: "/api/marcas/", 
+                  selectUrl: "/api/marcas/",
                   styles: {
-                    styles:"labelInput inputStyles w-[20vw]",
-                    container:"!w-[20vw]   text-[1vw] -translate-x-[0.2vw] ml-2 translate-y-[1vw] ", 
-                    labelProps: "labelInput"
+                    styles: "labelInput inputStyles w-[20vw]",
+                    container: "!w-[20vw]   text-[1vw] ml-2  ",
+                    labelProps: "labelInput",
                   },
-                  _p1: "2"
+                  _p1: "2",
                 },
 
                 {
@@ -143,11 +151,11 @@ const MCristales: React.FC = () => {
                   label: "Diseño",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesDisenos", 
-                  styles: { 
-                    styles:"labelInput inputStyles w-[20vw]",
-                    container:"!w-[20vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
-                    labelProps: "labelInput"
+                  tipos: "CristalesDisenos",
+                  styles: {
+                    styles: "labelInput inputStyles w-[20vw]",
+                    container: "!w-[20vw]   text-[1vw]",
+                    labelProps: "labelInput",
                   },
                 },
 
@@ -156,11 +164,11 @@ const MCristales: React.FC = () => {
                   label: "Color",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesColores", 
-                  styles: { 
-                    styles:"labelInput inputStyles w-[20vw]",
-                    container:"!w-[20vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
-                    labelProps: "labelInput"
+                  tipos: "CristalesColores",
+                  styles: {
+                    styles: "labelInput inputStyles w-[20vw]",
+                    container: "!w-[20vw]   text-[1vw]",
+                    labelProps: "labelInput",
                   },
                 },
                 {
@@ -168,11 +176,11 @@ const MCristales: React.FC = () => {
                   label: "Tratamiento",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "CristalesTratamientos", 
-                  styles: { 
-                    styles:"labelInput inputStyles w-[20vw]",
-                    container:"!w-[20vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
-                    labelProps: "labelInput"
+                  tipos: "CristalesTratamientos",
+                  styles: {
+                    styles: "labelInput inputStyles w-[20vw]",
+                    container: "!w-[20vw]   text-[1vw] ",
+                    labelProps: "labelInput",
                   },
                 },
 
@@ -180,13 +188,13 @@ const MCristales: React.FC = () => {
                   name: "_p4",
                   label: "Almacén",
                   type: "select",
-                  selectUrl: "/api/almacenes/", 
-                  styles: { 
-                    styles:"labelInput inputStyles w-[20vw]",
-                    container:"!w-[20vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
-                    labelProps: "labelInput"
+                  selectUrl: "/api/almacenes/",
+                  styles: {
+                    styles: "labelInput inputStyles w-[20vw]",
+                    container: "!w-[20vw]   text-[1vw] ",
+                    labelProps: "labelInput",
                   },
-                  _p1: "2"
+                  _p1: "2",
                 },
 
                 {
@@ -194,20 +202,19 @@ const MCristales: React.FC = () => {
                   label: "Stock",
                   type: "select",
                   selectUrl: "/api/tipos/",
-                  tipos: "Stock", 
-                  styles: { 
-                    styles:"labelInput inputStyles w-[20vw]",
-                    container:"!w-[20vw]   text-[1vw] -translate-x-[1vw] translate-y-[18%] ", 
-                    labelProps: "labelInput"
+                  tipos: "Stock",
+                  styles: {
+                    styles: "labelInput inputStyles w-[20vw]",
+                    container: "!w-[20vw]   text-[1vw] ",
+                    labelProps: "labelInput",
                   },
                 },
               ]}
-               
+              classNameSearchButton=" translate-x-[10vw] translate-y-[-1vw]"
             />
           </div>
 
-
-          <div className="w-[30%]  top-[11.6rem] bottom-[3rem]  absolute right-[5rem]">
+          <div className="w-[30%]  top-[11.6rem] bottom-[2rem]  absolute right-[5rem]">
             <PrimaryButtonsComponent
               handleAddPerson={openModal}
               handleDeleteSelected={handleDeleteSelected}
@@ -230,7 +237,11 @@ const MCristales: React.FC = () => {
         </div>
       </FilterButton>
 
-      <div className={`width100 scroll ${filterToggle.value ? "!mt-[21rem] !h-[29rem]" : "!mt-[4rem] "} `}>
+      <div
+        className={`width100 scroll ${
+          filterToggle.value ? "!mt-[21rem] !h-[29rem]" : "!mt-[4rem] "
+        } `}
+      >
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -250,36 +261,32 @@ const MCristales: React.FC = () => {
         />
       </div>
 
- 
+      <Suspense>
+        {isModalInsert && (
+          <FCristales
+            label={`${TITLES.ingreso} ${strEntidad}`}
+            closeModal={closeModal}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            isEditting={false}
+            escritura_lectura={escritura_lectura}
+          />
+        )}
 
-        <Suspense>
-          {isModalInsert && (
-            <FCristales
-              label={`${TITLES.ingreso} ${strEntidad}`}
-              closeModal={closeModal}
-              selectedRows={selectedRows}
-              setEntities={setEntities}
-              params={params}
-              isEditting={false}
-              escritura_lectura={escritura_lectura}
-            />
-          )}
-
-          {isModalEdit && (
-            <FCristales
-              label={`${TITLES.edicion} ${strEntidad}`}
-              selectedRows={selectedRows}
-              setEntities={setEntities}
-              params={params}
-              data={entity}
-              closeModal={closeModal}
-              isEditting={true}
-              escritura_lectura={escritura_lectura}
-            />
-          )}
-        </Suspense>
-
-
+        {isModalEdit && (
+          <FCristales
+            label={`${TITLES.edicion} ${strEntidad}`}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            data={entity}
+            closeModal={closeModal}
+            isEditting={true}
+            escritura_lectura={escritura_lectura}
+          />
+        )}
+      </Suspense>
     </div>
   );
 };

@@ -13,11 +13,7 @@ import { useEntityUtils, usePermission } from "../../hooks";
 import { TITLES, table_head_armazones } from "../../utils";
 import { ArmazonesEnum } from "../../Enums";
 
-
-const FArmazones = React.lazy(()=>import("../forms/FArmazones"));
-
-
-
+const FArmazones = React.lazy(() => import("../forms/FArmazones"));
 
 const strEntidad = "Armazón ";
 const strEntidadExcel = "Armazones";
@@ -27,7 +23,7 @@ const idMenu = 5;
 
 const MArmazones: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -54,99 +50,103 @@ const MArmazones: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_p1"; // _p3/_p1/_pkToDelete
 
-  useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][ArmazonesEnum.codigo]}'`);
-    const combinedPks = newPkToDelete.join(',');
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map(
+      (row: number) => `'${entities[row][ArmazonesEnum.codigo]}'`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
 
-
-  console.log(params)
-
+  console.log(params);
 
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100 !h-[9.5rem]">
-      <div className="w-[80%] translate-y-[-3vw] ">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          updateParams={updateParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            { name: "_p1", label: "Código/Modelo/Color", type: "text", 
-              styles:{
-                styles:"labelInput inputStyles",
-                container:"!w-[15vw]  text-[1vw] translate-y-[5vw] translate-x-[-1vw] ", 
-                labelProps: "labelInput"
-              } },
-            {
-              name: "_p2",
-              label: "Tipo",
-              type: "select",
-              selectUrl: "/api/tipos/",
-              tipos: "ArmazonesTipos", 
-              styles:{
-                styles:"labelInput inputStyles",
-                container:"!w-[20vw]  text-[1vw] translate-x-[-15.9vw] translate-y-[18%] ", 
-                labelProps: "labelInput"
+        <div className="w-[80%] ">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            updateParams={updateParams}
+            setEntities={setEntities}
+            primaryKeyInputs={[
+              {
+                name: "_p1",
+                label: "Código/Modelo/Color",
+                type: "text",
+                styles: {
+                  styles: "labelInput !w-[20vw] inputStyles",
+                  container: " text-[1vw]  ",
+                  labelProps: "labelInput",
+                },
               },
-            },
-            {
-              name: "_p3",
-              label: "Marca",
-              type: "select",
-              selectUrl: "/api/marcas/", 
-              styles:{
-                styles:"labelInput inputStyles",
-                container:"!w-[20vw]  text-[1vw] translate-x-[-17vw] translate-y-[18%] ", 
-                labelProps: "labelInput"
+              {
+                name: "_p2",
+                label: "Tipo",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "ArmazonesTipos",
+                styles: {
+                  styles: "labelInput inputStyles !w-[20vw]",
+                  container: "  text-[1vw]  ",
+                  labelProps: "labelInput",
+                },
               },
-              _p1: "1"
-            },
-            {
-              name: "_p6",
-              label: "Material",
-              type: "select",
-              selectUrl: "/api/tipos/",
-              tipos: "ArmazonesMaterial", 
-              styles:{
-                styles:"labelInput inputStyles",
-                container:"!w-[20vw]  text-[1vw] translate-x-[-18vw] translate-y-[18%] ", 
-                labelProps: "labelInput"
+              {
+                name: "_p3",
+                label: "Marca",
+                type: "select",
+                selectUrl: "/api/marcas/",
+                styles: {
+                  styles: "labelInput inputStyles !w-[18vw]",
+                  container: " text-[1vw] ",
+                  labelProps: "labelInput",
+                },
+                _p1: "1",
               },
-            },
-            {
-              name: "_p4",
-              label: "Almacén",
-              type: "select",
-              selectUrl: "/api/almacenes/", 
-              styles:{
-                styles:"labelInput inputStyles",
-                container:"!w-[20vw]  text-[1vw] translate-x-[-19vw] translate-y-[18%] ", 
-                labelProps: "labelInput"
+              {
+                name: "_p6",
+                label: "Material",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "ArmazonesMaterial",
+                styles: {
+                  styles: "labelInput !ml-10  inputStyles",
+                  container: "!w-[20vw]  text-[1vw] ",
+                  labelProps: "labelInput",
+                },
               },
-              _p1: "1"
-            },
-            {
-              name: "_p5",
-              label: "Stock",
-              type: "select",
-              selectUrl: "/api/tipos/",
-              tipos: "Stock", 
-              styles:{
-                styles:"labelInput inputStyles",
-                container:"!w-[20vw]  text-[1vw] translate-x-[-17vw] translate-y-[18%] ", 
-                labelProps: "labelInput"
+              {
+                name: "_p4",
+                label: "Almacén",
+                type: "select",
+                selectUrl: "/api/almacenes/",
+                styles: {
+                  styles: "labelInput inputStyles",
+                  container: "!w-[20vw]  text-[1vw]",
+                  labelProps: "labelInput",
+                },
+                _p1: "1",
               },
-            },
-    ]}
-     classNameSearchButton=" translate-x-[-14vw]  !translate-y-[5.5vw]"
-        />
-      </div>
+              {
+                name: "_p5",
+                label: "Stock",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "Stock",
+                styles: {
+                  styles: "labelInput inputStyles",
+                  container: "!w-[22vw]  text-[1vw] ",
+                  labelProps: "labelInput",
+                },
+              },
+            ]}
+            classNameSearchButton=" translate-x-[17vw]  !translate-y-[-.5vw]"
+          />
+        </div>
 
         <div className="w-[15%]">
           <PrimaryButtonsComponent
@@ -167,7 +167,6 @@ const MArmazones: React.FC = () => {
             showRefreshButton={true}
             idMenu={idMenu}
             classname={"translate-x-[1vw]  !w-[19vw] translate-y-[2.5vw]"}
-
           />
         </div>
       </div>
@@ -191,7 +190,7 @@ const MArmazones: React.FC = () => {
           leftEdit={true}
         />
       </div>
-     
+
       <Suspense>
         {isModalInsert && (
           <FArmazones
@@ -204,7 +203,6 @@ const MArmazones: React.FC = () => {
             escritura_lectura={escritura_lectura}
           />
         )}
-      
 
         {isModalEdit && (
           <FArmazones
@@ -219,7 +217,6 @@ const MArmazones: React.FC = () => {
           />
         )}
       </Suspense>
-
     </div>
   );
 };

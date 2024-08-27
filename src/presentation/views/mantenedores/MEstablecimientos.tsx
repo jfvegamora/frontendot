@@ -41,7 +41,7 @@ const idMenu = 3;
 
 const MEstablecimientos: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -68,12 +68,14 @@ const MEstablecimientos: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
-  
-  useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.id]}`);
-    const combinedPks = newPkToDelete.join(',');
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_p1"; // _p3/_p1/_pkToDelete
+
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map(
+      (row: number) => `${entities[row][EnumGrid.id]}`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
@@ -84,64 +86,68 @@ const MEstablecimientos: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100 !h-[10vw]">
-        <div className="w-[70%] mt-[-5vw] ">
+        <div className="w-[70%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "RBD/Nombre", type: "text", 
-                styles: { 
+              {
+                name: "_p1",
+                label: "RBD/Nombre",
+                type: "text",
+                styles: {
                   with: "labelInput inputStyles w-full",
-                  container:"w-[15vw] !text-[2vw] translate-y-[-0.2vw]", 
-                  labelProps: "labelInput"
-                }, },
+                  container: "w-[15vw] !text-[2vw] ",
+                  labelProps: "labelInput",
+                },
+              },
               // { name: "_p1", label: "Establecimiento", type: "text", styles: { with: "!w-[12rem]" }, },
               {
                 name: "_p2",
                 label: "Mandante",
                 type: "select",
                 selectUrl: "/api/mandantes/",
-                styles: { 
+                styles: {
                   with: "labelInput inputStyles w-full",
-                  container:"!w-[20vw]  text-[1vw] translate-x-[0.5vw]", 
-                  labelProps: "labelInput"
+                  container: "!w-[20vw]  text-[1vw]",
+                  labelProps: "labelInput",
                 },
               },
               {
-                name      : "_p3",
-                label     : "Tipo",
-                type      : "select",
-                selectUrl : "/api/tipos/",
-                tipos     : "EstablecimientosTipos",
-                styles: { 
+                name: "_p3",
+                label: "Tipo",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "EstablecimientosTipos",
+                styles: {
                   with: "labelInput inputStyles w-full",
-                  container:"!w-[15vw]  text-[1vw] translate-x-[1.7vw]", 
-                  labelProps: "labelInput"
+                  container: "!w-[20vw]  text-[1vw]",
+                  labelProps: "labelInput",
                 },
               },
               {
-                name      : "_p4",
-                label     : "Provincia",
-                type      : "select",
-                selectUrl : "/api/tipos/",
-                tipos     : "Provincias",
-                styles: { 
+                name: "_p4",
+                label: "Provincia",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "Provincias",
+                styles: {
                   with: "labelInput inputStyles w-full",
-                  container:"!w-[15vw]  text-[1vw] translate-x-[0.5vw]", 
-                  labelProps: "labelInput"
-                 },
+                  container: "!w-[20vw]  text-[1vw]",
+                  labelProps: "labelInput",
+                },
               },
               {
-                name      : "_p5",
-                label     : "Comuna",
-                type      : "select",
-                selectUrl : "/api/tipos/",
-                tipos     : "Comunas",
-                styles: { 
+                name: "_p5",
+                label: "Comuna",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "Comunas",
+                styles: {
                   with: "labelInput inputStyles w-full",
-                  container:"!w-[15vw]  text-[1vw] ", 
-                  labelProps: "labelInput"
+                  container: "!w-[20vw]  text-[1vw] ",
+                  labelProps: "labelInput",
                 },
               },
               {
@@ -151,13 +157,12 @@ const MEstablecimientos: React.FC = () => {
                 selectUrl: "/api/proyectodestinos/",
                 styles: {
                   with: "labelInput inputStyles w-full",
-                  container:"!w-[20vw]  text-[1vw] translate-x-[-77vw] translate-y-[4vw]", 
-                  labelProps: "labelInput"
-                   },
+                  container: "!w-[20vw]  text-[1vw]",
+                  labelProps: "labelInput",
+                },
               },
-        ]}
-        classNameSearchButton=" translate-x-[-11vw] translate-y-[4.5vw]"
-
+            ]}
+            classNameSearchButton=" translate-x-[10vw] translate-y-[2.5vw]"
           />
         </div>
         <div className="w-[15%]">
@@ -178,41 +183,41 @@ const MEstablecimientos: React.FC = () => {
             comilla={false}
             idMenu={idMenu}
             classname={"translate-x-[13vw]  !w-[16vw] translate-y-[2vw]"}
-
           />
         </div>
       </div>
 
       <div className="width100 scroll">
-        {<TableComponent
-          handleSelectChecked={handleSelect}
-          handleSelectedCheckedAll={handleSelectedAll}
-          toggleEditModal={toggleEditModal}
-          handleDeleteSelected={handleDeleteSelected}
-          selectedRows={selectedRows}
-          pkToDelete={pkToDelete}
-          setSelectedRows={setSelectedRows}
-          entidad={strEntidad}
-          data={entities}
-          tableHead={table_head_establecimientos}
-          showEditButton={true}
-          // showPdfButton={true}
-          showDeleteButton={false}
-          idMenu={idMenu}
-          // leftEdit={true}
-        /> }
+        {
+          <TableComponent
+            handleSelectChecked={handleSelect}
+            handleSelectedCheckedAll={handleSelectedAll}
+            toggleEditModal={toggleEditModal}
+            handleDeleteSelected={handleDeleteSelected}
+            selectedRows={selectedRows}
+            pkToDelete={pkToDelete}
+            setSelectedRows={setSelectedRows}
+            entidad={strEntidad}
+            data={entities}
+            tableHead={table_head_establecimientos}
+            showEditButton={true}
+            // showPdfButton={true}
+            showDeleteButton={false}
+            idMenu={idMenu}
+            // leftEdit={true}
+          />
+        }
       </div>
 
-
       {isModalInsert && (
-      <FEstablecimientos
-        label={`${TITLES.ingreso} ${strEntidad}`}
-        closeModal={closeModal}
-        selectedRows={selectedRows}
-        setEntities={setEntities}
-        params={params}
-        isEditting={false}
-        escritura_lectura={escritura_lectura}
+        <FEstablecimientos
+          label={`${TITLES.ingreso} ${strEntidad}`}
+          closeModal={closeModal}
+          selectedRows={selectedRows}
+          setEntities={setEntities}
+          params={params}
+          isEditting={false}
+          escritura_lectura={escritura_lectura}
         />
       )}
 

@@ -100,23 +100,22 @@ const MCristalesKardex: React.FC = () => {
   }, [entities]);
 
   const newTableHead = useMemo(() => {
-    return table_head_kardex
-      .map((column: any) => {
-        if (
-          !escritura_lectura &&
-          ["valor_neto", "factura", "proveedor"].includes(column.key)
-        ) {
-          return { ...column, visible: false };
-        }
-        return column;
-      })
-      .filter((col) => col.visible);
+    return table_head_kardex.map((column: any) => {
+      if (
+        !escritura_lectura &&
+        ["valor_neto", "factura", "proveedor"].includes(column.key)
+      ) {
+        return { ...column, visible: false };
+      }
+      return column;
+    });
+    // .filter((col) => col.visible);
   }, [escritura_lectura]);
 
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100 h-[9.5rem]">
-        <div className="w-[82%] translate-y-[-2.8vw]">
+        <div className="w-[82%]">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             description={kardexDescription}
@@ -129,10 +128,9 @@ const MCristalesKardex: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/kardexmotivos/",
                 styles: {
-                  styles: "labelInput inputStyles w-[20vw]",
-                  container:
-                    "ml-[1vw] translate-x-[-1vw]  translate-y-[5.5vw] ",
-                  labelProps: "labelInput ",
+                  styles: "labelInput inputStyles w-[22vw]",
+                  container: " ",
+                  labelProps: "labelInput inputStyles",
                 },
                 _p1: "01",
               },
@@ -142,10 +140,9 @@ const MCristalesKardex: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/kardexmotivos/",
                 styles: {
-                  styles: "labelInput inputStyles w-[20vw]",
-                  container:
-                    "ml-[1vw] -translate-x-[-2vw] translate-y-[5.5vw] ",
-                  labelProps: "labelInput",
+                  styles: "labelInput inputStyles w-[22vw]",
+                  container: " ",
+                  labelProps: "labelInput ",
                 },
                 _p1: "02",
               },
@@ -156,8 +153,7 @@ const MCristalesKardex: React.FC = () => {
                 type: "text",
                 styles: {
                   styles: "labelInput inputStyles",
-                  container:
-                    "!w-[13vw] -translate-x-[34vw] translate-y-[0.3vw]",
+                  container: "!w-[20vw] ",
                   labelProps: "labelInput",
                 },
               },
@@ -168,9 +164,8 @@ const MCristalesKardex: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/almacenes/",
                 styles: {
-                  styles: "labelInput inputStyles",
-                  container:
-                    "!w-[40vw] -translate-x-[32vw] translate-y-[0.3vw] ",
+                  styles: "!w-[22vw]  labelInput inputStyles",
+                  container: "",
                   labelProps: "labelInput",
                 },
                 _p1: "1",
@@ -180,9 +175,8 @@ const MCristalesKardex: React.FC = () => {
                 label: "Desde",
                 type: "date",
                 styles: {
-                  styles: "labelInput inputStyles",
-                  container:
-                    "!w-[12vw] -translate-x-[22vw]  translate-y-[0.3vw] ",
+                  styles: "!w-[20vw] labelInput inputStyles",
+                  container: "  ",
                   labelProps: "labelInput",
                 },
               },
@@ -191,14 +185,13 @@ const MCristalesKardex: React.FC = () => {
                 label: "Hasta",
                 type: "date",
                 styles: {
-                  styles: "labelInput inputStyles",
-                  container:
-                    "!w-[12vw] -translate-x-[20vw] translate-y-[0.3vw]",
+                  styles: "!w-[20vw] labelInput inputStyles",
+                  container: " ",
                   labelProps: "labelInput",
                 },
               },
             ]}
-            classNameSearchButton=" translate-x-[-13vw]  !translate-y-[5.5vw]"
+            classNameSearchButton=" translate-x-[3vw]  !translate-y-[2.5vw]"
           />
         </div>
 

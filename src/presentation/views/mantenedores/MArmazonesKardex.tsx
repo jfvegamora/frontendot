@@ -91,23 +91,25 @@ const MArmazonesKardex: React.FC = () => {
   }, [selectedRows]);
 
   const newTableHead = useMemo(() => {
-    return table_head_kardex
-      .map((column: any) => {
-        if (
-          !escritura_lectura &&
-          ["valor_neto", "factura", "proveedor"].includes(column.key)
-        ) {
-          return { ...column, visible: false };
-        }
-        return column;
-      })
-      .filter((col) => col.visible);
+    return table_head_kardex.map((column: any) => {
+      if (
+        !escritura_lectura &&
+        ["valor_neto", "factura", "proveedor"].includes(column.key)
+      ) {
+        return { ...column, visible: false };
+      }
+      return column;
+    });
+    // .filter((col) => col.visible);
   }, [escritura_lectura]);
+
+  console.log(newTableHead);
+  console.log(table_head_kardex);
 
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100 h-[9.5rem]">
-        <div className="w-[82%] translate-y-[-2.8vw]">
+        <div className="w-[82%] ">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}
@@ -120,7 +122,7 @@ const MArmazonesKardex: React.FC = () => {
                 selectUrl: "/api/kardexmotivos/",
                 styles: {
                   styles: "labelInput inputStyles w-[22vw]",
-                  container: "ml-[1vw] translate-x-[-1vw] translate-y-[5.5vw] ",
+                  container: " ",
                   labelProps: "labelInput inputStyles",
                 },
                 _p1: "01",
@@ -132,8 +134,7 @@ const MArmazonesKardex: React.FC = () => {
                 selectUrl: "/api/kardexmotivos/",
                 styles: {
                   styles: "labelInput inputStyles w-[22vw]",
-                  container:
-                    "ml-[1vw] -translate-x-[-2vw] translate-y-[5.5vw] ",
+                  container: " ",
                   labelProps: "labelInput ",
                 },
                 _p1: "02",
@@ -145,8 +146,7 @@ const MArmazonesKardex: React.FC = () => {
                 type: "text",
                 styles: {
                   styles: "labelInput inputStyles",
-                  container:
-                    "!w-[13vw] -translate-x-[34vw] translate-y-[0.3vw]",
+                  container: "!w-[20vw] ",
                   labelProps: "labelInput",
                 },
               },
@@ -157,9 +157,8 @@ const MArmazonesKardex: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/almacenes/",
                 styles: {
-                  styles: "labelInput inputStyles",
-                  container:
-                    "!w-[40vw] -translate-x-[32vw] translate-y-[0.3vw] ",
+                  styles: "!w-[22vw]  labelInput inputStyles",
+                  container: "",
                   labelProps: "labelInput",
                 },
                 _p1: "1",
@@ -169,9 +168,8 @@ const MArmazonesKardex: React.FC = () => {
                 label: "Desde",
                 type: "date",
                 styles: {
-                  styles: "labelInput inputStyles",
-                  container:
-                    "!w-[12vw] -translate-x-[22vw]  translate-y-[0.3vw] ",
+                  styles: "!w-[20vw] labelInput inputStyles",
+                  container: "  ",
                   labelProps: "labelInput",
                 },
               },
@@ -180,14 +178,13 @@ const MArmazonesKardex: React.FC = () => {
                 label: "Hasta",
                 type: "date",
                 styles: {
-                  styles: "labelInput inputStyles",
-                  container:
-                    "!w-[12vw] -translate-x-[20vw] translate-y-[0.3vw]",
+                  styles: "!w-[20vw] labelInput inputStyles",
+                  container: " ",
                   labelProps: "labelInput",
                 },
               },
             ]}
-            classNameSearchButton=" translate-x-[-13vw]  !translate-y-[5.5vw]"
+            classNameSearchButton=" translate-x-[15vw] translate-y-[-1vw] "
           />
         </div>
 

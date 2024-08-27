@@ -12,10 +12,7 @@ import { useEntityUtils, usePermission } from "../../hooks";
 import { TITLES, table_head_accesorios } from "../../utils";
 import { AccesoriosEnum } from "../../Enums";
 
-
-const FAccesorios = React.lazy(()=>import("../forms/FAccesorios"));
-
-
+const FAccesorios = React.lazy(() => import("../forms/FAccesorios"));
 
 const strEntidad = "Accesorio ";
 const strEntidadExcel = "Accesorios";
@@ -33,7 +30,6 @@ const MAccesorios: React.FC = () => {
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
-
 
   const {
     //entities state
@@ -59,64 +55,73 @@ const MAccesorios: React.FC = () => {
 
   // const pkToDelete: PrimaryKey[] = [];
   //NUEVA ELIMINNACION
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p1'
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_p1";
 
   useEffect(() => {
-    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][AccesoriosEnum.codigo]}'`);
-    const combinedPks = newPkToDelete.join(',');
+    const newPkToDelete = selectedRows.map(
+      (row: number) => `'${entities[row][AccesoriosEnum.codigo]}'`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
 
   // console.log(pkToDelete)
 
-
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100 !h-[9rem] ">
-        <div className="w-[65%] absolute -mt-12">
+        <div className="w-[65%] absolute ">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "Código", type: "text", 
-                styles: { 
-                  with: "labelInput inputStyles w-[11vw]",
-                  container:"w-[11vw] !text-[2vw] translate-x-[-3vw]", 
-                  labelProps: "labelInput"
-                } },
+              {
+                name: "_p1",
+                label: "Código",
+                type: "text",
+                styles: {
+                  with: "labelInput inputStyles !w-[15vw]",
+                  container: "!text-[2vw] ",
+                  labelProps: "labelInput",
+                },
+              },
               // { name: "_p5", label: "Código FAB", type: "text", styles:{with:"!w-[10rem]"}},
-              { name: "_p2", label: "Descripción", type: "text", 
-                styles: { 
+              {
+                name: "_p2",
+                label: "Descripción",
+                type: "text",
+                styles: {
                   with: "labelInput inputStyles w-full",
-                  container:"w-[17vw] !text-[2vw] translate-x-[-4.5vw]", 
-                  labelProps: "labelInput"
-                 } },
+                  container: "w-[17vw] !text-[2vw] ",
+                  labelProps: "labelInput",
+                },
+              },
               {
                 name: "_p3",
                 label: "Marca",
                 type: "select",
-                selectUrl: "/api/marcas/", 
+                selectUrl: "/api/marcas/",
                 styles: {
-                  styles:"labelInput inputStyles !w-[20rem]",
-                  container:"!w-[15vw]  text-[1vw] translate-x-[-4vw] ", 
-                  labelProps: "labelInput"
-                   },
-                _p1: "3"
+                  styles: "labelInput inputStyles !w-[20rem]",
+                  container: "!w-[15vw]  text-[1vw]",
+                  labelProps: "labelInput",
+                },
+                _p1: "3",
               },
               {
                 name: "_p4",
                 label: "Almacén",
                 type: "select",
-                selectUrl: "/api/almacenes/", 
-                styles: { 
-                  styles:"labelInput inputStyles !w-[20rem]",
-                  container:"!w-[15vw]  text-[1vw] translate-x-[-0.5vw]", 
-                  labelProps: "labelInput"
+                selectUrl: "/api/almacenes/",
+                styles: {
+                  styles: "labelInput  inputStyles",
+                  container: "!w-[17  vw] !ml-4  text-[1vw]",
+                  labelProps: "labelInput",
                 },
-                _p1: "3"
+                _p1: "3",
               },
 
               {
@@ -124,17 +129,16 @@ const MAccesorios: React.FC = () => {
                 label: "Stock",
                 type: "select",
                 selectUrl: "/api/tipos/",
-                tipos: "Stock", 
-                styles: { 
-                  styles:"labelInput inputStyles !w-[20rem]",
-                  container:"!w-[15vw]  text-[1vw] translate-x-[3vw]", 
-                  labelProps: "labelInput"
+                tipos: "Stock",
+                styles: {
+                  styles: "labelInput inputStyles !w-[20rem]",
+                  container: "!w-[15vw]  text-[1vw]",
+                  labelProps: "labelInput",
                 },
               },
             ]}
-            classNameSearchButton=" translate-x-[-12vw] translate-y-[4vw]"
+            classNameSearchButton=" translate-x-[12vw] translate-y-[2.7vw]"
           />
-
         </div>
 
         <div className="w-[15%]">
@@ -155,9 +159,7 @@ const MAccesorios: React.FC = () => {
             showImportCsv={true}
             idMenu={idMenu}
             classname={"translate-x-[78vw] translate-y-[2.5vw]  !w-[15vw]"}
-
           />
-
         </div>
       </div>
 
@@ -180,9 +182,8 @@ const MAccesorios: React.FC = () => {
           params={params}
         />
       </div>
-  
 
-     <Suspense>
+      <Suspense>
         {isModalInsert && (
           <FAccesorios
             label={`${TITLES.ingreso} ${strEntidad}`}
@@ -207,10 +208,7 @@ const MAccesorios: React.FC = () => {
             escritura_lectura={escritura_lectura}
           />
         )}
-     </Suspense>
-
-
-
+      </Suspense>
     </div>
   );
 };

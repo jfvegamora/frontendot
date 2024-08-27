@@ -24,6 +24,7 @@ import { fetchDioptriaParametros } from "../../../redux/slices/utilsSlice";
 
 import { OTGrillaEnum } from "../../Enums";
 import TableComponent2 from "../../components/TableComponent2";
+import FilterComponent from "../../components/FilterComponent";
 // import OTPrimaryButtons from "../../components/OTPrimaryButtons";
 // import { OTGrillaEnum } from "../../Enums";
 // import axios from "axios";
@@ -226,6 +227,8 @@ const MOT: React.FC = () => {
     );
   }, [selectedRows]);
 
+  console.log(OTPkToDelete.value);
+
   useEffect(() => {
     OTPkToDelete.value = pkToDelete;
   }, [pkToDelete]);
@@ -263,8 +266,8 @@ const MOT: React.FC = () => {
         label: "Folio",
         type: "text",
         styles: {
-          with: "labelInput inputStyles w-full",
-          container: "w-[10vw] !h-[6vh] translate-x-[-2vw]",
+          with: "!w-[15vw] labelInput inputStyles ",
+          container: "",
           labelProps: "labelInput",
         },
       },
@@ -273,8 +276,18 @@ const MOT: React.FC = () => {
         label: "Rut",
         type: "text",
         styles: {
-          with: "labelInput inputStyles w-full",
-          container: "w-[10vw] !h-[6vh]    translate-x-[-6vw]",
+          with: "!w-[15vw] labelInput inputStyles",
+          container: "",
+          labelProps: "labelInput",
+        },
+      },
+      {
+        name: "_nombre",
+        label: "Nombre",
+        type: "text",
+        styles: {
+          with: "!w-[15vw] labelInput inputStyles",
+          container: "",
           labelProps: "labelInput",
         },
       },
@@ -284,8 +297,8 @@ const MOT: React.FC = () => {
         label: "Atención Desde",
         type: "date",
         styles: {
-          styles: "labelInput inputStyles",
-          container: "w-[11vw] translate-x-[-2.5vw]",
+          styles: "labelInput !w-[15vw] inputStyles",
+          container: "",
         },
       },
       {
@@ -294,7 +307,7 @@ const MOT: React.FC = () => {
         type: "date",
         styles: {
           styles: "labelInput inputStyles",
-          container: "w-[11vw] translate-x-[-6vw]",
+          container: "",
         },
       },
       {
@@ -303,8 +316,8 @@ const MOT: React.FC = () => {
         type: "select",
         selectUrl: "/api/usuarios/",
         styles: {
-          styles: "!w-[24vw] inputStyles labelInput",
-          container: " !w-[24vw] !z-30 text-[1vw] translate-x-[0.7vw] ",
+          styles: "inputStyles labelInput",
+          container: "",
         },
       },
 
@@ -315,29 +328,20 @@ const MOT: React.FC = () => {
         selectUrl: "/api/tipos/",
         tipos: "OTEstadosFiltro",
         styles: {
-          styles: "!w-[20vw] labelInput inputStyles",
-          container:
-            " !w-[20vw] translate-x-[8.5vw] !h-[3vw] !z-30 text-[1vw] translate-y-[-0.3rem]",
+          styles: " !w-[17vw] labelInput inputStyles",
+          container: "",
           labelProps: "labelInput",
         },
       },
       {
-        name: "_nombre",
-        label: "Nombre",
-        type: "text",
+        name: "_motivo",
+        label: "Motivo",
+        type: "select",
+        selectUrl: "/api/tipos/",
+        tipos: "OTMotivo",
         styles: {
-          with: "labelInput inputStyles w-full",
-          container: "!w-[29vw]   translate-x-[-6vw]",
-          labelProps: "labelInput",
-        },
-      },
-      {
-        name: "_p1",
-        label: "RBD",
-        type: "text",
-        styles: {
-          with: "labelInput inputStyles !w-[8vw]",
-          container: "w-[8vw] translate-x-[-7vw] ml-14",
+          styles: "!w-[17vw] labelInput inputStyles",
+          container: "",
           labelProps: "labelInput",
         },
       },
@@ -348,20 +352,41 @@ const MOT: React.FC = () => {
         type: "select",
         selectUrl: "/api/proyectos/",
         styles: {
-          styles: "!w-[20vw] labelInput inputStyles",
-          container: "!w-[20vw]  translate-x-[-6vw] !text-[1vw] ",
+          styles: "!w-[17vw] labelInput inputStyles",
+          container: "",
         },
       },
+
       {
-        name: "_motivo",
-        label: "Motivo",
+        name: "_punto_venta",
+        label: "Punto Venta",
         type: "select",
-        selectUrl: "/api/tipos/",
-        tipos: "OTMotivo",
+        selectUrl: "/api/puntosventa/",
         styles: {
-          styles: "!w-[20vw] labelInput inputStyles",
-          container:
-            "w-[20vw] translate-x-[-1vw] text-[1vw] !h-[3vw] translate-y-[-0.3rem] z-30",
+          styles: "!w-[17vw] labelInput inputStyles",
+          container: "",
+          labelProps: "labelInput",
+        },
+      },
+
+      {
+        name: "_ubicacion",
+        label: "Ubicación",
+        type: "text",
+        styles: {
+          with: "!w-[15vw] labelInput inputStyles",
+          container: "",
+          labelProps: "labelInput",
+        },
+      },
+
+      {
+        name: "atrasadas",
+        label: "Atrasadas",
+        type: "switch",
+        styles: {
+          with: "labelInput inputStyles",
+          container: "",
           labelProps: "labelInput",
         },
       },
@@ -373,9 +398,8 @@ const MOT: React.FC = () => {
         selectUrl: "/api/tipos/",
         tipos: "OTNumDoc",
         styles: {
-          styles: "!w-[20vw] labelInput inputStyles",
-          container:
-            "w-[20.4vw] translate-x-[13.5vw] text-[1vw] !h-[3vw] !z-30 translate-y-[-0.3rem]",
+          styles: "!w-[17vw] labelInput inputStyles",
+          container: "",
           labelProps: "labelInput",
         },
       },
@@ -384,9 +408,18 @@ const MOT: React.FC = () => {
         label: "Número Doc",
         type: "text",
         styles: {
-          with: "labelInput inputStyles w-full",
-          container:
-            "translate-x-[15vw] !w-[10vw] !z-30 text-[1vw]  translate-y-[-0.5vw]",
+          with: "!w-[15vw] labelInput inputStyles",
+          container: "",
+          labelProps: "labelInput",
+        },
+      },
+      {
+        name: "_p1",
+        label: "RBD",
+        type: "text",
+        styles: {
+          with: "!w-[15vw] labelInput inputStyles",
+          container: "",
           labelProps: "labelInput",
         },
       },
@@ -397,49 +430,210 @@ const MOT: React.FC = () => {
         type: "select",
         selectUrl: "/api/establecimientos/",
         styles: {
-          styles: "!w-[20vw] labelInput inputStyles",
-          container:
-            "!w-[25vw] translate-x-[4vw] !z-30  !text-[1vw] !translate-y-[0.3rem]",
+          styles: "!w-[17vw] labelInput inputStyles",
+          container: "",
           labelProps: "labelInput",
         },
       },
       {
-        name: "_punto_venta",
-        label: "Punto de Venta",
+        name: "_comuna",
+        label: "Comuna",
         type: "select",
-        selectUrl: "/api/puntosventa/",
+        selectUrl: "/api/tipos/",
+        tipos: "Comunas",
         styles: {
-          styles: "!w-[20vw] labelInput inputStyles",
-          container:
-            " !w-[25vw] !translate-x-[-10.5vw] !z-30 !text-[1vw] translate-y-[5.5vw]",
-          labelProps: "labelInput",
-        },
-      },
-      {
-        name: "_ubicacion",
-        label: "Ubicación",
-        type: "text",
-        styles: {
-          with: "labelInput inputStyles !w-[8vw]",
-          container:
-            "!relative w-[8vw] translate-y-[-5.7vw] translate-x-[-12vw] ml-14",
-          labelProps: "labelInput",
-        },
-      },
-
-      {
-        name: "atrasadas",
-        label: "Atrasadas",
-        type: "switch",
-        styles: {
-          with: "labelInput inputStyles !w-[8vw]",
-          container: "translate-y-[5vw] translate-x-[-3vw]",
+          styles: "!w-[17vw] labelInput inputStyles",
+          container: "",
           labelProps: "labelInput",
         },
       },
     ],
     []
   );
+  // const primaryKeyInputs = React.useMemo(
+  //   () => [
+  //     {
+  //       name: "_folio",
+  //       label: "Folio",
+  //       type: "text",
+  //       styles: {
+  //         with: "labelInput inputStyles w-full",
+  //         container: "w-[10vw] !h-[6vh] translate-x-[-2vw]",
+  //         labelProps: "labelInput",
+  //       },
+  //     },
+  //     {
+  //       name: "_rut",
+  //       label: "Rut",
+  //       type: "text",
+  //       styles: {
+  //         with: "labelInput inputStyles w-full",
+  //         container: "w-[10vw] !h-[6vh]    translate-x-[-6vw]",
+  //         labelProps: "labelInput",
+  //       },
+  //     },
+
+  //     {
+  //       name: "_fecha_desde",
+  //       label: "Atención Desde",
+  //       type: "date",
+  //       styles: {
+  //         styles: "labelInput inputStyles",
+  //         container: "w-[11vw] translate-x-[-2.5vw]",
+  //       },
+  //     },
+  //     {
+  //       name: "_fecha_hasta",
+  //       label: "Atención Hasta",
+  //       type: "date",
+  //       styles: {
+  //         styles: "labelInput inputStyles",
+  //         container: "w-[11vw] translate-x-[-6vw]",
+  //       },
+  //     },
+  //     {
+  //       name: "_usuario",
+  //       label: "Digitador/a",
+  //       type: "select",
+  //       selectUrl: "/api/usuarios/",
+  //       styles: {
+  //         styles: "!w-[24vw] inputStyles labelInput",
+  //         container: " !w-[24vw] !z-30 text-[1vw] translate-x-[0.7vw] ",
+  //       },
+  //     },
+
+  //     {
+  //       name: "_estado",
+  //       label: "Estado",
+  //       type: "select",
+  //       selectUrl: "/api/tipos/",
+  //       tipos: "OTEstadosFiltro",
+  //       styles: {
+  //         styles: "!w-[20vw] labelInput inputStyles",
+  //         container:
+  //           " !w-[20vw] translate-x-[8.5vw] !h-[3vw] !z-30 text-[1vw] translate-y-[-0.3rem]",
+  //         labelProps: "labelInput",
+  //       },
+  //     },
+  //     {
+  //       name: "_nombre",
+  //       label: "Nombre",
+  //       type: "text",
+  //       styles: {
+  //         with: "labelInput inputStyles w-full",
+  //         container: "!w-[29vw]   translate-x-[-6vw]",
+  //         labelProps: "labelInput",
+  //       },
+  //     },
+  //     {
+  //       name: "_p1",
+  //       label: "RBD",
+  //       type: "text",
+  //       styles: {
+  //         with: "labelInput inputStyles !w-[8vw]",
+  //         container: "w-[8vw] translate-x-[-7vw] ml-14",
+  //         labelProps: "labelInput",
+  //       },
+  //     },
+
+  //     {
+  //       name: "_proyecto",
+  //       label: "Proyecto",
+  //       type: "select",
+  //       selectUrl: "/api/proyectos/",
+  //       styles: {
+  //         styles: "!w-[20vw] labelInput inputStyles",
+  //         container: "!w-[20vw]  translate-x-[-6vw] !text-[1vw] ",
+  //       },
+  //     },
+  //     {
+  //       name: "_motivo",
+  //       label: "Motivo",
+  //       type: "select",
+  //       selectUrl: "/api/tipos/",
+  //       tipos: "OTMotivo",
+  //       styles: {
+  //         styles: "!w-[20vw] labelInput inputStyles",
+  //         container:
+  //           "w-[20vw] translate-x-[-1vw] text-[1vw] !h-[3vw] translate-y-[-0.3rem] z-30",
+  //         labelProps: "labelInput",
+  //       },
+  //     },
+
+  //     {
+  //       name: "_p2",
+  //       label: "Tipo Doc",
+  //       type: "select",
+  //       selectUrl: "/api/tipos/",
+  //       tipos: "OTNumDoc",
+  //       styles: {
+  //         styles: "!w-[20vw] labelInput inputStyles",
+  //         container:
+  //           "w-[20.4vw] translate-x-[13.5vw] text-[1vw] !h-[3vw] !z-30 translate-y-[-0.3rem]",
+  //         labelProps: "labelInput",
+  //       },
+  //     },
+  //     {
+  //       name: "_p3",
+  //       label: "Número Doc",
+  //       type: "text",
+  //       styles: {
+  //         with: "labelInput inputStyles w-full",
+  //         container:
+  //           "translate-x-[15vw] !w-[10vw] !z-30 text-[1vw]  translate-y-[-0.5vw]",
+  //         labelProps: "labelInput",
+  //       },
+  //     },
+
+  //     {
+  //       name: "_establecimiento",
+  //       label: "Establecimiento",
+  //       type: "select",
+  //       selectUrl: "/api/establecimientos/",
+  //       styles: {
+  //         styles: "!w-[20vw] labelInput inputStyles",
+  //         container:
+  //           "!w-[25vw] translate-x-[4vw] !z-30  !text-[1vw] !translate-y-[0.3rem]",
+  //         labelProps: "labelInput",
+  //       },
+  //     },
+  //     {
+  //       name: "_punto_venta",
+  //       label: "Punto de Venta",
+  //       type: "select",
+  //       selectUrl: "/api/puntosventa/",
+  //       styles: {
+  //         styles: "!w-[20vw] labelInput inputStyles",
+  //         container:
+  //           " !w-[25vw] !translate-x-[-10.5vw] !z-30 !text-[1vw] translate-y-[5.5vw]",
+  //         labelProps: "labelInput",
+  //       },
+  //     },
+  //     {
+  //       name: "_ubicacion",
+  //       label: "Ubicación",
+  //       type: "text",
+  //       styles: {
+  //         with: "labelInput inputStyles !w-[8vw]",
+  //         container:
+  //           "!relative w-[8vw] translate-y-[-5.7vw] translate-x-[-12vw] ml-14",
+  //         labelProps: "labelInput",
+  //       },
+  //     },
+
+  //     {
+  //       name: "atrasadas",
+  //       label: "Atrasadas",
+  //       type: "switch",
+  //       styles: {
+  //         with: "labelInput inputStyles !w-[8vw]",
+  //         container: "translate-y-[5vw] translate-x-[-3vw]",
+  //         labelProps: "labelInput",
+  //       },
+  //     },
+  //   ],
+  //   []
+  // );
 
   console.log(OTPkToDelete.value);
 
@@ -502,8 +696,11 @@ const MOT: React.FC = () => {
 
       <Suspense>
         {Number.isInteger(areaActualOT) && areaActualOT !== 200 && (
-          <FilterButton className="top-[11.6rem] left-[3rem]" isOT={isOT}>
-            <PrimaryKeySearch
+          <FilterButton
+            className="top-[11.6rem] left-[3rem] h-[40vh]"
+            isOT={isOT}
+          >
+            <FilterComponent
               baseUrl={strBaseUrl}
               updateParams={updateParams}
               strQuery={strQuery}
