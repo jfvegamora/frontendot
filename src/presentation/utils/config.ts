@@ -1,10 +1,10 @@
 import { signal } from "@preact/signals-react";
 
-// PRODUCCION
+//? PRODUCCION
 // export const URLBackend = signal("https://gestionprod.mtoopticos.cl");
 
-// DESARROLLO
+//? DESARROLLO
 export const URLBackend = signal("https://gestiondev.mtoopticos.cl");
 
-//CAPACITACION
+//?CAPACITACION
 // export const URLBackend = signal("https://gestioncap.mtoopticos.cl");

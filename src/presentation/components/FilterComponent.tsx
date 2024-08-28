@@ -36,10 +36,10 @@ interface IPrimaryKeyState {
   [key: string]: string | number;
 }
 
-export const filterSearchTitle = signal<any>({});
-export const titleSearch = signal<any>("");
+export const filterOTSearchTitle = signal<any>({});
+export const titleOTSearch = signal<any>("");
 
-export const changeFilterSearchTitle = (
+export const changeFilterOTSearchTitle = (
   e: any,
   label: any,
   typeInput?: any
@@ -53,16 +53,16 @@ export const changeFilterSearchTitle = (
 
   const updatedValue =
     newValueFilterSearch === ""
-      ? Object.keys(filterSearchTitle.value).reduce((acc: any, key: any) => {
+      ? Object.keys(filterOTSearchTitle.value).reduce((acc: any, key: any) => {
           if (key !== label) {
-            acc[key] = filterSearchTitle.value[key];
+            acc[key] = filterOTSearchTitle.value[key];
           }
           return acc;
         }, {})
-      : { ...filterSearchTitle.value, [label]: newValueFilterSearch };
+      : { ...filterOTSearchTitle.value, [label]: newValueFilterSearch };
 
-  filterSearchTitle.value = updatedValue;
-  titleSearch.value = Object.values(filterSearchTitle.value).join(" | ");
+  filterOTSearchTitle.value = updatedValue;
+  titleOTSearch.value = Object.values(filterOTSearchTitle.value).join(" | ");
 };
 
 interface PrimaryKeySearchProps {
@@ -119,7 +119,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
 
     const handleRefresh = React.useCallback(() => {
       console.log("render");
-      titleSearch.value = "";
+      titleOTSearch.value = "";
       const mapping = primaryKeyInputs.reduce(
         (acc: any, filtroBusqueda: any) => {
           acc[filtroBusqueda.name] = "";
@@ -149,6 +149,9 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
 
     const handleSelectChange = React.useCallback(
       (name: string, value: string) => {
+        console.log(name);
+        console.log(value);
+
         setInputValues((prev) => ({ ...prev, [name]: value }));
         updateParams({ updatedParams });
       },
@@ -160,7 +163,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
     switch (baseUrl) {
       case "/api/othistorica/":
         // className ="grid grid-rows-3 grid-cols-2  !w-[40rem] px-0 py-4 h-[35vh]  items-center";
-        className = "containerOTPrimaryKey";
+        className = "containerOTArchivoPrimaryKey";
         break;
       case "/api/ot/":
         // className ="grid grid-rows-3 !grid-cols-2  !w-[29vw] px-0  h-[35vh]   items-center transition-all duration-500";
@@ -299,7 +302,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
                               onChange={(e) => {
                                 field.onChange(e);
                                 handleInputChange("_pEsferico", e.target.value);
-                                changeFilterSearchTitle(e, input.label);
+                                changeFilterOTSearchTitle(e, input.label);
                                 setEsferico(e.target.value as any);
                               }}
                               onKeyDown={handleKeyDown}
@@ -334,7 +337,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
                                   "_pCilindrico",
                                   e.target.value
                                 );
-                                changeFilterSearchTitle(e, input.label);
+                                changeFilterOTSearchTitle(e, input.label);
                                 setCilindrico(e.target.value as any);
                               }}
                               onKeyDown={handleKeyDown}
@@ -381,7 +384,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
                                 value={inputValues[input.name]}
                                 onChange={(e) => {
                                   field.onChange(e);
-                                  changeFilterSearchTitle(e, input?.label);
+                                  changeFilterOTSearchTitle(e, input?.label);
                                   handleInputChange(input.name, e.target.value);
                                 }}
                                 onKeyDown={handleKeyDown}
@@ -406,6 +409,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
                         input._p1 ? [input.tipos, input._p1] : input.tipos
                       }
                       inputName={input.name}
+                      isOT={true}
                       inputValues={inputValues}
                       setHandleSearch={handleSearch}
                       handleSelectChange={handleSelectChange}
@@ -426,6 +430,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
                           : [input.selectUrl, "02"]
                       }
                       inputName={input.name}
+                      isOT={true}
                       inputValues={inputValues}
                       setHandleSearch={handleSearch}
                       handleSelectChange={handleSelectChange}
@@ -458,7 +463,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
                         value={field.value || ""}
                         labelProps={{ className: "inputStyles" }}
                         onChange={(e) => {
-                          changeFilterSearchTitle(e, input.label);
+                          changeFilterOTSearchTitle(e, input.label);
                           field.onChange(e.target.value);
                         }}
                       />
@@ -476,13 +481,13 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
                       name={input.name}
                       checked={switchAtrasadas}
                       onChange={(e) => {
-                        changeFilterSearchTitle(e, input?.label, input?.type);
+                        changeFilterOTSearchTitle(e, input?.label, input?.type);
                         if (e.target.checked) {
                           switchAtrasadas.value = true;
                           dispatch(filterOtAtrasadas());
                         } else {
                           switchAtrasadas.value = false;
-                          titleSearch.value = "Sistema Gestión OT";
+                          titleOTSearch.value = "Sistema Gestión OT";
                           document.title = "Sistema Gestión OT";
                           dispatch(
                             fetchOT({
@@ -527,7 +532,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
                           value={inputValues[input.name]}
                           onChange={(e) => {
                             field.onChange(e);
-                            changeFilterSearchTitle(e, input?.label);
+                            changeFilterOTSearchTitle(e, input?.label);
                             handleInputChange(input.name, e.target.value);
                           }}
                           onKeyDown={handleKeyDown}
@@ -545,12 +550,16 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
     }, []);
 
     React.useEffect(() => {
-      filterSearchTitle.value = {};
-      titleSearch.value = "";
+      filterOTSearchTitle.value = {};
+      titleOTSearch.value = "";
     }, [window.location.pathname]);
 
+    console.log(titleOTSearch.value);
+    console.log(filterOTSearchTitle.value);
+
     React.useEffect(() => {
-      if (titleSearch.value === "") {
+      console.log(titleOTSearch.value);
+      if (titleOTSearch.value === "") {
         let title =
           window.location.pathname.slice(1).charAt(0).toUpperCase() +
           window.location.pathname.slice(2);
@@ -560,9 +569,9 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
         }
         document.title = title;
       } else {
-        document.title = titleSearch.value;
+        document.title = titleOTSearch.value;
       }
-    }, [titleSearch.value, switchAtrasadas.value]);
+    }, [titleOTSearch.value, switchAtrasadas.value]);
 
     return (
       <form className="primaryKeyContainer !items-center relative !text-[2vw]">
@@ -603,8 +612,8 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
                 e.preventDefault();
                 filterToggle.value = false;
                 switchAtrasadas.value = false;
-                titleSearch.value = "";
-                filterSearchTitle.value = {};
+                titleOTSearch.value = "";
+                filterOTSearchTitle.value = {};
                 return handleRefresh();
               }}
             >

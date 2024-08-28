@@ -506,8 +506,8 @@ const MOTHistorica: React.FC = () => {
                 label: "Folio",
                 type: "text",
                 styles: {
-                  with: "labelInput inputStyles w-full",
-                  container: "w-[10vw] !h-[6vh]",
+                  with: "labelInput inputStyles w-[15vw]",
+                  container: "",
                   labelProps: "labelInput",
                 },
               },
@@ -516,9 +516,19 @@ const MOTHistorica: React.FC = () => {
                 label: "Rut",
                 type: "text",
                 styles: {
-                  with: "labelInput inputStyles w-full",
-                  container: "w-[10vw] !h-[6vh]",
+                  with: "labelInput inputStyles w-[16vw]",
+                  container: "",
                   labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_nombre",
+                label: "Nombre",
+                type: "text",
+                styles: {
+                  with: "labelInput inputStyles w-full",
+                  container: "!w-[20vw]  text-[1vw] ",
+                  labelProps: " !text-[1.2vw] !font-[2vw]",
                 },
               },
               {
@@ -547,34 +557,36 @@ const MOTHistorica: React.FC = () => {
                 selectUrl: "/api/tipos/",
                 tipos: "OTEstadosFiltro",
                 styles: {
-                  styles: "labelInput inputStyles w-[25vw]",
-                  container: "!w-[25vw]",
+                  styles: "labelInput inputStyles w-[16vw]",
+                  container: "",
+                  labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_motivo",
+                label: "Motivo",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "OTMotivo",
+                styles: {
+                  styles: "labelInput inputStyles w-[16vw]",
+                  container: "",
                   labelProps: "labelInput",
                 },
               },
 
               {
-                name: "_establecimiento",
-                label: "Establecimiento",
+                name: "_proyecto",
+                label: "Proyecto",
                 type: "select",
-                selectUrl: "/api/establecimientos/",
+                selectUrl: "/api/proyectos/",
                 styles: {
-                  styles: "labelInput inputStyles",
-                  container: "!w-[20vw]  text-[1vw]",
-                  labelProps: " !text-[1.2vw] !font-[2vw]",
+                  styles: "labelInput w-[15vw] inputStyles",
+                  container: " ",
+                  labelProps: "labelInput",
                 },
               },
 
-              {
-                name: "_nombre",
-                label: "Nombre",
-                type: "text",
-                styles: {
-                  with: "labelInput inputStyles w-full",
-                  container: "!w-[20vw]  text-[1vw] ",
-                  labelProps: " !text-[1.2vw] !font-[2vw]",
-                },
-              },
               {
                 name: "_ubicacion",
                 label: "Ubicacion",
@@ -587,15 +599,14 @@ const MOTHistorica: React.FC = () => {
               },
 
               {
-                name: "_motivo",
-                label: "Motivo",
+                name: "_establecimiento",
+                label: "Establecimiento",
                 type: "select",
-                selectUrl: "/api/tipos/",
-                tipos: "OTMotivo",
+                selectUrl: "/api/establecimientos/",
                 styles: {
-                  styles: "labelInput inputStyles !w-[19.5vw]",
-                  container: "!w-[19.5vw]  text-[1vw] translate-x-[-6vw] ",
-                  labelProps: "labelInput",
+                  styles: "labelInput w-[15vw] inputStyles",
+                  container: " text-[1vw]",
+                  labelProps: " !text-[1.2vw] !font-[2vw]",
                 },
               },
 
@@ -606,30 +617,19 @@ const MOTHistorica: React.FC = () => {
                 selectUrl: "/api/tipos/",
                 tipos: "OTNumDoc",
                 styles: {
-                  styles: "labelInput inputStyles",
-                  container: "!w-[22.5vw]  translate-x-[-2.5vw] ",
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]",
+                  styles: "labelInput inputStyles w-[16vw] ",
+                  container: "",
+                  labelProps: "!text-[1.2vw] !font-[2vw]",
                 },
               },
-              {
-                name: "_proyecto",
-                label: "Proyecto",
-                type: "select",
-                selectUrl: "/api/proyectos/",
-                styles: {
-                  styles: "labelInput inputStyles",
-                  container: "!w-[20vw]  translate-x-[13.5vw] ",
-                  labelProps: "labelInput",
-                },
-              },
+
               {
                 name: "_p3",
                 label: "Número Doc",
                 type: "text",
                 styles: {
                   with: "labelInput inputStyles w-full",
-                  container:
-                    "!w-[20vw]  text-[1vw] translate-x-[15vw] translate-y-[-5vw] ",
+                  container: "!w-[20vw]  text-[1vw] ",
                   labelProps: "labelInput",
                 },
               },
@@ -640,8 +640,20 @@ const MOTHistorica: React.FC = () => {
                 type: "text",
                 styles: {
                   with: "labelInput inputStyles w-full",
-                  container: "!w-[16vw]  text-[1vw] translate-x-[-1vw] ",
-                  labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]",
+                  container: "!w-[16vw]  text-[1vw]",
+                  labelProps: "!text-[1.2vw] !font-[2vw]",
+                },
+              },
+              {
+                name: "_comuna",
+                label: "Comuna",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "Comunas",
+                styles: {
+                  styles: "!w-[16vw] labelInput inputStyles",
+                  container: "",
+                  labelProps: "labelInput",
                 },
               },
             ]}
