@@ -51,6 +51,8 @@ export const changeFilterSearchTitle = (
       ? "Atrasadas"
       : e.target.value;
 
+  console.log(e.target.options[e.target.selectedIndex].text);
+
   const updatedValue =
     newValueFilterSearch === ""
       ? Object.keys(filterSearchTitle.value).reduce((acc: any, key: any) => {
@@ -61,9 +63,17 @@ export const changeFilterSearchTitle = (
         }, {})
       : { ...filterSearchTitle.value, [label]: newValueFilterSearch };
 
+  console.log(newValueFilterSearch);
+  console.log(updatedValue);
   filterSearchTitle.value = updatedValue;
   titleSearch.value = Object.values(filterSearchTitle.value).join(" | ");
+  console.log(filterSearchTitle.value);
+
+  console.log(titleSearch.value);
 };
+
+console.log(filterSearchTitle.value);
+console.log(titleSearch.value);
 
 interface PrimaryKeySearchProps {
   setEntities: any;
@@ -156,7 +166,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     );
 
     let className = "";
-
+    console.log(baseUrl);
     switch (baseUrl) {
       case "/api/othistorica/":
         className =
@@ -168,6 +178,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         break;
       case "/api/cristales/":
         // className = "grid grid-rows-3 grid-cols-2 !w-[90%] px-0 py-4 h-[30vh]  items-center";
+        className = "containerCristalesPrimaryKey";
+        break;
+      case "/api/otreservaarmazones/":
         className = "containerCristalesPrimaryKey";
         break;
       default:

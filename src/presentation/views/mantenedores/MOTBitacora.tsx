@@ -103,7 +103,7 @@ const MOTBitacora: React.FC = () => {
                 type: "date",
                 styles: {
                   styles: "labelInput inputStyles",
-                  container: "!w-[12vw]  text-[1vw] ",
+                  container: "!w-[15vw]  text-[1vw] ",
                   labelProps: "labelInput",
                 },
               },
@@ -114,7 +114,7 @@ const MOTBitacora: React.FC = () => {
                 selectUrl: "/api/usuarios/",
                 styles: {
                   styles: "labelInput inputStyles",
-                  container: "!w-[20vw]  text-[1vw]  ",
+                  container: "!w-[18vw]  text-[1vw]  ",
                   labelProps: "labelInput",
                 },
               },
@@ -125,8 +125,8 @@ const MOTBitacora: React.FC = () => {
                 selectUrl: "/api/tipos/",
                 tipos: "OTAreas",
                 styles: {
-                  styles: "labelInput inputStyles",
-                  container: "!w-[20vw]  text-[1vw]  ",
+                  styles: "labelInput inputStyles ml-3 w-[18vw]",
+                  container: "text-[1vw]  ",
                   labelProps: "labelInput",
                 },
               },
@@ -137,8 +137,8 @@ const MOTBitacora: React.FC = () => {
                 selectUrl: "/api/tipos/",
                 tipos: "OTAreas",
                 styles: {
-                  styles: "text-[1vw]",
-                  container: "!w-[20vw]  text-[1vw] ",
+                  styles: "labelInput inputStyles w-[18vw]",
+                  container: "  text-[1vw] ",
                   labelProps: "labelInput",
                 },
               },
@@ -149,13 +149,13 @@ const MOTBitacora: React.FC = () => {
                 selectUrl: "/api/tipos/",
                 tipos: "OTEstados",
                 styles: {
-                  styles: "text-[1vw]",
-                  container: "!w-[20vw]  text-[1vw]  ",
+                  styles: "labelInput inputStyles w-[18vw]",
+                  container: " text-[1vw]  ",
                   labelProps: "labelInput",
                 },
               },
             ]}
-            classNameSearchButton=" translate-x-[-0.5vw] translate-y-[3.5vw]"
+            classNameSearchButton=" translate-x-[-0.5vw] translate-y-[2vw]"
           />
         </div>
 

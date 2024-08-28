@@ -11,8 +11,7 @@ import {
 import { useEntityUtils, usePermission } from "../../hooks";
 import { TITLES, table_head_clientes } from "../../utils";
 
-
-const FClientes = React.lazy(()=>import("../forms/FClientes"));
+const FClientes = React.lazy(() => import("../forms/FClientes"));
 
 export enum EnumGrid {
   rut = 1,
@@ -40,18 +39,15 @@ export enum OptionValues {
   Óptica = 3,
 }
 
-
-
 const strEntidad = "Cliente ";
 const strEntidadExcel = "Clientes";
 const strBaseUrl = "/api/clientes/";
 const strQuery = "01";
 const idMenu = 2;
 
-
 const MClientes: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -78,94 +74,97 @@ const MClientes: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  
-  useEffect(() => { 
-    const newPkToDelete:any = selectedRows.map((row:number)=>{
-      return {rut:`${entities[row][EnumGrid.rut]}` }
-    })
-    let pkToDelete:any = `_pkToDelete=${encodeURIComponent(JSON.stringify(newPkToDelete))}` 
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+
+  useEffect(() => {
+    const newPkToDelete: any = selectedRows.map((row: number) => {
+      return { rut: `${entities[row][EnumGrid.rut]}` };
+    });
+    let pkToDelete: any = `_pkToDelete=${encodeURIComponent(
+      JSON.stringify(newPkToDelete)
+    )}`;
 
     setPkToDelete(pkToDelete);
   }, [selectedRows]);
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width100">   
-      <div className="w-[70%]">
-        <PrimaryKeySearch
-          baseUrl={strBaseUrl}
-          updateParams={updateParams}
-          setEntities={setEntities}
-          primaryKeyInputs={[
-            { name: "_p1", label: "RUT", type: "text", 
-              styles:{
-                styles:"labelInput inputStyles",
-                  container:"!w-[10vw]  text-[1vw] translate-x-[-4vw] ", 
-                  labelProps: "labelInput"
-                }, },
-            {
-              name: "_p2",
-              label: "Nombre",
-              type: "text",
-              values: OptionValues, 
-              styles:{
-                styles:"labelInput inputStyles",
-                  container:"!w-[20vw]  text-[1vw] translate-x-[-7vw] ", 
-                  labelProps: "labelInput"
+      <div className="mantenedorHead width100">
+        <div className="w-[70%]">
+          <PrimaryKeySearch
+            baseUrl={strBaseUrl}
+            updateParams={updateParams}
+            setEntities={setEntities}
+            primaryKeyInputs={[
+              {
+                name: "_p1",
+                label: "RUT",
+                type: "text",
+                styles: {
+                  styles: "labelInput inputStyles w-[15vw] ",
+                  container: "",
+                  labelProps: "labelInput",
                 },
-            },
-            {
-              name: "_p3",
-              label: "Tipo",
-              type: "select",
-              selectUrl: "/api/tipos/",
-              tipos: "ClientesTipos", 
-              styles:{
-                styles:"labelInput inputStyles",
-                container:"!w-[40vw]  text-[1vw] translate-x-[-6vw] ", 
-                labelProps: "labelInput"
               },
-            },
-            {
-              name: "_p4",
-              label: "Establecimiento",
-              type: "select",
-              selectUrl: "/api/establecimientos/",
-              styles:{
-                styles:"labelInput inputStyles",
-                container:"!w-[29vw]  text-[1vw] translate-x-[-7vw] ", 
-                labelProps: "labelInput"
+              {
+                name: "_p2",
+                label: "Nombre",
+                type: "text",
+                values: OptionValues,
+                styles: {
+                  styles: "labelInput inputStyles w-[15vw] ",
+                  container: "",
+                  labelProps: "labelInput",
+                },
               },
-            },
-          
-          ]}
-          classNameSearchButton=" translate-x-[2vw]"
-        />
-      </div> 
+              {
+                name: "_p3",
+                label: "Tipo",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "ClientesTipos",
+                styles: {
+                  styles: "labelInput inputStyles w-[15vw] ",
+                  container: "",
+                  labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_p4",
+                label: "Establecimiento",
+                type: "select",
+                selectUrl: "/api/establecimientos/",
+                styles: {
+                  styles: "labelInput inputStyles w-[15vw] ml-8",
+                  container: "text-[1vw] ",
+                  labelProps: "labelInput",
+                },
+              },
+            ]}
+            classNameSearchButton=" translate-x-[2vw]"
+          />
+        </div>
 
-      <div className="w-[15%]">
-        <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          params={params}
-          pkToDelete={pkToDelete}
-          strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={true}
-          showExportButton={true}
-          showDeleteButton={true}
-          showForwardButton={false}
-          showRefreshButton={true}
-          showImportCsv={true}
-          comilla={true}
-          classname={"translate-x-[14.5vw]  !w-[15vw]"}
-
-          idMenu={idMenu}
-        />
-      </div>
-
+        <div className="w-[15%]">
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            params={params}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showExportButton={true}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={true}
+            showImportCsv={true}
+            comilla={true}
+            classname={"translate-x-[14.5vw]  !w-[15vw]"}
+            idMenu={idMenu}
+          />
+        </div>
       </div>
 
       <div className="width100 scroll">
@@ -212,10 +211,6 @@ const MClientes: React.FC = () => {
           />
         )}
       </Suspense>
-
-  
-     
-    
     </div>
   );
 };

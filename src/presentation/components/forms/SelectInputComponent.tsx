@@ -25,6 +25,7 @@ import {
 import { inputName } from "../OTForms/Otprueba";
 import { codPuntoVenta } from "../../views/forms/FReservarArmazones";
 import { URLBackend } from "../../utils/config";
+import { changeFilterOTSearchTitle } from "../FilterComponent";
 // import Select from "react-select";
 
 interface ISelectInputProps {
@@ -234,12 +235,17 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 setStrSelectedName(e.target.value);
                 setState && setState(e.target.value);
                 field.onChange(e);
-                console.log(isOT);
                 if (isOT) {
                   handleSelectChange && handleSelectChange(e.target);
                 }
                 if (setHandleSearch) {
                   const selectedValue = e.target.value.toString();
+                  if (isOT) {
+                    changeFilterOTSearchTitle(e, name, "Select");
+                    console.log("render");
+                  } else {
+                    changeFilterSearchTitle(e, name, "Select");
+                  }
                   handleSelectChange(name, selectedValue);
                   const inputValuesToUpdate = {
                     ...inputValues,

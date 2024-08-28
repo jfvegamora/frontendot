@@ -4,7 +4,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { signal } from "@preact/signals-react";
 
-import { PrimaryKeySearch } from "../../components";
+// import { PrimaryKeySearch } from "../../components";
 
 import { useEntityUtils, usePermission } from "../../hooks";
 import { TITLES, table_head_OT_diaria2 } from "../../utils";
