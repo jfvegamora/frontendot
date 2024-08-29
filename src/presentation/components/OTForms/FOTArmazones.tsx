@@ -409,85 +409,80 @@ const FOTArmazones: React.FC<IArmazones> = ({
 
       // const {data} = await axios.post(endpoint2, json_data);
 
-      console.log(data);
-
-      if (data && data[0][19] === "") {
-        switch (inputName) {
-          case "a1_armazon_id":
-            if (
-              data[0][0] === a2_armazon.value.trim() ||
-              data[0][0] === a3_armazon.value.trim()
-            ) {
-              toast.error(
-                `Código Armazon 1 no puede ser igual a Código ${
-                  data[0][0] === a2_armazon.value.trim()
-                    ? "Armazon 2"
-                    : "Armazon 3"
-                }`
-              );
-              onDataChange({ ["a1_armazon_id"]: " " });
-              a1_armazon.value = " ";
-              setCodArmazon1(" ");
-              setArmazon1([]);
-              validation_A1_armazon("");
-              console.log("render");
-              toast.dismiss(toastLoading);
-              return;
-            }
-            break;
-          case "a2_armazon_id":
-            if (
-              data[0][0] === a1_armazon.value.trim() ||
-              data[0][0] === a3_armazon.value.trim()
-            ) {
-              toast.error(
-                `Código Armazon 2 no puede ser igual a Código ${
-                  data[0][0] === a1_armazon.value.trim()
-                    ? "Armazon 1"
-                    : "Armazon 3"
-                }`
-              );
-              onDataChange({ ["a2_armazon_id"]: " " });
-              a2_armazon.value = " ";
-              setCodArmazon2(" ");
-              setArmazon2([]);
-              validation_A2_armazon("");
-              toast.dismiss(toastLoading);
-              return;
-            }
-            break;
-          case "a3_armazon_id":
-            if (
-              data[0][0] === a1_armazon.value.trim() ||
-              data[0][0] === a2_armazon.value.trim()
-            ) {
-              toast.error(
-                `Código Armazon 3 no puede ser igual a Código ${
-                  data[0][0] === a1_armazon.value.trim()
-                    ? "Armazon 1"
-                    : "Armazon 2"
-                }`
-              );
-              onDataChange({ ["a3_armazon_id"]: " " });
-              setCodArmazon3(" ");
-              setArmazon3([]);
-              setCodArmazon3(" ");
-              toast.dismiss(toastLoading);
-              return;
-            }
-            break;
-          default:
-            break;
-        }
-      }
-
-      console.log(data);
+      //?VALIDACION DE ARMAZONES IGUALES
+      // if (data && data[0][19] === "") {
+      //   switch (inputName) {
+      //     case "a1_armazon_id":
+      //       if (
+      //         data[0][0] === a2_armazon.value.trim() ||
+      //         data[0][0] === a3_armazon.value.trim()
+      //       ) {
+      //         toast.error(
+      //           `Código Armazon 1 no puede ser igual a Código ${
+      //             data[0][0] === a2_armazon.value.trim()
+      //               ? "Armazon 2"
+      //               : "Armazon 3"
+      //           }`
+      //         );
+      //         onDataChange({ ["a1_armazon_id"]: " " });
+      //         a1_armazon.value = " ";
+      //         setCodArmazon1(" ");
+      //         setArmazon1([]);
+      //         validation_A1_armazon("");
+      //         console.log("render");
+      //         toast.dismiss(toastLoading);
+      //         return;
+      //       }
+      //       break;
+      //     case "a2_armazon_id":
+      //       if (
+      //         data[0][0] === a1_armazon.value.trim() ||
+      //         data[0][0] === a3_armazon.value.trim()
+      //       ) {
+      //         toast.error(
+      //           `Código Armazon 2 no puede ser igual a Código ${
+      //             data[0][0] === a1_armazon.value.trim()
+      //               ? "Armazon 1"
+      //               : "Armazon 3"
+      //           }`
+      //         );
+      //         onDataChange({ ["a2_armazon_id"]: " " });
+      //         a2_armazon.value = " ";
+      //         setCodArmazon2(" ");
+      //         setArmazon2([]);
+      //         validation_A2_armazon("");
+      //         toast.dismiss(toastLoading);
+      //         return;
+      //       }
+      //       break;
+      //     case "a3_armazon_id":
+      //       if (
+      //         data[0][0] === a1_armazon.value.trim() ||
+      //         data[0][0] === a2_armazon.value.trim()
+      //       ) {
+      //         toast.error(
+      //           `Código Armazon 3 no puede ser igual a Código ${
+      //             data[0][0] === a1_armazon.value.trim()
+      //               ? "Armazon 1"
+      //               : "Armazon 2"
+      //           }`
+      //         );
+      //         onDataChange({ ["a3_armazon_id"]: " " });
+      //         setCodArmazon3(" ");
+      //         setArmazon3([]);
+      //         setCodArmazon3(" ");
+      //         toast.dismiss(toastLoading);
+      //         return;
+      //       }
+      //       break;
+      //     default:
+      //       break;
+      //   }
+      // }
 
       if (data && data[0][19] !== "") {
         // _señal = " "
         onDataChange({ [inputName]: " " });
-        console.log(data);
-        console.log(inputName);
 
         switch (data[0][19]) {
           case "ODOI":

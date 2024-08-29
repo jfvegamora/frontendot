@@ -1212,7 +1212,7 @@ export const updateOT = async (
         : `${data.punto_venta}`,
       _cristalJSONOri: isValidateBodega
         ? JSON.stringify(cristalOri)
-        : JSON.stringify(data.cristales.filter((ot: any) => ot.codigo !== " ")),
+        : JSON.stringify(data.cristales),
       _armazonJSONOri: isValidateBodega
         ? JSON.stringify(armazonOri)
         : JSON.stringify(data.armazones),

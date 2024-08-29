@@ -57,6 +57,11 @@ export const dataOTSignal = signal([]);
 export const isFinishImpression = signal(false);
 export const barCodeSignal = signal("");
 
+export const isValidateCR1OD = signal(false);
+export const isValidateCR1OI = signal(false);
+export const isValidateCR2OD = signal(false);
+export const isValidateCR2OI = signal(false);
+
 export const resultValidarBodega = signal<any>({
   ProcesarTB_1: true,
   ProcesarTB_2: false,
@@ -876,6 +881,30 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           }
 
           console.log(dataOT);
+
+          console.log(dataOT && dataOT[0][OTGrillaEnum.cr1_od]);
+          console.log(dataOT && dataOT[0][OTGrillaEnum.cr1_oi]);
+
+          if (
+            dataOT &&
+            dataOT[0][OTGrillaEnum.cr1_od].trim() === "" &&
+            dataOT[0][OTGrillaEnum.cr1_oi].trim() === ""
+          ) {
+            console.log("render validar crsitales");
+            isValidateCR1OD.value = true;
+            isValidateCR1OI.value = true;
+          }
+
+          if (
+            dataOT &&
+            dataOT[0][OTGrillaEnum.tipo_anteojo_id] === "3" &&
+            dataOT[0][OTGrillaEnum.cr2_od].trim() === "" &&
+            dataOT[0][OTGrillaEnum.cr2_oi].trim() === ""
+          ) {
+            console.log("render validar crsitales");
+            isValidateCR2OD.value = true;
+            isValidateCR2OI.value = true;
+          }
 
           const { data: dataAproximarCristales } = await axios(
             `${URLBackend}/api/cristales/listado/?query=07&_p4=${

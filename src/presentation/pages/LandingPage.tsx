@@ -3,6 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { filterToggle } from "../components/FilterButton";
+import FOTImpresa from "../views/forms/FOTImpresa";
 // import FOTValidateCristales from "../views/forms/FOTValidateCristales";
 // import FOTValidateArmazones from "../views/forms/FOTValidateArmazones";
 // import FOTValidateCristales from "../views/forms/FOTValidateCristales";
@@ -126,6 +127,7 @@ const LandingPage: React.FC = () => {
       </div>  */}
 
         {/* <WhastappForm/> */}
+        <FOTImpresa masivo={true} />
 
         {/* <FOTValidateCristales /> */}
         {/* <FOTValidateArmazones /> */}

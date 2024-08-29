@@ -39,6 +39,8 @@ import { Howl } from "howler";
 import soundError from "../../../assets/error-call-to-attention-129258.mp3";
 import {
   dataOTSignal,
+  isValidateCR1OD,
+  isValidateCR1OI,
   resultValidarBodega,
   structureCristalesBodega,
   valueConfirmOT,
@@ -187,6 +189,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     const isAlReadyValidate =
       structureCristalesBodega.value[name].estado === "1" ? true : false;
     console.log(structureCristalesBodega.value);
+
     return (
       <div className="rowForm !h-[7vw] relative mb-4">
         {/* <label className="labelInput  ml-4">
@@ -282,7 +285,8 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         cristalStock_a1od = "2";
         break;
       case "a1_oi":
-        CR1_OI_LAB.value = !CR1_OD_LAB.value;
+        CR1_OI_LAB.value = !CR1_OI_LAB.value;
+        console.log("render");
         cristalStock_a1oi = "2";
         break;
       case "a2_od":
@@ -296,6 +300,15 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       default:
         break;
     }
+    console.log(OT[OTGrillaEnum.tipo_anteojo_id] === "3");
+    console.log(CR1_OD_LAB.value);
+    console.log(CR1_OI_LAB.value);
+
+    if (!CR1_OD_LAB.value || !CR1_OI_LAB.value) {
+      console.log("render");
+      return;
+    }
+    console.log("render");
 
     let jsondata: any = [];
     let origen = OTAreas["areaActual"];
@@ -585,6 +598,15 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
   React.useEffect(() => {
     if (OT) {
       console.log(casoEjecutar);
+
+      if (isValidateCR1OD.value === true && isValidateCR1OI.value === true) {
+        validation_cristal1_od.value = " ";
+        validation_cristal1_oi.value = " ";
+
+        handleValidationCristales();
+        console.log("render");
+      }
+
       let jsondata: any = [];
       let origen = OTAreas["areaActual"];
       let user = UsuarioID;
@@ -914,7 +936,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
 
       let _p2 = "1";
 
-      let destino;
+      let destino: any;
       let estado: any;
 
       let observaciones;
@@ -969,13 +991,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
 
       switch (casoEjecutar) {
         case "ProcesarTB_1":
-          destino =
-            CR1_OD_LAB.value === true ||
-            CR1_OI_LAB.value === true ||
-            CR2_OD_LAB.value === true ||
-            CR2_OI_LAB.value === true
-              ? "30"
-              : OTAreas["areaSiguiente"];
+          destino = OTAreas["areaSiguiente"];
           estado = "15";
           situacion = "0";
           console.log("render");
@@ -1169,12 +1185,137 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
   }, [sumatoriaNivelCristalesBodega]);
 
   React.useEffect(() => {
+    const { a1_od, a1_oi, a2_oi, a2_od } = structureCristalesBodega.value;
+
+    if (a1_od.estado === "1") {
+      CR1_OD_LAB.value = true;
+    }
+    if (a1_oi.estado === "1") {
+      CR1_OI_LAB.value = true;
+    }
+    if (a2_od.estado === "1") {
+      CR2_OD_LAB.value = true;
+    }
+    if (a2_oi.estado === "1") {
+      CR2_OI_LAB.value = true;
+    }
+
     reiniciarValidationNivel3BodegaCristales();
   }, []);
 
+  const handleValidationCristales = async () => {
+    console.log(OT && OT[OTGrillaEnum.folio]);
+    try {
+      console.log(validation_cristal1_od.value);
+      let jsondata: any = [];
+      let origen = OTAreas["areaActual"];
+      let cristalOri = cristales;
+      let armazonOri = armazones;
+      let user = UsuarioID;
+      let validarBodega = false;
+      let isMasivo = true;
+      let cristalStock = "1";
+      let estadoValidacionCristal = "1";
+
+      let _p2 = "1";
+
+      let destino =
+        casoEjecutar === "ProcesarTB_1"
+          ? OTAreas["areaSiguiente"]
+          : OTAreasEnum["Taller Biselado 2"];
+      let estado = "40";
+
+      let observaciones;
+      let situacion;
+      let data = {
+        folio: OT[OTGrillaEnum.folio],
+        tipo_anteojo: parseInt(OT[OTGrillaEnum.tipo_anteojo_id]),
+        proyecto_codigo: OT[OTGrillaEnum.proyecto_titulo],
+        punto_venta: OT[OTGrillaEnum.punto_venta],
+        cristales: [
+          {
+            codigo:
+              validation_cristal1_od.value !== ""
+                ? validation_cristal1_od.value
+                : "",
+            opcion_vta: cristalStock,
+            estado: estadoValidacionCristal,
+          },
+          {
+            codigo:
+              validation_cristal1_oi.value !== ""
+                ? validation_cristal1_oi.value
+                : "",
+            opcion_vta: cristalStock,
+            estado: estadoValidacionCristal,
+          },
+          {
+            codigo:
+              validation_cristal2_od.value !== ""
+                ? validation_cristal2_od.value
+                : "",
+            opcion_vta: cristalStock,
+            estado: estadoValidacionCristal,
+          },
+          {
+            codigo:
+              validation_cristal2_oi.value !== ""
+                ? validation_cristal2_oi.value
+                : "",
+            opcion_vta: cristalStock,
+            estado: estadoValidacionCristal,
+          },
+        ],
+        armazones: [],
+      };
+
+      updateOT(
+        jsondata,
+        origen,
+        destino,
+        estado,
+        [],
+        data,
+        cristalOri,
+        armazonOri,
+        user,
+        observaciones,
+        isMasivo,
+        situacion,
+        validarBodega,
+        "",
+        false,
+        "",
+        _p2
+      )
+        .then(() => {
+          handleClose();
+          // toast.dismiss(toastLoading);
+          // toast.success("OT Procesada Correctamente.");
+          dispatch(
+            fetchOT({
+              OTAreas: OTAreas["areaActual"],
+              searchParams: paramsOT.value,
+            })
+          );
+          valueConfirmOT.value = "";
+          resetFields();
+        })
+        .catch((e) => {
+          console.log(e);
+          console.log("error");
+          resetFields();
+          // toast.dismiss(toastLoading);
+        });
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  };
+
   const handleDerivacionValidarCristales = async () => {
     const toastLoading = toast.loading("Cargando...");
-
+    console.log(OT && OT[OTGrillaEnum.folio]);
     try {
       let jsondata: any = [];
       let origen = OTAreas["areaActual"];

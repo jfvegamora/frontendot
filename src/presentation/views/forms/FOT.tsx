@@ -149,6 +149,7 @@ import {
   CR2_OI_LAB,
   getGrupoCristales_A1,
   getGrupoCristales_A2,
+  handleValidationCheckLab,
   isToggleMontajeValidation,
 } from "../../utils/FOTCristales_utils";
 import { URLBackend } from "../../utils/config";
@@ -409,6 +410,8 @@ const FOT: React.FC<IFOTProps> = ({
       validation_tipo_anteojo();
       // console.log('validaciones')
       //VALIDACIONES NIVEL 1
+      handleValidationCheckLab(data && data);
+
       validationProyectos(data && data[EnumGrid.proyecto_codigo]);
       validationEstablecimientos(data && data[EnumGrid.establecimiento_id]);
       validationCliente(data && data[EnumGrid.cliente_rut]);
@@ -499,10 +502,16 @@ const FOT: React.FC<IFOTProps> = ({
       // console.log(data && data[EnumGrid.tipo_anteojo])
 
       // getGrupoCristales_A1({}, data, setErrorGrupoDioptriaA1, setFOTBooleanStates, isEditting, setErrorGrupoDioptriaA2)
+
+      console.log(CR1_OD_LAB.value);
+      console.log(CR1_OI_LAB.value);
+
       if (CR1_OD_LAB.value === true) {
+        console.log("render");
         validation_Cristal1_od("32");
       }
       if (CR1_OI_LAB.value === true) {
+        console.log("render");
         validation_Cristal1_oi("32");
       }
     }
