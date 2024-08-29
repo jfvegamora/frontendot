@@ -968,14 +968,14 @@ export const table_head_armazones = [
     width: "w-[6rem]",
   },
   {
-    cell: "DP Mínima",
+    cell: "DP Mín ESF +",
     key: "dp_minima",
     alignment: "text-right",
     visible: true,
     width: "w-[6rem]",
   },
   {
-    cell: "DP Máxima",
+    cell: "DP Mín ESF -",
     key: "dp_maxima",
     alignment: "text-right",
     visible: true,

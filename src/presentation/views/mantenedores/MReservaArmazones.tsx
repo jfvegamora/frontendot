@@ -2,16 +2,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import React, { useState, useEffect } from "react";
-import { useEntityUtils } from "../../hooks";
+import React, { useState, useEffect, Suspense } from "react";
+import { useEntityUtils, usePermission } from "../../hooks";
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { table_head_reserva_armazones } from "../../utils";
+import { table_head_reserva_armazones, TITLES } from "../../utils";
 import { ReservaArmazonesEnum } from "../../Enums";
-// import FProyectosDocum from "../forms/FProyectosDocum";
+import FReservarArmazonesWeb from "../forms/FReservarArmazonesWeb";
 
 const strEntidad = "Reserva de Armazones ";
 const strEntidadExcel = "Reserva_Armazones";
@@ -21,7 +21,7 @@ const idMenu = 42;
 
 const MReservaArmazones: React.FC = () => {
   const [params, setParams] = useState([]);
-  // const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura} = usePermission(idMenu || 0 );
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -31,14 +31,14 @@ const MReservaArmazones: React.FC = () => {
     //entities state
     entities,
     setEntities,
-    //   entity,
+      entity,
     //modal methods
-    //   isModalInsert,
-    //   isModalEdit,
+      isModalInsert,
+      isModalEdit,
     toggleEditModal,
     toggleModalCopiar,
     openModal,
-    //   closeModal,
+      closeModal,
     //Check methods
     handleSelect,
     selectedRows,
@@ -194,15 +194,44 @@ const MReservaArmazones: React.FC = () => {
           data={entities}
           strBaseUrl={strBaseUrl}
           tableHead={table_head_reserva_armazones}
-          showEditButton={false}
+          showEditButton={true}
           showPdfButton={false}
           showExcelButton={true}
           idMenu={idMenu}
           leftEdit={true}
         />
       </div>
+
+      <Suspense>
+          {isModalInsert && (
+            <FReservarArmazonesWeb
+              label={`${TITLES.ingreso} ${strEntidad}`}
+              closeModal={closeModal}
+              selectedRows={selectedRows}
+              setEntities={setEntities}
+              params={params}
+              isEditting={false}
+              escritura_lectura={escritura_lectura}
+              />
+          )}
+    
+          {isModalEdit && (
+            <FReservarArmazonesWeb
+              label={`${TITLES.edicion} ${strEntidad}`}
+              selectedRows={selectedRows}
+              setEntities={setEntities}
+              params={params}
+              data={entity}
+              closeModal={closeModal}
+              isEditting={true}
+              escritura_lectura={escritura_lectura}
+              />
+          )}
+        </Suspense>
+
     </div>
   );
+
 };
 
 export default MReservaArmazones;

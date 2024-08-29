@@ -158,6 +158,8 @@ export const validationArmazonesSchema = () =>
 //Schema Reserva Armazones
 export const validationReservaArmazonesSchema = () =>
   yup.object().shape({
+    proyecto: yup.string(),
+    punto_venta: yup.string(),
     rut_beneficiario: yup.string().required(`${msg}`),
     dp: yup.string().required(`${msg}`),
     tipo_anteojo: yup.string().required(`${msg}`),
