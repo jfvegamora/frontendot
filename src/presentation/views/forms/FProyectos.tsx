@@ -725,7 +725,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 <div className="labelInputDiv">
                   <FrameComponent>
                     <ProyectoComponent
-                      label="OT por Facturar"
+                      label="OT en Proceso"
                       type="text"
                       control={control}
                       errors={errors}
