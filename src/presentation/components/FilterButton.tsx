@@ -52,7 +52,7 @@ const FilterButton: React.FC<IProps> = React.memo(
               ? "w-[98vw] mx-auto"
               : "w-0 translate-x-[-200rem] absolute"
           } transition-all duration-500 bg-white ${
-            isOT ? "!h-[40vh] !w-[95vw]" : "!h-[20rem]"
+            isOT ? "!h-[16vw] !w-[95vw]" : "!h-[20rem]"
           } p-2 items-center rounded shadow-lg overflow-hidden`}
         >
           {children}

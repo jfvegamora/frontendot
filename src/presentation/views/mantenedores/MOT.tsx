@@ -227,8 +227,6 @@ const MOT: React.FC = () => {
     );
   }, [selectedRows]);
 
-  console.log(OTPkToDelete.value);
-
   useEffect(() => {
     OTPkToDelete.value = pkToDelete;
   }, [pkToDelete]);

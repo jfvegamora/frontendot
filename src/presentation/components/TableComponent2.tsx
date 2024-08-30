@@ -99,13 +99,10 @@ const TableComponent2: React.FC<ITableComponentProps<any>> = React.memo(
 
     const { permiso_usuario_btn_check } = usePermissionBotonesUser();
 
-    console.log(permiso_usuario_btn_check);
-
     let permiso_area_check =
       OTPermissions && OTPermissions[PermisosBotones.check] === "1"
         ? true
         : false;
-    console.log(permiso_area_check);
 
     useEffect(() => {
       const permiso = permissions(OTAreaActual);
@@ -129,7 +126,7 @@ const TableComponent2: React.FC<ITableComponentProps<any>> = React.memo(
           throw error;
         }
       },
-      []
+      [OTColores]
     );
 
     const renderTextCell = useCallback(

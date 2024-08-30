@@ -126,7 +126,7 @@ const permisos_botones = [
   "permiso_confirmar_pago", // index 26
 ];
 
-const editablesIndices = [12, 13, 15, 20, 21, 22, 23, 24, 25, 26];
+const editablesIndices = [12, 13, 15, 20, 21, 25];
 
 function generatePermisosBotonesString(jsonData: any): string {
   return Object.values(PermisosBotones)
@@ -1250,7 +1250,11 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                           />
                         </div>
                       </div>
+                    </div>
+                  </div>
 
+                  <div className="w-full items-center  !mb-4  !h-[8rem]">
+                    <div className="w-full items-center flex justify-evenly  input-container">
                       <div className="input-container items-center rowForm w-[14%]">
                         <div className="w-full">
                           <RadioButtonComponent
@@ -1294,12 +1298,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                           />
                         </div>
                       </div>
-                    </div>
-                  </div>
-
-                  <div className="w-full items-center  !mb-4  !h-[8rem]">
-                    <div className="w-full items-center flex justify-evenly  input-container">
-                      <div className="input-container items-center rowForm w-[14%]">
+                      {/* <div className="input-container items-center rowForm w-[14%]">
                         <div className="w-full">
                           <RadioButtonComponent
                             control={control}
@@ -1319,9 +1318,9 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             customWidth={"labelInput inputStyles"}
                           />
                         </div>
-                      </div>
+                      </div> */}
 
-                      <div className="input-container items-center rowForm w-[14%]">
+                      {/* <div className="input-container items-center rowForm w-[14%]">
                         <div className="w-full">
                           <RadioButtonComponent
                             control={control}
@@ -1341,9 +1340,9 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             customWidth={"labelInput inputStyles"}
                           />
                         </div>
-                      </div>
+                      </div> */}
 
-                      <div className="input-container items-center rowForm  w-[14%]">
+                      {/* <div className="input-container items-center rowForm  w-[14%]">
                         <div className="w-full">
                           <RadioButtonComponent
                             control={control}
@@ -1363,7 +1362,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             customWidth={"labelInput inputStyles"}
                           />
                         </div>
-                      </div>
+                      </div> */}
                       <div className="input-container items-center rowForm w-[14%]">
                         <div className="w-full">
                           <RadioButtonComponent
@@ -1385,7 +1384,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                           />
                         </div>
                       </div>
-                      <div className="input-container items-center rowForm w-[14%]">
+                      {/* <div className="input-container items-center rowForm w-[14%]">
                         <div className="w-full">
                           <RadioButtonComponent
                             control={control}
@@ -1405,7 +1404,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             customWidth={"labelInput inputStyles"}
                           />
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

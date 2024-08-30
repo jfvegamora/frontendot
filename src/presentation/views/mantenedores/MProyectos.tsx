@@ -13,66 +13,63 @@ import { TITLES, table_head_proyectos } from "../../utils";
 import FProyectos from "../forms/FProyectos";
 
 export enum EnumGrid {
-  CODIGO                      = 1,
-  CODIGO_LICITACION           = 2,
-  TITULO                      = 3,
-  PARAM_CRISTALES             = 4,
-  ESTADO                      = 5,
-  EMPRESA_ID                  = 6,
-  EMPRESA                     = 7,
-  MANDANTE_ID                 = 8,
-  MANDANTE                    = 9,
-  UNIDAD_COMPRA               = 10,
-  FECHA_ADJUDICACION          = 11,
-  FECHA_INICIO                = 12,
-  FECHA_TERMINO               = 13,  
-  DIAS_DE_ENTREGA             = 14,
-  
-  CANTIDAD_REQUERIDA          = 15,
-  TOTAL_REQUERIDO             = 16,
-  PORC_REQUERIDO              = 17,
+  CODIGO = 1,
+  CODIGO_LICITACION = 2,
+  TITULO = 3,
+  PARAM_CRISTALES = 4,
+  ESTADO = 5,
+  EMPRESA_ID = 6,
+  EMPRESA = 7,
+  MANDANTE_ID = 8,
+  MANDANTE = 9,
+  UNIDAD_COMPRA = 10,
+  FECHA_ADJUDICACION = 11,
+  FECHA_INICIO = 12,
+  FECHA_TERMINO = 13,
+  DIAS_DE_ENTREGA = 14,
 
-  
-  CANTIDAD_INGRESADA          = 18,
-  TOTAL_INGRESADO             = 19,
-  PORC_INGRESADO              = 20,
-  
-  CANTIDAD_EN_PROCESO         = 21,
-  TOTAL_EN_PROCESO            = 22,
-  PORC_EN_PROCESO             = 23,
-  
-  CANTIDAD_FACTURADA          = 24,
-  TOTAL_FACTURADO             = 25,
-  PORC_FACTURADO              = 26,
+  CANTIDAD_REQUERIDA = 15,
+  TOTAL_REQUERIDO = 16,
+  PORC_REQUERIDO = 17,
 
-  CANTIDAD_DISPONIBLE         = 27,
-  TOTAL_DISPONIBLE            = 28,
-  PORC_DISPONIBLE             = 29,
+  CANTIDAD_INGRESADA = 18,
+  TOTAL_INGRESADO = 19,
+  PORC_INGRESADO = 20,
 
-  EJECUTIVO_ID                    = 30,
-  EJECUTIVO                       = 31,
-  CONTACTO_ADMINISTRADOR_NOMBRE   = 32,
-  CONTACTO_ADMINISTRADOR_CORREO   = 33,
+  CANTIDAD_EN_PROCESO = 21,
+  TOTAL_EN_PROCESO = 22,
+  PORC_EN_PROCESO = 23,
+
+  CANTIDAD_FACTURADA = 24,
+  TOTAL_FACTURADO = 25,
+  PORC_FACTURADO = 26,
+
+  CANTIDAD_DISPONIBLE = 27,
+  TOTAL_DISPONIBLE = 28,
+  PORC_DISPONIBLE = 29,
+
+  EJECUTIVO_ID = 30,
+  EJECUTIVO = 31,
+  CONTACTO_ADMINISTRADOR_NOMBRE = 32,
+  CONTACTO_ADMINISTRADOR_CORREO = 33,
   CONTACTO_ADMINISTRADOR_TELEFONO = 34,
-  REFERENTE_TECNICO_NOMBRE        = 35,
-  REFERENTE_TECNICO_CORREO        = 36,
-  REFERENTE_TECNICO_TELEFONO      = 37,
-  CONTACTO_CONTABILIDAD_NOMBRE    = 38,
-  CONTACTO_CONTABILIDAD_CORREO    = 39,
-  CONTACTO_CONTABILIDAD_TELEFONO  = 40,
-  CONTACTO_FINANZAS_NOMBRE        = 41,
-  CONTACTO_FINANZAS_CORREO        = 42,
-  CONTACTO_FINANZAS_TELEFONO      = 43,
-  OFTALMOLOGO_ID                  = 44,
-  OFTALMOLOGO                     = 45,
-  OBSERVACIONES                   = 46,
-  IMPRIME_QR                      = 47,
-  IMPRIME_TICKET                  = 48,
-  PERMITE_APROXIMAR               = 49,
-  REQUIERE_GUIA                   = 50,
+  REFERENTE_TECNICO_NOMBRE = 35,
+  REFERENTE_TECNICO_CORREO = 36,
+  REFERENTE_TECNICO_TELEFONO = 37,
+  CONTACTO_CONTABILIDAD_NOMBRE = 38,
+  CONTACTO_CONTABILIDAD_CORREO = 39,
+  CONTACTO_CONTABILIDAD_TELEFONO = 40,
+  CONTACTO_FINANZAS_NOMBRE = 41,
+  CONTACTO_FINANZAS_CORREO = 42,
+  CONTACTO_FINANZAS_TELEFONO = 43,
+  OFTALMOLOGO_ID = 44,
+  OFTALMOLOGO = 45,
+  OBSERVACIONES = 46,
+  IMPRIME_QR = 47,
+  IMPRIME_TICKET = 48,
+  PERMITE_APROXIMAR = 49,
+  REQUIERE_GUIA = 50,
 }
-
-
 
 const strEntidad = "Proyecto ";
 const strEntidadExcel = "Proyectos";
@@ -80,10 +77,9 @@ const strBaseUrl = "/api/proyectos/";
 const strQuery = "01";
 const idMenu = 15;
 
-
 const MProyectos: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -110,12 +106,14 @@ const MProyectos: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p2' // _p3/_p1/_pkToDelete
-  
-  useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => `'${entities[row][EnumGrid.CODIGO]}'`);
-    const combinedPks = newPkToDelete.join(',');
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_p2"; // _p3/_p1/_pkToDelete
+
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map(
+      (row: number) => `'${entities[row][EnumGrid.CODIGO]}'`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
@@ -133,47 +131,48 @@ const MProyectos: React.FC = () => {
                 name: "_p1",
                 label: "Mandante",
                 type: "select",
-                selectUrl: "/api/mandantes/", 
-                styles:{
-                  styles:"labelInput inputStyles w-[20vw]",
-                  container:"!w-[20vw]  text-[1vw] ", 
-                  labelProps: "labelInput"
+                selectUrl: "/api/mandantes/",
+                styles: {
+                  styles: "labelInput inputStyles w-[20vw]",
+                  container: "!w-[20vw]  text-[1vw] ",
+                  labelProps: "labelInput",
                 },
               },
               {
                 name: "_p2",
                 label: "Título",
                 type: "select",
-                selectUrl: "/api/proyectos/", 
-                styles:{
-                  styles:"labelInput inputStyles w-[20vw]",
-                  container:"!w-[20vw]  text-[1vw] translate-x-[2vw]", 
-                  labelProps: "labelInput"
+                selectUrl: "/api/proyectos/",
+                styles: {
+                  styles: "labelInput inputStyles w-[20vw]",
+                  container: "!w-[20vw]  text-[1vw] ",
+                  labelProps: "labelInput",
                 },
               },
-              { name: "_p3", label: "Cod. Proyecto/Licitación", type: "text", 
-                styles:{
-                  styles:"labelInput inputStyles w-full",
-                  container:"w-[17vw] !text-[2vw]  translate-x-[4vw]", 
-                  labelProps: "labelInput"
-                }, },
+              {
+                name: "_p3",
+                label: "Cod. Proyecto/Licitación",
+                type: "text",
+                styles: {
+                  styles: "labelInput inputStyles w-[20vw]",
+                  container: "",
+                  labelProps: "labelInput",
+                },
+              },
               {
                 name: "_p4",
                 label: "Estado",
                 type: "select",
                 selectUrl: "/api/tipos/",
-                tipos: "ProyectoEstados", 
-                styles: { 
-                  styles:"labelInput inputStyles w-full",
-                  container:"!w-[14vw]  text-[1vw] translate-x-[4vw]", 
-                  labelProps: "labelInput"
+                tipos: "ProyectoEstados",
+                styles: {
+                  styles: "labelInput inputStyles w-[20vw] ",
+                  container: "text-[1vw]",
+                  labelProps: "labelInput",
                 },
               },
-            
-
             ]}
             classNameSearchButton=" translate-x-[1vw]"
-
           />
         </div>
 
@@ -194,10 +193,8 @@ const MProyectos: React.FC = () => {
             showImportCsv={true}
             idMenu={idMenu}
             classname={"translate-x-[5vw]  !w-[15vw]"}
-
           />
         </div>
-
       </div>
 
       <div className="width100 scroll">
@@ -218,7 +215,6 @@ const MProyectos: React.FC = () => {
           leftEdit={true}
         />
       </div>
-
 
       {isModalInsert && (
         <FProyectos
