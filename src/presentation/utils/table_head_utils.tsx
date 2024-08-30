@@ -2402,7 +2402,21 @@ export const table_head_proyectos_docum = [
     key: "total_neto",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]",
+    width: "w-[8rem]",
+  },
+  {
+    cell: "IVA $",
+    key: "iva",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]",
+  },
+  {
+    cell: "Total $",
+    key: "total",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[8rem]",
   },
   {
     cell: "Tipo Doc Ref ID",
