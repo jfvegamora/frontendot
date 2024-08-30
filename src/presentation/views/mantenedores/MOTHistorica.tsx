@@ -380,7 +380,10 @@ const MOTHistorica: React.FC = () => {
     // console.log('newPkToDelete:',newPkToDelete)
     setPkToDelete(newPkToDelete as any);
     OTPkToDelete.value = newPkToDelete;
-  }, [selectedRows]);
+  }, [selectedRows, pktoDelete]);
+
+  console.log(pktoDelete);
+  console.log(OTPkToDelete.value);
 
   const checkCount = signal(pktoDelete.length);
   // const folios = pktoDelete && pktoDelete.map(({folio}:any)=>folio)

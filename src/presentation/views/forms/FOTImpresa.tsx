@@ -113,9 +113,8 @@ export const formatPlusDioptria = (dioptria: any) => {
 const FOTImpresa = React.forwardRef((props: any, ref: any) => {
   // const [OT, setOT] = React.useState<any>();
   const { impresionOT: OT } = useAppSelector((store: AppStore) => store.OTS);
-  // let OT: any = [];
 
-  // useEffect(() => {
+  // React.useEffect(() => {
   //   const data: any = [
   //     [
   //       [
@@ -213,7 +212,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
     year: "2-digit",
   });
   const fechaHoraFormateada = `${hora} ${fecha}`;
-  console.log(OT);
+
   return (
     <>
       {masivo === true ? (
@@ -221,7 +220,6 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
           {OT &&
             OT.map((list_ot: any) =>
               list_ot.map((ot: any) => {
-                console.log(ot[EnumImpresion.numero_reporte_atencion]);
                 return (
                   // <div className={`!w-[90%] ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[180rem]' : '!h-[90rem]'}  ${((index > 0) && (ot[EnumGrid.imprime_ticket] === 1)) && '!-mt-[38rem]'}   ${(index > 0) && (ot[EnumGrid.imprime_ticket] === 0) && '!-mt-[19rem]'}`} key={ot[EnumGrid.folio]} >
                   <div
@@ -233,7 +231,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     key={ot[EnumImpresion.folio]}
                   >
                     <div
-                      className={`w-[100%] relative  ${
+                      className={`w-[100%] -mt-4  ${
                         ot[EnumImpresion.imprime_ticket] === 1
                           ? "!h-[3%]"
                           : "!h-[6.5%]"
@@ -247,7 +245,9 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                           textAlign="right"
                           value={formatNumberWithZeros(ot[EnumImpresion.folio])}
                         />
-                        <h3 className={`absolute left-3 mt-2 bottom-2`}>
+                        <h3
+                          className={` translate-y-[-7.5vw] translate-x-[4vw] !z-50 bottom-4 text-xs `}
+                        >
                           {fechaHoraFormateada}
                         </h3>
                       </div>
@@ -268,9 +268,9 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
 
                     {/*************** F E C H A S ***************/}
                     {/* <div className='w-[100%] flex justify-between -mt-[.5rem] ml-3'> */}
-                    <div className="w-[100%] flex justify-between ml-3 !-mt-6 !z-30">
+                    <div className="w-[100%] flex justify-between ml-3 translate-y-[-2vw] !-mt-7 mb-[-4vw] !z-50">
                       <div className="w-1/2">
-                        <span className="text-xs font-bold">ATENCIÓN:</span>
+                        <span className="text-xs font-bold">Atencón:</span>
                         &nbsp;
                         <span className="text-xs ">
                           {ot[EnumImpresion.fecha_atencion]}
@@ -278,7 +278,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                       </div>
 
                       <div className="w-1/2">
-                        <span className="text-xs font-bold">ENTREGA:</span>
+                        <span className="text-xs font-bold">Entrega:</span>
                         &nbsp;
                         <span className="text-xs ">
                           {ot[EnumImpresion.fecha_entrega_taller]}
@@ -733,7 +733,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     </div>
 
                     {/*************** D E S P A C H O ***************/}
-                    <div className="header mt-1 w-[97%] !h-auto text-center2 border-black border-2 ml-3">
+                    <div className="header mt-1 w-[97%]  text-center2 border-black border-2 ml-3">
                       <div className="-mt-2 border-black border-b-2 !h-auto">
                         <div className="pl-6 ml-2 w-[100%] mx-auto br-red-300">
                           {ot[EnumImpresion.numero_receta] > 0 && (
@@ -806,39 +806,47 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                                 : ""
                             }`}
                           >
-                            <div className="flex text-left !h-auto ">
-                              <p className="-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]">
+                            <div className="flex text-left h-auto ">
+                              {/* <p className="-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]">
                                 Proyecto:{" "}
-                              </p>
+                              </p> */}
                               {/* <span>{ot[EnumGrid.proyecto_titulo]}</span> */}
-                              <p className=" text-left text-sm !mt-2">
+                              <p className=" text-left text-sm !mt-2 -ml-6">
                                 {ot[EnumImpresion.proyecto]}
                               </p>
                             </div>
                             <div className="flex text-left -mt-2">
-                              <p className="-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]">
+                              {/* <p className="-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]">
                                 Estab:{" "}
-                              </p>
-                              <p className=" text-left text-sm  !mt-2">{`${
+                              </p> */}
+                              <p className=" text-left text-sm -ml-6  !mt-2">{`${
                                 ot[EnumImpresion.establecimiento]
                               }`}</p>
                             </div>
                             <div className="flex text-left -mt-2">
-                              <p className="-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]">
+                              {/* <p className="-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]">
                                 Comuna:{" "}
-                              </p>
-                              <p className=" text-left text-sm !mt-2">
+                              </p> */}
+                              <p className=" text-left text-sm !mt-2 -ml-6">
                                 {ot[EnumImpresion.comuna]}
                               </p>
                             </div>
                             <div className="flex text-left -mt-2">
                               <p className="-ml-6 text-[0.80rem] !mt-2 font-bold w-[90%]">
-                                Destino:{" "}
-                                <span>{ot[EnumImpresion.lugar_despacho]}</span>{" "}
+                                {/* Destino:{" "} */}
+                                <span>
+                                  {ot[EnumImpresion.lugar_despacho]}
+                                </span>{" "}
                               </p>
                               {/* <p className=' text-left text-sm !mt-2 font-bold'>{ot[EnumImpresion.lugar_despacho]}</p> */}
                             </div>
-                            <div className="flex text-left -mt-2">
+                            <div
+                              className={`flex text-left -mt-2 ${
+                                ot[EnumImpresion.imprime_ticket] === 1
+                                  ? "-mb-4"
+                                  : ""
+                              }`}
+                            >
                               <p className=" text-left text-sm !mt-2 translate-x-[-1.5rem] font-bold">
                                 {ot[EnumImpresion.direccion_despacho]}
                               </p>

@@ -489,19 +489,33 @@ export const getGrupoCristales_A2 = async (
 };
 
 export const handleValidationCheckLab = (data: any) => {
-  if (data[EnumGrid.cristal1_od] === "" && data[EnumGrid.a1_grupo_od] !== "") {
-    CR1_OD_LAB.value = true;
-  }
+  if (data) {
+    if (
+      data[EnumGrid.cristal1_od] === "" &&
+      data[EnumGrid.a1_grupo_od] !== ""
+    ) {
+      CR1_OD_LAB.value = true;
+    }
 
-  if (data[EnumGrid.cristal1_oi] === "" && data[EnumGrid.a1_grupo_oI] !== "") {
-    CR1_OI_LAB.value = true;
-  }
+    if (
+      data[EnumGrid.cristal1_oi] === "" &&
+      data[EnumGrid.a1_grupo_oI] !== ""
+    ) {
+      CR1_OI_LAB.value = true;
+    }
 
-  if (data[EnumGrid.cristal2_od] === "" && data[EnumGrid.a2_grupo_od] !== "") {
-    CR2_OD_LAB.value = true;
-  }
+    if (
+      data[EnumGrid.cristal2_od] === "" &&
+      data[EnumGrid.a2_grupo_od] !== ""
+    ) {
+      CR2_OD_LAB.value = true;
+    }
 
-  if (data[EnumGrid.cristal2_oi] === "" && data[EnumGrid.a2_grupo_oi] !== "") {
-    CR2_OI_LAB.value = true;
+    if (
+      data[EnumGrid.cristal2_oi] === "" &&
+      data[EnumGrid.a2_grupo_oi] !== ""
+    ) {
+      CR2_OI_LAB.value = true;
+    }
   }
 };

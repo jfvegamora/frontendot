@@ -11,13 +11,21 @@ import {
 } from "../../components";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { fechaActual, validationProyectosSchema } from "../../utils/validationFormSchemas";
+import {
+  fechaActual,
+  validationProyectosSchema,
+} from "../../utils/validationFormSchemas";
 import { EnumGrid } from "../mantenedores/MProyectos";
-import { MODAL, SUCCESS_MESSAGES, TITLES, formatCurrencyNumber } from "../../utils";
+import {
+  MODAL,
+  SUCCESS_MESSAGES,
+  TITLES,
+  formatCurrencyNumber,
+} from "../../utils";
 import { useCrud } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 import ContactComponent from "../../components/ContactComponent";
 import ProyectoComponent from "../../components/ProyectoComponent";
 import FrameComponent from "../../components/FrameComponent";
@@ -69,7 +77,6 @@ interface InputData {
   requiere_guia: string | undefined;
 }
 
-
 interface OutputData {
   query: string;
   _p1?: string;
@@ -78,32 +85,35 @@ interface OutputData {
 }
 
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
-  // (codigo, codigo_licitacion, titulo, estado, empresa, mandante, unidad_compra, 
-  //   fecha_adjudicacion, fecha_inicio, fecha_termino, cantidad_requerida, presupuesto, dias_de_entrega, 
-  //   ejecutivo, contacto_adm_nombre, contacto_adm_correo, contacto_adm_telefono, 
-  //   referente_tec_nombre, referente_tec_correo, referente_tec_telefono, 
-  //   contacto_conta_nombre, contacto_conta_correo, contacto_conta_telefono, 
+  // (codigo, codigo_licitacion, titulo, estado, empresa, mandante, unidad_compra,
+  //   fecha_adjudicacion, fecha_inicio, fecha_termino, cantidad_requerida, presupuesto, dias_de_entrega,
+  //   ejecutivo, contacto_adm_nombre, contacto_adm_correo, contacto_adm_telefono,
+  //   referente_tec_nombre, referente_tec_correo, referente_tec_telefono,
+  //   contacto_conta_nombre, contacto_conta_correo, contacto_conta_telefono,
   //   contacto_fin_nombre, contacto_fin_correo, contacto_fin_telefono, punto_venta, oftalmologo, observaciones )
 
-  //  ${jsonData.cantidad_requerida !== null ? jsonData.cantidad_requerida : 0}, 
+  //  ${jsonData.cantidad_requerida !== null ? jsonData.cantidad_requerida : 0},
 
-  if (jsonData.fecha_adjudicacion && jsonData.fecha_inicio && jsonData.fecha_termino) {
+  if (
+    jsonData.fecha_adjudicacion &&
+    jsonData.fecha_inicio &&
+    jsonData.fecha_termino
+  ) {
     if (fechaActual <= new Date(jsonData.fecha_adjudicacion as string)) {
-      toast.error('Fecha de adjudicación mayor a Fecha actual')
-      throw new Error()
+      toast.error("Fecha de adjudicación mayor a Fecha actual");
+      throw new Error();
     }
 
     if (jsonData.fecha_adjudicacion > jsonData.fecha_inicio) {
-      toast.error('Fecha de inicio mayor a fecha de adjudicación')
-      throw new Error()
+      toast.error("Fecha de inicio mayor a fecha de adjudicación");
+      throw new Error();
     }
 
     if (jsonData.fecha_inicio > jsonData.fecha_termino) {
-      toast.error('Fecha de inicio mayor a fecha de término ')
-      throw new Error()
+      toast.error("Fecha de inicio mayor a fecha de término ");
+      throw new Error();
     }
   }
-
 
   let _p2 = ` 
       "${jsonData.codigo_proyecto}", 
@@ -140,75 +150,13 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
        ${jsonData.permite_aproximar === "Si" ? 1 : 0},
        ${jsonData.requiere_guia === "Si" ? 1 : 0}`;
 
-  _p2 = _p2.replace(/'/g, '!');
+  _p2 = _p2.replace(/'/g, "!");
 
   const query: OutputData = {
     query: "03",
     _p2,
   };
 
-  console.log('query', query)
-  return query;
-}
-export function transformUpdateQuery(
-  jsonData: InputData,
-  primaryKey: string
-): OutputData | null {
-
-
-  const fields = [
-    `codigo_licitacion          = "${jsonData.codigo_licitacion || ""}"`,
-    `titulo                     = "${jsonData.titulo_proyecto}"`,
-    `param_cristales            = ${jsonData.param_cristales === "Por anteojo" ? 1 : 2}`,
-    `estado                     = ${jsonData.estado === "Abierto" ? 1 : 2}`,
-    `empresa                    = ${jsonData.empresa_adjudicada}`,
-    `mandante                   = ${jsonData.mandante}`,
-    `unidad_compra              = "${jsonData.unidad_compra || ""}"`,
-    `fecha_adjudicacion         = "${jsonData.fecha_adjudicacion || "1900-01-01"}"`,
-    `fecha_inicio               = "${jsonData.fecha_inicio}"`,
-    `fecha_termino              = "${jsonData.fecha_termino}"`,
-    `cantidad_requerida         = ${jsonData.cantidad_requerida || 0}`,
-    `presupuesto                = ${jsonData.presupuesto || 0}`,
-    `dias_de_entrega            = ${jsonData.dias_entrega}`,
-    `ejecutivo                  = ${jsonData.ejecutivo_proyecto}`,
-    `contacto_adm_nombre        = "${jsonData.administrador_nombre || ""}"`,
-    `contacto_adm_correo        = "${jsonData.administrador_correo || ""}"`,
-    `contacto_adm_telefono      = "${jsonData.administrador_telefono || ""}"`,
-    `referente_tec_nombre       = "${jsonData.referente_nombre || ""}"`,
-    `referente_tec_correo       = "${jsonData.referente_correo || ""}"`,
-    `referente_tec_telefono     = "${jsonData.referente_telefono || ""}"`,
-    `contacto_conta_nombre      = "${jsonData.contabilidad_nombre || ""}"`,
-    `contacto_conta_correo      = "${jsonData.contabilidad_correo || ""}"`,
-    `contacto_conta_telefono    = "${jsonData.contabilidad_telefono || ""}"`,
-    `contacto_fin_nombre        = "${jsonData.finanzas_nombre || ""}"`,
-    `contacto_fin_correo        = "${jsonData.finanzas_correo || ""}"`,
-    `contacto_fin_telefono      = "${jsonData.finanzas_telefono || ""}"`,
-    `oftalmologo                =  ${jsonData.oftalmologo || 0}`,
-    `observaciones              = "${jsonData.observaciones}"`,
-    `imprime_qr                 =  ${jsonData.imprime_qr === "Si" ? 1 : 0}`,
-    `imprime_ticket             =  ${jsonData.imprime_ticket === "Si" ? 1 : 0}`,
-    `permite_aproximar          =  ${jsonData.permite_aproximar === "Si" ? 1 : 0}`,
-    `requiere_guia              =  ${jsonData.requiere_guia === "Si" ? 1 : 0}`,
-  ];
-
-
-  const filteredFields = fields.filter(
-    (field) => field !== null && field !== ""
-  );
-
-  if (filteredFields.length === 0) {
-    return null;
-  }
-  let _p2 = filteredFields.join(",");
-
-  _p2 = _p2.replace(/'/g, '!');
-
-  console.log(jsonData)
-  const query = {
-    query: "04",
-    _p2,
-    _p3: primaryKey,
-  };
   console.log("query", query);
   return query;
 }
@@ -225,7 +173,15 @@ interface IUserFormPrps {
 }
 
 const FProyectos: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
+  ({
+    closeModal,
+    setEntities,
+    params,
+    label,
+    data,
+    isEditting,
+    escritura_lectura,
+  }) => {
     const schema = validationProyectosSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
@@ -247,9 +203,92 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
       setValue,
     } = useForm({
       resolver: yupResolver(schema),
-      shouldUnregister: false
+      shouldUnregister: false,
     });
 
+    function transformUpdateQuery(
+      jsonData: InputData,
+      primaryKey: string
+    ): OutputData | null {
+      const fields = [
+        `codigo_licitacion          = "${jsonData.codigo_licitacion || ""}"`,
+        `titulo                     = "${jsonData.titulo_proyecto}"`,
+        `param_cristales            = ${
+          jsonData.param_cristales === "Por anteojo" ? 1 : 2
+        }`,
+        `estado                     = ${jsonData.estado === "Abierto" ? 1 : 2}`,
+        `empresa                    = ${jsonData.empresa_adjudicada}`,
+        `mandante                   = ${jsonData.mandante}`,
+        `unidad_compra              = "${jsonData.unidad_compra || ""}"`,
+        `fecha_adjudicacion         = "${
+          jsonData.fecha_adjudicacion || "1900-01-01"
+        }"`,
+        `fecha_inicio               = "${jsonData.fecha_inicio}"`,
+        `fecha_termino              = "${jsonData.fecha_termino}"`,
+        `cantidad_requerida         = ${
+          jsonData.cantidad_requerida !== ""
+            ? jsonData.cantidad_requerida
+            : data
+            ? data && data[EnumGrid.CANTIDAD_REQUERIDA]
+            : 0
+        }`,
+        `presupuesto                = ${
+          jsonData.presupuesto !== ""
+            ? jsonData.presupuesto
+            : data
+            ? formatCurrencyNumber(data && data[EnumGrid.TOTAL_REQUERIDO])
+            : 0
+        }`,
+        `dias_de_entrega            = ${jsonData.dias_entrega}`,
+        `ejecutivo                  = ${jsonData.ejecutivo_proyecto}`,
+        `contacto_adm_nombre        = "${jsonData.administrador_nombre || ""}"`,
+        `contacto_adm_correo        = "${jsonData.administrador_correo || ""}"`,
+        `contacto_adm_telefono      = "${
+          jsonData.administrador_telefono || ""
+        }"`,
+        `referente_tec_nombre       = "${jsonData.referente_nombre || ""}"`,
+        `referente_tec_correo       = "${jsonData.referente_correo || ""}"`,
+        `referente_tec_telefono     = "${jsonData.referente_telefono || ""}"`,
+        `contacto_conta_nombre      = "${jsonData.contabilidad_nombre || ""}"`,
+        `contacto_conta_correo      = "${jsonData.contabilidad_correo || ""}"`,
+        `contacto_conta_telefono    = "${
+          jsonData.contabilidad_telefono || ""
+        }"`,
+        `contacto_fin_nombre        = "${jsonData.finanzas_nombre || ""}"`,
+        `contacto_fin_correo        = "${jsonData.finanzas_correo || ""}"`,
+        `contacto_fin_telefono      = "${jsonData.finanzas_telefono || ""}"`,
+        `oftalmologo                =  ${jsonData.oftalmologo || 0}`,
+        `observaciones              = "${jsonData.observaciones}"`,
+        `imprime_qr                 =  ${jsonData.imprime_qr === "Si" ? 1 : 0}`,
+        `imprime_ticket             =  ${
+          jsonData.imprime_ticket === "Si" ? 1 : 0
+        }`,
+        `permite_aproximar          =  ${
+          jsonData.permite_aproximar === "Si" ? 1 : 0
+        }`,
+        `requiere_guia              =  ${
+          jsonData.requiere_guia === "Si" ? 1 : 0
+        }`,
+      ];
+
+      const filteredFields = fields.filter(
+        (field) => field !== null && field !== ""
+      );
+
+      if (filteredFields.length === 0) {
+        return null;
+      }
+      let _p2 = filteredFields.join(",");
+
+      _p2 = _p2.replace(/'/g, "!");
+
+      const query = {
+        query: "04",
+        _p2,
+        _p3: primaryKey,
+      };
+      return query;
+    }
 
     const resetTextFields = React.useCallback(() => {
       setValue("codigo_proyecto", "");
@@ -311,7 +350,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
             ? strEntidad.concat(": " + response.message)
-            : strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message);
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -320,13 +359,13 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
           return;
         }
 
-        if (response.mensaje.includes('Creado')) {
+        if (response.mensaje.includes("Creado")) {
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
-            '',
+            "",
             MODAL.keepYes,
             MODAL.kepNo
           );
@@ -368,10 +407,9 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
       };
     }, [closeModal]);
 
-
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
-        const toastLoading = toast.loading('Cargando...');
+        const toastLoading = toast.loading("Cargando...");
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data, intId.toString())
@@ -381,9 +419,9 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
-          toast.dismiss(toastLoading)
+          toast.dismiss(toastLoading);
         } catch (error: any) {
-          toast.dismiss(toastLoading)
+          toast.dismiss(toastLoading);
           show({
             message: error,
             type: "error",
@@ -393,10 +431,18 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
       [editEntity, createdEntity, handleApiResponse, intId]
     );
 
-    console.log(data && data[EnumGrid.EJECUTIVO_ID])
+    console.log(data && data[EnumGrid.EJECUTIVO_ID]);
+
+    const handleEnterKeyDown = React.useCallback((event: any) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+      }
+    }, []);
 
     useEffect(() => {
-      isEditting ? focusSecondInput("codigo_licitacion") : focusFirstInput("codigo_proyecto");
+      isEditting
+        ? focusSecondInput("codigo_licitacion")
+        : focusFirstInput("codigo_proyecto");
     }, []);
 
     return (
@@ -408,7 +454,11 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
           </button>
         </div>
 
-        <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
+        <form
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
+          className="userFormulario"
+          onKeyDown={handleEnterKeyDown}
+        >
           <div className="userFormularioContainer">
             <div className="w-full flex items-center">
               <div className="input-container items-center rowForm w-[15%]">
@@ -688,7 +738,9 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                       total="presupuesto"
                       porcentaje="%"
                       dataCant={data && data[EnumGrid.CANTIDAD_REQUERIDA]}
-                      dataTotal={formatCurrencyNumber(data && data[EnumGrid.TOTAL_REQUERIDO])}
+                      dataTotal={formatCurrencyNumber(
+                        data && data[EnumGrid.TOTAL_REQUERIDO]
+                      )}
                       dataPorcentaje={100}
                       onlyRead={false}
                       isOptional={true}
@@ -796,9 +848,15 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                       nombre="administrador_nombre"
                       correo="administrador_correo"
                       telefono="administrador_telefono"
-                      dataNombre={data && data[EnumGrid.CONTACTO_ADMINISTRADOR_NOMBRE]}
-                      dataCorreo={data && data[EnumGrid.CONTACTO_ADMINISTRADOR_CORREO]}
-                      dataTelefono={data && data[EnumGrid.CONTACTO_ADMINISTRADOR_TELEFONO]}
+                      dataNombre={
+                        data && data[EnumGrid.CONTACTO_ADMINISTRADOR_NOMBRE]
+                      }
+                      dataCorreo={
+                        data && data[EnumGrid.CONTACTO_ADMINISTRADOR_CORREO]
+                      }
+                      dataTelefono={
+                        data && data[EnumGrid.CONTACTO_ADMINISTRADOR_TELEFONO]
+                      }
                       isOptional={true}
                     />
                   </FrameComponent>
@@ -815,17 +873,23 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                       nombre="contabilidad_nombre"
                       correo="contabilidad_correo"
                       telefono="contabilidad_telefono"
-                      dataNombre={data && data[EnumGrid.CONTACTO_CONTABILIDAD_NOMBRE]}
-                      dataCorreo={data && data[EnumGrid.CONTACTO_CONTABILIDAD_CORREO]}
-                      dataTelefono={data && data[EnumGrid.CONTACTO_CONTABILIDAD_TELEFONO]}
+                      dataNombre={
+                        data && data[EnumGrid.CONTACTO_CONTABILIDAD_NOMBRE]
+                      }
+                      dataCorreo={
+                        data && data[EnumGrid.CONTACTO_CONTABILIDAD_CORREO]
+                      }
+                      dataTelefono={
+                        data && data[EnumGrid.CONTACTO_CONTABILIDAD_TELEFONO]
+                      }
                       isOptional={true}
                     />
                   </FrameComponent>
                 </div>
               </div>
-              </div>
+            </div>
 
-              <div className="w-full flex items-center pr-5">
+            <div className="w-full flex items-center pr-5">
               <div className="input-container items-center rowForm w-[50%]">
                 <div className="labelInputDiv">
                   <FrameComponent>
@@ -836,9 +900,15 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                       nombre="referente_nombre"
                       correo="referente_correo"
                       telefono="referente_telefono"
-                      dataNombre={data && data[EnumGrid.REFERENTE_TECNICO_NOMBRE]}
-                      dataCorreo={data && data[EnumGrid.REFERENTE_TECNICO_CORREO]}
-                      dataTelefono={data && data[EnumGrid.REFERENTE_TECNICO_TELEFONO]}
+                      dataNombre={
+                        data && data[EnumGrid.REFERENTE_TECNICO_NOMBRE]
+                      }
+                      dataCorreo={
+                        data && data[EnumGrid.REFERENTE_TECNICO_CORREO]
+                      }
+                      dataTelefono={
+                        data && data[EnumGrid.REFERENTE_TECNICO_TELEFONO]
+                      }
                       isOptional={true}
                     />
                   </FrameComponent>
@@ -855,9 +925,15 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                       nombre="finanzas_nombre"
                       correo="finanzas_correo"
                       telefono="finanzas_telefono"
-                      dataNombre={data && data[EnumGrid.CONTACTO_FINANZAS_NOMBRE]}
-                      dataCorreo={data && data[EnumGrid.CONTACTO_FINANZAS_CORREO]}
-                      dataTelefono={data && data[EnumGrid.CONTACTO_FINANZAS_TELEFONO]}
+                      dataNombre={
+                        data && data[EnumGrid.CONTACTO_FINANZAS_NOMBRE]
+                      }
+                      dataCorreo={
+                        data && data[EnumGrid.CONTACTO_FINANZAS_CORREO]
+                      }
+                      dataTelefono={
+                        data && data[EnumGrid.CONTACTO_FINANZAS_TELEFONO]
+                      }
                       isOptional={true}
                     />
                   </FrameComponent>
@@ -900,19 +976,22 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               <div className="w-[30%] !mt-5">
                 <div className="w-[50%] mx-auto">
                   {escritura_lectura && (
-                    <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                    <Button
+                      type="submit"
+                      tabIndex={1}
+                      className="userFormBtnSubmit"
+                    >
                       {`${TITLES.guardar}`}
                     </Button>
                   )}
                 </div>
               </div>
-
             </div>
           </div>
-        </form >
+        </form>
 
         <CustomModal />
-      </div >
+      </div>
     );
   }
 );

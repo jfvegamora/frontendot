@@ -996,9 +996,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       }
     };
 
-    console.log(dataOTSignal.value.length !== 0);
-    console.log(dataOTSignal.value);
-
     return (
       <div className="flex items-center   ml-[4rem] !w-full">
         {OTAreas["areaActual"] !== 200 && !isMOTArchivo && (
@@ -1562,10 +1559,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             <Button
               className="otActionButton mt-3 mx-5"
               onClick={() => {
-                if (pktoDelete.length < 1) {
-                  return toast.error("No hay OT Seleccionada");
-                }
-
                 if (OTPkToDelete.value.length === 0) {
                   toast.error("No hay OT seleccionada");
                 } else {
@@ -1639,9 +1632,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             <Button
               className="otActionButton mt-3 mx-5"
               onClick={() => {
-                if (pktoDelete.length < 1) {
-                  return toast.error("No hay OT Seleccionada");
-                }
                 if (OTPkToDelete.value.length === 0) {
                   toast.error("No hay OT seleccionada");
                 } else {
