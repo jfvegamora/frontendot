@@ -1,9 +1,25 @@
 import * as yup from "yup";
+import { isRequireDP } from "../views/forms/FReservarArmazones";
+import axios from "axios";
+import { EnumGrid } from "../views/mantenedores/MProyectos";
 
 // export const fechaActual = signal(new Date())
 export const fechaActual = new Date();
 
 const msg = "Requerido";
+
+// Función para obtener el valor de REQUIERE_DP desde la API
+const obtenerValorDeRequiereDP = async (proyecto: any) => {
+  try {
+    const response = await axios.get(
+      `https://gestiondev.mtoopticos.cl/api/proyectos/listado/?query=01&_p2=${proyecto}`
+    );
+    return response.data[0][EnumGrid.REQUIERE_DP];
+  } catch (error) {
+    console.error("Error al obtener el valor de REQUIERE_DP:", error);
+    return null; // Manejar el error de forma adecuada, por ejemplo, mostrando un mensaje de error al usuario
+  }
+};
 
 /*************** O T ***************/
 //Schema OT
@@ -161,7 +177,12 @@ export const validationReservaArmazonesSchema = () =>
     proyecto: yup.string(),
     punto_venta: yup.string(),
     rut_beneficiario: yup.string().required(`${msg}`),
-    dp: yup.string().required(`${msg}`),
+    // dp: yup.string().required(`${msg}`),
+    dp: yup.string().when("proyecto", (proyecto, schema): any => {
+      obtenerValorDeRequiereDP(proyecto).then((data) => {
+        return data === "SI" ? schema.required(msg) : schema;
+      });
+    }),
     tipo_anteojo: yup.string().required(`${msg}`),
     Armazon1: yup.string().required(`${msg}`),
     Armazon3: yup.string(),
@@ -653,7 +674,6 @@ export const validationUsusariosSchema = () =>
     permiso_vb: yup.string().required(`${msg}`),
     permiso_facturar: yup.string().required(`${msg}`),
     permiso_confirmar_pago: yup.string().required(`${msg}`),
-
   });
 
 export const validationProfileUserSchema = () =>

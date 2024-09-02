@@ -11,36 +11,37 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    backgroundColor:'rgb(103 111 157 / 1)',
-    border:"none"
+    backgroundColor: "rgb(103 111 157 / 1)",
+    border: "none",
   },
 };
 
 export function useModal() {
   const [modalMessage, setModalMessage] = useState("");
   const [params, setParams] = useState<string[]>([]);
-  const [style, setStyle]   = useState<any>("");
-  const firstButtonRef =  useRef<HTMLButtonElement>(null);
+  const [style, setStyle] = useState<any>("");
+  const firstButtonRef = useRef<HTMLButtonElement>(null);
 
   const [modalResolve, setModalResolve] = useState<(result: boolean) => void>(
     () => () => {}
-    );
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  );
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = useCallback(
-    (message: string,style?:string, ...props: string[]): Promise<boolean> => {
-      if(style){
-        setStyle(style)
+    (message: string, style?: string, ...props: string[]): Promise<boolean> => {
+      if (style) {
+        setStyle(style);
       }
       setModalMessage(message);
       setIsModalOpen(true);
       setParams(props);
 
+      console.log("render");
 
       return new Promise<boolean>((resolve) => {
         setModalResolve(() => {
-        return resolve
-      });
+          return resolve;
+        });
       });
     },
     []
@@ -55,15 +56,12 @@ export function useModal() {
     });
   }, []);
 
-
   useEffect(() => {
     // Cuando el modal se renderiza, movemos el foco al primer botón
-    if(firstButtonRef.current){
+    if (firstButtonRef.current) {
       firstButtonRef.current.focus();
     }
   }, []);
-
-
 
   // console.log(params)
   const CustomModal = useCallback(
@@ -82,30 +80,29 @@ export function useModal() {
           <h1 className="modalTitle text-white">{modalMessage}</h1>
         </div>
 
-          <div className="modalButtonContainer">
-            <button
-              ref={firstButtonRef}
-              tabIndex={1}
-              className="bg-orange-300 hover:bg-orange-500 text-white font-bold py-2 px-4 mr-2 rounded w-[7rem]"
-              onClick={() => {
-                closeModal();
-                modalResolve(true);
-              }}
-            >
-              {params[0]}
-            </button>
-            <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded w-[7rem]"
-              onClick={() => {
-                closeModal();
-                modalResolve(false);
-              }}
-            >
-              {params[1]}
-            </button>
-          </div>
-
-
+        <div className="modalButtonContainer">
+          <button
+            ref={firstButtonRef}
+            tabIndex={1}
+            className="bg-orange-300 hover:bg-orange-500 text-white font-bold py-2 px-4 mr-2 rounded w-[7rem]"
+            onClick={() => {
+              console.log("render");
+              closeModal();
+              modalResolve(true);
+            }}
+          >
+            {params[0]}
+          </button>
+          <button
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded w-[7rem]"
+            onClick={() => {
+              closeModal();
+              modalResolve(false);
+            }}
+          >
+            {params[1]}
+          </button>
+        </div>
       </Modal>
     ),
     [isModalOpen, modalMessage, params, modalResolve, closeModal]

@@ -23,7 +23,10 @@ import {
   resetFilters,
 } from "../PrimaryKeySearch";
 import { inputName } from "../OTForms/Otprueba";
-import { codPuntoVenta } from "../../views/forms/FReservarArmazones";
+import {
+  codPuntoVenta,
+  isRequireDP,
+} from "../../views/forms/FReservarArmazones";
 import { URLBackend } from "../../utils/config";
 import { changeFilterOTSearchTitle } from "../FilterComponent";
 // import Select from "react-select";
@@ -222,6 +225,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                   setValue(e.target.value);
                   console.log(punto_venta.value);
                 }
+
                 if (label === "Nombre Proyecto") {
                   console.log(codigoProyecto.value);
                   console.log(e.target.value);
