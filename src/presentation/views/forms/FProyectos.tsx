@@ -76,7 +76,7 @@ interface InputData {
   imprime_ticket: string | undefined;
   permite_aproximar: string | undefined;
   requiere_guia: string | undefined;
-  requiere_reserva_armazon: string | undefined;
+  requiere_dp: string | undefined;
 }
 
 interface OutputData {
@@ -151,7 +151,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
        ${jsonData.imprime_ticket === "Si" ? 1 : 0},
        ${jsonData.permite_aproximar === "Si" ? 1 : 0},
        ${jsonData.requiere_guia === "Si" ? 1 : 0},
-       ${jsonData.requiere_reserva_armazon === "Si" ? 1 : 0}`;
+       ${jsonData.requiere_dp === "Si" ? 1 : 0}`;
 
   _p2 = _p2.replace(/'/g, "!");
 
@@ -216,25 +216,29 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
       const fields = [
         `codigo_licitacion          = "${jsonData.codigo_licitacion || ""}"`,
         `titulo                     = "${jsonData.titulo_proyecto}"`,
-        `param_cristales            = ${jsonData.param_cristales === "Por anteojo" ? 1 : 2
+        `param_cristales            = ${
+          jsonData.param_cristales === "Por anteojo" ? 1 : 2
         }`,
         `estado                     = ${jsonData.estado === "Abierto" ? 1 : 2}`,
         `empresa                    = ${jsonData.empresa_adjudicada}`,
         `mandante                   = ${jsonData.mandante}`,
         `unidad_compra              = "${jsonData.unidad_compra || ""}"`,
-        `fecha_adjudicacion         = "${jsonData.fecha_adjudicacion || "1900-01-01"
+        `fecha_adjudicacion         = "${
+          jsonData.fecha_adjudicacion || "1900-01-01"
         }"`,
         `fecha_inicio               = "${jsonData.fecha_inicio}"`,
         `fecha_termino              = "${jsonData.fecha_termino}"`,
-        `cantidad_requerida         = ${jsonData.cantidad_requerida !== ""
-          ? jsonData.cantidad_requerida
-          : data
+        `cantidad_requerida         = ${
+          jsonData.cantidad_requerida !== ""
+            ? jsonData.cantidad_requerida
+            : data
             ? data && data[EnumGrid.CANTIDAD_REQUERIDA]
             : 0
         }`,
-        `presupuesto                = ${jsonData.presupuesto !== ""
-          ? jsonData.presupuesto
-          : data
+        `presupuesto                = ${
+          jsonData.presupuesto !== ""
+            ? jsonData.presupuesto
+            : data
             ? formatCurrencyNumber(data && data[EnumGrid.TOTAL_REQUERIDO])
             : 0
         }`,
@@ -242,23 +246,33 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
         `ejecutivo                  = ${jsonData.ejecutivo_proyecto}`,
         `contacto_adm_nombre        = "${jsonData.administrador_nombre || ""}"`,
         `contacto_adm_correo        = "${jsonData.administrador_correo || ""}"`,
-        `contacto_adm_telefono      = "${jsonData.administrador_telefono || ""}"`,
+        `contacto_adm_telefono      = "${
+          jsonData.administrador_telefono || ""
+        }"`,
         `referente_tec_nombre       = "${jsonData.referente_nombre || ""}"`,
         `referente_tec_correo       = "${jsonData.referente_correo || ""}"`,
         `referente_tec_telefono     = "${jsonData.referente_telefono || ""}"`,
         `contacto_conta_nombre      = "${jsonData.contabilidad_nombre || ""}"`,
         `contacto_conta_correo      = "${jsonData.contabilidad_correo || ""}"`,
-        `contacto_conta_telefono    = "${jsonData.contabilidad_telefono || ""}"`,
+        `contacto_conta_telefono    = "${
+          jsonData.contabilidad_telefono || ""
+        }"`,
         `contacto_fin_nombre        = "${jsonData.finanzas_nombre || ""}"`,
         `contacto_fin_correo        = "${jsonData.finanzas_correo || ""}"`,
         `contacto_fin_telefono      = "${jsonData.finanzas_telefono || ""}"`,
         `oftalmologo                =  ${jsonData.oftalmologo || 0}`,
         `observaciones              = "${jsonData.observaciones}"`,
         `imprime_qr                 =  ${jsonData.imprime_qr === "Si" ? 1 : 0}`,
-        `imprime_ticket             =  ${jsonData.imprime_ticket === "Si" ? 1 : 0}`,
-        `permite_aproximar          =  ${jsonData.permite_aproximar === "Si" ? 1 : 0}`,
-        `requiere_guia              =  ${jsonData.requiere_guia === "Si" ? 1 : 0}`,
-        `reserva_armazones          =  ${jsonData.requiere_reserva_armazon === "Si" ? 1 : 0}`,
+        `imprime_ticket             =  ${
+          jsonData.imprime_ticket === "Si" ? 1 : 0
+        }`,
+        `permite_aproximar          =  ${
+          jsonData.permite_aproximar === "Si" ? 1 : 0
+        }`,
+        `requiere_guia              =  ${
+          jsonData.requiere_guia === "Si" ? 1 : 0
+        }`,
+        `requiere_dp         =  ${jsonData.requiere_dp === "Si" ? 1 : 0}`,
       ];
 
       const filteredFields = fields.filter(
@@ -511,7 +525,6 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-
             </div>
 
             <div className="w-full flex items-center">
@@ -558,7 +571,6 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-
             </div>
 
             <div className="w-full flex items-center pr-5">
@@ -653,20 +665,13 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
-
             </div>
 
             <Tabs>
               <TabList className="flex ml-4 pt-10">
-                <Tab className="custom-tab !h-14 !w-[13rem]">
-                  Presupuesto $
-                </Tab>
-                <Tab className="custom-tab !h-14 !w-[13rem]">
-                  Opciones
-                </Tab>
-                <Tab className="custom-tab !h-14 !w-[13rem]">
-                  Contactos
-                </Tab>
+                <Tab className="custom-tab !h-14 !w-[13rem]">Presupuesto $</Tab>
+                <Tab className="custom-tab !h-14 !w-[13rem]">Opciones</Tab>
+                <Tab className="custom-tab !h-14 !w-[13rem]">Contactos</Tab>
               </TabList>
 
               <TabPanel>
@@ -711,7 +716,9 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             porcentaje="%"
                             dataCant={data && data[EnumGrid.CANTIDAD_INGRESADA]}
                             dataTotal={data && data[EnumGrid.TOTAL_INGRESADO]}
-                            dataPorcentaje={data && data[EnumGrid.PORC_INGRESADO]}
+                            dataPorcentaje={
+                              data && data[EnumGrid.PORC_INGRESADO]
+                            }
                             isOptional={true}
                             onlyRead={true}
                           />
@@ -730,9 +737,13 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             cant="Cant."
                             total="$ Total"
                             porcentaje="%"
-                            dataCant={data && data[EnumGrid.CANTIDAD_EN_PROCESO]}
+                            dataCant={
+                              data && data[EnumGrid.CANTIDAD_EN_PROCESO]
+                            }
                             dataTotal={data && data[EnumGrid.TOTAL_EN_PROCESO]}
-                            dataPorcentaje={data && data[EnumGrid.PORC_EN_PROCESO]}
+                            dataPorcentaje={
+                              data && data[EnumGrid.PORC_EN_PROCESO]
+                            }
                             isOptional={true}
                             onlyRead={true}
                           />
@@ -753,7 +764,9 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             porcentaje="%"
                             dataCant={data && data[EnumGrid.CANTIDAD_FACTURADA]}
                             dataTotal={data && data[EnumGrid.TOTAL_FACTURADO]}
-                            dataPorcentaje={data && data[EnumGrid.PORC_FACTURADO]}
+                            dataPorcentaje={
+                              data && data[EnumGrid.PORC_FACTURADO]
+                            }
                             isOptional={true}
                             onlyRead={true}
                           />
@@ -772,9 +785,13 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             cant="Cant."
                             total="$ Total"
                             porcentaje="%"
-                            dataCant={data && data[EnumGrid.CANTIDAD_DISPONIBLE]}
+                            dataCant={
+                              data && data[EnumGrid.CANTIDAD_DISPONIBLE]
+                            }
                             dataTotal={data && data[EnumGrid.TOTAL_DISPONIBLE]}
-                            dataPorcentaje={data && data[EnumGrid.PORC_DISPONIBLE]}
+                            dataPorcentaje={
+                              data && data[EnumGrid.PORC_DISPONIBLE]
+                            }
                             isOptional={true}
                             onlyRead={true}
                           />
@@ -803,7 +820,6 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                         />
                       </div>
                     </div>
-
 
                     <div className="input-container items-center rowForm w-[15%]">
                       <div className="labelInputDiv">
@@ -873,11 +889,11 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                       <div className="labelInputDiv">
                         <RadioButtonComponent
                           control={control}
-                          label="Reserva Armazón"
-                          name="requiere_reserva_armazon"
-                          data={data && data[EnumGrid.REQUIERE_RESERVA_ARMAZON]}
+                          label="Requiere DP"
+                          name="requiere_dp"
+                          data={data && data[EnumGrid.REQUIERE_DP]}
                           options={["Si", "No"]}
-                          error={errors.requiere_reserva_armazon}
+                          error={errors.requiere_dp}
                           horizontal={true}
                           labelProps={"frame2Options"}
                           customWidth={"labelInput inputStyles"}
@@ -902,13 +918,16 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             correo="administrador_correo"
                             telefono="administrador_telefono"
                             dataNombre={
-                              data && data[EnumGrid.CONTACTO_ADMINISTRADOR_NOMBRE]
+                              data &&
+                              data[EnumGrid.CONTACTO_ADMINISTRADOR_NOMBRE]
                             }
                             dataCorreo={
-                              data && data[EnumGrid.CONTACTO_ADMINISTRADOR_CORREO]
+                              data &&
+                              data[EnumGrid.CONTACTO_ADMINISTRADOR_CORREO]
                             }
                             dataTelefono={
-                              data && data[EnumGrid.CONTACTO_ADMINISTRADOR_TELEFONO]
+                              data &&
+                              data[EnumGrid.CONTACTO_ADMINISTRADOR_TELEFONO]
                             }
                             isOptional={true}
                           />
@@ -927,13 +946,16 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                             correo="contabilidad_correo"
                             telefono="contabilidad_telefono"
                             dataNombre={
-                              data && data[EnumGrid.CONTACTO_CONTABILIDAD_NOMBRE]
+                              data &&
+                              data[EnumGrid.CONTACTO_CONTABILIDAD_NOMBRE]
                             }
                             dataCorreo={
-                              data && data[EnumGrid.CONTACTO_CONTABILIDAD_CORREO]
+                              data &&
+                              data[EnumGrid.CONTACTO_CONTABILIDAD_CORREO]
                             }
                             dataTelefono={
-                              data && data[EnumGrid.CONTACTO_CONTABILIDAD_TELEFONO]
+                              data &&
+                              data[EnumGrid.CONTACTO_CONTABILIDAD_TELEFONO]
                             }
                             isOptional={true}
                           />
@@ -1028,10 +1050,10 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
           </div>
-        </form >
+        </form>
 
         <CustomModal />
-      </div >
+      </div>
     );
   }
 );

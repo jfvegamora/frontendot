@@ -98,6 +98,8 @@ const FOTReporteEntrega: React.FC<Interface> = ({
     //     return;
     // }
 
+    console.log("render");
+
     if (parseInt(pktoDelete[0]["reporte_atencion"]) !== 0) {
       const result = await showModal(
         `OT: ${pktoDelete[0]["folio"]} tiene Reporte de Entrega asignado  ¿Desea modificarlo? `,
@@ -105,6 +107,8 @@ const FOTReporteEntrega: React.FC<Interface> = ({
         MODAL.keepYes,
         MODAL.kepNo
       );
+
+      console.log(result);
 
       if (!result) {
         return;
