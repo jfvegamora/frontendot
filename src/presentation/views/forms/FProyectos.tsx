@@ -76,7 +76,7 @@ interface InputData {
   imprime_ticket: string | undefined;
   permite_aproximar: string | undefined;
   requiere_guia: string | undefined;
-  requiere_reserva_armazon: string | undefined;
+  requiere_dp: string | undefined;
 }
 
 interface OutputData {
@@ -151,7 +151,7 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
        ${jsonData.imprime_ticket === "Si" ? 1 : 0},
        ${jsonData.permite_aproximar === "Si" ? 1 : 0},
        ${jsonData.requiere_guia === "Si" ? 1 : 0},
-       ${jsonData.requiere_reserva_armazon === "Si" ? 1 : 0}`;
+       ${jsonData.requiere_dp === "Si" ? 1 : 0}`;
 
   _p2 = _p2.replace(/'/g, "!");
 
@@ -258,7 +258,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
         `imprime_ticket             =  ${jsonData.imprime_ticket === "Si" ? 1 : 0}`,
         `permite_aproximar          =  ${jsonData.permite_aproximar === "Si" ? 1 : 0}`,
         `requiere_guia              =  ${jsonData.requiere_guia === "Si" ? 1 : 0}`,
-        `reserva_armazones          =  ${jsonData.requiere_reserva_armazon === "Si" ? 1 : 0}`,
+        `requiere_dp                =  ${jsonData.requiere_dp === "Si" ? 1 : 0}`,
       ];
 
       const filteredFields = fields.filter(
@@ -873,11 +873,11 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                       <div className="labelInputDiv">
                         <RadioButtonComponent
                           control={control}
-                          label="Reserva Armazón"
-                          name="requiere_reserva_armazon"
-                          data={data && data[EnumGrid.REQUIERE_RESERVA_ARMAZON]}
+                          label="Requiere DP"
+                          name="requiere_dp"
+                          data={data && data[EnumGrid.REQUIERE_DP]}
                           options={["Si", "No"]}
-                          error={errors.requiere_reserva_armazon}
+                          error={errors.requiere_dp}
                           horizontal={true}
                           labelProps={"frame2Options"}
                           customWidth={"labelInput inputStyles"}

@@ -376,7 +376,7 @@ export const validationProyectosSchema = () =>
     imprime_ticket: yup.string().required(`${msg}`),
     permite_aproximar: yup.string().required(`${msg}`),
     requiere_guia: yup.string().required(`${msg}`),
-    requiere_reserva_armazon: yup.string().required(`${msg}`),
+    requiere_dp: yup.string().required(`${msg}`),
   });
 
 // Schema MUESTRARIOS
