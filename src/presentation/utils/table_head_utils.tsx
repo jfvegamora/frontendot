@@ -2337,8 +2337,8 @@ export const table_head_proyectos = [
     visible: false,
   },
   {
-    cell: "Requiere Reserva Armazón",
-    key: "requiere_reserva_armazon",
+    cell: "Requiere DP",
+    key: "requiere_dp",
     visible: false,
   },
   {
