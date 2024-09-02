@@ -565,60 +565,6 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
-                {/* <div className="w-[11rem] ml-[2%]">
-                  <RadioButtonComponent
-                    control={control}
-                    label="Documentación"
-                    name="permiso_facturacion"
-                    data={
-                      (formValues && formValues["Documentacion"]) ||
-                      (data && data[EnumGrid.permiso_documentacion])
-                    }
-                    options={["Lectura", "Escritura"]}
-                    error={errors.permiso_facturacion}
-                    horizontal={false}
-                    labelProps={
-                      "!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"
-                    }
-                    customWidth={"labelInput inputStyles"}
-                  />
-                </div>
-                <div className="w-[11rem] ml-[2%]">
-                  <RadioButtonComponent
-                    control={control}
-                    label="Post Venta"
-                    name="permiso_post_venta"
-                    data={
-                      (formValues && formValues["Post Venta"]) ||
-                      (data && data[EnumGrid.permiso_post_venta])
-                    }
-                    options={["Lectura", "Escritura"]}
-                    error={errors.permiso_post_venta}
-                    horizontal={false}
-                    labelProps={
-                      "!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"
-                    }
-                    customWidth={"labelInput inputStyles"}
-                  />
-                </div>
-                <div className="w-[11rem] ml-[2%]">
-                  <RadioButtonComponent
-                    control={control}
-                    label="Anulación"
-                    name="permiso_anulacion"
-                    data={
-                      (formValues && formValues["Anulación"]) ||
-                      (data && data[EnumGrid.permiso_anular])
-                    }
-                    options={["Lectura", "Escritura"]}
-                    error={errors.permiso_post_venta}
-                    horizontal={false}
-                    labelProps={
-                      "!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"
-                    }
-                    customWidth={"labelInput inputStyles"}
-                  />
-                </div> */}
               </div>
             </div>
 

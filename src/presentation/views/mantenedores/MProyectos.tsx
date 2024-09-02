@@ -69,6 +69,7 @@ export enum EnumGrid {
   IMPRIME_TICKET = 48,
   PERMITE_APROXIMAR = 49,
   REQUIERE_GUIA = 50,
+  REQUIERE_RESERVA_ARMAZON = 51,
 }
 
 const strEntidad = "Proyecto ";

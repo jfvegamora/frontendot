@@ -30,7 +30,6 @@ import ContactComponent from "../../components/ContactComponent";
 import ProyectoComponent from "../../components/ProyectoComponent";
 import FrameComponent from "../../components/FrameComponent";
 import { Button } from "@material-tailwind/react";
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 
 const strBaseUrl = "/api/proyectos/";
 const strEntidad = "Proyecto ";
@@ -216,25 +215,29 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
       const fields = [
         `codigo_licitacion          = "${jsonData.codigo_licitacion || ""}"`,
         `titulo                     = "${jsonData.titulo_proyecto}"`,
-        `param_cristales            = ${jsonData.param_cristales === "Por anteojo" ? 1 : 2
+        `param_cristales            = ${
+          jsonData.param_cristales === "Por anteojo" ? 1 : 2
         }`,
         `estado                     = ${jsonData.estado === "Abierto" ? 1 : 2}`,
         `empresa                    = ${jsonData.empresa_adjudicada}`,
         `mandante                   = ${jsonData.mandante}`,
         `unidad_compra              = "${jsonData.unidad_compra || ""}"`,
-        `fecha_adjudicacion         = "${jsonData.fecha_adjudicacion || "1900-01-01"
+        `fecha_adjudicacion         = "${
+          jsonData.fecha_adjudicacion || "1900-01-01"
         }"`,
         `fecha_inicio               = "${jsonData.fecha_inicio}"`,
         `fecha_termino              = "${jsonData.fecha_termino}"`,
-        `cantidad_requerida         = ${jsonData.cantidad_requerida !== ""
-          ? jsonData.cantidad_requerida
-          : data
+        `cantidad_requerida         = ${
+          jsonData.cantidad_requerida !== ""
+            ? jsonData.cantidad_requerida
+            : data
             ? data && data[EnumGrid.CANTIDAD_REQUERIDA]
             : 0
         }`,
-        `presupuesto                = ${jsonData.presupuesto !== ""
-          ? jsonData.presupuesto
-          : data
+        `presupuesto                = ${
+          jsonData.presupuesto !== ""
+            ? jsonData.presupuesto
+            : data
             ? formatCurrencyNumber(data && data[EnumGrid.TOTAL_REQUERIDO])
             : 0
         }`,
@@ -436,7 +439,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div w-[100%] h-[80vh]">
+      <div className="useFormContainer centered-div w-[100%]">
         <div className="userFormBtnCloseContainer">
           <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
@@ -451,7 +454,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
         >
           <div className="userFormularioContainer">
             <div className="w-full flex items-center">
-              <div className="input-container items-center rowForm w-[20%]">
+              <div className="input-container items-center rowForm w-[10%]">
                 <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Adjudicante"
@@ -466,7 +469,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[40%]">
+              <div className="input-container items-center rowForm w-[10%]">
                 <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Mandante"
@@ -481,7 +484,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[20%]">
+              <div className="input-container items-center rowForm w-[10%]">
                 <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Ejecutivo/a"
@@ -496,15 +499,15 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[20%]">
+              <div className="input-container items-center rowForm w-[15%]">
                 <div className="labelInputDiv">
                   <RadioButtonComponent
                     control={control}
-                    label="Estado"
-                    name="estado"
-                    data={data && data[EnumGrid.ESTADO]}
-                    options={["Abierto", "Cerrado"]}
-                    error={errors.estado}
+                    label="Imprime QR"
+                    name="imprime_qr"
+                    data={data && data[EnumGrid.IMPRIME_QR]}
+                    options={["Si", "No"]}
+                    error={errors.imprime_qr}
                     horizontal={true}
                     labelProps={"frame2Options"}
                     customWidth={"labelInput inputStyles"}
@@ -512,6 +515,69 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
+              <div className="input-container items-center rowForm w-[15%]">
+                <div className="labelInputDiv">
+                  <RadioButtonComponent
+                    control={control}
+                    label="Imprime Ticket Retiro"
+                    name="imprime_ticket"
+                    data={data && data[EnumGrid.IMPRIME_TICKET]}
+                    options={["Si", "No"]}
+                    error={errors.imprime_ticket}
+                    horizontal={true}
+                    labelProps={"frame2Options"}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[15%]">
+                <div className="labelInputDiv">
+                  <RadioButtonComponent
+                    control={control}
+                    label="Permite Aproximar"
+                    name="permite_aproximar"
+                    data={data && data[EnumGrid.PERMITE_APROXIMAR]}
+                    options={["Si", "No"]}
+                    error={errors.permite_aproximar}
+                    horizontal={true}
+                    labelProps={"frame2Options"}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[15%]">
+                <div className="labelInputDiv">
+                  <RadioButtonComponent
+                    control={control}
+                    label="Requiere Guía"
+                    name="requiere_guia"
+                    data={data && data[EnumGrid.REQUIERE_GUIA]}
+                    options={["Si", "No"]}
+                    error={errors.requiere_guia}
+                    horizontal={true}
+                    labelProps={"frame2Options"}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[15%]">
+                <div className="labelInputDiv">
+                  <RadioButtonComponent
+                    control={control}
+                    label="Reserva Armazón"
+                    name="requiere_reserva_armazon"
+                    data={data && data[EnumGrid.REQUIERE_RESERVA_ARMAZON]}
+                    options={["Si", "No"]}
+                    error={errors.requiere_reserva_armazon}
+                    horizontal={true}
+                    labelProps={"frame2Options"}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="w-full flex items-center">
@@ -530,7 +596,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[65%]">
+              <div className="input-container items-center rowForm w-[35%]">
                 <div className="labelInputDiv">
                   <TextInputComponent
                     type="text"
@@ -544,7 +610,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[20%]">
+              <div className="input-container items-center rowForm w-[13%]">
                 <div className="labelInputDiv">
                   <TextInputComponent
                     type="text"
@@ -559,6 +625,37 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
+              <div className="input-container items-center rowForm">
+                <div className="labelInputDiv">
+                  <RadioButtonComponent
+                    control={control}
+                    label="Param. de Cristales"
+                    name="param_cristales"
+                    data={data && data[EnumGrid.PARAM_CRISTALES]}
+                    options={["Por anteojo", "Por ojo"]}
+                    error={errors.param_cristales}
+                    horizontal={true}
+                    labelProps={"frame2Options"}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm">
+                <div className="labelInputDiv">
+                  <RadioButtonComponent
+                    control={control}
+                    label="Estado"
+                    name="estado"
+                    data={data && data[EnumGrid.ESTADO]}
+                    options={["Abierto", "Cerrado"]}
+                    error={errors.estado}
+                    horizontal={true}
+                    labelProps={"frame2Options"}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="w-full flex items-center pr-5">
@@ -607,7 +704,22 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                 </div>
               </div>
 
-              <div className="input-container items-center rowForm w-[15%]">
+              <div className="input-container items-center rowForm w-[23%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="text"
+                    label="Unidad de Compra"
+                    name="unidad_compra"
+                    data={data && data[EnumGrid.UNIDAD_COMPRA]}
+                    control={control}
+                    error={errors.unidad_compra}
+                    isOptional={true}
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[14%]">
                 <div className="labelInputDiv">
                   <TextInputComponent
                     type="date"
@@ -625,20 +737,236 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
 
               <div className="input-container items-center rowForm w-[25%]">
                 <div className="labelInputDiv">
-                  <TextInputComponent
-                    type="text"
-                    label="Unidad de Compra"
-                    name="unidad_compra"
-                    data={data && data[EnumGrid.UNIDAD_COMPRA]}
-                    control={control}
-                    error={errors.unidad_compra}
-                    isOptional={true}
-                    customWidth={"labelInput inputStyles"}
-                  />
+                  <FrameComponent>
+                    <ProyectoComponent
+                      label="Presupuesto Convenio BBTT"
+                      type="number"
+                      control={control}
+                      errors={errors}
+                      cant="cantidad_requerida"
+                      total="presupuesto"
+                      porcentaje="%"
+                      dataCant={data && data[EnumGrid.CANTIDAD_REQUERIDA]}
+                      dataTotal={formatCurrencyNumber(
+                        data && data[EnumGrid.TOTAL_REQUERIDO]
+                      )}
+                      dataPorcentaje={100}
+                      onlyRead={false}
+                      isOptional={true}
+                      setValue={setValue}
+                    />
+                  </FrameComponent>
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full flex items-center pr-5">
+              <div className="input-container items-center rowForm w-[25%]">
+                <div className="labelInputDiv">
+                  <FrameComponent>
+                    <ProyectoComponent
+                      label="OT en Proceso"
+                      type="text"
+                      control={control}
+                      errors={errors}
+                      cant="Cant."
+                      total="$ Total"
+                      porcentaje="%"
+                      dataCant={data && data[EnumGrid.CANTIDAD_INGRESADA]}
+                      dataTotal={data && data[EnumGrid.TOTAL_INGRESADO]}
+                      dataPorcentaje={data && data[EnumGrid.PORC_INGRESADO]}
+                      isOptional={true}
+                      onlyRead={true}
+                    />
+                  </FrameComponent>
                 </div>
               </div>
 
               <div className="input-container items-center rowForm w-[25%]">
+                <div className="labelInputDiv">
+                  <FrameComponent>
+                    <ProyectoComponent
+                      label="OT Despachadas"
+                      type="text"
+                      control={control}
+                      errors={errors}
+                      cant="Cant."
+                      total="$ Total"
+                      porcentaje="%"
+                      dataCant={data && data[EnumGrid.CANTIDAD_EN_PROCESO]}
+                      dataTotal={data && data[EnumGrid.TOTAL_EN_PROCESO]}
+                      dataPorcentaje={data && data[EnumGrid.PORC_EN_PROCESO]}
+                      isOptional={true}
+                      onlyRead={true}
+                    />
+                  </FrameComponent>
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[25%]">
+                <div className="labelInputDiv">
+                  <FrameComponent>
+                    <ProyectoComponent
+                      label="OT Facturadas"
+                      type="text"
+                      control={control}
+                      errors={errors}
+                      cant="Cant."
+                      total="$ Total"
+                      porcentaje="%"
+                      dataCant={data && data[EnumGrid.CANTIDAD_FACTURADA]}
+                      dataTotal={data && data[EnumGrid.TOTAL_FACTURADO]}
+                      dataPorcentaje={data && data[EnumGrid.PORC_FACTURADO]}
+                      isOptional={true}
+                      onlyRead={true}
+                    />
+                  </FrameComponent>
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[25%]">
+                <div className="labelInputDiv">
+                  <FrameComponent>
+                    <ProyectoComponent
+                      label="Saldo Convenio"
+                      type="text"
+                      control={control}
+                      errors={errors}
+                      cant="Cant."
+                      total="$ Total"
+                      porcentaje="%"
+                      dataCant={data && data[EnumGrid.CANTIDAD_DISPONIBLE]}
+                      dataTotal={data && data[EnumGrid.TOTAL_DISPONIBLE]}
+                      dataPorcentaje={data && data[EnumGrid.PORC_DISPONIBLE]}
+                      isOptional={true}
+                      onlyRead={true}
+                    />
+                  </FrameComponent>
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full flex items-center pr-5">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <FrameComponent>
+                    <ContactComponent
+                      label="Contacto Administrativo"
+                      control={control}
+                      errors={errors}
+                      nombre="administrador_nombre"
+                      correo="administrador_correo"
+                      telefono="administrador_telefono"
+                      dataNombre={
+                        data && data[EnumGrid.CONTACTO_ADMINISTRADOR_NOMBRE]
+                      }
+                      dataCorreo={
+                        data && data[EnumGrid.CONTACTO_ADMINISTRADOR_CORREO]
+                      }
+                      dataTelefono={
+                        data && data[EnumGrid.CONTACTO_ADMINISTRADOR_TELEFONO]
+                      }
+                      isOptional={true}
+                    />
+                  </FrameComponent>
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <FrameComponent>
+                    <ContactComponent
+                      label="Contacto Contabilidad"
+                      control={control}
+                      errors={errors}
+                      nombre="contabilidad_nombre"
+                      correo="contabilidad_correo"
+                      telefono="contabilidad_telefono"
+                      dataNombre={
+                        data && data[EnumGrid.CONTACTO_CONTABILIDAD_NOMBRE]
+                      }
+                      dataCorreo={
+                        data && data[EnumGrid.CONTACTO_CONTABILIDAD_CORREO]
+                      }
+                      dataTelefono={
+                        data && data[EnumGrid.CONTACTO_CONTABILIDAD_TELEFONO]
+                      }
+                      isOptional={true}
+                    />
+                  </FrameComponent>
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full flex items-center pr-5">
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <FrameComponent>
+                    <ContactComponent
+                      label="Referente Técnico"
+                      control={control}
+                      errors={errors}
+                      nombre="referente_nombre"
+                      correo="referente_correo"
+                      telefono="referente_telefono"
+                      dataNombre={
+                        data && data[EnumGrid.REFERENTE_TECNICO_NOMBRE]
+                      }
+                      dataCorreo={
+                        data && data[EnumGrid.REFERENTE_TECNICO_CORREO]
+                      }
+                      dataTelefono={
+                        data && data[EnumGrid.REFERENTE_TECNICO_TELEFONO]
+                      }
+                      isOptional={true}
+                    />
+                  </FrameComponent>
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[50%]">
+                <div className="labelInputDiv">
+                  <FrameComponent>
+                    <ContactComponent
+                      label="Contacto Finanzas"
+                      control={control}
+                      errors={errors}
+                      nombre="finanzas_nombre"
+                      correo="finanzas_correo"
+                      telefono="finanzas_telefono"
+                      dataNombre={
+                        data && data[EnumGrid.CONTACTO_FINANZAS_NOMBRE]
+                      }
+                      dataCorreo={
+                        data && data[EnumGrid.CONTACTO_FINANZAS_CORREO]
+                      }
+                      dataTelefono={
+                        data && data[EnumGrid.CONTACTO_FINANZAS_TELEFONO]
+                      }
+                      isOptional={true}
+                    />
+                  </FrameComponent>
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full flex items-center !-mt-3 !mb-5">
+              <div className="input-container items-center rowForm w-[40%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="text"
+                    label="Observaciones"
+                    name="observaciones"
+                    data={data && data[EnumGrid.OBSERVACIONES]}
+                    control={control}
+                    error={errors.observaciones}
+                    customWidth={"labelInput inputStyles"}
+                    isOptional={true}
+                  />
+                </div>
+              </div>
+
+              <div className="input-container items-center rowForm w-[30%]">
                 <div className="selectInputDiv">
                   <SelectInputComponent
                     label="Oftalmólogo (Canasta)"
@@ -648,365 +976,6 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     entidad={["/api/oftalmologos/", "02"]}
                     error={errors.oftalmologo}
-                    customWidth={"labelInput inputStyles"}
-                    isOptional={true}
-                  />
-                </div>
-              </div>
-
-            </div>
-
-            <Tabs>
-              <TabList className="flex ml-4 pt-10">
-                <Tab className="custom-tab !h-14 !w-[13rem]">
-                  Presupuesto $
-                </Tab>
-                <Tab className="custom-tab !h-14 !w-[13rem]">
-                  Opciones
-                </Tab>
-                <Tab className="custom-tab !h-14 !w-[13rem]">
-                  Contactos
-                </Tab>
-              </TabList>
-
-              <TabPanel>
-                <div className="frameOTForm">
-                  <div className="w-full flex items-center pr-5 pt-10 pb-5">
-                    <div className="input-container items-center rowForm w-[25%]">
-                      <div className="labelInputDiv">
-                        <FrameComponent>
-                          <ProyectoComponent
-                            label="Presupuesto Convenio BBTT"
-                            type="number"
-                            control={control}
-                            errors={errors}
-                            cant="cantidad_requerida"
-                            total="presupuesto"
-                            porcentaje="%"
-                            dataCant={data && data[EnumGrid.CANTIDAD_REQUERIDA]}
-                            dataTotal={formatCurrencyNumber(
-                              data && data[EnumGrid.TOTAL_REQUERIDO]
-                            )}
-                            dataPorcentaje={100}
-                            onlyRead={false}
-                            isOptional={true}
-                            setValue={setValue}
-                          />
-                        </FrameComponent>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="w-full flex items-center pr-5 pt-5 pb-5">
-                    <div className="input-container items-center rowForm w-[25%]">
-                      <div className="labelInputDiv">
-                        <FrameComponent>
-                          <ProyectoComponent
-                            label="OT en Proceso"
-                            type="text"
-                            control={control}
-                            errors={errors}
-                            cant="Cant."
-                            total="$ Total"
-                            porcentaje="%"
-                            dataCant={data && data[EnumGrid.CANTIDAD_INGRESADA]}
-                            dataTotal={data && data[EnumGrid.TOTAL_INGRESADO]}
-                            dataPorcentaje={data && data[EnumGrid.PORC_INGRESADO]}
-                            isOptional={true}
-                            onlyRead={true}
-                          />
-                        </FrameComponent>
-                      </div>
-                    </div>
-
-                    <div className="input-container items-center rowForm w-[25%]">
-                      <div className="labelInputDiv">
-                        <FrameComponent>
-                          <ProyectoComponent
-                            label="OT Despachadas"
-                            type="text"
-                            control={control}
-                            errors={errors}
-                            cant="Cant."
-                            total="$ Total"
-                            porcentaje="%"
-                            dataCant={data && data[EnumGrid.CANTIDAD_EN_PROCESO]}
-                            dataTotal={data && data[EnumGrid.TOTAL_EN_PROCESO]}
-                            dataPorcentaje={data && data[EnumGrid.PORC_EN_PROCESO]}
-                            isOptional={true}
-                            onlyRead={true}
-                          />
-                        </FrameComponent>
-                      </div>
-                    </div>
-
-                    <div className="input-container items-center rowForm w-[25%]">
-                      <div className="labelInputDiv">
-                        <FrameComponent>
-                          <ProyectoComponent
-                            label="OT Facturadas"
-                            type="text"
-                            control={control}
-                            errors={errors}
-                            cant="Cant."
-                            total="$ Total"
-                            porcentaje="%"
-                            dataCant={data && data[EnumGrid.CANTIDAD_FACTURADA]}
-                            dataTotal={data && data[EnumGrid.TOTAL_FACTURADO]}
-                            dataPorcentaje={data && data[EnumGrid.PORC_FACTURADO]}
-                            isOptional={true}
-                            onlyRead={true}
-                          />
-                        </FrameComponent>
-                      </div>
-                    </div>
-
-                    <div className="input-container items-center rowForm w-[25%]">
-                      <div className="labelInputDiv">
-                        <FrameComponent>
-                          <ProyectoComponent
-                            label="Saldo Convenio"
-                            type="text"
-                            control={control}
-                            errors={errors}
-                            cant="Cant."
-                            total="$ Total"
-                            porcentaje="%"
-                            dataCant={data && data[EnumGrid.CANTIDAD_DISPONIBLE]}
-                            dataTotal={data && data[EnumGrid.TOTAL_DISPONIBLE]}
-                            dataPorcentaje={data && data[EnumGrid.PORC_DISPONIBLE]}
-                            isOptional={true}
-                            onlyRead={true}
-                          />
-                        </FrameComponent>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </TabPanel>
-
-              <TabPanel>
-                <div className="frameOTForm">
-                  <div className="w-full flex items-center pr-5 pt-10 pb-5">
-                    <div className="input-container items-center rowForm">
-                      <div className="labelInputDiv">
-                        <RadioButtonComponent
-                          control={control}
-                          label="Param. de Cristales"
-                          name="param_cristales"
-                          data={data && data[EnumGrid.PARAM_CRISTALES]}
-                          options={["Por anteojo", "Por ojo"]}
-                          error={errors.param_cristales}
-                          horizontal={true}
-                          labelProps={"frame2Options"}
-                          customWidth={"labelInput inputStyles"}
-                        />
-                      </div>
-                    </div>
-
-
-                    <div className="input-container items-center rowForm w-[15%]">
-                      <div className="labelInputDiv">
-                        <RadioButtonComponent
-                          control={control}
-                          label="Imprime QR"
-                          name="imprime_qr"
-                          data={data && data[EnumGrid.IMPRIME_QR]}
-                          options={["Si", "No"]}
-                          error={errors.imprime_qr}
-                          horizontal={true}
-                          labelProps={"frame2Options"}
-                          customWidth={"labelInput inputStyles"}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="input-container items-center rowForm w-[15%]">
-                      <div className="labelInputDiv">
-                        <RadioButtonComponent
-                          control={control}
-                          label="Imprime Ticket Retiro"
-                          name="imprime_ticket"
-                          data={data && data[EnumGrid.IMPRIME_TICKET]}
-                          options={["Si", "No"]}
-                          error={errors.imprime_ticket}
-                          horizontal={true}
-                          labelProps={"frame2Options"}
-                          customWidth={"labelInput inputStyles"}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="input-container items-center rowForm w-[15%]">
-                      <div className="labelInputDiv">
-                        <RadioButtonComponent
-                          control={control}
-                          label="Permite Aproximar"
-                          name="permite_aproximar"
-                          data={data && data[EnumGrid.PERMITE_APROXIMAR]}
-                          options={["Si", "No"]}
-                          error={errors.permite_aproximar}
-                          horizontal={true}
-                          labelProps={"frame2Options"}
-                          customWidth={"labelInput inputStyles"}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="input-container items-center rowForm w-[15%]">
-                      <div className="labelInputDiv">
-                        <RadioButtonComponent
-                          control={control}
-                          label="Requiere Guía"
-                          name="requiere_guia"
-                          data={data && data[EnumGrid.REQUIERE_GUIA]}
-                          options={["Si", "No"]}
-                          error={errors.requiere_guia}
-                          horizontal={true}
-                          labelProps={"frame2Options"}
-                          customWidth={"labelInput inputStyles"}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="input-container items-center rowForm w-[15%]">
-                      <div className="labelInputDiv">
-                        <RadioButtonComponent
-                          control={control}
-                          label="Reserva Armazón"
-                          name="requiere_reserva_armazon"
-                          data={data && data[EnumGrid.REQUIERE_RESERVA_ARMAZON]}
-                          options={["Si", "No"]}
-                          error={errors.requiere_reserva_armazon}
-                          horizontal={true}
-                          labelProps={"frame2Options"}
-                          customWidth={"labelInput inputStyles"}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </TabPanel>
-
-              <TabPanel>
-                <div className="frameOTForm">
-                  <div className="w-full flex items-center pr-5 pt-10 pb-5">
-                    <div className="input-container items-center rowForm w-[50%]">
-                      <div className="labelInputDiv">
-                        <FrameComponent>
-                          <ContactComponent
-                            label="Contacto Administrativo"
-                            control={control}
-                            errors={errors}
-                            nombre="administrador_nombre"
-                            correo="administrador_correo"
-                            telefono="administrador_telefono"
-                            dataNombre={
-                              data && data[EnumGrid.CONTACTO_ADMINISTRADOR_NOMBRE]
-                            }
-                            dataCorreo={
-                              data && data[EnumGrid.CONTACTO_ADMINISTRADOR_CORREO]
-                            }
-                            dataTelefono={
-                              data && data[EnumGrid.CONTACTO_ADMINISTRADOR_TELEFONO]
-                            }
-                            isOptional={true}
-                          />
-                        </FrameComponent>
-                      </div>
-                    </div>
-
-                    <div className="input-container items-center rowForm w-[50%]">
-                      <div className="labelInputDiv">
-                        <FrameComponent>
-                          <ContactComponent
-                            label="Contacto Contabilidad"
-                            control={control}
-                            errors={errors}
-                            nombre="contabilidad_nombre"
-                            correo="contabilidad_correo"
-                            telefono="contabilidad_telefono"
-                            dataNombre={
-                              data && data[EnumGrid.CONTACTO_CONTABILIDAD_NOMBRE]
-                            }
-                            dataCorreo={
-                              data && data[EnumGrid.CONTACTO_CONTABILIDAD_CORREO]
-                            }
-                            dataTelefono={
-                              data && data[EnumGrid.CONTACTO_CONTABILIDAD_TELEFONO]
-                            }
-                            isOptional={true}
-                          />
-                        </FrameComponent>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="w-full flex items-center pr-5 pt-10 pb-5">
-                    <div className="input-container items-center rowForm w-[50%]">
-                      <div className="labelInputDiv">
-                        <FrameComponent>
-                          <ContactComponent
-                            label="Referente Técnico"
-                            control={control}
-                            errors={errors}
-                            nombre="referente_nombre"
-                            correo="referente_correo"
-                            telefono="referente_telefono"
-                            dataNombre={
-                              data && data[EnumGrid.REFERENTE_TECNICO_NOMBRE]
-                            }
-                            dataCorreo={
-                              data && data[EnumGrid.REFERENTE_TECNICO_CORREO]
-                            }
-                            dataTelefono={
-                              data && data[EnumGrid.REFERENTE_TECNICO_TELEFONO]
-                            }
-                            isOptional={true}
-                          />
-                        </FrameComponent>
-                      </div>
-                    </div>
-
-                    <div className="input-container items-center rowForm w-[50%]">
-                      <div className="labelInputDiv">
-                        <FrameComponent>
-                          <ContactComponent
-                            label="Contacto Finanzas"
-                            control={control}
-                            errors={errors}
-                            nombre="finanzas_nombre"
-                            correo="finanzas_correo"
-                            telefono="finanzas_telefono"
-                            dataNombre={
-                              data && data[EnumGrid.CONTACTO_FINANZAS_NOMBRE]
-                            }
-                            dataCorreo={
-                              data && data[EnumGrid.CONTACTO_FINANZAS_CORREO]
-                            }
-                            dataTelefono={
-                              data && data[EnumGrid.CONTACTO_FINANZAS_TELEFONO]
-                            }
-                            isOptional={true}
-                          />
-                        </FrameComponent>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </TabPanel>
-            </Tabs>
-
-            <div className="w-full flex items-center !-mt-3 !mb-5">
-              <div className="input-container items-center rowForm w-[70%]">
-                <div className="labelInputDiv">
-                  <TextInputComponent
-                    type="text"
-                    label="Observaciones"
-                    name="observaciones"
-                    data={data && data[EnumGrid.OBSERVACIONES]}
-                    control={control}
-                    error={errors.observaciones}
                     customWidth={"labelInput inputStyles"}
                     isOptional={true}
                   />
@@ -1028,10 +997,10 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
           </div>
-        </form >
+        </form>
 
         <CustomModal />
-      </div >
+      </div>
     );
   }
 );
