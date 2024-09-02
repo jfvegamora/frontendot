@@ -71,7 +71,7 @@ const MMotivosOTGarantia: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width50">
-        <div className="w-[50%]">
+        <div className="w-[50%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}
@@ -81,7 +81,7 @@ const MMotivosOTGarantia: React.FC = () => {
               container:"w-[35vw] !text-[2vw] translate-y-[-0.2vw]", 
               labelProps: "labelInput"
             } }]}
-            classNameSearchButton=" translate-x-[10vw]"
+            classNameSearchButton=" translate-x-[2vw]"
 
           />
         </div>

@@ -71,7 +71,7 @@ const MMotivosOTPendiente: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width50">
-        <div className="w-[50%]">
+        <div className="w-[50%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}
@@ -83,7 +83,7 @@ const MMotivosOTPendiente: React.FC = () => {
                 labelProps: "!translate-y-[0.1vw] !text-[1.2vw] !font-[2vw] !z-30"
               }
              }]}
-             classNameSearchButton=" translate-x-[8vw] translate-y-[0.3rem]"
+             classNameSearchButton=" translate-x-[2vw]"
 
           />
         </div>

@@ -71,8 +71,8 @@ const MMandantes: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width60">
-        <div className="w-[60%]">
+      <div className="mantenedorHead width70">
+        <div className="w-[60%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}
@@ -81,7 +81,7 @@ const MMandantes: React.FC = () => {
               { name: "_p2", label: "Código", type: "number", 
                 styles:{
                   with: "labelInput inputStyles w-full",
-                  container:"w-[15vw] !text-[2vw] translate-y-[-0.3rem] ", 
+                  container:"w-[15vw] !text-[2vw] ", 
                   labelProps: "labelInput"
                 }, },
               { name: "_p1", label: "Nombre", type: "text", 
@@ -91,11 +91,11 @@ const MMandantes: React.FC = () => {
                   labelProps: "labelInput"
                 }, },
             ]}
-            classNameSearchButton=" translate-x-[2vw]"
+            classNameSearchButton=" translate-x-[7vw]"
           />
         </div>
 
-          <div className="w-[15%]">
+          <div className="w-[20%]">
             <PrimaryButtonsComponent
               handleAddPerson={openModal}
               handleDeleteSelected={handleDeleteSelected}
@@ -111,8 +111,7 @@ const MMandantes: React.FC = () => {
               showRefreshButton={true}
               comilla={false}
               idMenu={idMenu}
-              classname={"translate-x-[12vw]  !w-[12vw]"}
-
+              classname={"translate-x-[12vw]"}
             />
           </div>
       </div>

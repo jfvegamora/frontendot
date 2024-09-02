@@ -71,7 +71,7 @@ const MMotivosOTAnulada: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width50">
-        <div className="w-[50%]">
+        <div className="w-[50%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}
@@ -82,7 +82,7 @@ const MMotivosOTAnulada: React.FC = () => {
               labelProps: "labelInput"
             } }]}
 
-            classNameSearchButton=" translate-x-[10vw]"
+            classNameSearchButton=" translate-x-[2vw]"
 
           />
         </div>
@@ -103,7 +103,7 @@ const MMotivosOTAnulada: React.FC = () => {
             showForwardButton={false}
             showRefreshButton={true}
             idMenu={idMenu}
-            classname={"translate-x-[14vw]  !w-[10vw]"}
+            classname={"translate-x-[10vw]  !w-[10vw]"}
 
           />
         </div>

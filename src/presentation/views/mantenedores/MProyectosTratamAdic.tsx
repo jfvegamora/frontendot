@@ -70,7 +70,7 @@ const MProyectosTratamAdic: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width70">
-        <div className="w-[60%]">
+        <div className="w-[60%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}
@@ -100,12 +100,12 @@ const MProyectosTratamAdic: React.FC = () => {
                 },
               },
             ]}
-             classNameSearchButton=" translate-x-[14vw]"
+             classNameSearchButton=" translate-x-[13vw]"
           />
         </div>
 
 
-        <div className="w-[15%]">
+        <div className="w-[20%]">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}
@@ -121,10 +121,7 @@ const MProyectosTratamAdic: React.FC = () => {
             showRefreshButton={true}
             idMenu={idMenu}
             classname={"translate-x-[18vw] !w-[9vw] "}
-
           />
-
-
         </div>
 
       </div>

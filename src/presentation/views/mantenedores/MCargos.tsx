@@ -71,7 +71,7 @@ const MCargos: React.FC = () => {
   return (
     <div className="mantenedorContainer" onClick={handleContainerClick}>
       <div className="mantenedorHead width50">
-        <div className="w-[40%]">
+        <div className="w-[40%] mantenedorHeadSub">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               updateParams={updateParams}

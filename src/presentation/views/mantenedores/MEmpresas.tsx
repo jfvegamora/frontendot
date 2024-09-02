@@ -73,7 +73,7 @@ const MEmpresas: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width60">
-        <div className="w-[50%]">
+        <div className="w-[50%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}
@@ -92,7 +92,7 @@ const MEmpresas: React.FC = () => {
                   labelProps: "labelInput"
                 }, },
             ]}
-            classNameSearchButton=" translate-x-[4vw]"
+            classNameSearchButton=" translate-x-[12vw]"
           />
         </div>
 
@@ -112,7 +112,7 @@ const MEmpresas: React.FC = () => {
             showForwardButton={false}
             showRefreshButton={true}
             idMenu={idMenu}
-            classname={"translate-x-[18vw]  !w-[10vw]"}
+            classname={"translate-x-[18vw]"}
 
           />
 

@@ -271,7 +271,7 @@ const MOT: React.FC = () => {
       },
       {
         name: "_rut",
-        label: "Rut",
+        label: "RUT",
         type: "text",
         styles: {
           with: "!w-[15vw] labelInput inputStyles",

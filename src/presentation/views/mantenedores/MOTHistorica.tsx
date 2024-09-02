@@ -516,7 +516,7 @@ const MOTHistorica: React.FC = () => {
               },
               {
                 name: "_rut",
-                label: "Rut",
+                label: "RUT",
                 type: "text",
                 styles: {
                   with: "labelInput inputStyles w-[16vw]",
@@ -592,7 +592,7 @@ const MOTHistorica: React.FC = () => {
 
               {
                 name: "_ubicacion",
-                label: "Ubicacion",
+                label: "Ubicación",
                 type: "text",
                 styles: {
                   with: "labelInput inputStyles w-full",

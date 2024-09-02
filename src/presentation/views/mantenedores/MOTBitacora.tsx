@@ -81,7 +81,7 @@ const MOTBitacora: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100 !h-[20vh]">
-        <div className="w-[85%]">
+        <div className="w-[85%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}

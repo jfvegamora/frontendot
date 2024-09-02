@@ -85,8 +85,8 @@ const MEstablecimientos: React.FC = () => {
   // console.log('entities', entities)
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width100 !h-[10vw]">
-        <div className="w-[70%]">
+      <div className="mantenedorHead width100">
+        <div className="w-[70%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}
@@ -162,7 +162,7 @@ const MEstablecimientos: React.FC = () => {
                 },
               },
             ]}
-            classNameSearchButton=" translate-x-[10vw] translate-y-[2.5vw]"
+            classNameSearchButton=" translate-x-[12vw] translate-y-[2.0vw]"
           />
         </div>
         <div className="w-[15%]">

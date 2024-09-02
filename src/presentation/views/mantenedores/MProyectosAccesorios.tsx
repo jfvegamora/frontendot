@@ -79,7 +79,7 @@ const MProyectosAccesorios: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width80">
-        <div className="w-[75%]">
+        <div className="w-[75%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}

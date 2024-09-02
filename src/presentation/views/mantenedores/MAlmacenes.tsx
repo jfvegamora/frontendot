@@ -73,7 +73,7 @@ const MAlmacenes: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width80">
-        <div className="w-[80%]">
+        <div className="w-[80%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}

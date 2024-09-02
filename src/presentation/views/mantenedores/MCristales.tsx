@@ -69,7 +69,7 @@ const MCristales: React.FC = () => {
     <div className="mantenedorContainer" onClick={handleContainerClick}>
       <FilterButton>
         <div className="mantenedorHeadFlex width100 relative ">
-          <div className="w-[95%] h-[35vh] ">
+          <div className="w-[95%] mantenedorHeadSub">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
               updateParams={updateParams}

@@ -69,7 +69,7 @@ const MVitrinas: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width70">
-        <div className="w-[70%]">
+        <div className="w-[70%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}
@@ -97,7 +97,7 @@ const MVitrinas: React.FC = () => {
                 },
               },
             ]}
-            classNameSearchButton=" translate-x-[9vw] "
+            classNameSearchButton=" translate-x-[7vw] "
           />
         </div>
 
@@ -117,7 +117,7 @@ const MVitrinas: React.FC = () => {
             showRefreshButton={true}
             comilla={false}
             idMenu={idMenu}
-            classname={"translate-x-[9vw] !w-[12vw]"}
+            classname={"translate-x-[6vw]"}
           />
         </div>
       </div>

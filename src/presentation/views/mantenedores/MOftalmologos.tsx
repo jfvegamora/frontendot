@@ -69,7 +69,7 @@ const MOftalmologos: React.FC = () => {
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width60">
-        <div className="w-[50%]">
+        <div className="w-[50%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
             updateParams={updateParams}
@@ -88,12 +88,12 @@ const MOftalmologos: React.FC = () => {
                   labelProps: "labelInput"
                 }, },
             ]}
-            classNameSearchButton=" translate-x-[1vw]"
+            classNameSearchButton=" translate-x-[10vw]"
           />
         </div>
 
 
-        <div className="w-[15%]">
+        <div className="w-[20%]">
           <PrimaryButtonsComponent
             handleAddPerson={openModal}
             handleDeleteSelected={handleDeleteSelected}
@@ -108,7 +108,7 @@ const MOftalmologos: React.FC = () => {
             showForwardButton={false}
             showRefreshButton={true}
             idMenu={idMenu}
-            classname={"translate-x-[17vw]  !w-[12vw]"}
+            classname={"translate-x-[17vw]"}
 
           />
         </div>

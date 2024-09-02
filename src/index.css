@@ -70,7 +70,7 @@ body {
   padding: 0px;
 }
 .labelInput{
-  font-size: 20px !important;
+  font-size: 18px !important;
 }
 .labelInputx2{
   font-size: 32px !important;
@@ -395,8 +395,13 @@ select::-ms-expand {
   padding: 10px 10px 10px 10px;
   width: 70%;
   margin: 0 auto;
-  margin-top: 40px !important;
+  margin-top: 50px !important;
   margin-bottom: 20px !important;
+}
+
+.mantenedorHeadSub{
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .mantenedorHeadOT {
