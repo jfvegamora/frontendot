@@ -216,28 +216,29 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
   return (
     <>
       {masivo === true ? (
-        <div ref={ref} className={`flex flex-col !h-auto`}>
+        // <div ref={ref} className={`flex flex-col `} style={{ width: '80mm', height: '297mm', padding: '0', boxSizing: 'border-box' }}>
+        <div ref={ref} className={`flex flex-col flex-wrap `} >
           {OT &&
             OT.map((list_ot: any) =>
               list_ot.map((ot: any) => {
                 return (
                   // <div className={`!w-[90%] ${ot[EnumGrid.imprime_ticket] === 1 ? '!h-[180rem]' : '!h-[90rem]'}  ${((index > 0) && (ot[EnumGrid.imprime_ticket] === 1)) && '!-mt-[38rem]'}   ${(index > 0) && (ot[EnumGrid.imprime_ticket] === 0) && '!-mt-[19rem]'}`} key={ot[EnumGrid.folio]} >
                   <div
-                    className={`!w-[90%]  ${
-                      ot[EnumImpresion.imprime_ticket] === 1
-                        ? "!h-[140.28rem]"
-                        : "!h-[70.14rem]"
-                    }`}
+                    // className={`!w-[90%]  ${// ot[EnumImpresion.imprime_ticket] === 1 ? "!h-[146rem]" :"!h-[73rem]"
+                    //   // "!h-auto"
+                    // }`}
                     key={ot[EnumImpresion.folio]}
+                    className="printable-content page-break"
+                    // style={{ width: '80mm', height: '297mm', padding: '0', boxSizing: 'border-box' }}                    
                   >
                     <div
-                      className={`w-[100%] -mt-4  ${
+                      className={`w-[100%]  ${
                         ot[EnumImpresion.imprime_ticket] === 1
                           ? "!h-[3%]"
                           : "!h-[6.5%]"
                       } mb-4 `}
                     >
-                      <div className="w-[90%] mr-7  mx-auto">
+                      <div className="w-[90%] mr-7">
                         <Barcode
                           marginLeft={45}
                           height={25}
@@ -270,7 +271,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     {/* <div className='w-[100%] flex justify-between -mt-[.5rem] ml-3'> */}
                     <div className="w-[100%] flex justify-between ml-3 translate-y-[-2vw] !-mt-7 mb-[-4vw] !z-50">
                       <div className="w-1/2">
-                        <span className="text-xs font-bold">Atencón:</span>
+                        <span className="text-xs font-bold">Atención:</span>
                         &nbsp;
                         <span className="text-xs ">
                           {ot[EnumImpresion.fecha_atencion]}
@@ -354,13 +355,13 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                             {ot[EnumImpresion.a1_armazon_codigo]}
                           </div>
                           <div className="otArmazonData">
-                            {ot[EnumImpresion.a1_armazon_descripcion]}
+                            {ot[EnumImpresion.a1_armazon_descripcion]} {ot[EnumImpresion.a1_ubicacion] && `/ ${ot[EnumImpresion.a1_ubicacion]}`}
                           </div>
-                          {ot[EnumImpresion.a1_ubicacion] && (
+                          {/* {ot[EnumImpresion.a1_ubicacion] && (
                             <div className="otArmazonData">
                               {ot[EnumImpresion.a1_ubicacion]}
                             </div>
-                          )}
+                          )} */}
                         </div>
                       </div>
 
@@ -371,14 +372,14 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                           </div>
                           {ot[EnumImpresion.a2_armazon_descripcion] && (
                             <div className="otArmazonData">
-                              {ot[EnumImpresion.a2_armazon_descripcion]}
+                              {ot[EnumImpresion.a2_armazon_descripcion]} {ot[EnumImpresion.a2_ubicacion] && `/ ${ot[EnumImpresion.a2_ubicacion]}`}
                             </div>
                           )}
-                          {ot[EnumImpresion.a2_ubicacion] && (
+                          {/* {ot[EnumImpresion.a2_ubicacion] && (
                             <div className="otArmazonData">
                               {ot[EnumImpresion.a2_ubicacion]}
                             </div>
-                          )}
+                          )} */}
 
                           {ot[EnumImpresion.a3_armazon_codigo] && (
                             <div className="otCod font-bold">
@@ -388,15 +389,15 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
 
                           {ot[EnumImpresion.a3_armazon_descripcion] && (
                             <div className="otArmazonData">
-                              {ot[EnumImpresion.a3_armazon_descripcion]}
+                              {ot[EnumImpresion.a3_armazon_descripcion]} { ot[EnumImpresion.a3_ubicacion] && `/ ${ot[EnumImpresion.a3_ubicacion]}`}
                             </div>
                           )}
 
-                          {ot[EnumImpresion.a3_ubicacion] && (
+                          {/* {ot[EnumImpresion.a3_ubicacion] && (
                             <div className="otArmazonData">
                               {ot[EnumImpresion.a3_ubicacion]}
                             </div>
-                          )}
+                          )} */}
                         </div>
                       </div>
                     </div>
@@ -429,7 +430,6 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                             </div>
                           )}
 
-                          {/* <div className='otCData '><span className='font-bold'>Mar:</span>&nbsp;{ot[EnumGrid.cristal1_marca]}</div> */}
                           <div className="otCData ">
                             <span className="font-bold">Dis:</span>&nbsp;
                             {ot[EnumImpresion.cr1_diseño]}
@@ -450,7 +450,6 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                             <span className="font-bold">Trat:</span>&nbsp;
                             {ot[EnumImpresion.cr1_tratamiento]}
                           </div>
-                          {/* <div className='otCData '><span className='font-bold'>Diam:</span>&nbsp;{ot[EnumGrid.cristal1_diametro]}</div> */}
                           {ot[EnumImpresion.cr1_tratamiento_adicional] && (
                             <>
                               <div className="otCData !mt-[-20px]">
@@ -500,7 +499,6 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                                   {ot[EnumImpresion.cr2oi_ubicacion]}
                                 </div>
                               )}
-                              {/* <div className='otCData '>{ot[EnumGrid.cristal2_marca]}</div> */}
                               <div className="otCData ">
                                 {ot[EnumImpresion.cr2_diseño]}
                               </div>
@@ -516,7 +514,6 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                               <div className="otCData ">
                                 {ot[EnumImpresion.cr2_tratamiento]}
                               </div>
-                              {/* <div className='otCData '>{ot[EnumGrid.cristal2_diametro]}</div> */}
                               {ot[EnumImpresion.cr2_tratamiento_adicional] && (
                                 <>
                                   <span className="text-[1.25rem] h-[1.25rem] font-bold">
@@ -755,7 +752,6 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
 
                           {ot[EnumImpresion.numero_reporte_atencion] > 0 && (
                             <div className="flex text-left ">
-                              {/* <p className='-ml-6 text-base !mt-2 font-bold w-[27%]'>Rep:</p> */}
                               <p className=" text-left text-base  font-bold -ml-6">
                                 Rep:
                                 <span className="font-bold text-xl">
@@ -767,15 +763,10 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                             </div>
                           )}
 
-                          {/* {ot[EnumImpresion.numero_reporte_atencion] > 0 && (
-                              <div className="flex text-left translate-y-[-0.8rem] ">
-                                <p className=' text-left text-base   !mt-2 font-bold translate-x-[-1.5rem]'>{`Línea:${ot[EnumImpresion.rbd_ubicacion]} / ${ot[EnumImpresion.rbd_cantidad]} Unid / RBD:`}<span className="font-bold text-xl">{ot[EnumImpresion.rbd]}</span></p>
-                              </div>
-                            )} */}
+                         
 
                           {ot[EnumImpresion.numero_reporte_atencion] > 0 ? (
                             <div className="flex text-left translate-y-[-0.8rem] ">
-                              {/* <p className=' text-left text-lg   !mt-2 font-bold translate-x-[-1.5rem]'>{`Línea: ${ot[EnumImpresion.rbd_ubicacion]} / ${ot[EnumImpresion.rbd_cantidad]} Unid / RBD: ${ot[EnumImpresion.rbd]}`}</p> */}
                               <p className=" text-left text-base   !mt-2 font-bold translate-x-[-1.5rem]">
                                 {`Línea:${ot[EnumImpresion.rbd_ubicacion]} / ${
                                   ot[EnumImpresion.rbd_cantidad]
@@ -807,38 +798,29 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                             }`}
                           >
                             <div className="flex text-left h-auto ">
-                              {/* <p className="-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]">
-                                Proyecto:{" "}
-                              </p> */}
-                              {/* <span>{ot[EnumGrid.proyecto_titulo]}</span> */}
+                              
                               <p className=" text-left text-sm !mt-2 -ml-6">
                                 {ot[EnumImpresion.proyecto]}
                               </p>
                             </div>
                             <div className="flex text-left -mt-2">
-                              {/* <p className="-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]">
-                                Estab:{" "}
-                              </p> */}
+                             
                               <p className=" text-left text-sm -ml-6  !mt-2">{`${
                                 ot[EnumImpresion.establecimiento]
                               }`}</p>
                             </div>
                             <div className="flex text-left -mt-2">
-                              {/* <p className="-ml-6 text-[0.80rem] !mt-2 font-bold w-[27%]">
-                                Comuna:{" "}
-                              </p> */}
+                             
                               <p className=" text-left text-sm !mt-2 -ml-6">
                                 {ot[EnumImpresion.comuna]}
                               </p>
                             </div>
                             <div className="flex text-left -mt-2">
                               <p className="-ml-6 text-[0.80rem] !mt-2 font-bold w-[90%]">
-                                {/* Destino:{" "} */}
                                 <span>
                                   {ot[EnumImpresion.lugar_despacho]}
                                 </span>{" "}
                               </p>
-                              {/* <p className=' text-left text-sm !mt-2 font-bold'>{ot[EnumImpresion.lugar_despacho]}</p> */}
                             </div>
                             <div
                               className={`flex text-left -mt-2 ${
@@ -854,7 +836,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> 
 
                     <div
                       className={`header  w-[110%] text-center mt-2 overflow-hidden`}
@@ -868,7 +850,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                           </div>
                         )}
                       </div>
-                    </div>
+                    </div> 
 
                     {/*************** O B S E R V A C I O N E S ***************/}
                     {ot[EnumImpresion.observaciones] &&
@@ -916,7 +898,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     )}
 
                     {ot[EnumImpresion.imprime_ticket] === 1 && (
-                      <div className="!mt-[50rem] ">
+                      <div className=" ">
                         <FOTTicketImpresion data={ot} />
                       </div>
                     )}

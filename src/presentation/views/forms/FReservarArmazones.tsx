@@ -768,11 +768,6 @@ const FReservarArmazones = () => {
     setValue("rut_beneficiario", "");
   }, [clearRutCliente]);
 
-  const fetchRequireDP = async () => {
-    try {
-    } catch (error) {}
-  };
-
   return (
     <form
       className=" w-screen mx-auto px-6 !overflow-x-hidden form-container-reserva"

@@ -9,10 +9,8 @@ import { EnumImpresion, parsedDate } from './FOTImpresa';
 const FOTTicketImpresion =  React.forwardRef((_props:any, ref:any) => {
 
     const {data} = _props;
-    console.log( data )
-    console.log(data[EnumImpresion.fecha_atencion])
     return (
-    <div ref={ref} className=''>
+    <div ref={ref} className='page-break'>
         {(
              <div className='mt-2 mr-6'>
                 <Barcode marginLeft={50} height={40} width={2.5} textAlign='right' value={formatNumberWithZeros(data && data[EnumImpresion.folio])} />
