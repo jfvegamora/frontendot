@@ -86,23 +86,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     const areaActual = OTAreas["areaActual"] 
     const permissions = (area:number) => areaActual &&  OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     let enumGird:any = useMemo(() => {
       switch (entidad) {
         case 'Armazón ':
@@ -283,7 +266,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                 estado                = rowData[4]
               }
 
-              if(entidad === 'Documentación del Proyecto ' && (rowData[enumGird.tipo_doc_id] === 1 || rowData[enumGird.tipo_doc_id] === 2)){
+              if(idMenu == 38 && (rowData[enumGird.tipo_doc_id] === 1 || rowData[enumGird.tipo_doc_id] === 2 
+                               || rowData[enumGird.tipo_doc_id] === 3 || rowData[enumGird.tipo_doc_id] === 4 
+                               || rowData[enumGird.tipo_doc_id] === 5 || rowData[enumGird.tipo_doc_id] === 8)){
                 excelIndividual = true
               }  
               return (

@@ -167,10 +167,11 @@ const ExportToCsv: React.FC<Props> = ({
       // "proyectoreportefirma" 
       
       const jsonPkToDelete = [{
-        "numero_reporte" : _p3,
-        "proyecto"       : _p1
+        "proyecto"  : _p1,
+        "tipo_doc"  : _p2,
+        "numero_doc": _p3,
       }]
-      const entidad = _p2 === 2 ? "proyectoreportefirma" : "proyectoreporteentrega"
+      const entidad = _p2 === 1 ? "proyectoreporteentrega" : "proyectoreportefirma"
 
       // console.log(entidad)
 

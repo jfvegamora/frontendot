@@ -266,6 +266,12 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
     const handlePrint = useReactToPrint({
       content: () => componentRef.current,
+      pageStyle: `
+      @page {
+        size: 80mm 297mm;
+        margin: 0;
+      }
+    `, 
       suppressErrors: true,
       removeAfterPrint: true,
       onAfterPrint() {

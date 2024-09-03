@@ -1179,4 +1179,35 @@ rowForm .custom-input:focus {
   height: 150vh; 
   overflow-y: auto; 
   overflow-x: hidden; 
+} 
+.printable-content {
+    /* width: 80mm !important;
+    height: 297mm !important;
+    padding: 0;
+    box-sizing: border-box ; */
+}
+
+
+@media print {
+  @page {
+    size: 80mm 297mm; /* Define el tamaño de la página para la impresión */
+    margin: 0;        /* Elimina márgenes para usar todo el tamaño del papel */
+  }
+
+  .page-break-comprobanteRetiro {
+    page-break-before: always; /* Asegura un salto de página antes de cada sección con esta clase */
+    width: 80mm; /* Ancho de la página de acuerdo con la impresora térmica */
+    /* height: 297mm;  */
+    height: 594mm; /* Alto de la página de acuerdo con la impresora térmica */
+    padding: 0;
+
+  }
+  .page-break {
+    page-break-before: always; /* Asegura un salto de página antes de cada sección con esta clase */
+    width: 80mm; /* Ancho de la página de acuerdo con la impresora térmica */
+    height: 297mm; 
+    /* height: 594mm; Alto de la página de acuerdo con la impresora térmica */
+    padding: 0;
+
+  }
 }
