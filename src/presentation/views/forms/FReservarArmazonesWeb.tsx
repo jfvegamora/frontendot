@@ -40,9 +40,6 @@ interface OutputData {
   _p3?: string;
 }
 
-
-
-
 interface IUserFormPrps {
   closeModal: () => void;
   data?: any[];
@@ -55,16 +52,23 @@ interface IUserFormPrps {
 }
 
 const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
-    const schema = validationReservaArmazonesSchema();
+  ({
+    closeModal,
+    setEntities,
+    params,
+    label,
+    data,
+    isEditting,
+    escritura_lectura,
+  }) => {
+    const [IsRequeridoDP, _setIsRequeridoDP] = React.useState(false);
+    const schema = validationReservaArmazonesSchema(IsRequeridoDP);
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
     const [_strCodigoProyecto, setStrCodigoProyecto] = useState("");
-    const strCodigoProyecto2 = signal("")
+    const strCodigoProyecto2 = signal("");
     // const [fechaHoraActual, setFechaHoraActual] = useState(fechaActual);
     // const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id)
-
-
 
     const {
       editEntity,
@@ -94,9 +98,8 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
     //   // const fechaFormateada = `${year}/${month}/${day}`;
     //   // const dateHora = new Date().toLocaleTimeString();
 
-
     //   // (proyecto, fecha_hora, tipo_doc, numero_doc, fecha_doc, total_neto, tipo_doc_ref, numero_doc_ref, usuario)
-    //   let _p1 = `"${jsonData.proyecto}", ${jsonData.tipo_doc}, 
+    //   let _p1 = `"${jsonData.proyecto}", ${jsonData.tipo_doc},
     //                ${jsonData.numero_doc}, "${jsonData.fecha_doc}", ${jsonData.total_neto},
     //                ${jsonData.tipo_doc_ref}, ${jsonData.numero_doc_ref}, ${UsuarioID}, "${jsonData.observaciones}"`;
 
@@ -112,7 +115,13 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
 
     function transformUpdateQuery(jsonData: InputData): OutputData | null {
       const fields = [
-        `proyecto="${jsonData.proyecto}"`, `punto_venta=${jsonData.punto_venta}`, `tipo_anteojo=${jsonData.tipo_anteojo}`, ` dp=${jsonData.dp}`, ` armazon_1="${jsonData.Armazon1}"`, ` armazon_2="${jsonData.Armazon2}"`, ` armazon_3="${jsonData.Armazon3}"`,
+        `proyecto="${jsonData.proyecto}"`,
+        `punto_venta=${jsonData.punto_venta}`,
+        `tipo_anteojo=${jsonData.tipo_anteojo}`,
+        ` dp=${jsonData.dp}`,
+        ` armazon_1="${jsonData.Armazon1}"`,
+        ` armazon_2="${jsonData.Armazon2}"`,
+        ` armazon_3="${jsonData.Armazon3}"`,
       ];
 
       const filteredFields = fields.filter(
@@ -123,16 +132,16 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
         return null;
       }
       let _p1 = filteredFields.join(",");
-      _p1 = _p1.replace(/'/g, '!');
+      _p1 = _p1.replace(/'/g, "!");
 
       // console.log(jsonData)
-      console.log(data)
+      console.log(data);
 
       const query = {
         query: "04",
         _p1,
         _p2: jsonData.rut_beneficiario,
-      }
+      };
       // console.log(query)
       return query;
     }
@@ -168,7 +177,7 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
             ? strEntidad.concat(": " + response.message)
-            : strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message);
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -177,13 +186,13 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
           return;
         }
 
-        if (response.mensaje.includes('Creado')) {
+        if (response.mensaje.includes("Creado")) {
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
-            '',
+            "",
             MODAL.keepYes,
             MODAL.kepNo
           );
@@ -227,7 +236,7 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
-        const toastLoading = toast.loading('Cargando...');
+        const toastLoading = toast.loading("Cargando...");
         try {
           const transformedData = transformUpdateQuery(data);
           // const transformedData = isEditting
@@ -238,9 +247,9 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
-          toast.dismiss(toastLoading)
+          toast.dismiss(toastLoading);
         } catch (error: any) {
-          toast.dismiss(toastLoading)
+          toast.dismiss(toastLoading);
           show({
             message: error,
             type: "error",
@@ -256,16 +265,15 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
 
     const handleInputChange = (e: any) => {
       const { name, value } = e;
-      console.log(value)
-      console.log(name)
-      if (name === 'proyecto') {
-        strCodigoProyecto2.value = (value as string)
-        setStrCodigoProyecto(value)
-        console.log(strCodigoProyecto2.value)
+      console.log(value);
+      console.log(name);
+      if (name === "proyecto") {
+        strCodigoProyecto2.value = value as string;
+        setStrCodigoProyecto(value);
+        console.log(strCodigoProyecto2.value);
       }
-      console.log(strCodigoProyecto2.value)
-
-    }
+      console.log(strCodigoProyecto2.value);
+    };
     // const fechaFormateada = fechaHoraActual.toISOString().split('T')[0];
 
     return (
@@ -277,9 +285,11 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
           </button>
         </div>
 
-        <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
+        <form
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
+          className="userFormulario"
+        >
           <div className="userFormularioContainer">
-
             <div className="input-container items-center rowForm">
               <div className="selectInputDiv">
                 <SelectInputComponent
@@ -296,33 +306,33 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="input-container items-center rowForm">
-                <div className="selectInputDiv">
-                  <SelectInputComponent
-                    label="Punto Venta"
-                    name="punto_venta"
-                    showRefresh={true}
-                    data={data && data[ReservaArmazonesEnum.punto_venta_id]}
-                    control={control}
-                    entidad={["/api/puntosventa/", "02"]}
-                    customWidth={"labelInput inputStyles"}
-                  />
-                </div>
+              <div className="selectInputDiv">
+                <SelectInputComponent
+                  label="Punto Venta"
+                  name="punto_venta"
+                  showRefresh={true}
+                  data={data && data[ReservaArmazonesEnum.punto_venta_id]}
+                  control={control}
+                  entidad={["/api/puntosventa/", "02"]}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
+            </div>
 
-              <div className="input-container items-center rowForm">
-                <div className="selectInputDiv">
-                  <SelectInputComponent
-                    label="Tipo Anteojo"
-                    name="tipo_anteojo"
-                    showRefresh={true}
-                    data={data && data[ReservaArmazonesEnum.tipo_anteojo_id]}
-                    control={control}
-                    entidad={["/api/tipos/", "02", "OTTipoAnteojo"]}
-                    error={errors.tipo_anteojo}
-                    customWidth={"labelInput inputStyles"}
-                  />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="selectInputDiv">
+                <SelectInputComponent
+                  label="Tipo Anteojo"
+                  name="tipo_anteojo"
+                  showRefresh={true}
+                  data={data && data[ReservaArmazonesEnum.tipo_anteojo_id]}
+                  control={control}
+                  entidad={["/api/tipos/", "02", "OTTipoAnteojo"]}
+                  error={errors.tipo_anteojo}
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
+            </div>
 
             <div className="flex items-center">
               <div className="input-container items-center rowForm w-[70%]">
@@ -356,58 +366,61 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
             </div>
 
             <div className="input-container items-center rowForm">
-                <div className="labelInputDiv">
-                  <TextInputComponent
-                    type="text"
-                    label="Armazón 1"
-                    name="Armazon1"
-                    data={data && data[ReservaArmazonesEnum.cod_armazon1]}
-                    control={control}
-                    error={errors.Armazon1}
-                    textAlign="text-right"
-                    customWidth={"labelInput inputStyles"}
-                  />
-                </div>
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="text"
+                  label="Armazón 1"
+                  name="Armazon1"
+                  data={data && data[ReservaArmazonesEnum.cod_armazon1]}
+                  control={control}
+                  error={errors.Armazon1}
+                  textAlign="text-right"
+                  customWidth={"labelInput inputStyles"}
+                />
               </div>
+            </div>
 
-              <div className="input-container items-center rowForm">
-                <div className="labelInputDiv">
-                  <TextInputComponent
-                    type="text"
-                    label="Armazón 2"
-                    name="Armazon2"
-                    data={data && data[ReservaArmazonesEnum.cod_armazon2]}
-                    control={control}
-                    error={errors.Armazon2}
-                    textAlign="text-right"
-                    customWidth={"labelInput inputStyles"}
-                    isOptional={true}
-                  />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="text"
+                  label="Armazón 2"
+                  name="Armazon2"
+                  data={data && data[ReservaArmazonesEnum.cod_armazon2]}
+                  control={control}
+                  error={errors.Armazon2}
+                  textAlign="text-right"
+                  customWidth={"labelInput inputStyles"}
+                  isOptional={true}
+                />
               </div>
+            </div>
 
-              <div className="input-container items-center rowForm">
-                <div className="labelInputDiv">
-                  <TextInputComponent
-                    type="text"
-                    label="Armazón 3"
-                    name="Armazon3"
-                    data={data && data[ReservaArmazonesEnum.cod_armazon3]}
-                    control={control}
-                    error={errors.Armazon3}
-                    textAlign="text-right"
-                    customWidth={"labelInput inputStyles"}
-                    isOptional={true}
-                  />
-                </div>
+            <div className="input-container items-center rowForm">
+              <div className="labelInputDiv">
+                <TextInputComponent
+                  type="text"
+                  label="Armazón 3"
+                  name="Armazon3"
+                  data={data && data[ReservaArmazonesEnum.cod_armazon3]}
+                  control={control}
+                  error={errors.Armazon3}
+                  textAlign="text-right"
+                  customWidth={"labelInput inputStyles"}
+                  isOptional={true}
+                />
               </div>
-
+            </div>
           </div>
 
           <div className="w-full !mt-5 !mb-5">
             <div className="w-[50%] mx-auto">
               {escritura_lectura && (
-                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                <Button
+                  type="submit"
+                  tabIndex={1}
+                  className="userFormBtnSubmit"
+                >
                   {`${TITLES.guardar}`}
                 </Button>
               )}

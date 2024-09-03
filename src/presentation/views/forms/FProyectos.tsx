@@ -1030,7 +1030,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </TabPanel>
             </Tabs>
 
-            <div className="w-full flex items-center !-mt-3 !mb-5">
+            <div className="w-full flex items-center !-mt-3 !mb-5 ml-2">
               <div className="input-container items-center rowForm w-[70%]">
                 <div className="labelInputDiv">
                   <TextInputComponent
@@ -1045,9 +1045,22 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   />
                 </div>
               </div>
+              <div className="w-[30%] !mt-5">
+                <div className="w-[50%] mx-auto">
+                  {escritura_lectura && (
+                    <Button
+                      type="submit"
+                      tabIndex={1}
+                      className="userFormBtnSubmit"
+                    >
+                      {`${TITLES.guardar}`}
+                    </Button>
+                  )}
+                </div>
+              </div>
             </div>
 
-            <Tabs>
+            {/* <Tabs>
               <TabList className="flex ml-4 pt-0">
                 <Tab className="custom-tab !h-14 !w-[13rem]">Presupuesto $</Tab>
                 <Tab className="custom-tab !h-14 !w-[13rem]">Opciones</Tab>
@@ -1397,21 +1410,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
                   </div>
                 </div>
               </TabPanel>
-            </Tabs>
-
-            <div className="w-[30%] !mt-5">
-              <div className="w-[50%] mx-auto">
-                {escritura_lectura && (
-                  <Button
-                    type="submit"
-                    tabIndex={1}
-                    className="userFormBtnSubmit"
-                  >
-                    {`${TITLES.guardar}`}
-                  </Button>
-                )}
-              </div>
-            </div>
+            </Tabs> */}
           </div>
         </form>
 

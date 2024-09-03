@@ -328,7 +328,6 @@ const FOT: React.FC<IFOTProps> = ({
 
   if (!isMOT) {
     const permisosAreas = OTAreaActual && (permissions(OTAreaActual)[7] as any);
-    console.log(permisosAreas);
     permiso_areas_armazones =
       permisosAreas && permisosAreas[0] === "1" ? true : false;
     permiso_areas_cristales =
@@ -371,159 +370,11 @@ const FOT: React.FC<IFOTProps> = ({
     codigoProyecto.value = "";
   };
 
-  useEffect(() => {
-    //TODO: OBTIENE LOS DATOS DE QUERY14 Y LO COLOCA EN VARIABLES GLOBALES DE LOS INPUTS
-    if (data) {
-      getDatosOT(data);
-    }
-  }, [data]);
-
-  React.useEffect(() => {
-    validar_parametrizacion.value =
-      (data && data[EnumGrid.validar_parametrizacion_id]) || "1";
-    const permiso = OTAreaActual && permissions(OTAreaActual);
-    setOTPermissions(permiso && permiso[6]);
-  }, [OTAreaActual]);
-
-  React.useEffect(() => {
-    dispatch(clearCodigos());
-
-    if (data) {
-      motivo_ot.value = data[EnumGrid.motivo] === "Garantía" ? false : true;
-      dispatch(
-        addToArmazones([
-          { codigo: data && data[EnumGrid.a1_armazon_id] },
-          { codigo: data && data[EnumGrid.a2_armazon_id] },
-        ])
-      );
-      dispatch(
-        addToCristales([
-          { codigo: data && data[EnumGrid.cristal1_od] },
-          { codigo: data && data[EnumGrid.cristal1_oi] },
-          { codigo: data && data[EnumGrid.cristal2_od] },
-          { codigo: data && data[EnumGrid.cristal2_oi] },
-        ])
-      );
-    }
-
-    if (isEditting) {
-      validation_tipo_anteojo();
-      // console.log('validaciones')
-      //VALIDACIONES NIVEL 1
-      handleValidationCheckLab(data && data);
-
-      validationProyectos(data && data[EnumGrid.proyecto_codigo]);
-      validationEstablecimientos(data && data[EnumGrid.establecimiento_id]);
-      validationCliente(data && data[EnumGrid.cliente_rut]);
-      validationClienteNombre(data && data[EnumGrid.cliente_nomnbre]);
-      validationClienteTipo(data && data[EnumGrid.cliente_tipo]);
-      validationClienteSexo(data && data[EnumGrid.cliente_sexo]);
-      validationClienteTelefono(data && data[EnumGrid.cliente_sexo]);
-      validationClienteComuna(data && data[EnumGrid.cliente_comuna_id]);
-      validationFechaAtencion(data && data[EnumGrid.fecha_atencion]);
-      validationPuntoVenta(data && data[EnumGrid.punto_venta_id]);
-      validationTipoAnteojos(data && data[EnumGrid.tipo_anteojo_id]);
-
-      //VALIDACIONES NIVEL 2
-      validationFechaEntregaTaller(data && data[EnumGrid.fecha_entrega_taller]);
-      validationFechaDespacho(data && data[EnumGrid.fecha_despacho]);
-      validationFechaEntregaCliente(
-        data && data[EnumGrid.fecha_entrega_cliente]
-      );
-      validation_A1_OD_ESF(data && data[EnumGrid.a1_od_esf]);
-      validation_A1_OD_CILL(data && data[EnumGrid.a1_od_cil]);
-      validation_A1_OD_EJE(data && data[EnumGrid.a1_od_eje]);
-      validation_A1_OD_AD(data && data[EnumGrid.a1_od_ad]);
-      validation_A1_OI_ESF(data && data[EnumGrid.a1_oi_esf]);
-      validation_A1_OI_CIL(data && data[EnumGrid.a1_oi_cil]);
-      validation_A1_OI_EJE(data && data[EnumGrid.a1_oi_eje]);
-      validation_A1_OI_AD(data && data[EnumGrid.a1_oi_ad]);
-      validation_A1_DP(data && data[EnumGrid.a1_dp]);
-
-      validation_A1_ALT(data && data[EnumGrid.a1_alt]);
-      validation_A1_armazon(data && data[EnumGrid.a1_armazon_id]);
-      // validation_A2_armazon(data && data[EnumGrid.a2_armazon_id])
-
-      validation_A2_OD_ESF(data && data[EnumGrid.a2_od_esf]);
-      validation_A2_OD_CIL(data && data[EnumGrid.a2_od_cil]);
-      validation_A2_OD_EJE(data && data[EnumGrid.a2_od_eje]);
-
-      validation_A2_OI_ESF(data && data[EnumGrid.a2_oi_esf]);
-      validation_A2_OI_CIL(data && data[EnumGrid.a2_oi_cil]);
-      validation_A2_OI_EJE(data && data[EnumGrid.a2_oi_eje]);
-      validation_A2_DP(data && data[EnumGrid.a2_dp]);
-
-      validation_A1_armazon(data && data[EnumGrid.a1_armazon_id]);
-
-      validation_Cristal1_marca(data && data[EnumGrid.cristal1_marca_id]);
-      validation_Cristal1_diseño(data && data[EnumGrid.cristal1_diseno_id]);
-      validation_Cristal1_indice(data && data[EnumGrid.cristal1_indice_id]);
-      validation_Cristal1_material(data && data[EnumGrid.cristal1_material_id]);
-      validation_Cristal1_tratamiento(
-        data && data[EnumGrid.cristal1_tratamiento_id]
-      );
-      validation_Cristal1_color(data && data[EnumGrid.cristal1_color_id]);
-      validation_Cristal1_diametro(data && data[EnumGrid.cristal1_diametro]);
-      validation_Cristal1_od(data && data[EnumGrid.cristal1_od]);
-      validation_Cristal1_oi(data && data[EnumGrid.cristal1_oi]);
-
-      combinaciones_validas_od(
-        data && data[EnumGrid.a1_od_esf],
-        data && data[EnumGrid.a1_od_cil],
-        data && data[EnumGrid.a1_od_eje]
-      );
-
-      tipo_anteojo_title.value = data && data[EnumGrid.tipo_anteojo];
-      validation_A2_armazon("32");
-      if (data && data[EnumGrid.tipo_anteojo_id] === 3) {
-        validation_cristal2_marca(data && data[EnumGrid.cristal2_marca_id]);
-        validation_Cristal2_diseño(data && data[EnumGrid.cristal2_diseno_id]);
-        validation_Cristal2_indice(data && data[EnumGrid.cristal2_indice_id]);
-        validation_Cristal2_material(
-          data && data[EnumGrid.cristal2_material_id]
-        );
-        validation_Cristal2_tratamiento(
-          data && data[EnumGrid.cristal2_tratamiento_id]
-        );
-        validation_Cristal2_color(data && data[EnumGrid.cristal2_color_id]);
-        validation_Cristal2_diametro(data && data[EnumGrid.cristal2_diametro]);
-        validation_Cristal2_od(data && data[EnumGrid.cristal2_od]);
-        validation_Cristal2_oi(data && data[EnumGrid.cristal2_oi]);
-        tipo_anteojo_title_cristal2.value = "Cerca";
-        tipo_anteojo_title.value = "Lejos";
-        if (CR2_OD_LAB.value === true) {
-          validation_Cristal2_od("32");
-        }
-        if (CR2_OI_LAB.value === true) {
-          validation_Cristal2_oi("32");
-        }
-      }
-
-      // console.log(data && data[EnumGrid.tipo_anteojo])
-
-      // getGrupoCristales_A1({}, data, setErrorGrupoDioptriaA1, setFOTBooleanStates, isEditting, setErrorGrupoDioptriaA2)
-
-      console.log(CR1_OD_LAB.value);
-      console.log(CR1_OI_LAB.value);
-
-      if (CR1_OD_LAB.value === true) {
-        console.log("render");
-        validation_Cristal1_od("32");
-      }
-      if (CR1_OI_LAB.value === true) {
-        console.log("render");
-        validation_Cristal1_oi("32");
-      }
-    }
-  }, []);
-
   const reiniciarFormOT = (
     keepForm: any,
     message: any,
     clearCliente: boolean
   ): void => {
-    console.log(keepForm);
-    console.log(keepForm.value);
     clearDioptrias(keepForm);
     reiniciarDioptriasReceta();
     reiniciarValidationNivel1(keepForm);
@@ -544,8 +395,6 @@ const FOT: React.FC<IFOTProps> = ({
       dispatch(fetchOT({ OTAreas: OTAreaActual }));
     }
   };
-
-  // console.log(data && data[EnumGrid.lugar_despacho])
 
   const insertOT = async (
     jsonData: any,
@@ -791,8 +640,6 @@ const FOT: React.FC<IFOTProps> = ({
       },
     ];
 
-    console.log("render");
-
     const query = {
       query: "03",
       _p1,
@@ -813,7 +660,6 @@ const FOT: React.FC<IFOTProps> = ({
     };
 
     try {
-      console.log(query);
       const response = await axios.post(`${URLBackend}/api/ot/crear/`, query);
       const message = `Nuevo Folio OT: ${response.data.datos[0][0]}`;
       if (response.status === 200) {
@@ -831,7 +677,6 @@ const FOT: React.FC<IFOTProps> = ({
         if (result) {
           let clearCliente = true;
           keepForm.value = true;
-          console.log(keepForm.value);
           toast.success(message);
           toast.dismiss(toastLoading);
           reiniciarFormOT(keepForm.value, message, clearCliente);
@@ -1003,7 +848,6 @@ const FOT: React.FC<IFOTProps> = ({
     validation_A2_DP(undefined);
 
     // if(clearOptiLabl){
-    //   console.log('render')
     //   reiniciarValidationNivel1(true, false);
     // }else{
     //   reiniciarValidationNivel1(true, true);
@@ -1020,7 +864,6 @@ const FOT: React.FC<IFOTProps> = ({
     ]
       .map((item) => {
         const numero = parseFloat(item.codigo);
-        console.log(numero);
         if (
           !isNaN(numero) &&
           numero !== 0 &&
@@ -1090,7 +933,6 @@ const FOT: React.FC<IFOTProps> = ({
     } else if (submitAction === "ingresar") {
       insertOT(jsonData, cristalesJSON, armazonesJSON);
       setSubmitAction("");
-      console.log("click");
     }
   };
 
@@ -1101,10 +943,8 @@ const FOT: React.FC<IFOTProps> = ({
     const key = Object.keys(dataForm)[0];
 
     if (key === "tipo_anteojo_id" || key === "proyecto_codigo") {
-      console.log("render");
       const value = Object.values(dataForm)[0];
 
-      console.log(value);
       if (value === "3") {
         tipo_anteojo_title.value = "Lejos";
         tipo_anteojo_title_cristal2.value = "Cerca";
@@ -1181,8 +1021,6 @@ const FOT: React.FC<IFOTProps> = ({
         Object.keys(dataForm)[0] === "a1_oi_ad" ||
         tipo_de_anteojo.value === "3"
       ) {
-        console.log(dioptrias_receta.value.a1_od.ad);
-
         if (dioptrias_receta.value.a1_od.ad <= 0) {
           a2_od_esf.value = "";
           dioptrias_receta.value.a1_od.ad = "";
@@ -1203,7 +1041,6 @@ const FOT: React.FC<IFOTProps> = ({
             typeof dioptrias_receta.value.a1_oi.eje === "object"
               ? 0
               : dioptrias_receta.value.a1_oi.eje;
-          console.log(a2_oi_eje.value);
           a2_oi_cil.value =
             typeof dioptrias_receta.value.a1_oi.cil === "object"
               ? 0
@@ -1219,10 +1056,8 @@ const FOT: React.FC<IFOTProps> = ({
       validation_A2_OI_CIL(a2_oi_cil.value);
       validation_A2_OI_EJE(a2_oi_eje.value);
     }
-    console.log(changeCodigoCristal_A1[key]);
     // ? CODIGO CRISTALES Y GRUPO ANTEOJO 1:
     if (changeCodigoCristal_A1[key]) {
-      console.log("render");
       const formValue = getValues();
       getGrupoCristales_A1(
         formValue,
@@ -1259,6 +1094,142 @@ const FOT: React.FC<IFOTProps> = ({
   const handleIngresarClick = () => {
     setSubmitAction("ingresar");
   };
+
+  React.useEffect(() => {
+    validar_parametrizacion.value =
+      (data && data[EnumGrid.validar_parametrizacion_id]) || "1";
+    const permiso = OTAreaActual && permissions(OTAreaActual);
+    setOTPermissions(permiso && permiso[6]);
+  }, [OTAreaActual]);
+
+  React.useEffect(() => {
+    dispatch(clearCodigos());
+
+    if (data) {
+      //TODO: OBTIENE LOS DATOS DE QUERY14 Y LO COLOCA EN VARIABLES GLOBALES DE LOS INPUTS
+      getDatosOT(data);
+      motivo_ot.value = data[EnumGrid.motivo] === "Garantía" ? false : true;
+      dispatch(
+        addToArmazones([
+          { codigo: data && data[EnumGrid.a1_armazon_id] },
+          { codigo: data && data[EnumGrid.a2_armazon_id] },
+        ])
+      );
+      dispatch(
+        addToCristales([
+          { codigo: data && data[EnumGrid.cristal1_od] },
+          { codigo: data && data[EnumGrid.cristal1_oi] },
+          { codigo: data && data[EnumGrid.cristal2_od] },
+          { codigo: data && data[EnumGrid.cristal2_oi] },
+        ])
+      );
+    }
+
+    if (isEditting) {
+      validation_tipo_anteojo();
+      // console.log('validaciones')
+      //VALIDACIONES NIVEL 1
+      handleValidationCheckLab(data && data);
+
+      validationProyectos(data && data[EnumGrid.proyecto_codigo]);
+      validationEstablecimientos(data && data[EnumGrid.establecimiento_id]);
+      validationCliente(data && data[EnumGrid.cliente_rut]);
+      validationClienteNombre(data && data[EnumGrid.cliente_nomnbre]);
+      validationClienteTipo(data && data[EnumGrid.cliente_tipo]);
+      validationClienteSexo(data && data[EnumGrid.cliente_sexo]);
+      validationClienteTelefono(data && data[EnumGrid.cliente_sexo]);
+      validationClienteComuna(data && data[EnumGrid.cliente_comuna_id]);
+      validationFechaAtencion(data && data[EnumGrid.fecha_atencion]);
+      validationPuntoVenta(data && data[EnumGrid.punto_venta_id]);
+      validationTipoAnteojos(data && data[EnumGrid.tipo_anteojo_id]);
+
+      //VALIDACIONES NIVEL 2
+      validationFechaEntregaTaller(data && data[EnumGrid.fecha_entrega_taller]);
+      validationFechaDespacho(data && data[EnumGrid.fecha_despacho]);
+      validationFechaEntregaCliente(
+        data && data[EnumGrid.fecha_entrega_cliente]
+      );
+      validation_A1_OD_ESF(data && data[EnumGrid.a1_od_esf]);
+      validation_A1_OD_CILL(data && data[EnumGrid.a1_od_cil]);
+      validation_A1_OD_EJE(data && data[EnumGrid.a1_od_eje]);
+      validation_A1_OD_AD(data && data[EnumGrid.a1_od_ad]);
+      validation_A1_OI_ESF(data && data[EnumGrid.a1_oi_esf]);
+      validation_A1_OI_CIL(data && data[EnumGrid.a1_oi_cil]);
+      validation_A1_OI_EJE(data && data[EnumGrid.a1_oi_eje]);
+      validation_A1_OI_AD(data && data[EnumGrid.a1_oi_ad]);
+      validation_A1_DP(data && data[EnumGrid.a1_dp]);
+
+      validation_A1_ALT(data && data[EnumGrid.a1_alt]);
+      validation_A1_armazon(data && data[EnumGrid.a1_armazon_id]);
+      // validation_A2_armazon(data && data[EnumGrid.a2_armazon_id])
+
+      validation_A2_OD_ESF(data && data[EnumGrid.a2_od_esf]);
+      validation_A2_OD_CIL(data && data[EnumGrid.a2_od_cil]);
+      validation_A2_OD_EJE(data && data[EnumGrid.a2_od_eje]);
+
+      validation_A2_OI_ESF(data && data[EnumGrid.a2_oi_esf]);
+      validation_A2_OI_CIL(data && data[EnumGrid.a2_oi_cil]);
+      validation_A2_OI_EJE(data && data[EnumGrid.a2_oi_eje]);
+      validation_A2_DP(data && data[EnumGrid.a2_dp]);
+
+      validation_A1_armazon(data && data[EnumGrid.a1_armazon_id]);
+
+      validation_Cristal1_marca(data && data[EnumGrid.cristal1_marca_id]);
+      validation_Cristal1_diseño(data && data[EnumGrid.cristal1_diseno_id]);
+      validation_Cristal1_indice(data && data[EnumGrid.cristal1_indice_id]);
+      validation_Cristal1_material(data && data[EnumGrid.cristal1_material_id]);
+      validation_Cristal1_tratamiento(
+        data && data[EnumGrid.cristal1_tratamiento_id]
+      );
+      validation_Cristal1_color(data && data[EnumGrid.cristal1_color_id]);
+      validation_Cristal1_diametro(data && data[EnumGrid.cristal1_diametro]);
+      validation_Cristal1_od(data && data[EnumGrid.cristal1_od]);
+      validation_Cristal1_oi(data && data[EnumGrid.cristal1_oi]);
+
+      combinaciones_validas_od(
+        data && data[EnumGrid.a1_od_esf],
+        data && data[EnumGrid.a1_od_cil],
+        data && data[EnumGrid.a1_od_eje]
+      );
+
+      tipo_anteojo_title.value = data && data[EnumGrid.tipo_anteojo];
+      validation_A2_armazon("32");
+      if (data && data[EnumGrid.tipo_anteojo_id] === 3) {
+        validation_cristal2_marca(data && data[EnumGrid.cristal2_marca_id]);
+        validation_Cristal2_diseño(data && data[EnumGrid.cristal2_diseno_id]);
+        validation_Cristal2_indice(data && data[EnumGrid.cristal2_indice_id]);
+        validation_Cristal2_material(
+          data && data[EnumGrid.cristal2_material_id]
+        );
+        validation_Cristal2_tratamiento(
+          data && data[EnumGrid.cristal2_tratamiento_id]
+        );
+        validation_Cristal2_color(data && data[EnumGrid.cristal2_color_id]);
+        validation_Cristal2_diametro(data && data[EnumGrid.cristal2_diametro]);
+        validation_Cristal2_od(data && data[EnumGrid.cristal2_od]);
+        validation_Cristal2_oi(data && data[EnumGrid.cristal2_oi]);
+        tipo_anteojo_title_cristal2.value = "Cerca";
+        tipo_anteojo_title.value = "Lejos";
+        if (CR2_OD_LAB.value === true) {
+          validation_Cristal2_od("32");
+        }
+        if (CR2_OI_LAB.value === true) {
+          validation_Cristal2_oi("32");
+        }
+      }
+
+      // console.log(data && data[EnumGrid.tipo_anteojo])
+
+      // getGrupoCristales_A1({}, data, setErrorGrupoDioptriaA1, setFOTBooleanStates, isEditting, setErrorGrupoDioptriaA2)
+
+      if (CR1_OD_LAB.value === true) {
+        validation_Cristal1_od("32");
+      }
+      if (CR1_OI_LAB.value === true) {
+        validation_Cristal1_oi("32");
+      }
+    }
+  }, [data]);
 
   React.useEffect(() => {
     if (
@@ -1349,8 +1320,6 @@ const FOT: React.FC<IFOTProps> = ({
       window.removeEventListener("wheel", handleScroll); // Limpia el evento de scroll
     };
   }, []);
-
-  console.log(validationNivel1.value);
 
   const camposRequeridosCliente = [
     "cliente_rut",

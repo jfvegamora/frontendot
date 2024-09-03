@@ -51,8 +51,6 @@ export const changeFilterSearchTitle = (
       ? "Atrasadas"
       : e.target.value;
 
-  console.log(e.target.options[e.target.selectedIndex].text);
-
   const updatedValue =
     newValueFilterSearch === ""
       ? Object.keys(filterSearchTitle.value).reduce((acc: any, key: any) => {
@@ -63,17 +61,9 @@ export const changeFilterSearchTitle = (
         }, {})
       : { ...filterSearchTitle.value, [label]: newValueFilterSearch };
 
-  console.log(newValueFilterSearch);
-  console.log(updatedValue);
   filterSearchTitle.value = updatedValue;
   titleSearch.value = Object.values(filterSearchTitle.value).join(" | ");
-  console.log(filterSearchTitle.value);
-
-  console.log(titleSearch.value);
 };
-
-console.log(filterSearchTitle.value);
-console.log(titleSearch.value);
 
 interface PrimaryKeySearchProps {
   setEntities: any;
@@ -123,12 +113,10 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     const { ListEntity } = useCrud(baseUrl);
 
     useEffect(() => {
-      console.log(description);
       setCristalDescription(description || "");
     }, [description]);
 
     const handleRefresh = React.useCallback(() => {
-      console.log("render");
       titleSearch.value = "";
       const mapping = primaryKeyInputs.reduce(
         (acc: any, filtroBusqueda: any) => {
@@ -166,7 +154,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     );
 
     let className = "";
-    console.log(baseUrl);
     switch (baseUrl) {
       case "/api/othistorica/":
         className =

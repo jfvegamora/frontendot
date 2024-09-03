@@ -633,8 +633,6 @@ const MOT: React.FC = () => {
   //   []
   // );
 
-  console.log(OTPkToDelete.value);
-
   // const fetchOTData = async () => {
   //   try {
   //     const response: any = await axios.get<any>(

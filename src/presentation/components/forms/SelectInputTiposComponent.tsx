@@ -79,6 +79,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     const dispatch = useAppDispatch();
 
     const fetchData = async () => {
+      console.log("render");
       try {
         if (true) {
           const { data } = await axios(
@@ -90,7 +91,6 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
             }
           );
 
-          console.log(data);
           dispatch(updateDataForKey({ nameInputInRedux, data }));
         }
       } catch (error: any) {

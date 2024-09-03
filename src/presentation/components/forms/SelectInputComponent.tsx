@@ -119,15 +119,11 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       const reFetchData = {
         "Punto de Venta": "",
       };
-
-      console.log(state);
-
-      if (Object.keys(state).some((key) => key === label)) {
-        if (!entidad[2]) {
-          return;
-        }
-      }
-
+      // if (Object.keys(state).some((key) => key === label)) {
+      //   if (!entidad[2]) {
+      //     return;
+      //   }
+      // }
       const { data } = await axios(strUrl2, {
         headers: {
           Authorization: token,
@@ -219,19 +215,12 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
               tabIndex={tabIndex || 1}
               value={strSelectedName}
               onChange={(e) => {
-                console.log(e.target.value);
                 if (label === "Punto de Venta") {
-                  console.log(e.target.value);
                   setValue(e.target.value);
-                  console.log(punto_venta.value);
                 }
 
                 if (label === "Nombre Proyecto") {
-                  console.log(codigoProyecto.value);
-                  console.log(e.target.value);
-
                   if (codigoProyecto.value !== e.target.value) {
-                    console.log("render");
                     setValue("");
                     punto_venta.value = "";
                   }
@@ -246,7 +235,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                   const selectedValue = e.target.value.toString();
                   if (isOT) {
                     changeFilterOTSearchTitle(e, name, "Select");
-                    console.log("render");
                   } else {
                     changeFilterSearchTitle(e, name, "Select");
                   }
@@ -308,11 +296,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     );
 
     useEffect(() => {
-      console.log({
-        data: data,
-        label: label,
-      });
-      console.log("render");
       renderInput();
     }, [data]);
 

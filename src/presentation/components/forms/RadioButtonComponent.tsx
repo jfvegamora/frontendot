@@ -13,9 +13,9 @@ interface IRadioButtonProps {
   onChange?: (value: any) => void;
   readOnly?: boolean;
   tabIndex?: number;
-  isOT?:boolean;
-  labelProps?:any
-  customWidth?:any
+  isOT?: boolean;
+  labelProps?: any;
+  customWidth?: any;
 }
 
 const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
@@ -32,37 +32,43 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
   tabIndex,
   customWidth,
   labelProps,
-  isOT
+  isOT,
 }) => {
-
-
-  const [value,setValue] = useState<any>(data);
-
-
+  const [value, setValue] = useState<any>(data);
 
   useEffect(() => {
-    if(data){
-      if(name === 'resolucion_garantia_id'){
-        setValue(data)
-      }else{
-        setValue(data)
-
+    if (data) {
+      if (name === "resolucion_garantia_id") {
+        setValue(data);
+      } else {
+        setValue(data);
       }
     }
   }, [data]);
 
-  console.log(isOT)
   return (
     <div
       className={` w-full px-8 py-0 mt-2 relative mx-2 border-[1px] radioComponent flex   ${
-        horizontal ? `justify-arround ml-1 !h-[4rem] ${isOT ? "!w-[20rem]" : "!w-auto"} ` : "flex-col justify-between"
+        horizontal
+          ? `justify-arround ml-1 !h-[4rem] ${isOT ? "!w-[20rem]" : "!w-auto"} `
+          : "flex-col justify-between"
       } rounded-lg ${error && "border border-red-400"}`}
     >
-      <label htmlFor={label} className={` ${labelProps ? labelProps : ""} absolute w-full !translate-y-[-0.4vw] translate-x-3`}>
-                  {label}
+      <label
+        htmlFor={label}
+        className={` ${
+          labelProps ? labelProps : ""
+        } absolute w-full !translate-y-[-0.4vw] translate-x-3`}
+      >
+        {label}
       </label>
       {options.map((option, index) => (
-        <div className={` ${horizontal ? "  w-full" : "w-full "} py-0 flex inputStyles textOption `} key={index}>
+        <div
+          className={` ${
+            horizontal ? "  w-full" : "w-full "
+          } py-0 flex inputStyles textOption `}
+          key={index}
+        >
           <Controller
             key={index}
             name={name}
@@ -77,14 +83,18 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
                   tabIndex={tabIndex || 1}
                   disabled={readOnly}
                   checked={value === option}
-                  className={` pt-3 labelInput ${customWidth ?  customWidth :""} mr-2 transform scale-150 ${field.value === option ? 'text-orange-500' : 'text-gray-500'}`}
+                  className={` pt-3 labelInput ${
+                    customWidth ? customWidth : ""
+                  } mr-2 transform scale-150 ${
+                    field.value === option ? "text-orange-500" : "text-gray-500"
+                  }`}
                   onChange={() => {
                     if (value !== option) {
                       setValue(option);
                       field.onChange(option);
                     }
-                    if (typeof onChange === 'function') {
-                      onChange({name:label, value:option});
+                    if (typeof onChange === "function") {
+                      onChange({ name: label, value: option });
                     }
                   }}
                   ref={inputRef}
@@ -96,7 +106,13 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
         </div>
       ))}
       {error && (
-        <p className={`relative  labelErr ${horizontal ? "top-[0] align-center" : "top-[-5.7rem] text-base text-center right-[-2rem]"}`}>
+        <p
+          className={`relative  labelErr ${
+            horizontal
+              ? "top-[0] align-center"
+              : "top-[-5.7rem] text-base text-center right-[-2rem]"
+          }`}
+        >
           {error.message}
         </p>
       )}

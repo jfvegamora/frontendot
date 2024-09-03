@@ -304,7 +304,6 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
                     icon={faCamera}
                     className=" translate-x-2 hover:!text-[#f8b179]"
                     onClick={() => {
-                      console.log("click");
                       handleFocusReservaArmazones(name);
                     }}
                   />
@@ -314,9 +313,7 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
                     icon={faTrash}
                     onClick={() => {
                       setValue("");
-                      console.log("click");
                       armazonInput.value = "";
-                      console.log(name);
                     }}
                     className=" translate-x-2 hover:!text-[#f8b179]"
                   />

@@ -152,7 +152,6 @@ export const validationOTlevel1 = (name: string, value: any) => {
       validationTipoAnteojos(value);
       break;
     case "punto_venta_id":
-      console.log(value);
       validationPuntoVenta(value);
       break;
     default:
@@ -327,8 +326,6 @@ export const validatePestañaCristales = () => {
 };
 
 export const validationOTlevel3 = (name: string, value: any) => {
-  console.log(name);
-
   switch (name) {
     case "validar_cristal1_od":
       validationCodigoCristal1_od(value);
@@ -616,8 +613,6 @@ export const validationCodigoCristal2_od = (value: any, validar?: boolean) => {
     } else {
       item.valor = 0;
     }
-
-    console.log(item);
   }
 };
 
@@ -637,7 +632,6 @@ export const validationCodigoCristal2_oi = (value: any, validar?: boolean) => {
   }
 
   if (item) {
-    console.log(value);
     if (validar) {
       item.valor = 1;
     }
@@ -651,8 +645,6 @@ export const validationCodigoCristal2_oi = (value: any, validar?: boolean) => {
     } else {
       item.valor = 0;
     }
-
-    console.log(item);
   }
 };
 
@@ -699,21 +691,16 @@ export const validationCodigoArmazon_2 = (value: any, validar?: boolean) => {
   }
 
   if (item) {
-    console.log(value);
     if (value.trim() === "") {
-      console.log(value);
       item.valor = 0;
     }
 
     if (value.trim() === a2_armazon.value) {
-      console.log(value);
       item.valor = 1;
     } else {
-      console.log(value);
       item.valor = 0;
     }
   }
-  console.log(item);
 };
 
 export const validationClienteNombre = (value: string) => {
@@ -747,7 +734,6 @@ export const validationClienteComuna = (value: any) => {
     (item: { campo: string }) => item.campo === "cliente_comuna"
   );
   if (item) {
-    // console.log(!Number.isNaN(value))
     !Number.isNaN(value) ? (item.valor = 1) : (item.valor = 0);
   }
 };
@@ -783,7 +769,6 @@ export const validation_Cristal2_tratamiento_adicionnal = (
 };
 
 export const validation_Cristal2_oi = (value: string | any) => {
-  console.log(value);
   const item = validationNivel1.value.find(
     (item) => item.campo === "cristal2_oi"
   );
@@ -799,8 +784,6 @@ export const validation_Cristal2_oi = (value: string | any) => {
       item.valor = 0;
     }
   }
-
-  console.log(item);
 };
 
 export const validation_Cristal2_od = (value: string | any) => {
@@ -935,7 +918,6 @@ export const validation_Cristal2_diseño = (value: string | any) => {
   }
 };
 export const validation_cristal2_marca = (value: string | any) => {
-  // console.log(value)
   if (value !== "") {
     const item = validationNivel1.value.find(
       (item) => item.campo === "cristal2_marca_id"
@@ -1017,8 +999,6 @@ export const validation_Cristal1_od = (value: string | any) => {
     (item) => item.campo === "cristal1_od"
   );
 
-  // console.log(value)
-
   if (value !== "") {
     if (item) {
       item.valor = 1;
@@ -1030,8 +1010,6 @@ export const validation_Cristal1_od = (value: string | any) => {
       item.valor = 0;
     }
   }
-
-  // console.log(item)
 };
 
 export const validation_Cristal1_diametro = (value: string | any) => {
@@ -1263,9 +1241,6 @@ export const validation_A2_armazon = (value: string | any) => {
       item.valor = 0;
     }
   }
-
-  console.log(item);
-  console.log(value);
 };
 
 export const validation_A2_DP = (value: string | any) => {
@@ -1369,21 +1344,15 @@ export const validation_A1_ALT = (value: string | any) => {
 export const validation_A1_DP = (value: string | any) => {
   const item = validationNivel1.value.find((item) => item.campo === "a1_dp");
 
-  console.log(value);
-
   if (value !== "") {
     if (item) {
-      console.log("render");
       item.valor = 1;
     }
   } else {
     if (item) {
-      console.log("render");
       item.valor = 0;
     }
   }
-
-  console.log(item);
 };
 
 export const validation_A1_OI_AD = (_value: string | any) => {

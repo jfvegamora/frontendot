@@ -96,23 +96,16 @@ const FOTOptica: React.FC<IOptica> = ({
     firstInputRef: React.useRef<HTMLInputElement>(null),
   });
 
-  // console.log(_estado)
-
   const handleInputChange = (e: any) => {
     const { name, value } = e;
-
-    console.log(name);
-    console.log(value);
 
     if (name === "proyecto_codigo") {
       EmpresaAdjudicadaOT_ID.value = proyectoRedux["Nombre Proyecto"].find(
         (proyecto: any) => proyecto[0] === value
       )[2];
       // if(EmpresaAdjudicadaOT_ID.value !== 3){
-      //     console.log('render')
       //     resetOptiLabSwitchs()
       // }else{
-      //     console.log('render')
       //     validation_A1_armazon('32')
       //     validation_A2_armazon('32')
       // }
@@ -164,13 +157,11 @@ const FOTOptica: React.FC<IOptica> = ({
         toast.success("Resolucion cambiada");
       }
     } catch (error) {
-      // console.log(error)
       throw error;
     }
   };
 
   const handleSwitchValidation = async (event: any) => {
-    // console.log(event)
     try {
       const query = `?query=07&_folio=${data[EnumGrid.folio]}&_p2=${
         event === true ? 1 : 0
@@ -185,7 +176,6 @@ const FOTOptica: React.FC<IOptica> = ({
           : (isToggleValidation.value = false);
       }
     } catch (error) {
-      // console.log(error)
       throw error;
     }
   };
@@ -194,7 +184,6 @@ const FOTOptica: React.FC<IOptica> = ({
     // setIsToggleImpresion((prev)=>!prev)
     const toastLoading = toast.loading("Cargando...");
     try {
-      console.log();
       const dataJson = [
         {
           folio: data[EnumGrid.folio],
@@ -208,7 +197,6 @@ const FOTOptica: React.FC<IOptica> = ({
       )}&_p2=${estado_impresion}&_usuario=${userID}&_origen=${_origen}`;
       const result = await axios(`${strUrl}/${query}`);
       if (result.status === 200) {
-        // console.log(result)
         result.data[0][0] === 1
           ? (isToggleImpression.value = true)
           : (isToggleImpression.value = false);
@@ -255,9 +243,7 @@ const FOTOptica: React.FC<IOptica> = ({
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      console.log("Scroll Y:", window.scrollY);
-    };
+    const handleScroll = () => {};
 
     // Agregar el event listener al scroll de la ventana
     window.addEventListener("scroll", handleScroll);
@@ -267,10 +253,6 @@ const FOTOptica: React.FC<IOptica> = ({
       window.removeEventListener("scroll", handleScroll);
     };
   }, []); //
-
-  console.log(permiso_usuario_estado_validacion);
-  console.log(permiso_areas_estado_validacion);
-  // console.log(permisos_usuario_areas);
 
   return (
     <form action="" onKeyDown={handleKeyDown} className="  h-[85vh] ">
@@ -355,7 +337,6 @@ const FOTOptica: React.FC<IOptica> = ({
                     } else {
                       validation_A1_armazon("");
                       validation_A2_armazon("");
-                      console.log("render");
                       onDataChange({
                         ["montaje_validacion"]: isToggleMontajeValidation.value,
                       });

@@ -128,6 +128,8 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
   });
   const fechaHoraFormateada = `${hora} ${fecha}`;
 
+  // console.log(OT && OT[0] && OT[0][0][EnumImpresion.imprime_ticket]);
+
   return (
     <>
       {masivo === true ? (
@@ -143,13 +145,17 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     //   // "!h-auto"
                     // }`}
                     key={ot[EnumImpresion.folio]}
-                    className="printable-content page-break"
+                    className={`printable-content ${
+                      ot[EnumImpresion.imprime_ticket] === 1
+                        ? "page-break-comprobanteRetiro"
+                        : "page-break"
+                    } `}
                     // style={{ width: '80mm', height: '297mm', padding: '0', boxSizing: 'border-box' }}
                   >
                     <div
                       className={`w-[100%]  ${
                         ot[EnumImpresion.imprime_ticket] === 1
-                          ? "!h-[3%]"
+                          ? "!h-[3.5%]"
                           : "!h-[6.5%]"
                       } mb-4 `}
                     >

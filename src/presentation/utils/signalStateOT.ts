@@ -936,7 +936,6 @@ export const clearDioptrias = (closeForm?: boolean) => {
   validar_parametrizacion.value = "1";
 
   if (!closeForm) {
-    console.log("render");
     codigoProyecto.value = "";
     fecha_atencion_signal.value = "";
     fecha_despacho.value = "";
@@ -958,15 +957,12 @@ export const clearDioptriasA2 = (valor: any) => {
     "a2_oi_eje",
   ];
 
-  // console.log(valor)
   campos.forEach((campo) => {
     const elemento = buscarCampo(campo);
     if (elemento) {
       elemento.valor = valor;
     }
   });
-
-  // console.log(validationNivel2.value)
 };
 
 // export const clearInputDioptrias = () => {
@@ -1029,10 +1025,7 @@ export const fetchFechas = async (
   fecha_atencion: string,
   codgioProyecto: string
 ) => {
-  // console.log('ejecutando')
   try {
-    console.log(fecha_atencion);
-    console.log(codgioProyecto);
     if (!codigoProyecto.value) {
       return;
     }
@@ -1057,7 +1050,6 @@ export const fetchFechas = async (
 
     return data;
   } catch (error) {
-    // console.log('fetchFechasError:', error);
     throw error;
   }
 };
@@ -1180,7 +1172,6 @@ export const updateOT = async (
     // const amrazones =
     //   data.tipo_anteojo === 3 ? data.armazones : data.armazones.shift();
 
-    console.log(_origen);
     const strP1 =
       tipo_evento === "Derivar"
         ? `area="${_destino}", estado="${_estado}",ubicacion=""`
@@ -1224,9 +1215,6 @@ export const updateOT = async (
       _motivo: `${motivo}`,
     };
 
-    console.log(data.armazones);
-    console.log(query);
-
     try {
       const response = await axios.post(`${URLBackend}/api/ot/editar/`, query);
 
@@ -1253,29 +1241,8 @@ export const updateOT = async (
 
   let estado_validacion = validation_Complete === true ? 2 : 1;
 
-  console.log(estado_validacion);
-
   let _p3 = "";
 
-  console.log(jsonData);
-
-  console.log(jsonData.cristal2_tratamiento_adicional_id);
-  console.log(_formValues);
-  console.log(_formValues["optica"] && _formValues["optica"]["Resolución"]);
-
-  console.log(
-    `resolucion_garantia=${
-      _formValues["optica"] && _formValues["optica"]["resolucion"] !== undefined
-        ? _formValues["optica"]["resolucion"] === "Aceptada"
-          ? 1
-          : _formValues["optica"]["resolucion"] === "Rechazada"
-          ? 2
-          : 0
-        : data && data[EnumGrid.resolucion_garantia_id]
-        ? data && data[EnumGrid.resolucion_garantia_id]
-        : 0
-    }`
-  );
   const toastLoading = toast.loading("Cargando...");
 
   const fields = [
@@ -1702,15 +1669,6 @@ export const updateOT = async (
 
   const _armazonJSONNew = JSON.stringify(armazones);
 
-  console.log(data && data[EnumGrid.motivo]);
-
-  console.log(tipo_evento);
-  console.log(
-    fields
-      .map((a) => a.split("="))
-      .filter((prev) => prev[0] !== "resolucion_garantia")
-  );
-
   let filteredFields = fields
     .map((a) => a.split("="))
     .filter((prev) => prev[1] !== "undefined")
@@ -1736,10 +1694,6 @@ export const updateOT = async (
 
   _p1 = _p1.replace(/'/g, "!");
 
-  console.log(_p1);
-
-  console.log(armazonOri);
-  console.log(cristalOri);
   const query = {
     query: "04",
     _p1,
@@ -1765,7 +1719,6 @@ export const updateOT = async (
 
   try {
     const response = await axios.post(`${URLBackend}/api/ot/editar/`, query);
-    console.log(response);
     if (response.status === 200) {
       toast.dismiss(toastLoading);
       return toast.success(`OT ${tipo_evento} Correctamente`, {
@@ -1807,7 +1760,6 @@ export const updateOT = async (
 
 export function formatNumberWithZeros(inputNumber: number): string {
   // Convierte el número a cadena y obtén su longitud
-  console.log(inputNumber);
   const numberString = String(inputNumber);
   const length = numberString.length;
 
@@ -1817,8 +1769,6 @@ export function formatNumberWithZeros(inputNumber: number): string {
   // Concatena los ceros a la izquierda y el número original
   const formattedNumber = "0".repeat(zerosToAdd) + numberString;
 
-  console.log(formattedNumber);
-
   return formattedNumber;
 }
 
@@ -1827,14 +1777,9 @@ export const validateSameUserImpresionOT = async (user: any, folio: any) => {
     const { data } = await axios(
       `${URLBackend}/api/ot/imprimir/?query=02&_origen=50&_p1=${folio}`
     );
-    console.log(user);
-    console.log(data);
-
     if (user === data[0][EnumGrid.usuario_id]) {
-      console.log("render");
       return true;
     } else {
-      console.log("render");
       return false;
     }
   } catch (error) {

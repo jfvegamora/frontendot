@@ -116,11 +116,15 @@ const TableComponent2: React.FC<ITableComponentProps<any>> = React.memo(
     const handleColorEstado = useCallback(
       (rowData: any, background?: string) => {
         try {
+          console.log(rowData);
+          console.log(OTColores);
+          console.log(OTColores[rowData]);
           if (OTColores[rowData]) {
             return background
               ? `${OTColores[rowData][1]}`
               : `${OTColores[rowData][0]}`;
           }
+          console.log(background);
           return background ? `black` : "red";
         } catch (error) {
           throw error;
@@ -140,9 +144,13 @@ const TableComponent2: React.FC<ITableComponentProps<any>> = React.memo(
         color?: any,
         lowArmazonesStock?: any
       ) => {
+        console.log(rowData && handleColorEstado(rowData[5], "background"));
         const cellStyle: any = {
           textAlign: alignment,
           color: rowData && color2 && handleColorEstado(rowData[5]),
+          // color: rowData && color2 && "red",
+          backgroundColor:
+            rowData && color2 && handleColorEstado(rowData[5], "background"),
         };
 
         return (
@@ -286,11 +294,14 @@ const TableComponent2: React.FC<ITableComponentProps<any>> = React.memo(
                         : "";
 
                       const type = color === "bg-black" ? 1 : 0;
+                      console.log(rowData[5]);
+                      console.log(rowData[1]);
+                      console.log(handleColorEstado(rowData[5], "background"));
 
                       return (
                         visible && (
                           <td
-                            className={`gridTableData ${
+                            className={`gridTableData  ${
                               backgroundAtrasadas && color
                             }   ${alignment} ${""}`}
                             key={col}
