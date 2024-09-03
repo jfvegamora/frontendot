@@ -34,7 +34,6 @@ const LandingPage = lazy(() => import("./presentation/pages/LandingPage"));
 
 import axios from "axios";
 import { logout } from "./redux/slices/userSlice";
-import { signal } from "@preact/signals-react";
 // import Interceptor from 'axios-interceptor';
 
 const validarExpirationToken = (token: string) => {

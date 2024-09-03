@@ -489,6 +489,8 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
                           switchAtrasadas.value = false;
                           titleOTSearch.value = "Sistema Gestión OT";
                           document.title = "Sistema Gestión OT";
+                          console.log("render");
+                          console.log(OTAreaActual);
                           dispatch(
                             fetchOT({
                               OTAreas: OTAreaActual,
@@ -547,18 +549,14 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
           ))}
         </div>
       ));
-    }, []);
+    }, [OTAreaActual]);
 
     React.useEffect(() => {
       filterOTSearchTitle.value = {};
       titleOTSearch.value = "";
     }, [window.location.pathname]);
 
-    console.log(titleOTSearch.value);
-    console.log(filterOTSearchTitle.value);
-
     React.useEffect(() => {
-      console.log(titleOTSearch.value);
       if (titleOTSearch.value === "") {
         let title =
           window.location.pathname.slice(1).charAt(0).toUpperCase() +

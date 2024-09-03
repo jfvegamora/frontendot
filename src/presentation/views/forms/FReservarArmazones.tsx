@@ -45,6 +45,7 @@ import { clearRutCliente } from "../../utils/FOTClientes_utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { URLBackend } from "../../utils/config";
+import { EnumGrid } from "../mantenedores/MProyectos";
 
 // import { useNavigate } from 'react-router-dom';
 // import { focusFirstInput } from '../../components/OTForms/FOTValidarBodega';
@@ -72,6 +73,18 @@ const emptyBeneficiariosData = signal(true);
 const TextInputInteractive = React.lazy(
   () => import("../../components/forms/TextInputInteractive")
 );
+
+const obtenerValorDeRequiereDP = async (proyecto: any) => {
+  try {
+    const response = await axios.get(
+      `${URLBackend}/api/proyectos/listado/?query=01&_p2=${proyecto}`
+    );
+    return response.data[0][EnumGrid.REQUIERE_DP];
+  } catch (error) {
+    console.error("Error al obtener el valor de REQUIERE_DP:", error);
+    return null; // Manejar el error de forma adecuada, por ejemplo, mostrando un mensaje de error al usuario
+  }
+};
 
 const Scanner: React.FC<any> = ({ setIsScanning }) => {
   useEffect(() => {
@@ -152,7 +165,8 @@ const Scanner: React.FC<any> = ({ setIsScanning }) => {
 
 const FReservarArmazones = () => {
   const [isScanning, setIsScanning] = useState(false);
-  const schema = validationReservaArmazonesSchema();
+  const [esRequeridoDP, setEsRequeridoDP] = useState(false);
+
   const userID: any = useAppSelector((store: AppStore) => store.user?.id);
   // const userAgent = navigator.userAgent
   // const isMobile = /Mobi/.test(userAgent)
@@ -164,6 +178,7 @@ const FReservarArmazones = () => {
     armazon_3: React.useRef<any>(null),
   };
 
+  const schema = validationReservaArmazonesSchema(esRequeridoDP);
   const {
     control,
     // register,
@@ -177,6 +192,20 @@ const FReservarArmazones = () => {
       tipo_de_anteojo: "1",
     },
   });
+
+  React.useEffect(() => {
+    const isRequired = async () => {
+      const required = await obtenerValorDeRequiereDP(getValues("proyecto"));
+      console.log(required);
+      if (required === "Si") {
+        setEsRequeridoDP(true);
+      } else {
+        setEsRequeridoDP(false);
+      }
+    };
+
+    isRequired();
+  }, [getValues("proyecto")]);
 
   // React.useEffect(()=>{
   //   if(!isMobile){
@@ -202,24 +231,19 @@ const FReservarArmazones = () => {
     }
   };
 
+  console.log(esRequeridoDP);
+
   const fetchValidateArmazon = async (armazon: string, codArmazon: string) => {
     isLoadingArmazon.value = true;
     const urlbase = `${URLBackend}/api/armazones/listado/?query=02`;
     // const urlbase2 = `${URLBackend}/api/armazones/listado/?query=02`;
 
     let json_data = [{}];
-    console.log(json_data);
-    console.log(armazon);
-    console.log(codArmazon);
-    console.log(isOnline.value);
 
     if (codDP.value === "") {
-      // clearInputsArmazones(armazon);
-      // return toast.error("Falta ingresar DP para validar Armazón.");
       codDP.value = "0";
     }
 
-    console.log(armazon);
     if (isOnline.value === true) {
       switch (armazon) {
         case "Armazon1":
@@ -232,7 +256,7 @@ const FReservarArmazones = () => {
               dp: codDP.value,
               // diametro                 : diametro_cristal.value,
               validar_parametrizacion: 1,
-              solo_consulta: 2,
+              solo_consulta: esRequeridoDP === true ? 2 : 3,
               tipo_anteojo: tipo_de_anteojo.value,
               numero_armazon: 1,
             },
@@ -248,7 +272,12 @@ const FReservarArmazones = () => {
               dp: codDP.value,
               // diametro                 : diametro_cristal.value,
               validar_parametrizacion: 1,
-              solo_consulta: tipo_de_anteojo.value === "3" ? 2 : 0,
+              solo_consulta:
+                tipo_de_anteojo.value === "3"
+                  ? esRequeridoDP === true
+                    ? 2
+                    : 3
+                  : 0,
               tipo_anteojo: tipo_de_anteojo.value,
               numero_armazon: 2,
             },
@@ -264,9 +293,10 @@ const FReservarArmazones = () => {
               dp: codDP.value,
               // diametro                 : diametro_cristal.value,
               validar_parametrizacion: 1,
-              solo_consulta: tipo_de_anteojo.value === "3" ? 2 : 0,
+              solo_consulta:
+                tipo_de_anteojo.value === "3" ? (esRequeridoDP ? 2 : 3) : 0,
               tipo_anteojo: tipo_de_anteojo.value,
-              numero_armazon: 2,
+              numero_armazon: 3,
             },
           ];
 
@@ -767,11 +797,6 @@ const FReservarArmazones = () => {
     clearTextInputs();
     setValue("rut_beneficiario", "");
   }, [clearRutCliente]);
-
-  const fetchRequireDP = async () => {
-    try {
-    } catch (error) {}
-  };
 
   return (
     <form

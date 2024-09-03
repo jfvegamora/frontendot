@@ -450,7 +450,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
     }, []);
 
     return (
-      <div className="useFormContainer centered-div w-[100%] h-[80vh]">
+      <div className="useFormContainer left-2 top-0  w-[100vw] h-[100vh] ">
         <div className="userFormBtnCloseContainer">
           <h1 className="userFormLabel mx-auto">{label}</h1>
           <button onClick={closeModal} className="userFormBtnClose mr-4">
@@ -667,8 +667,8 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
 
-            <Tabs>
-              <TabList className="flex ml-4 pt-10">
+            <Tabs className=" !h-auto mt-2">
+              <TabList className="flex ml-4">
                 <Tab className="custom-tab !h-14 !w-[13rem]">Presupuesto $</Tab>
                 <Tab className="custom-tab !h-14 !w-[13rem]">Opciones</Tab>
                 <Tab className="custom-tab !h-14 !w-[13rem]">Contactos</Tab>
@@ -676,7 +676,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
 
               <TabPanel>
                 <div className="frameOTForm">
-                  <div className="w-full flex items-center pr-5 pt-10 pb-5">
+                  <div className="w-full flex items-center pr-5 pt-5 pb-5">
                     <div className="input-container items-center rowForm w-[25%]">
                       <div className="labelInputDiv">
                         <FrameComponent>
@@ -804,7 +804,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
 
               <TabPanel>
                 <div className="frameOTForm">
-                  <div className="w-full flex items-center pr-5 pt-10 pb-5">
+                  <div className="w-full flex items-center pr-5 pt-5 pb-5">
                     <div className="input-container items-center rowForm">
                       <div className="labelInputDiv">
                         <RadioButtonComponent
@@ -906,7 +906,7 @@ const FProyectos: React.FC<IUserFormPrps> = React.memo(
 
               <TabPanel>
                 <div className="frameOTForm">
-                  <div className="w-full flex items-center pr-5 pt-10 pb-5">
+                  <div className="w-full flex items-center pr-5 pt-5 pb-5">
                     <div className="input-container items-center rowForm w-[50%]">
                       <div className="labelInputDiv">
                         <FrameComponent>

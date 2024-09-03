@@ -239,8 +239,6 @@ const FOTArmazones: React.FC<IArmazones> = ({
 
     // console.log(codArmazon)
 
-    console.log(data?.[EnumGrid.bodega_procesado]);
-
     if (codArmazon && codArmazon.trim() === "") {
       return;
     }
