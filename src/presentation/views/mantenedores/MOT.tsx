@@ -111,7 +111,7 @@ const MOT: React.FC = () => {
     //modal methods
     isModalInsert,
     isModalEdit,
-    toggleEditModal,
+    // toggleEditModal,
     toggleEditOTModal,
     openModal,
     closeModal,
@@ -121,7 +121,7 @@ const MOT: React.FC = () => {
     setSelectedRows,
     handleSelectedAll,
     //primary buttons methods
-    handleDeleteSelected,
+    // handleDeleteSelected,
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
 
@@ -714,18 +714,11 @@ const MOT: React.FC = () => {
         <TableComponent2
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
-          toggleEditModal={toggleEditModal}
           toggleEditOTModal={toggleEditOTModal}
-          pkToDelete={OTPkToDelete}
           selectedRows={selectedRows}
-          handleDeleteSelected={handleDeleteSelected}
-          // pkToDelete={pkToDelete}
-          // data={dataOT}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           tableHead={table_head_OT_diaria2}
-          showEditButton={true}
-          showDeleteButton={false}
           idMenu={28}
           isOT={isOT}
         />

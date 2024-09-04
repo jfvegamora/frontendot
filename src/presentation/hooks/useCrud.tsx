@@ -14,24 +14,21 @@ import { URLBackend } from "../utils/config";
 // DESARROLLO
 // export const URLBackend = signal('https://gestiondev.mtoopticos.cl');
 
-
 //CAPACITACION
 // export const URLBackend = signal('https://gestioncap.mtoopticos.cl')
 
-
-
-export const baseURL = (params:string) => {
+export const baseURL = (params: string) => {
   return params.startsWith("http") ? params : `${URLBackend}${params}`;
-}
+};
 
 const useCrud = (
   apiBaseUrl: string
 ): {
   createdEntity: (entityData: any) => Promise<any | undefined>;
   verifyUserEmail: (correo: string) => Promise<any | undefined>;
-  forgotPassword: (correo: string) => Promise<any | undefined>; 
+  forgotPassword: (correo: string) => Promise<any | undefined>;
   editEntity: (entityData: any) => Promise<any | undefined>;
-  excelTypes: (tableName:any) => Promise<any | undefined>;
+  excelTypes: (tableName: any) => Promise<any | undefined>;
   deleteAllEntity: (id: number[], comilla?: string) => Promise<any | undefined>;
   focusFirstInput: (strInputName: string) => void;
   loginEntity: (data: any) => Promise<any | undefined>;
@@ -39,26 +36,24 @@ const useCrud = (
   exportEntity: (
     primaryKey?: string,
     strEntidad?: string,
-    query?:string,
-    jsonData?:any,
-    customExport?:boolean,
-    OTAreas?:any,
-    idMenu?:any
+    query?: string,
+    jsonData?: any,
+    customExport?: boolean,
+    OTAreas?: any,
+    idMenu?: any
   ) => Promise<any | undefined>;
   ListEntity: (primaryKeys: any, query: string) => Promise<any | undefined>;
   firstInputRef: any;
   secondInputRef: any;
 } => {
-  const baseUrl = baseURL(apiBaseUrl)
-  const usuario:any = useAppSelector((store:AppStore)=> store.user)
-
-
+  const baseUrl = baseURL(apiBaseUrl);
+  const usuario: any = useAppSelector((store: AppStore) => store.user);
 
   const axiosInstance: AxiosInstance = axios.create({
     baseURL: baseUrl,
     headers: {
       "Content-Type": "application/json",
-      'Authorization': usuario?.token || "", 
+      Authorization: usuario?.token || "",
     },
   });
 
@@ -78,16 +73,18 @@ const useCrud = (
     }
   };
 
-  const firstInputRef   = useRef<HTMLInputElement | null>(null);
-  const secondInputRef  = useRef<HTMLInputElement | null>(null);
+  const firstInputRef = useRef<HTMLInputElement | null>(null);
+  const secondInputRef = useRef<HTMLInputElement | null>(null);
 
   const focusFirstInput = (strInputName: string) => {
-    if(firstInputRef.current) {
-      const firstInput = firstInputRef.current.querySelector(`input[name=${strInputName}]`);
+    if (firstInputRef.current) {
+      const firstInput = firstInputRef.current.querySelector(
+        `input[name=${strInputName}]`
+      );
       if (firstInput) {
         (firstInput as HTMLInputElement).focus();
       }
-    }    
+    }
   };
 
   const focusSecondInput = (strInputName: string) => {
@@ -101,19 +98,20 @@ const useCrud = (
     }
   };
 
-  const excelTypes = async(tableName:string) => {
+  const excelTypes = async (tableName: string) => {
     try {
       const table_name = {
-        table_name : tableName
-      }
-      const result = await axios.post(`${URLBackend}/api/typesexcel/`, table_name)
-      return result.data
+        table_name: tableName,
+      };
+      const result = await axios.post(
+        `${URLBackend}/api/typesexcel/`,
+        table_name
+      );
+      return result.data;
     } catch (error) {
-      return error
+      return error;
     }
-  }
-
-  
+  };
 
   const verifyUserEmail = async (correo: string) => {
     try {
@@ -122,7 +120,7 @@ const useCrud = (
       );
       return result.data.length > 0 ? "Correo existe" : "Correo no existe";
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return error;
     }
   };
@@ -143,49 +141,62 @@ const useCrud = (
   const exportEntity = async (
     primaryKey?: string,
     strEntidad?: string,
-    query?:string,
-    jsonData?:any,
-    customExport?:boolean,
-    OTAreas?:any,
-    idMenu?:any
+    query?: string,
+    jsonData?: any,
+    customExport?: boolean,
+    OTAreas?: any,
+    idMenu?: any
   ): Promise<void> => {
     try {
-      let strUrl = ''
-      let response:any = {}
+      let strUrl = "";
+      let response: any = {};
       let limit = 100000;
-      
-      if(customExport && query){
-        strUrl ='/otros/?query=01'
-        response = await axiosInstance.get(`${URLBackend}/api/otros/excel/?query=01`,{
-          responseType: 'blob'
-        })
 
-      }else if (jsonData){
-        strUrl = `/excelindividual/?query=06&_pkToDelete=${jsonData}`
-  
-        response = await axiosInstance.get(strUrl,{
-          responseType: 'blob'
-        })
-      }else{
+      if (customExport && query) {
+        strUrl = "/otros/?query=01";
+        response = await axiosInstance.get(
+          `${URLBackend}/api/otros/excel/?query=01`,
+          {
+            responseType: "blob",
+          }
+        );
+      } else if (jsonData) {
+        strUrl = `/excelindividual/?query=06&_pkToDelete=${jsonData}`;
+
+        response = await axiosInstance.get(strUrl, {
+          responseType: "blob",
+        });
+      } else {
         //CASO DE USO 1
-        
-        if((idMenu === 28) || (idMenu === 1) ){
+
+        if (idMenu === 28 || idMenu === 1) {
           strUrl = primaryKey
-            ? OTAreas ? `/excel/?${query ?  query : "query=14"}&_origen=${OTAreas}&${primaryKey}&_limit=${limit}` :  `/excel/?${query ?  query : "query=14"}&${primaryKey}&_limit=${limit}`
-            : OTAreas ?  `/excel/?${query ? query : "query=14"}&_origen=${OTAreas}&_limit=${limit}`               :  `/excel/?${query ? query : "query=14"}&_limit=${limit}`;
-        }else if(strEntidad?.includes('Mantenedor de Armazzones')){
+            ? OTAreas
+              ? `/excel/?${
+                  query ? query : "query=14"
+                }&_origen=${OTAreas}&${primaryKey}&_limit=${limit}`
+              : `/excel/?${
+                  query ? query : "query=14"
+                }&${primaryKey}&_limit=${limit}`
+            : OTAreas
+            ? `/excel/?${
+                query ? query : "query=14"
+              }&_origen=${OTAreas}&_limit=${limit}`
+            : `/excel/?${query ? query : "query=14"}&_limit=${limit}`;
+        } else if (strEntidad?.includes("Mantenedor de Armazzones")) {
           strUrl = primaryKey
-          ? `/excel/?${query ?  query : "query=100"}&${primaryKey}`
-          : `/excel/?${query ? query : "query=100"}`;
-      }else{
+            ? `/excel/?${query ? query : "query=100"}&${primaryKey}`
+            : `/excel/?${query ? query : "query=100"}`;
+        } else {
+          console.log(primaryKey);
+          console.log(strUrl);
           strUrl = primaryKey
-            ? `/excel/?${query ?  query : "query=01"}&${primaryKey}`
-            : `/excel/?${query ? query : "query=01"}`;
+            ? `/excel/?${query ? query : "query=11"}&${primaryKey}`
+            : `/excel/?${query ? query : "query=11"}`;
         }
         response = await axiosInstance.get(strUrl, {
           responseType: "blob",
         });
-
       }
 
       //GENERAL
@@ -210,7 +221,7 @@ const useCrud = (
       link.click();
       URL.revokeObjectURL(fileURL);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       throw new Error("Error al descargar Excel");
     }
   };
@@ -219,18 +230,20 @@ const useCrud = (
     primaryKeys: any,
     query: any
   ): Promise<any | undefined> => {
-    const searchUrl = baseUrl === 'https://gestionprod.mtoopticos.cl/api/tipos/'
-      ? `${baseUrl}listado/?query=${query === undefined ? "01" : query}&${primaryKeys || '_p1=OTMotivoGarantia'}`
-      : `${baseUrl}listado/?query=${query === undefined ? "01" : query}${primaryKeys === "" ? "&_limit=100" : (`&${primaryKeys}`)}`;
-
-      
-
+    const searchUrl =
+      baseUrl === "https://gestionprod.mtoopticos.cl/api/tipos/"
+        ? `${baseUrl}listado/?query=${query === undefined ? "01" : query}&${
+            primaryKeys || "_p1=OTMotivoGarantia"
+          }`
+        : `${baseUrl}listado/?query=${query === undefined ? "01" : query}${
+            primaryKeys === "" ? "&_limit=100" : `&${primaryKeys}`
+          }`;
 
     try {
       const response = await axiosInstance.get(searchUrl);
       return response.data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return error;
     }
   };
@@ -239,13 +252,13 @@ const useCrud = (
     try {
       const response = await axiosInstance.post("/crear/", entityData);
       return response.data;
-    } catch (error:any) {
-          if(error.response.data.Error){
-            const mensajeError = procesarMensajeError(error.response.data.Error);
-            return new Error(mensajeError)
-          }else{
-            return error.response.data
-          }
+    } catch (error: any) {
+      if (error.response.data.Error) {
+        const mensajeError = procesarMensajeError(error.response.data.Error);
+        return new Error(mensajeError);
+      } else {
+        return error.response.data;
+      }
     }
   };
 
@@ -253,19 +266,19 @@ const useCrud = (
     try {
       const response = await axiosInstance.post(`/editar/`, entityData);
       return response.data;
-    } catch (error:any) {
+    } catch (error: any) {
       const mensajeError = procesarMensajeError(error.response.data.Error);
-      return new Error(mensajeError)
+      return new Error(mensajeError);
     }
   };
 
   const deleteAllEntity = async (pk: any[]): Promise<void | unknown> => {
     try {
-      const newUrl = `/eliminar/?query=05&${pk[0]}`
+      const newUrl = `/eliminar/?query=05&${pk[0]}`;
       const response = await axiosInstance.delete(newUrl);
       return response.data;
-    } catch (error:any) {
-      return new Error(error.response.data.Error)
+    } catch (error: any) {
+      return new Error(error.response.data.Error);
     }
   };
 
@@ -282,26 +295,24 @@ const useCrud = (
     loginEntity,
     focusSecondInput,
     secondInputRef,
-    excelTypes
+    excelTypes,
   };
 };
 
-
 export default useCrud;
 
-
-export const procesarMensajeError = (mensajeError:any) => {
-  if (mensajeError.includes('Duplicate entry')) {
-    return 'Ya existe un registro con el mismo valor';
-  } else if (mensajeError.includes('Duplicate entry')) {
-    return 'No se pudo guardar: Entrada duplicada.';
-  } else if (mensajeError.includes('truncated')) {
-    return 'Valor excede máximo permitido.';
-  } else if (mensajeError.includes('The document is empty')) {
-    return 'No hay registros.';
-  }else if (mensajeError.includes('Cannot add or update a child row')){
-    return 'No existe el código'
+export const procesarMensajeError = (mensajeError: any) => {
+  if (mensajeError.includes("Duplicate entry")) {
+    return "Ya existe un registro con el mismo valor";
+  } else if (mensajeError.includes("Duplicate entry")) {
+    return "No se pudo guardar: Entrada duplicada.";
+  } else if (mensajeError.includes("truncated")) {
+    return "Valor excede máximo permitido.";
+  } else if (mensajeError.includes("The document is empty")) {
+    return "No hay registros.";
+  } else if (mensajeError.includes("Cannot add or update a child row")) {
+    return "No existe el código";
   }
 
-  return mensajeError
+  return mensajeError;
 };

@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useCallback, Suspense } from "react";
+import { Text } from "@chakra-ui/react";
+import { signal } from "@preact/signals-react";
+
 import { usePermission } from "../hooks";
 import {
   clearAllCheck,
@@ -10,15 +13,13 @@ import { AppStore, useAppSelector } from "../../redux/store";
 
 import { OTGrillaEnum, PermisosBotones } from "../Enums";
 
-import { Text } from "@chakra-ui/react";
-import { signal } from "@preact/signals-react";
 import { usePermissionBotonesUser } from "../hooks/usePermissionBotonesUser";
 
 const OTGrillaButtons = React.lazy(() => import("./OTGrillaButtons"));
 
 const indicesOT = signal<any>([]);
 
-interface ITableComponentProps<T> {
+interface ITableComponentProps {
   tableHead: {
     cell: JSX.Element | string;
     key: string;
@@ -29,43 +30,24 @@ interface ITableComponentProps<T> {
     background?: boolean;
     excelIndividual?: boolean;
   }[];
-  data?: T[];
-  renderButtons?: (item: any) => React.ReactNode;
+
+  entidad: string;
   handleSelectChecked?: (id: number) => void;
   handleSelectedCheckedAll?: (event: any, rowsIds: any) => void;
-  toggleEditModal?: (id: number) => void;
   toggleEditOTModal?: (id: number, folio: any) => void;
-  handleDeleteSelected?: (id: number) => void;
-  toggleExcel?: (id: number) => void;
   selectedRows?: number[];
-  pkToDelete?: any;
   setSelectedRows?: any;
-  entidad: string;
-  showEditButton?: boolean;
-  showDeleteButton?: boolean;
-  showPdfButton?: boolean;
-  showExcelButton?: boolean;
-  showPermisoOTButton?: boolean;
-  isOT?: boolean;
   idMenu: number;
-  strBaseUrl?: string;
-  strEntidad?: string;
-  queryExcel?: any;
-  setTotalRowIndex?: any;
-  params?: any;
-  togglePermisoOTModal?: () => void;
-  leftEdit?: boolean;
+  isOT?: boolean;
 }
 
-const TableComponent2: React.FC<ITableComponentProps<any>> = React.memo(
+const TableComponent2: React.FC<ITableComponentProps> = React.memo(
   ({
     tableHead,
-    // data,
     entidad,
     handleSelectChecked,
     handleSelectedCheckedAll,
     toggleEditOTModal,
-    toggleEditModal,
     selectedRows,
     setSelectedRows,
     idMenu,
@@ -116,9 +98,6 @@ const TableComponent2: React.FC<ITableComponentProps<any>> = React.memo(
     const handleColorEstado = useCallback(
       (rowData: any, background?: string) => {
         try {
-          console.log(rowData);
-          console.log(OTColores);
-          console.log(OTColores[rowData]);
           if (OTColores[rowData]) {
             return background
               ? `${OTColores[rowData][1]}`
@@ -144,7 +123,6 @@ const TableComponent2: React.FC<ITableComponentProps<any>> = React.memo(
         color?: any,
         lowArmazonesStock?: any
       ) => {
-        console.log(rowData && handleColorEstado(rowData[5], "background"));
         const cellStyle: any = {
           textAlign: alignment,
           color: rowData && color2 && handleColorEstado(rowData[5]),
@@ -224,7 +202,7 @@ const TableComponent2: React.FC<ITableComponentProps<any>> = React.memo(
       [
         selectedRows,
         handleSelectChecked,
-        toggleEditModal,
+        toggleEditOTModal,
         escritura_lectura,
         permiso_area_check,
         permiso_usuario_btn_check,
@@ -294,9 +272,6 @@ const TableComponent2: React.FC<ITableComponentProps<any>> = React.memo(
                         : "";
 
                       const type = color === "bg-black" ? 1 : 0;
-                      console.log(rowData[5]);
-                      console.log(rowData[1]);
-                      console.log(handleColorEstado(rowData[5], "background"));
 
                       return (
                         visible && (

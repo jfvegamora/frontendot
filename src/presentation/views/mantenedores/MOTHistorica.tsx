@@ -335,7 +335,6 @@ const MOTHistorica: React.FC = () => {
     //modal methods
     isModalInsert,
     isModalEdit,
-    toggleEditModal,
     toggleEditOTModal,
     closeModal,
     //Check methods
@@ -343,8 +342,6 @@ const MOTHistorica: React.FC = () => {
     selectedRows,
     setSelectedRows,
     handleSelectedAll,
-    //primary buttons methods
-    handleDeleteSelected,
   } = useEntityUtils(strBaseUrl, strQuery);
   // console.log("entities:", entities);
   // console.log("params:", params);
@@ -809,17 +806,11 @@ const MOTHistorica: React.FC = () => {
         <TableComponent2
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
-          toggleEditModal={toggleEditModal}
           toggleEditOTModal={toggleEditOTModal}
-          handleDeleteSelected={handleDeleteSelected}
           selectedRows={selectedRows}
-          // pkToDelete={pktoDelete}
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
-          // data={OTs.data}
           tableHead={table_head_OT_historica}
-          showEditButton={true}
-          showDeleteButton={false}
           idMenu={idMenu}
           isOT={true}
         />
