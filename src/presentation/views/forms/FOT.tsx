@@ -249,18 +249,28 @@ const FOT: React.FC<IFOTProps> = ({
   const { showModal, CustomModal } = useModal();
 
   const { escritura_lectura } = usePermission(28);
-  const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
-  const OTSlice: any = useAppSelector((store: AppStore) => store.OTS);
-  const User: any = useAppSelector((store: AppStore) => store.user);
-  const tipo_anteojo_array: any =
-    useAppSelector((store: AppStore) => store.listBoxTipos.OTTipoAnteojo) || [];
+  // const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
+  // const OTSlice: any = useAppSelector((store: AppStore) => store.OTS);
+  // const User: any = useAppSelector((store: AppStore) => store.user);
+  // const tipo_anteojo_array: any =
+  //   useAppSelector((store: AppStore) => store.listBoxTipos.OTTipoAnteojo) || [];
+
   const dispatch = useAppDispatch();
+
+  const { OTAreas, OTSlice, User, tipo_anteojo_array, permisosCampos } =
+    useAppSelector((state: AppStore) => ({
+      OTAreas: state.OTAreas,
+      OTSlice: state.OTS,
+      User: state.user,
+      tipo_anteojo_array: state.listBoxTipos.OTTipoAnteojo || [],
+      permisosCampos: state.user.permisos_campos,
+    }));
 
   // const permissionsOT = usePermissionOT();
 
   // const OT:any = useAppSelector((store: AppStore) => store.OTS.ot);
 
-  let OTAreaActual = OTAreas["areaActual"];
+  let OTAreaActual: any = OTAreas["areaActual"];
 
   const {
     permiso_usuario_btn_pausar,
@@ -269,14 +279,14 @@ const FOT: React.FC<IFOTProps> = ({
     permiso_usuario_btn_postVenta,
   } = usePermissionBotonesUser();
 
-  const permissions = (area: number) =>
+  const permissions = (area: any) =>
     OTAreaActual &&
     OTAreas["areas"].find((permiso: any) => permiso[1] === area);
 
   //PERMISOS DE CAMPOS
-  const permisosCampos = useAppSelector(
-    (store: AppStore) => store.user?.permisos_campos
-  );
+  // const permisosCampos = useAppSelector(
+  //   (store: AppStore) => store.user?.permisos_campos
+  // );
 
   let permiso_usuario_grupo_dioptria =
     permisosCampos && isEditting

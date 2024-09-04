@@ -264,8 +264,8 @@ const MOT: React.FC = () => {
         label: "Folio",
         type: "text",
         styles: {
-          with: "!w-[15vw] labelInput inputStyles ",
-          container: "",
+          with: "!w-[10vw] labelInput inputStyles ",
+          container: "!ml-10",
           labelProps: "labelInput",
         },
       },

@@ -208,7 +208,7 @@ const MCristalesKardex: React.FC = () => {
             showAddButton={true}
             showExportButton={true}
             showDeleteButton={false}
-            showImportCsv={true}
+            showImportCsv={false}
             showForwardButton={false}
             showRefreshButton={true}
             comilla={true}

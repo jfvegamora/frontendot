@@ -48,6 +48,11 @@ const limit = 0;
 
 export const fetchOT = createAsyncThunk("ot/fetchOT", async (params: any) => {
   const { OTAreas, searchParams, historica } = params;
+
+  if (searchParams.length === 0) {
+    return;
+  }
+
   const OTUrl = searchParams
     ? historica
       ? `${URLBackend}/api/othistorica/listado/?query=14&${searchParams}&_limit=${limit}`

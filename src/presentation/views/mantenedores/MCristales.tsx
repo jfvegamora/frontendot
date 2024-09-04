@@ -228,7 +228,7 @@ const MCristales: React.FC = () => {
               showDeleteButton={true}
               showMacroButton={true}
               showForwardButton={false}
-              showImportCsv={true}
+              showImportCsv={false}
               showRefreshButton={true}
               comilla={false}
               idMenu={idMenu}

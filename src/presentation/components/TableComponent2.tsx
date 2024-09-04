@@ -55,22 +55,36 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
   }) => {
     const { escritura_lectura, lectura } = usePermission(idMenu || 0);
     const [OTPermissions, setOTPermissions] = useState("");
-    const OTAreas: any = useAppSelector(
-      (store: AppStore) =>
-        store.OTAreas || JSON.parse(localStorage.getItem("OTAreas") as any)
+    // const OTAreas: any = useAppSelector(
+    //   (store: AppStore) =>
+    //     store.OTAreas || JSON.parse(localStorage.getItem("OTAreas") as any)
+    // );
+    // const OTAreaActual: any = React.useCallback(
+    //   useAppSelector(
+    //     (store: AppStore) =>
+    //       store.OTAreas["areaActual"] ||
+    //       JSON.parse(localStorage.getItem("areaActual") as string)
+    //   ),
+    //   [OTAreas]
+    // );
+    // const OTColores: any =
+    //   useAppSelector((store: AppStore) => store.OTS.derivacionColores) ||
+    //   JSON.parse(localStorage.getItem("OTColores") as string);
+    // const data: any = useAppSelector((store: AppStore) => store.OTS.data);
+
+    const { OTAreaActual, OTAreas, OTColores, data } = useAppSelector(
+      (state: AppStore) => ({
+        OTAreaActual:
+          state.OTAreas.areaActual ||
+          JSON.parse(localStorage.getItem("OTAreas") || ""),
+        OTAreas:
+          state.OTAreas || JSON.parse(localStorage.getItem("areaActual") || ""),
+        OTColores:
+          state.OTS.derivacionColores ||
+          JSON.parse(localStorage.getItem("OTColores") || ""),
+        data: state.OTS.data,
+      })
     );
-    const OTAreaActual: any = React.useCallback(
-      useAppSelector(
-        (store: AppStore) =>
-          store.OTAreas["areaActual"] ||
-          JSON.parse(localStorage.getItem("areaActual") as string)
-      ),
-      [OTAreas]
-    );
-    const OTColores: any =
-      useAppSelector((store: AppStore) => store.OTS.derivacionColores) ||
-      JSON.parse(localStorage.getItem("OTColores") as string);
-    const data: any = useAppSelector((store: AppStore) => store.OTS.data);
 
     const permissions = React.useCallback(
       (area: number) =>
@@ -81,19 +95,23 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
 
     const { permiso_usuario_btn_check } = usePermissionBotonesUser();
 
-    let permiso_area_check =
-      OTPermissions && OTPermissions[PermisosBotones.check] === "1"
-        ? true
-        : false;
+    let permiso_area_check = React.useMemo(
+      () =>
+        OTPermissions && OTPermissions[PermisosBotones.check] === "1"
+          ? true
+          : false,
+      [OTPermissions]
+    );
 
     useEffect(() => {
       const permiso = permissions(OTAreaActual);
       setOTPermissions(permiso && permiso[6]);
     }, [OTAreaActual, OTAreas, permissions]);
 
-    useEffect(() => {
-      indicesOT.value = Array.from(data, (_, index) => index);
-    }, [data]);
+    indicesOT.value = React.useMemo(
+      () => Array.from(data, (_, index) => index),
+      [data]
+    );
 
     const handleColorEstado = useCallback(
       (rowData: any, background?: string) => {
@@ -208,6 +226,8 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
         permiso_usuario_btn_check,
       ]
     );
+
+    if (!data || data.length === 0) return null;
 
     return (
       <div className="gridCointainer">

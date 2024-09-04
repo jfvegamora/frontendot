@@ -103,9 +103,6 @@ const MArmazonesKardex: React.FC = () => {
     // .filter((col) => col.visible);
   }, [escritura_lectura]);
 
-  console.log(newTableHead);
-  console.log(table_head_kardex);
-
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width100 ">
@@ -201,7 +198,7 @@ const MArmazonesKardex: React.FC = () => {
             showAddButton={true}
             showExportButton={true}
             showDeleteButton={false}
-            showImportCsv={true}
+            showImportCsv={false}
             showForwardButton={false}
             showRefreshButton={true}
             comilla={true}

@@ -159,7 +159,7 @@ const MClientes: React.FC = () => {
             showDeleteButton={true}
             showForwardButton={false}
             showRefreshButton={true}
-            showImportCsv={true}
+            showImportCsv={false}
             comilla={true}
             classname={"translate-x-[14.5vw]  !w-[15vw]"}
             idMenu={idMenu}

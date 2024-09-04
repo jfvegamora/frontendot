@@ -191,7 +191,7 @@ const MProyectos: React.FC = () => {
             showDeleteButton={true}
             showForwardButton={false}
             showRefreshButton={true}
-            showImportCsv={true}
+            showImportCsv={false}
             idMenu={idMenu}
             classname={"translate-x-[5vw]  !w-[15vw]"}
           />
