@@ -183,13 +183,11 @@ const useCrud = (
                 query ? query : "query=14"
               }&_origen=${OTAreas}&_limit=${limit}`
             : `/excel/?${query ? query : "query=14"}&_limit=${limit}`;
-        } else if (strEntidad?.includes("Mantenedor de Armazzones")) {
-          strUrl = primaryKey
-            ? `/excel/?${query ? query : "query=100"}&${primaryKey}`
-            : `/excel/?${query ? query : "query=100"}`;
+          // } else if (strEntidad?.includes('Mantenedor de Armazones')) {
+          //   strUrl = primaryKey
+          //     ? `/excel/?${query ? query : "query=100"}&${primaryKey}`
+          //     : `/excel/?${query ? query : "query=100"}`;
         } else {
-          console.log(primaryKey);
-          console.log(strUrl);
           strUrl = primaryKey
             ? `/excel/?${query ? query : "query=11"}&${primaryKey}`
             : `/excel/?${query ? query : "query=11"}`;
