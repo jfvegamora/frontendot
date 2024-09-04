@@ -150,7 +150,6 @@ const useCrud = (
     try {
       let strUrl = "";
       let response: any = {};
-      let limit = 100000;
 
       if (customExport && query) {
         strUrl = "/otros/?query=01";
@@ -172,17 +171,14 @@ const useCrud = (
         if (idMenu === 28 || idMenu === 1) {
           strUrl = primaryKey
             ? OTAreas
-              ? `/excel/?${
-                  query ? query : "query=14"
-                }&_origen=${OTAreas}&${primaryKey}&_limit=${limit}`
-              : `/excel/?${
-                  query ? query : "query=14"
-                }&${primaryKey}&_limit=${limit}`
+              ? `/excel/?${query ? query : "query=14"
+              }&_origen=${OTAreas}&${primaryKey}`
+              : `/excel/?${query ? query : "query=14"
+              }&${primaryKey}`
             : OTAreas
-            ? `/excel/?${
-                query ? query : "query=14"
-              }&_origen=${OTAreas}&_limit=${limit}`
-            : `/excel/?${query ? query : "query=14"}&_limit=${limit}`;
+              ? `/excel/?${query ? query : "query=14"
+              }&_origen=${OTAreas}`
+              : `/excel/?${query ? query : "query=14"}`;
           // } else if (strEntidad?.includes('Mantenedor de Armazones')) {
           //   strUrl = primaryKey
           //     ? `/excel/?${query ? query : "query=100"}&${primaryKey}`
@@ -230,12 +226,10 @@ const useCrud = (
   ): Promise<any | undefined> => {
     const searchUrl =
       baseUrl === "https://gestionprod.mtoopticos.cl/api/tipos/"
-        ? `${baseUrl}listado/?query=${query === undefined ? "01" : query}&${
-            primaryKeys || "_p1=OTMotivoGarantia"
-          }`
-        : `${baseUrl}listado/?query=${query === undefined ? "01" : query}${
-            primaryKeys === "" ? "&_limit=100" : `&${primaryKeys}`
-          }`;
+        ? `${baseUrl}listado/?query=${query === undefined ? "01" : query}&${primaryKeys || "_p1=OTMotivoGarantia"
+        }`
+        : `${baseUrl}listado/?query=${query === undefined ? "01" : query}${primaryKeys === "" ? "&_limit=100" : `&${primaryKeys}`
+        }`;
 
     try {
       const response = await axiosInstance.get(searchUrl);
