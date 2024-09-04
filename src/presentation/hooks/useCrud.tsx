@@ -20,7 +20,7 @@ import { URLBackend } from "../utils/config";
 
 
 
-export const baseURL = (params:string) => {
+export const baseURL = (params: string) => {
   return params.startsWith("http") ? params : `${URLBackend}${params}`;
 }
 
@@ -29,9 +29,9 @@ const useCrud = (
 ): {
   createdEntity: (entityData: any) => Promise<any | undefined>;
   verifyUserEmail: (correo: string) => Promise<any | undefined>;
-  forgotPassword: (correo: string) => Promise<any | undefined>; 
+  forgotPassword: (correo: string) => Promise<any | undefined>;
   editEntity: (entityData: any) => Promise<any | undefined>;
-  excelTypes: (tableName:any) => Promise<any | undefined>;
+  excelTypes: (tableName: any) => Promise<any | undefined>;
   deleteAllEntity: (id: number[], comilla?: string) => Promise<any | undefined>;
   focusFirstInput: (strInputName: string) => void;
   loginEntity: (data: any) => Promise<any | undefined>;
@@ -39,18 +39,18 @@ const useCrud = (
   exportEntity: (
     primaryKey?: string,
     strEntidad?: string,
-    query?:string,
-    jsonData?:any,
-    customExport?:boolean,
-    OTAreas?:any,
-    idMenu?:any
+    query?: string,
+    jsonData?: any,
+    customExport?: boolean,
+    OTAreas?: any,
+    idMenu?: any
   ) => Promise<any | undefined>;
   ListEntity: (primaryKeys: any, query: string) => Promise<any | undefined>;
   firstInputRef: any;
   secondInputRef: any;
 } => {
   const baseUrl = baseURL(apiBaseUrl)
-  const usuario:any = useAppSelector((store:AppStore)=> store.user)
+  const usuario: any = useAppSelector((store: AppStore) => store.user)
 
 
 
@@ -58,7 +58,7 @@ const useCrud = (
     baseURL: baseUrl,
     headers: {
       "Content-Type": "application/json",
-      'Authorization': usuario?.token || "", 
+      'Authorization': usuario?.token || "",
     },
   });
 
@@ -78,16 +78,16 @@ const useCrud = (
     }
   };
 
-  const firstInputRef   = useRef<HTMLInputElement | null>(null);
-  const secondInputRef  = useRef<HTMLInputElement | null>(null);
+  const firstInputRef = useRef<HTMLInputElement | null>(null);
+  const secondInputRef = useRef<HTMLInputElement | null>(null);
 
   const focusFirstInput = (strInputName: string) => {
-    if(firstInputRef.current) {
+    if (firstInputRef.current) {
       const firstInput = firstInputRef.current.querySelector(`input[name=${strInputName}]`);
       if (firstInput) {
         (firstInput as HTMLInputElement).focus();
       }
-    }    
+    }
   };
 
   const focusSecondInput = (strInputName: string) => {
@@ -101,10 +101,10 @@ const useCrud = (
     }
   };
 
-  const excelTypes = async(tableName:string) => {
+  const excelTypes = async (tableName: string) => {
     try {
       const table_name = {
-        table_name : tableName
+        table_name: tableName
       }
       const result = await axios.post(`${URLBackend}/api/typesexcel/`, table_name)
       return result.data
@@ -113,7 +113,7 @@ const useCrud = (
     }
   }
 
-  
+
 
   const verifyUserEmail = async (correo: string) => {
     try {
@@ -143,44 +143,44 @@ const useCrud = (
   const exportEntity = async (
     primaryKey?: string,
     strEntidad?: string,
-    query?:string,
-    jsonData?:any,
-    customExport?:boolean,
-    OTAreas?:any,
-    idMenu?:any
+    query?: string,
+    jsonData?: any,
+    customExport?: boolean,
+    OTAreas?: any,
+    idMenu?: any
   ): Promise<void> => {
     try {
       let strUrl = ''
-      let response:any = {}
+      let response: any = {}
       let limit = 100000;
-      
-      if(customExport && query){
-        strUrl ='/otros/?query=01'
-        response = await axiosInstance.get(`${URLBackend}/api/otros/excel/?query=01`,{
+
+      if (customExport && query) {
+        strUrl = '/otros/?query=01'
+        response = await axiosInstance.get(`${URLBackend}/api/otros/excel/?query=01`, {
           responseType: 'blob'
         })
 
-      }else if (jsonData){
+      } else if (jsonData) {
         strUrl = `/excelindividual/?query=06&_pkToDelete=${jsonData}`
-  
-        response = await axiosInstance.get(strUrl,{
+
+        response = await axiosInstance.get(strUrl, {
           responseType: 'blob'
         })
-      }else{
+      } else {
         //CASO DE USO 1
-        
-        if((idMenu === 28) || (idMenu === 1) ){
+
+        if ((idMenu === 28) || (idMenu === 1)) {
           strUrl = primaryKey
-            ? OTAreas ? `/excel/?${query ?  query : "query=14"}&_origen=${OTAreas}&${primaryKey}&_limit=${limit}` :  `/excel/?${query ?  query : "query=14"}&${primaryKey}&_limit=${limit}`
-            : OTAreas ?  `/excel/?${query ? query : "query=14"}&_origen=${OTAreas}&_limit=${limit}`               :  `/excel/?${query ? query : "query=14"}&_limit=${limit}`;
-        }else if(strEntidad?.includes('Mantenedor de Armazzones')){
+            ? OTAreas ? `/excel/?${query ? query : "query=14"}&_origen=${OTAreas}&${primaryKey}&_limit=${limit}` : `/excel/?${query ? query : "query=14"}&${primaryKey}&_limit=${limit}`
+            : OTAreas ? `/excel/?${query ? query : "query=14"}&_origen=${OTAreas}&_limit=${limit}` : `/excel/?${query ? query : "query=14"}&_limit=${limit}`;
+        // } else if (strEntidad?.includes('Mantenedor de Armazones')) {
+        //   strUrl = primaryKey
+        //     ? `/excel/?${query ? query : "query=100"}&${primaryKey}`
+        //     : `/excel/?${query ? query : "query=100"}`;
+        } else {
           strUrl = primaryKey
-          ? `/excel/?${query ?  query : "query=100"}&${primaryKey}`
-          : `/excel/?${query ? query : "query=100"}`;
-      }else{
-          strUrl = primaryKey
-            ? `/excel/?${query ?  query : "query=01"}&${primaryKey}`
-            : `/excel/?${query ? query : "query=01"}`;
+            ? `/excel/?${query ? query : "query=11"}&${primaryKey}`
+            : `/excel/?${query ? query : "query=11"}`;
         }
         response = await axiosInstance.get(strUrl, {
           responseType: "blob",
@@ -223,7 +223,7 @@ const useCrud = (
       ? `${baseUrl}listado/?query=${query === undefined ? "01" : query}&${primaryKeys || '_p1=OTMotivoGarantia'}`
       : `${baseUrl}listado/?query=${query === undefined ? "01" : query}${primaryKeys === "" ? "&_limit=100" : (`&${primaryKeys}`)}`;
 
-      
+
 
 
     try {
@@ -239,13 +239,13 @@ const useCrud = (
     try {
       const response = await axiosInstance.post("/crear/", entityData);
       return response.data;
-    } catch (error:any) {
-          if(error.response.data.Error){
-            const mensajeError = procesarMensajeError(error.response.data.Error);
-            return new Error(mensajeError)
-          }else{
-            return error.response.data
-          }
+    } catch (error: any) {
+      if (error.response.data.Error) {
+        const mensajeError = procesarMensajeError(error.response.data.Error);
+        return new Error(mensajeError)
+      } else {
+        return error.response.data
+      }
     }
   };
 
@@ -253,7 +253,7 @@ const useCrud = (
     try {
       const response = await axiosInstance.post(`/editar/`, entityData);
       return response.data;
-    } catch (error:any) {
+    } catch (error: any) {
       const mensajeError = procesarMensajeError(error.response.data.Error);
       return new Error(mensajeError)
     }
@@ -264,7 +264,7 @@ const useCrud = (
       const newUrl = `/eliminar/?query=05&${pk[0]}`
       const response = await axiosInstance.delete(newUrl);
       return response.data;
-    } catch (error:any) {
+    } catch (error: any) {
       return new Error(error.response.data.Error)
     }
   };
@@ -290,7 +290,7 @@ const useCrud = (
 export default useCrud;
 
 
-export const procesarMensajeError = (mensajeError:any) => {
+export const procesarMensajeError = (mensajeError: any) => {
   if (mensajeError.includes('Duplicate entry')) {
     return 'Ya existe un registro con el mismo valor';
   } else if (mensajeError.includes('Duplicate entry')) {
@@ -299,7 +299,7 @@ export const procesarMensajeError = (mensajeError:any) => {
     return 'Valor excede máximo permitido.';
   } else if (mensajeError.includes('The document is empty')) {
     return 'No hay registros.';
-  }else if (mensajeError.includes('Cannot add or update a child row')){
+  } else if (mensajeError.includes('Cannot add or update a child row')) {
     return 'No existe el código'
   }
 

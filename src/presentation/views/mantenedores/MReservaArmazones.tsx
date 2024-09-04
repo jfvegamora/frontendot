@@ -117,7 +117,7 @@ const MReservaArmazones: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/proyectos/",
                 styles: {
-                  styles: "labelInput inputStyles w-[17vw]",
+                  styles: "labelInput inputStyles w-[20vw]",
                   container: "",
                   labelProps: "labelInput",
                 },
@@ -154,8 +154,21 @@ const MReservaArmazones: React.FC = () => {
                   labelProps: "labelInput",
                 },
               },
+              {
+                name: "_p8",
+                label: "Tipo Anteojo",
+                type: "select",
+                selectUrl: "/api/tipos/",
+                tipos: "OTTipoAnteojo",
+                styles: {
+                  styles: "labelInput inputStyles !w-[20vw]",
+                  container: "  text-[1vw]  ",
+                  labelProps: "labelInput",
+                },
+              },
+
             ]}
-            classNameSearchButton=" translate-x-[20vw] translate-y-[2.1vw]  z-30"
+            classNameSearchButton=" translate-x-[24vw] translate-y-[2.1vw]  z-30"
           />
         </div>
 
@@ -176,7 +189,7 @@ const MReservaArmazones: React.FC = () => {
             showForwardButton={false}
             showRefreshButton={true}
             idMenu={idMenu}
-            classname={"translate-x-[17vw] !w-[10vw]  "}
+            classname={"translate-x-[18vw] !w-[12vw]  "}
           />
         </div>
       </div>
