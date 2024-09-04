@@ -76,6 +76,7 @@ const ExportToCsv: React.FC<Props> = ({
     nombreExcel?: string,
     jsonData?: any
   ) => {
+    console.log(primaryKey);
     return exportEntity(
       primaryKey,
       nombreExcel,
@@ -91,13 +92,16 @@ const ExportToCsv: React.FC<Props> = ({
           type: "success",
         });
         setExportTable(false);
+        setExportAll(false);
       })
       .catch((e) => console.log(e));
   };
 
   useEffect(() => {
     if (exportAll || exportTable) {
-      const primarykey = exportAll ? "" : params;
+      // const primarykey = exportAll ? "" : params;
+      const primarykey = params !== "" ? params : "";
+
       exportExcel(primarykey, strEntidad);
       // handleClear()
     }
