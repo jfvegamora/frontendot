@@ -150,7 +150,7 @@ const useCrud = (
     try {
       let strUrl = "";
       let response: any = {};
-      let limit = 100000;
+      // let limit = 100000;
 
       if (customExport && query) {
         strUrl = "/otros/?query=01";
@@ -173,16 +173,12 @@ const useCrud = (
           strUrl = primaryKey
             ? OTAreas
               ? `/excel/?${
-                  query ? query : "query=14"
-                }&_origen=${OTAreas}&${primaryKey}&_limit=${limit}`
-              : `/excel/?${
-                  query ? query : "query=14"
-                }&${primaryKey}&_limit=${limit}`
+                  query ? query : "query=144"
+                }&_origen=${OTAreas}&${primaryKey}`
+              : `/excel/?${query ? query : "query=144"}&${primaryKey}`
             : OTAreas
-            ? `/excel/?${
-                query ? query : "query=14"
-              }&_origen=${OTAreas}&_limit=${limit}`
-            : `/excel/?${query ? query : "query=14"}&_limit=${limit}`;
+            ? `/excel/?${query ? query : "query=144"}&_origen=${OTAreas}`
+            : `/excel/?${query ? query : "query=144"}`;
           // } else if (strEntidad?.includes('Mantenedor de Armazones')) {
           //   strUrl = primaryKey
           //     ? `/excel/?${query ? query : "query=100"}&${primaryKey}`
