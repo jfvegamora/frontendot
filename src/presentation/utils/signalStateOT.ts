@@ -1146,7 +1146,8 @@ export const updateOT = async (
   tipo_evento?: string,
   validation_Complete?: boolean,
   p1?: any,
-  p2?: any
+  p2?: any,
+  p3?: any
   // cristalNew?: any,
   // armazonNew?: any
 ) => {
@@ -1171,7 +1172,8 @@ export const updateOT = async (
   if (isMasivo) {
     // const amrazones =
     //   data.tipo_anteojo === 3 ? data.armazones : data.armazones.shift();
-
+    console.log(_destino);
+    console.log(_estado);
     const strP1 =
       tipo_evento === "Derivar"
         ? `area="${_destino}", estado="${_estado}",ubicacion=""`
@@ -1184,7 +1186,7 @@ export const updateOT = async (
       //   ? `${data[OTGrillaEnum.tipo_anteojo_id]}`
       //   : data && data.tipo_anteojo.toString(),
       _p2: p2 ? `${p2}` : "0",
-      _p3: "",
+      _p3: p3 ? `${p3}` : "",
       _proyecto: isValidateBodega
         ? `${data[OTGrillaEnum.proyecto_titulo]}`
         : data && data.proyecto_codigo,
@@ -1216,15 +1218,10 @@ export const updateOT = async (
     };
 
     try {
+      // console.log(query);
       const response = await axios.post(`${URLBackend}/api/ot/editar/`, query);
-
       if (response.status === 200) {
-        // toast.dismiss(toastLoading)
-        // return toast.success(`OT ${tipo_evento} Correctamente, Folio:  ${ isValidateBodega ? data[EnumGrid.folio] : data.folio}`,{
-        //   autoClose: 1000
-        // })
       } else {
-        // toast.dismiss(toastLoading)
         return toast.error("Error al Editar OT");
       }
     } catch (error) {

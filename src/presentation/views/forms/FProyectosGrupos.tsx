@@ -61,13 +61,11 @@ interface OutputData {
   _p4?: string;
 }
 
-
-
 export function transformInsertQuery(jsonData: InputData): OutputData | null {
   const valorTotalArmazon = parseInt(jsonData.valor_neto_armazon as any);
   const valorTotalCristal = parseInt(jsonData.valor_neto_cristal as any);
 
-  console.log(jsonData)
+  console.log(jsonData);
 
   let _p1 = `
  "${jsonData.proyecto}", 
@@ -79,18 +77,52 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null {
   ${jsonData.material}, 
   ${jsonData.color}, 
   ${jsonData.tratamiento}, 
-  ${(jsonData.diametro && jsonData.diametro?.toString())?.length === 0 ? "0" : jsonData.diametro},
-  ${(jsonData.esferico_desde && jsonData.esferico_desde?.toString())?.length === 0 ? "0" : jsonData.esferico_desde}, 
-  ${(jsonData.esferico_hasta && jsonData.esferico_hasta?.toString())?.length === 0 ? "0" : jsonData.esferico_hasta}, 
-  ${(jsonData.cilindrico_desde && jsonData.cilindrico_desde?.toString())?.length === 0 ? "0" : jsonData.cilindrico_desde}, 
-  ${(jsonData.cilindrico_hasta && jsonData.cilindrico_hasta?.toString())?.length === 0 ? "0" : jsonData.cilindrico_hasta}, 
-  ${(jsonData.valor_neto_cristal && jsonData.valor_neto_cristal?.toString())?.length === 0 ? "0" : jsonData.valor_neto_cristal},
+  ${
+    (jsonData.diametro && jsonData.diametro?.toString())?.length === 0
+      ? "0"
+      : jsonData.diametro
+  },
+  ${
+    (jsonData.esferico_desde && jsonData.esferico_desde?.toString())?.length ===
+    0
+      ? "0"
+      : jsonData.esferico_desde
+  }, 
+  ${
+    (jsonData.esferico_hasta && jsonData.esferico_hasta?.toString())?.length ===
+    0
+      ? "0"
+      : jsonData.esferico_hasta
+  }, 
+  ${
+    (jsonData.cilindrico_desde && jsonData.cilindrico_desde?.toString())
+      ?.length === 0
+      ? "0"
+      : jsonData.cilindrico_desde
+  }, 
+  ${
+    (jsonData.cilindrico_hasta && jsonData.cilindrico_hasta?.toString())
+      ?.length === 0
+      ? "0"
+      : jsonData.cilindrico_hasta
+  }, 
+  ${
+    (jsonData.valor_neto_cristal && jsonData.valor_neto_cristal?.toString())
+      ?.length === 0
+      ? "0"
+      : jsonData.valor_neto_cristal
+  },
   ${armazon_flexible.value === true ? "3" : "0"},
-  ${(jsonData.valor_neto_armazon && jsonData.valor_neto_armazon?.toString())?.length === 0 ? "0" : jsonData.valor_neto_armazon},
+  ${
+    (jsonData.valor_neto_armazon && jsonData.valor_neto_armazon?.toString())
+      ?.length === 0
+      ? "0"
+      : jsonData.valor_neto_armazon
+  },
   ${valorTotalArmazon + valorTotalCristal},
   "${jsonData.observaciones}"`;
 
-  _p1 = _p1.replace(/'/g, '!');
+  _p1 = _p1.replace(/'/g, "!");
 
   const query: OutputData = {
     query: "03",
@@ -106,7 +138,6 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
   const valorTotalArmazon = parseInt(jsonData.valor_neto_armazon as any);
   const valorTotalCristal = parseInt(jsonData.valor_neto_cristal as any);
 
-
   const fields = [
     `descripcion       ="${jsonData.descripcion}"`,
     `marca             = ${jsonData.marca}`,
@@ -115,22 +146,55 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     `material          = ${jsonData.material}`,
     `color             = ${jsonData.color}`,
     `tratamiento       = ${jsonData.tratamiento}`,
-    `esferico_desde    = ${(jsonData.esferico_desde && jsonData.esferico_desde?.toString())?.length === 0 ? "0" : jsonData.esferico_desde}`,
-    `cilindrico_desde  = ${(jsonData.cilindrico_desde && jsonData.cilindrico_desde?.toString())?.length === 0 ? "0" : jsonData.cilindrico_desde}`,
-    `esferico_hasta    = ${(jsonData.esferico_hasta && jsonData.esferico_hasta?.toString())?.length === 0 ? "0" : jsonData.esferico_hasta}`,
-    `cilindrico_hasta  = ${(jsonData.cilindrico_hasta && jsonData.cilindrico_hasta?.toString())?.length === 0 ? "0" : jsonData.cilindrico_hasta}`,
-    `diametro          = ${(jsonData.diametro && jsonData.diametro?.toString())?.length === 0 ? "0" : jsonData.diametro}`,
-    `valor_neto_cristal= ${(jsonData.valor_neto_cristal && jsonData.valor_neto_cristal?.toString())?.length === 0 ? "0" : jsonData.valor_neto_cristal}`,
+    `esferico_desde    = ${
+      (jsonData.esferico_desde && jsonData.esferico_desde?.toString())
+        ?.length === 0
+        ? "0"
+        : jsonData.esferico_desde
+    }`,
+    `cilindrico_desde  = ${
+      (jsonData.cilindrico_desde && jsonData.cilindrico_desde?.toString())
+        ?.length === 0
+        ? "0"
+        : jsonData.cilindrico_desde
+    }`,
+    `esferico_hasta    = ${
+      (jsonData.esferico_hasta && jsonData.esferico_hasta?.toString())
+        ?.length === 0
+        ? "0"
+        : jsonData.esferico_hasta
+    }`,
+    `cilindrico_hasta  = ${
+      (jsonData.cilindrico_hasta && jsonData.cilindrico_hasta?.toString())
+        ?.length === 0
+        ? "0"
+        : jsonData.cilindrico_hasta
+    }`,
+    `diametro          = ${
+      (jsonData.diametro && jsonData.diametro?.toString())?.length === 0
+        ? "0"
+        : jsonData.diametro
+    }`,
+    `valor_neto_cristal= ${
+      (jsonData.valor_neto_cristal && jsonData.valor_neto_cristal?.toString())
+        ?.length === 0
+        ? "0"
+        : jsonData.valor_neto_cristal
+    }`,
     `armazon_material  = ${armazon_flexible.value === true ? "3" : "0"}`,
 
-    `valor_neto_armazon= ${(jsonData.valor_neto_armazon && jsonData.valor_neto_armazon?.toString())?.length === 0 ? "0" : jsonData.valor_neto_armazon}`,
+    `valor_neto_armazon= ${
+      (jsonData.valor_neto_armazon && jsonData.valor_neto_armazon?.toString())
+        ?.length === 0
+        ? "0"
+        : jsonData.valor_neto_armazon
+    }`,
     `valor_neto_total  = ${valorTotalArmazon + valorTotalCristal}`,
     `observaciones     ="${jsonData.observaciones}"`,
   ];
 
   let _p1 = fields.join(",");
-  _p1 = _p1.replace(/'/g, '!');
-
+  _p1 = _p1.replace(/'/g, "!");
 
   const query = {
     query: "04",
@@ -140,7 +204,7 @@ export function transformUpdateQuery(jsonData: InputData): OutputData | null {
     // _p4: (jsonData.cristal && jsonData.cristal?.toString())?.length === 0 ? "0": jsonData.cristal
   };
 
-  return query
+  return query;
 }
 
 interface IUserFormPrps {
@@ -155,7 +219,15 @@ interface IUserFormPrps {
 }
 
 const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
+  ({
+    closeModal,
+    setEntities,
+    params,
+    label,
+    data,
+    isEditting,
+    escritura_lectura,
+  }) => {
     const schema = validationProyectoGruposSchema();
     // const [idCristal, setIdCristal] = useState('');
     const { showModal, CustomModal } = useModal();
@@ -180,7 +252,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
       handleSubmit,
       formState: { errors },
       setValue,
-      getValues
+      getValues,
     } = useForm({
       resolver: yupResolver(schema),
     });
@@ -198,7 +270,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
       // setTotalNeto(0);
       // setValue("valor_neto_armazon", '0');
       // setValue("valor_neto_cristal", '0');
-      // setValue("valor_neto_total", '0');      
+      // setValue("valor_neto_total", '0');
       // setValue("esferico_desde", "");
       // setValue("esferico_hasta", "");
       // setValue("cilindrico_desde", "");
@@ -237,7 +309,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
             ? strEntidad.concat(": " + response.message)
-            : strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message);
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -246,13 +318,13 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
           return;
         }
 
-        if (response.mensaje.includes('Creado')) {
+        if (response.mensaje.includes("Creado")) {
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
-            '',
+            "",
             MODAL.keepYes,
             MODAL.kepNo
           );
@@ -297,7 +369,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
-        const toastLoading = toast.loading('Cargando...');
+        const toastLoading = toast.loading("Cargando...");
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data)
@@ -307,9 +379,10 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
-          toast.dismiss(toastLoading)
+          toast.dismiss(toastLoading);
+          armazon_flexible.value = false;
         } catch (error: any) {
-          toast.dismiss(toastLoading)
+          toast.dismiss(toastLoading);
           show({
             message: error,
             type: "error",
@@ -322,21 +395,25 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
     useEffect(() => {
       isEditting ? focusSecondInput("cod_grupo") : focusFirstInput("cod_grupo");
       if (isEditting) {
-        const totalNeto = data && (data[EnumGrid.valor_neto_cristal] + data[EnumGrid.valor_neto_armazon])
-        setTotalNeto(totalNeto)
-        setValue('valor_neto_total', totalNeto)
+        const totalNeto =
+          data &&
+          data[EnumGrid.valor_neto_cristal] + data[EnumGrid.valor_neto_armazon];
+        setTotalNeto(totalNeto);
+        setValue("valor_neto_total", totalNeto);
+        if (data && data[EnumGrid.armazon_material_id] === 3) {
+          armazon_flexible.value = true;
+        }
       }
     }, []);
 
-
-
     useEffect(() => {
-      const { valor_neto_cristal, valor_neto_armazon } = getValues()
+      const { valor_neto_cristal, valor_neto_armazon } = getValues();
 
-      setTotalNeto((parseInt(valor_neto_cristal) + parseInt(valor_neto_armazon)) as any)
-      setValue('valor_neto_total', totalNeto as any)
-    }, [totalNetoArmazones, totalNetoCristales])
-
+      setTotalNeto(
+        (parseInt(valor_neto_cristal) + parseInt(valor_neto_armazon)) as any
+      );
+      setValue("valor_neto_total", totalNeto as any);
+    }, [totalNetoArmazones, totalNetoCristales]);
 
     // console.log(errors)
 
@@ -352,7 +429,10 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
           </button>
         </div>
 
-        <form onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))} className="userFormulario">
+        <form
+          onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
+          className="userFormulario"
+        >
           <div className="userFormularioContainer">
             <div className="w-full flex items-center">
               <div className="input-container items-center rowForm w-[33%]">
@@ -463,7 +543,6 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     entidad={["/api/tipos/", "02", "CristalesMateriales"]}
                     error={errors.material}
                     customWidth={"labelInput inputStyles"}
-
                   />
                 </div>
               </div>
@@ -592,8 +671,8 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     textAlign="text-right"
                     customWidth={"labelInput inputStyles"}
                     handleChange={(e) => {
-                      console.log(e)
-                      setTotalNetoCristales(e)
+                      console.log(e);
+                      setTotalNetoCristales(e);
                     }}
                   />
                 </div>
@@ -608,7 +687,7 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
               <div className="input-container items-center rowForm mx-auto">
                 <div className="labelInputDiv">
                   <Controller
-                    name='armazon_material'
+                    name="armazon_material"
                     control={control}
                     render={({ field }) => (
                       <Switch
@@ -616,10 +695,17 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                         label="Armazón Flexible"
                         color="orange"
                         onChange={(e) => {
-                          armazon_flexible.value = e.target.checked
+                          armazon_flexible.value = e.target.checked;
                         }}
-                        defaultChecked={data ? data[EnumGrid.armazon_material_id] === 3 ? true : false : false}
-                      />)}
+                        defaultChecked={
+                          data
+                            ? data[EnumGrid.armazon_material_id] === 3
+                              ? true
+                              : false
+                            : false
+                        }
+                      />
+                    )}
                   />
                 </div>
               </div>
@@ -635,7 +721,9 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     error={errors.valor_neto_armazon}
                     isOptional={false}
                     textAlign="text-right"
-                    handleChange={(e) => { setTotalNetoArmazones(e) }}
+                    handleChange={(e) => {
+                      setTotalNetoArmazones(e);
+                    }}
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
@@ -664,7 +752,9 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
                     type="number"
                     label="$ TOTAL NETO"
                     name="valor_neto_total"
-                    data={totalNeto || data && data[EnumGrid.valor_neto_total]}
+                    data={
+                      totalNeto || (data && data[EnumGrid.valor_neto_total])
+                    }
                     control={control}
                     isOptional={false}
                     textAlign="text-right"
@@ -677,14 +767,17 @@ const FProyectosGrupos: React.FC<IUserFormPrps> = React.memo(
             <div className="w-full !mt-5 !mb-5">
               <div className="w-[30%] mx-auto">
                 {escritura_lectura && (
-                  <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                  <Button
+                    type="submit"
+                    tabIndex={1}
+                    className="userFormBtnSubmit"
+                  >
                     {`${TITLES.guardar}`}
                   </Button>
                 )}
               </div>
             </div>
           </div>
-
         </form>
 
         <CustomModal />
