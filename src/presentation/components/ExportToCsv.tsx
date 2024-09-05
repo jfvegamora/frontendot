@@ -76,7 +76,8 @@ const ExportToCsv: React.FC<Props> = ({
     nombreExcel?: string,
     jsonData?: any
   ) => {
-    console.log(primaryKey);
+    console.log(nombreExcel);
+
     return exportEntity(
       primaryKey,
       nombreExcel,

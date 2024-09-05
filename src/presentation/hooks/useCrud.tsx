@@ -166,32 +166,6 @@ const useCrud = (
           responseType: "blob",
         });
       } else {
-        //CASO DE USO 1
-
-        // if (idMenu === 28 || idMenu === 1) {
-        //   strUrl = primaryKey
-        //     ? OTAreas
-        //       ? `/excel/?${
-        //           query ? query : "query=14"
-        //         }&_origen=${OTAreas}&${primaryKey}`
-        //       : `/excel/?${query ? query : "query=14"}&${primaryKey}`
-        //     : OTAreas
-        //     ? `/excel/?${query ? query : "query=14"}&_origen=${OTAreas}`
-        //     : `/excel/?${query ? query : "query=14"}`;
-        //   // } else if (strEntidad?.includes('Mantenedor de Armazones')) {
-        //   //   strUrl = primaryKey
-        //   //     ? `/excel/?${query ? query : "query=100"}&${primaryKey}`
-        //   //     : `/excel/?${query ? query : "query=100"}`;
-
-        // } else {
-        //   strUrl = primaryKey
-        //     ? `/excel/?${query ? query : "query=11"}&${primaryKey}`
-        //     : `/excel/?${query ? query : "query=11"}`;
-        // }
-
-        console.log(primaryKey);
-        console.log(idMenu);
-
         if (idMenu === 28) {
           strUrl = primaryKey
             ? OTAreas
@@ -199,13 +173,11 @@ const useCrud = (
                   query ? query : "query=144"
                 }&_origen=${OTAreas}&${primaryKey}`
               : `/excel/?${query ? query : "query=144"}&${primaryKey}`
-            : OTAreas
-            ? `/excel/?${query ? query : "query=144"}&_origen=${OTAreas}`
+            : OTAreas;
+        } else if (idMenu === 1) {
+          strUrl = primaryKey
+            ? `/excel/?${query ? query : "query=144"}&${primaryKey}`
             : `/excel/?${query ? query : "query=144"}`;
-          // } else if (strEntidad?.includes('Mantenedor de Armazones')) {
-          //   strUrl = primaryKey
-          //     ? `/excel/?${query ? query : "query=100"}&${primaryKey}`
-          //     : `/excel/?${query ? query : "query=100"}`;
         } else {
           strUrl = primaryKey
             ? `/excel/?${query ? query : "query=11"}&${primaryKey}`
