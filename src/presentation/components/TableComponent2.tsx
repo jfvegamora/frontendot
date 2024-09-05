@@ -227,7 +227,7 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
       ]
     );
 
-    if (!data || data.length === 0) return null;
+    // if (!data || data.length === 0) return null;
 
     return (
       <div className="gridCointainer">

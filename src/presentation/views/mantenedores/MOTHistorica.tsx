@@ -794,6 +794,7 @@ const MOTHistorica: React.FC = () => {
           setSelectedRows={setSelectedRows}
           idMenu={idMenu}
           isMOTArchivo={true}
+          strBaseUrl={strBaseUrl}
           // pktoDelete={pktoDelete}
         />
       </div>

@@ -51,6 +51,7 @@ type AreaButtonsProps = {
   idMenu?: any;
   pktoDelete?: any;
   isMOTArchivo?: any;
+  strBaseUrl?: any;
 };
 
 export const dataOTSignal = signal([]);
@@ -75,7 +76,7 @@ export const valueConfirmOT = signal<any>("");
 export const valueConfirmArmazon = signal<any>("");
 export const valueConfirmCristal = signal<any>("");
 const strEntidad = "Ordenen de Trabajo";
-const strBaseUrl = "/api/ot/";
+// const strBaseUrl = "/api/ot/";
 
 const ErrorOTModal = React.lazy(() => import("./ErrorOTModal"));
 const FOTTicketImpresion = React.lazy(
@@ -180,6 +181,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
     idMenu,
     isMOTArchivo,
     pktoDelete,
+    strBaseUrl,
   }) => {
     const dispatch = useAppDispatch();
     const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
@@ -271,7 +273,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         size: 80mm 297mm;
         margin: 0;
       }
-    `, 
+    `,
       suppressErrors: true,
       removeAfterPrint: true,
       onAfterPrint() {
