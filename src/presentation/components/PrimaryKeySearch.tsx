@@ -403,7 +403,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
               ) : input.type === "select" ? (
                 input.tipos ? (
                   <div
-                    className={`input-container relative  ${input.styles?.container}`}
+                    className={`input-container   ${input.styles?.container}`}
                   >
                     <Suspense>
                       <SelectInputTiposComponent

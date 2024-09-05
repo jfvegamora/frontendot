@@ -133,8 +133,8 @@ const MEstablecimientos: React.FC = () => {
                 selectUrl: "/api/tipos/",
                 tipos: "Provincias",
                 styles: {
-                  with: "labelInput inputStyles w-full",
-                  container: "!w-[20vw]  text-[1vw]",
+                  with: "labelInput inputStyles w-full ",
+                  container: "!w-[25vw]  text-[1vw] !ml-4",
                   labelProps: "labelInput",
                 },
               },
@@ -145,8 +145,8 @@ const MEstablecimientos: React.FC = () => {
                 selectUrl: "/api/tipos/",
                 tipos: "Comunas",
                 styles: {
-                  with: "labelInput inputStyles w-full",
-                  container: "!w-[20vw]  text-[1vw] ",
+                  with: "labelInput inputStyles !w-[30vw]",
+                  container: "!w-[30vw]  text-[1vw] ",
                   labelProps: "labelInput",
                 },
               },
@@ -179,7 +179,7 @@ const MEstablecimientos: React.FC = () => {
             showDeleteButton={true}
             showForwardButton={false}
             showRefreshButton={false}
-            showImportCsv={true}
+            showImportCsv={false}
             comilla={false}
             idMenu={idMenu}
             classname={"translate-x-[13vw]  !w-[16vw] translate-y-[2vw]"}

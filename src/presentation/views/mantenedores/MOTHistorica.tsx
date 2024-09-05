@@ -503,8 +503,8 @@ const MOTHistorica: React.FC = () => {
                 label: "Folio",
                 type: "text",
                 styles: {
-                  with: "labelInput inputStyles w-[15vw]",
-                  container: "",
+                  with: "labelInput inputStyles w-[10vw]",
+                  container: "!ml-10",
                   labelProps: "labelInput",
                 },
               },

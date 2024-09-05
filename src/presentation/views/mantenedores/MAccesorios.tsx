@@ -132,7 +132,7 @@ const MAccesorios: React.FC = () => {
                 tipos: "Stock",
                 styles: {
                   styles: "labelInput inputStyles !w-[20rem]",
-                  container: "!w-[15vw]  text-[1vw]",
+                  container: "!w-[15vw]  text-[1vw] !-ml-10",
                   labelProps: "labelInput",
                 },
               },

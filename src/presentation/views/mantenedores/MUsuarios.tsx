@@ -192,7 +192,7 @@ const MUsuarios: React.FC = () => {
             showDeleteButton={true}
             showForwardButton={false}
             showRefreshButton={true}
-            showImportCsv={true}
+            showImportCsv={false}
             idMenu={idMenu}
             classname={"translate-x-[-4vw] !w-[15vw]"}
           />
