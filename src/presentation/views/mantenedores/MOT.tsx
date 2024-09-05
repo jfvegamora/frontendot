@@ -687,6 +687,7 @@ const MOT: React.FC = () => {
             params={params}
             setSelectedRows={setSelectedRows}
             idMenu={idMenu}
+            strBaseUrl={strBaseUrl}
           />
         </Suspense>
       </div>
