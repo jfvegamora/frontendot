@@ -163,7 +163,7 @@ const MArmazones: React.FC = () => {
             showDeleteButton={true}
             showMacroButton={true}
             showForwardButton={false}
-            showImportCsv={true}
+            showImportCsv={false}
             showRefreshButton={true}
             idMenu={idMenu}
             classname={"translate-x-[1vw]  !w-[19vw] translate-y-[2.5vw]"}

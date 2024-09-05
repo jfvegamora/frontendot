@@ -72,6 +72,7 @@ const MCristales: React.FC = () => {
           <div className="w-[95%] mantenedorHeadSub">
             <PrimaryKeySearch
               baseUrl={strBaseUrl}
+              idMenu={idMenu}
               updateParams={updateParams}
               setEntities={setEntities}
               primaryKeyInputs={[

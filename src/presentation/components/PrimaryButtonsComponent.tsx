@@ -11,19 +11,26 @@ import { useModal } from "../hooks/useModal";
 // import { CgInsertAfterR, CgInsertBeforeR } from "react-icons/cg";
 // import ImportToCsv from "./ImportToCsv";
 import { AppStore, useAppSelector } from "../../redux/store";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faClone, faTrash, faArrowRightToBracket, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlus,
+  faClone,
+  faTrash,
+  faArrowRightToBracket,
+  faArrowRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
 // import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 
-
-const PiMicrosoftExcelLogoFill:any = React.lazy(() => import('react-icons/pi').then(module => ({ default: module.PiMicrosoftExcelLogoFill })));
+const PiMicrosoftExcelLogoFill: any = React.lazy(() =>
+  import("react-icons/pi").then((module) => ({
+    default: module.PiMicrosoftExcelLogoFill,
+  }))
+);
 
 import axios from "axios";
 import { URLBackend } from "../utils/config";
 
 // import ExportToCsv from "./ExportToCsv";
-
-
 
 interface IPrimaryButtonProps {
   handlePageSize?: () => void;
@@ -36,20 +43,20 @@ interface IPrimaryButtonProps {
   handleRefresh?: () => void;
   handleAddTipe2?: () => void;
   handleTraspaso?: () => void;
-  setSelectedRows?:any;
-  customExporTooltip?:string;
+  setSelectedRows?: any;
+  customExporTooltip?: string;
   showForwardButton?: boolean;
   showAddButton?: boolean;
   showRefreshButton?: boolean;
   showDeleteButton?: boolean;
   showExportButton?: boolean;
-  showCustomExportButton?:boolean;
-  showMacroButton?:boolean;
-  showExcelRepFirma?:boolean;
-  showExcelRepEntrega?:boolean;
-  showTraspasoButton?:boolean;
-  showPDFButton?:boolean;
-  showImportCsv?:boolean;
+  showCustomExportButton?: boolean;
+  showMacroButton?: boolean;
+  showExcelRepFirma?: boolean;
+  showExcelRepEntrega?: boolean;
+  showTraspasoButton?: boolean;
+  showPDFButton?: boolean;
+  showImportCsv?: boolean;
   comilla?: boolean;
   strBaseUrl?: string;
   params?: never[];
@@ -57,21 +64,17 @@ interface IPrimaryButtonProps {
   pkToDelete?: any;
   idMenu: number;
   bln_egreso?: boolean;
-  isOT?:boolean;
+  isOT?: boolean;
   showCopiar?: boolean;
-  classname?:any
+  classname?: any;
 }
 
-
-
-
 // const OTPrimaryButtons  = React.lazy(()=>import("./OTPrimaryButtons"));
-const ExportCustomCSV   = React.lazy(()=>import('./ExportCustomToCsv'))
-const ExportToCsv       = React.lazy(()=>import('./ExportToCsv'))
-const ImportToCsv       = React.lazy(()=>import('./ImportToCsv'))
-const ExportToPDF       = React.lazy(()=>import('./ExportToPDF'));
+const ExportCustomCSV = React.lazy(() => import("./ExportCustomToCsv"));
+const ExportToCsv = React.lazy(() => import("./ExportToCsv"));
+const ImportToCsv = React.lazy(() => import("./ImportToCsv"));
+const ExportToPDF = React.lazy(() => import("./ExportToPDF"));
 
- 
 const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
   ({
     handleDeleteSelected,
@@ -98,64 +101,55 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
     idMenu,
     bln_egreso,
     showCopiar,
-    classname
+    classname,
   }) => {
-
-
-
-    
-    
-    
-    
-
-    
     const { escritura_lectura } = usePermission(idMenu);
     const { CustomModal, showModal } = useModal();
     // const [OTPermissions, setOTPermissions] = useState("");
 
-    const User:any = useAppSelector((store: AppStore) => store.user);
+    const User: any = useAppSelector((store: AppStore) => store.user);
 
-    
     // const areaActual = OTAreas["areaActual"]
 
+    const handleDownloadMacro = React.useCallback(
+      async (entidad: string) => {
+        try {
+          const url = `${URLBackend}/api/downloadexcel/`;
+          const formData = new FormData();
+          formData.append("ENTIDAD", entidad as string);
 
-    const handleDownloadMacro = React.useCallback(async(entidad:string) => {
-      try {
-        const url = `${URLBackend}/api/downloadexcel/`;
-        const formData = new FormData();
-        formData.append('ENTIDAD', entidad as string); 
-  
-        const { data } = await axios({
-          url,
-          method: 'POST', // Cambiamos de GET a POST
-          data: formData, // Enviamos el FormData que contiene el string 'macro'
-          responseType: 'blob',
-          headers: {
-            'Authorization': User.token,
-            'Content-Type': 'multipart/form-data', // Asegúrate de establecer el tipo de contenido correctamente
-          },
-        });
-  
-        const blobUrl = window.URL.createObjectURL(new Blob([data]));
-        // Crear un enlace invisible y hacer clic en él para iniciar la descarga
-        const link = document.createElement('a');
-        link.href = blobUrl;
-        link.setAttribute('download', `${entidad}`);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } catch (error) {
-        // console.log(error)
-        throw error;
-      }
-    },[User.token]);
-  
+          const { data } = await axios({
+            url,
+            method: "POST", // Cambiamos de GET a POST
+            data: formData, // Enviamos el FormData que contiene el string 'macro'
+            responseType: "blob",
+            headers: {
+              Authorization: User.token,
+              "Content-Type": "multipart/form-data", // Asegúrate de establecer el tipo de contenido correctamente
+            },
+          });
+
+          const blobUrl = window.URL.createObjectURL(new Blob([data]));
+          // Crear un enlace invisible y hacer clic en él para iniciar la descarga
+          const link = document.createElement("a");
+          link.href = blobUrl;
+          link.setAttribute("download", `${entidad}`);
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } catch (error) {
+          // console.log(error)
+          throw error;
+        }
+      },
+      [User.token]
+    );
 
     // console.log(areaActual)
     // console.log(OTAreas.areas)
 
     // const permissions = (area:number) => areaActual && OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
-  
+
     // useEffect(()=>{
     //   // console.log('render')
     //   const permiso = areaActual && permissions(areaActual)
@@ -181,24 +175,24 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
       [escritura_lectura]
     );
 
-
     // if(isOT){
     //   return (
     //     <Suspense>
-    //       <OTPrimaryButtons 
-    //         areaName={"name"} 
-    //         areaPermissions={OTPermissions} 
-    //         areaActual={areaActual}  
+    //       <OTPrimaryButtons
+    //         areaName={"name"}
+    //         areaPermissions={OTPermissions}
+    //         areaActual={areaActual}
     //         handleAddPerson={handleAddPerson}
     //         params={params}
     //         setSelectedRows={setSelectedRows}
-            
+
     //       />
     //     </Suspense>
     //   )
     // }
-    
-    
+
+    console.log(escritura_lectura);
+    console.log(showExportButton);
 
     return (
       <div className={`primaryBtnContainer ${classname ? classname : ""}`}>
@@ -214,12 +208,18 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             {showAddButton && escritura_lectura && (
               <>
                 {renderButton(
-                  <FontAwesomeIcon icon={faArrowRightToBracket} className="primaryBtnIcon"/>,
+                  <FontAwesomeIcon
+                    icon={faArrowRightToBracket}
+                    className="primaryBtnIcon"
+                  />,
                   handleAddPerson!,
                   BUTTON_MESSAGES.bln_ingreso
                 )}
                 {renderButton(
-                  <FontAwesomeIcon icon={faArrowRightFromBracket} className="primaryBtnIcon"/>,
+                  <FontAwesomeIcon
+                    icon={faArrowRightFromBracket}
+                    className="primaryBtnIcon"
+                  />,
                   toggleEditModal!,
                   BUTTON_MESSAGES.bln_egreso
                 )}
@@ -228,29 +228,30 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           </>
         ) : (
           <>
-          
-
             {showAddButton && escritura_lectura && (
               <>
                 {renderButton(
-                  <FontAwesomeIcon icon={faPlus} className="primaryBtnIcon"/>,
+                  <FontAwesomeIcon icon={faPlus} className="primaryBtnIcon" />,
                   handleAddPerson!,
                   BUTTON_MESSAGES.add
                 )}
               </>
             )}
 
-        {showTraspasoButton && escritura_lectura && (
-            renderButton(
-              <FontAwesomeIcon icon={faArrowRightFromBracket} className="primaryBtnIcon"/>,
-              handleTraspaso!,
-              BUTTON_MESSAGES.traspasar
-            )
-          )}
+            {showTraspasoButton &&
+              escritura_lectura &&
+              renderButton(
+                <FontAwesomeIcon
+                  icon={faArrowRightFromBracket}
+                  className="primaryBtnIcon"
+                />,
+                handleTraspaso!,
+                BUTTON_MESSAGES.traspasar
+              )}
             {showCopiar && escritura_lectura && (
               <>
                 {renderButton(
-                  <FontAwesomeIcon icon={faClone} className="primaryBtnIcon"/>,
+                  <FontAwesomeIcon icon={faClone} className="primaryBtnIcon" />,
                   handleCopiar!,
                   BUTTON_MESSAGES.copiar
                 )}
@@ -277,8 +278,6 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
           )}
         </Suspense>
 
-       
-
         <Suspense>
           {showCustomExportButton && (
             <ExportCustomCSV
@@ -288,76 +287,77 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
               customExport={true}
               query={"queryExcel"}
               customExporTooltip={customExporTooltip}
-              />
-            )}
+            />
+          )}
         </Suspense>
 
-
-        
         <Suspense>
           {showImportCsv && escritura_lectura && (
-            <ImportToCsv strEntidad={strEntidad}/>
+            <ImportToCsv strEntidad={strEntidad} />
           )}
         </Suspense>
 
-          
         <Suspense>
-          {showPDFButton && (
-              
-              <ExportToPDF rowData={pkToDelete}/>
-          )}
+          {showPDFButton && <ExportToPDF rowData={pkToDelete} />}
         </Suspense>
 
-          <Suspense>
-            {showMacroButton && escritura_lectura && (
-              <Tooltip content={'Descargar Plantilla Excel'} >
-                <IconButton 
-                  className='primaryBtnIconButton'
-                  variant='text'
-                  color="blue-gray"
-                >
-                  <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro('')} />
-
-                </IconButton>
-                {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
+        <Suspense>
+          {showMacroButton && escritura_lectura && (
+            <Tooltip content={"Descargar Plantilla Excel"}>
+              <IconButton
+                className="primaryBtnIconButton"
+                variant="text"
+                color="blue-gray"
+              >
+                <PiMicrosoftExcelLogoFill
+                  className="primaryBtnIcon"
+                  onClick={() => handleDownloadMacro("")}
+                />
+              </IconButton>
+              {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
             </Tooltip>
-            )}
-          </Suspense>
+          )}
+        </Suspense>
 
         <Suspense>
           {showExcelRepFirma && escritura_lectura && (
-            <Tooltip content={'Descargar plantilla Reporte de Firmas'} >
-                <IconButton 
-                  className='primaryBtnIconButton'
-                  variant='text'
-                  color="blue-gray"
-                >
-                  <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro('plantilla_reporte_firmas.xlsx')} />
-
-                </IconButton>
-                {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
+            <Tooltip content={"Descargar plantilla Reporte de Firmas"}>
+              <IconButton
+                className="primaryBtnIconButton"
+                variant="text"
+                color="blue-gray"
+              >
+                <PiMicrosoftExcelLogoFill
+                  className="primaryBtnIcon"
+                  onClick={() =>
+                    handleDownloadMacro("plantilla_reporte_firmas.xlsx")
+                  }
+                />
+              </IconButton>
+              {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
             </Tooltip>
           )}
         </Suspense>
-        
+
         <Suspense>
           {showExcelRepEntrega && escritura_lectura && (
-            <Tooltip content={'Descargar plantilla Reporte de Entregas'} >
-                <IconButton 
-                  className='primaryBtnIconButton'
-                  variant='text'
-                  color="blue-gray"
-                >
-                  <PiMicrosoftExcelLogoFill className='primaryBtnIcon' onClick={()=>handleDownloadMacro('plantilla_reporte_entrega.xlsx')} />
-
-                </IconButton>
-                {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
+            <Tooltip content={"Descargar plantilla Reporte de Entregas"}>
+              <IconButton
+                className="primaryBtnIconButton"
+                variant="text"
+                color="blue-gray"
+              >
+                <PiMicrosoftExcelLogoFill
+                  className="primaryBtnIcon"
+                  onClick={() =>
+                    handleDownloadMacro("plantilla_reporte_entrega.xlsx")
+                  }
+                />
+              </IconButton>
+              {/* <Button color="green" className='otActionButton mx-4' >Macro Excel</Button> */}
             </Tooltip>
           )}
         </Suspense>
-
-        
-        
 
         {showDeleteButton && escritura_lectura && handleDeleteSelected && (
           <>
@@ -369,19 +369,22 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
                 className="primaryBtnIconButton"
                 disabled={!escritura_lectura}
                 onClick={() => {
-                  showModal(MODAL.delete, '',MODAL.deleteYes, MODAL.deleteNo).then(
-                    (result) => {
-                      if (result) {
-                        comilla
-                          ? handleDeleteSelected(pkToDelete, comilla)
-                          : handleDeleteSelected(pkToDelete);
-                      }
+                  showModal(
+                    MODAL.delete,
+                    "",
+                    MODAL.deleteYes,
+                    MODAL.deleteNo
+                  ).then((result) => {
+                    if (result) {
+                      comilla
+                        ? handleDeleteSelected(pkToDelete, comilla)
+                        : handleDeleteSelected(pkToDelete);
                     }
-                  );
+                  });
                 }}
               >
                 <span style={{ verticalAlign: "0.1em" }}>
-                  <FontAwesomeIcon icon={faTrash} className="primaryBtnIcon"/>
+                  <FontAwesomeIcon icon={faTrash} className="primaryBtnIcon" />
                 </span>
               </IconButton>
             </Tooltip>

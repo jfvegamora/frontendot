@@ -84,6 +84,7 @@ interface PrimaryKeySearchProps {
   description?: any;
   otHistorica?: boolean;
   classNameSearchButton?: string;
+  idMenu?: any;
 }
 
 export const resetFilters = signal(false);
@@ -98,6 +99,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     otHistorica,
     baseUrl,
     classNameSearchButton,
+    idMenu,
   }) => {
     const OTAreaActual = useAppSelector(
       (store: AppStore) => store.OTAreas.areaActual
@@ -179,6 +181,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
     const handleSearch = async (data: any) => {
       const toastLoading = toast.loading("Buscando...");
+
       if (baseUrl === "/api/othistorica/" || baseUrl === "/api/ot/") {
         const filtersOT = Object.entries(data)
           .filter((campos) => campos[1] !== "" && campos[1] !== undefined)
@@ -215,6 +218,11 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         )
         .filter((param) => param !== "")
         .join("&");
+
+      if (idMenu === 7 && searchParams === "") {
+        toast.dismiss(toastLoading);
+        return toast.error("Ingrese al menos un filtro de busqueda.");
+      }
 
       data && updateParams([searchParams]);
       try {

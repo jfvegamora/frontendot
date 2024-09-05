@@ -1089,11 +1089,11 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         case "conCristales":
           destino = OTAreas["areas"]
             .map((area: any) => area)
-            .filter((areaAuxiliar: any) => areaAuxiliar[1] === 60)[0][7];
-          estado = "15";
+            .filter((areaAuxiliar: any) => areaAuxiliar[1] === 60)[0][8];
+          estado = "40";
           situacion = "4";
           observaciones = "Montaje externo con cristales.";
-
+          console.log(destino);
           updateOT(
             jsondata,
             origen,

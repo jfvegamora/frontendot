@@ -659,25 +659,6 @@ const MOT: React.FC = () => {
       </div>
 
       <div className="mantenedorHeadOT width100 !h-[4rem]  items-center ">
-        {/* <PrimaryButtonsComponent
-          handleAddPerson={openModal}
-          handleDeleteSelected={handleDeleteSelected}
-          handleRefresh={resetEntities}
-          setSelectedRows={setSelectedRows}
-          params={params}
-          // pkToDelete={pkToDelete}
-          // strEntidad={strEntidadExcel}
-          strBaseUrl={strBaseUrl}
-          showAddButton={showAddButton}
-          showExportButton={iSshowExportButton}
-          showDeleteButton={showDeleteButton}
-          showForwardButton={showForwardButton}
-
-          showRefreshButton={true}
-          showImportCsv={true}
-          idMenu={28}
-          isOT={isOT}
-        /> */}
         <Suspense>
           <OTPrimaryButtons
             areaName={"name"}
