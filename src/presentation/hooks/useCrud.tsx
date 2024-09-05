@@ -199,11 +199,13 @@ const useCrud = (
                   query ? query : "query=144"
                 }&_origen=${OTAreas}&${primaryKey}`
               : `/excel/?${query ? query : "query=144"}&${primaryKey}`
-            : OTAreas;
-        } else if (idMenu === 1) {
-          strUrl = primaryKey
-            ? `/excel/?${query ? query : "query=144"}&${primaryKey}`
+            : OTAreas
+            ? `/excel/?${query ? query : "query=144"}&_origen=${OTAreas}`
             : `/excel/?${query ? query : "query=144"}`;
+          // } else if (strEntidad?.includes('Mantenedor de Armazones')) {
+          //   strUrl = primaryKey
+          //     ? `/excel/?${query ? query : "query=100"}&${primaryKey}`
+          //     : `/excel/?${query ? query : "query=100"}`;
         } else {
           strUrl = primaryKey
             ? `/excel/?${query ? query : "query=11"}&${primaryKey}`

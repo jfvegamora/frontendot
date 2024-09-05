@@ -234,6 +234,7 @@ const MOT: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (switchFetchOT.value === true) {
+        // console.log('params:', params[0])
         if (params[0] !== "") {
           dispatch(fetchOT({ OTAreas: areaActualOT, searchParams: params[0] }));
         } else {
