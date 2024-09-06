@@ -115,7 +115,7 @@ const MProyectosTratamAdic: React.FC = () => {
             strEntidad={strEntidadExcel}
             strBaseUrl={strBaseUrl}
             showAddButton={true}
-            showExportButton={false}
+            showExportButton={true}
             showDeleteButton={true}
             showForwardButton={false}
             showRefreshButton={true}

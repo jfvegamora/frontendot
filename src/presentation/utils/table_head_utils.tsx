@@ -1244,7 +1244,7 @@ export const table_head_accesorios = [
     alignment: "text-left",
   },
   {
-    cell: "Precio Neto",
+    cell: "$ Unitario",
     key: "precio_neto",
     visible: true,
     alignment: "text-right",
@@ -1431,7 +1431,7 @@ export const table_head_kardex = [
     alignment: "text-right",
   },
   {
-    cell: "Valor Neto",
+    cell: "$ Total",
     key: "valor_neto",
     visible: true,
     width: "w-[7rem]",
@@ -1576,7 +1576,7 @@ export const table_head_proyectos_accesorios = [
     width: "w-[8rem]",
   },
   {
-    cell: "Valor Neto $",
+    cell: "$ Total",
     key: "valor_neto",
     visible: true,
     alignment: "text-right",
@@ -2497,7 +2497,7 @@ export const table_head_proyectos_tratam_adic = [
     visible: true,
   },
   {
-    cell: "Valor Neto",
+    cell: "$ Unitario",
     key: "valor_neto",
     visible: true,
   },
@@ -2626,7 +2626,7 @@ export const table_head_oftalmologos = [
     width: "w-[12rem]",
   },
   {
-    cell: "Valor Consulta",
+    cell: "$ Consulta",
     key: "valor_consulta",
     visible: true,
     alignment: "text-right",
@@ -2933,7 +2933,7 @@ export const table_head_proyectos_grupos = [
     width: "w-[6rem]",
   },
   {
-    cell: "$ Cristales",
+    cell: "Cristal $ Total",
     key: "valor_neto_cristal",
     visible: true,
     alignment: "text-right",
@@ -2952,28 +2952,12 @@ export const table_head_proyectos_grupos = [
     width: "w-[7rem]",
   },
   {
-    cell: "$ Armazón",
+    cell: "Armazón $ Total",
     key: "valor_neto_armazon",
     visible: true,
     alignment: "text-right",
     width: "w-[6rem]",
   },
-
-  // {
-  //   cell: "Adulto Mayor",
-  //   key: "adulto_mayor",
-  //   visible: true,
-  //   alignment: "text-right",
-  //   width: "w-[6rem]",
-  // },
-  // {
-  //   cell: "$ Adulto Mayor",
-  //   key: "adulto_mayor",
-  //   visible: true,
-  //   alignment: "text-right",
-  //   width: "w-[6rem]",
-  // },
-
   {
     cell: "$ TOTAL",
     key: "valor_neto_total",
