@@ -616,35 +616,38 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       let estadoValidacionCristal = "1";
 
       let _p2 = "1";
+      let _p3 = "";
 
       let destino;
       let estado: any;
 
       let observaciones;
       let situacion;
+      console.log(OT);
+      console.log(OT[0][OTGrillaEnum.tipo_anteojo_id]);
       let data: any = {
-        folio: OT[OTGrillaEnum.folio],
-        tipo_anteojo: parseInt(OT[OTGrillaEnum.tipo_anteojo_id]),
-        proyecto_codigo: OT[OTGrillaEnum.proyecto_titulo],
-        punto_venta: OT[OTGrillaEnum.punto_venta],
+        folio: OT[0][OTGrillaEnum.folio],
+        tipo_anteojo: parseInt(OT[0][OTGrillaEnum.tipo_anteojo_id]),
+        proyecto_codigo: OT[0][OTGrillaEnum.proyecto_titulo],
+        punto_venta: OT[0][OTGrillaEnum.punto_venta],
         cristales: [
           {
-            codigo: OT[OTGrillaEnum.cr1_od],
+            codigo: OT[0][OTGrillaEnum.cr1_od],
             opcion_vta: cristalStock,
             estado: estadoValidacionCristal,
           },
           {
-            codigo: OT[OTGrillaEnum.cr1_oi],
+            codigo: OT[0][OTGrillaEnum.cr1_oi],
             opcion_vta: cristalStock,
             estado: estadoValidacionCristal,
           },
           {
-            codigo: OT[OTGrillaEnum.cr2_od],
+            codigo: OT[0][OTGrillaEnum.cr2_od],
             opcion_vta: cristalStock,
             estado: estadoValidacionCristal,
           },
           {
-            codigo: OT[OTGrillaEnum.cr2_oi],
+            codigo: OT[0][OTGrillaEnum.cr2_oi],
             opcion_vta: cristalStock,
             estado: estadoValidacionCristal,
           },
@@ -653,7 +656,16 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       };
       if (casoEjecutar === "sinCristales") {
         toast.success("Cristales validados correctamente.");
-        data = [{ cristales: [], armazones: [] }];
+        // data = [{ cristales: [], armazones: [] }];
+        destino = "10";
+        estado = "40";
+        situacion = "5";
+
+        _p3 =
+          OT[0][OTGrillaEnum.tipo_anteojo_id] === 3
+            ? `cristales1_od_estado="1", cristales1_oi_estado="1",cristales2_od_estado="1",cristales2_oi_estado="1"`
+            : `cristales1_od_estado="1", cristales1_oi_estado="1"`;
+
         updateOT(
           jsondata,
           origen,
@@ -671,7 +683,8 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           "",
           false,
           "",
-          _p2
+          _p2,
+          _p3
         )
           .then(() => {
             handleClose();
@@ -1136,11 +1149,11 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         case "sinCristales":
           destino = OTAreas["areas"]
             .map((area: any) => area)
-            .filter((areaAuxiliar: any) => areaAuxiliar[1] === 60)[0][7];
+            .filter((areaAuxiliar: any) => areaAuxiliar[1] === 60)[0][8];
           estado = "15";
           situacion = "5";
           observaciones = "Montaje externo sin cristales.";
-
+          console.log("render");
           updateOT(
             jsondata,
             origen,
@@ -1448,7 +1461,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         <button
           onClick={() => {
             resetFields();
-            // handleClose();
+            handleClose();
           }}
           className="userFormBtnClose mr-4"
         >

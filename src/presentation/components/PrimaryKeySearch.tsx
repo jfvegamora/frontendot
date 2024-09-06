@@ -637,7 +637,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         </div>
 
         {description && (
-          <span className="mx-8 h-auto  w-[28rem] text-base border-none absolute bottom-[-5rem] left-[40vw]">
+          <span className="mx-8 h-auto  w-[28rem] text-base border-none absolute top-0 left-[65vw]">
             {cristalDescritpion && cristalDescritpion[3]}
           </span>
         )}
