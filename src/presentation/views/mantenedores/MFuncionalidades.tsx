@@ -21,6 +21,8 @@ const idMenu   = 23;
 export enum EnumGrid {
   ID = 1,
   nombre = 2,
+  n_usuarios_lectura = 3,
+  n_usuarios_escritura = 4,
 }
 
 const MCargos: React.FC = () => {

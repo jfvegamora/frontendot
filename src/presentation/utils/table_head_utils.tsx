@@ -1922,7 +1922,7 @@ export const table_head_vitrinas_armazones = [
   },
 ];
 
-/************ MENU PROYECTOS ************/
+/************ MENU PROYECTOS ************/  
 export const table_head_mandantes = [
   {
     cell: <input type="checkbox" />,
@@ -3499,12 +3499,28 @@ export const table_head_funcionalidades = [
     cell: "ID",
     key: "id",
     visible: false,
+    width: "w-[4rem]",
   },
   {
-    cell: "Nombre",
+    cell: "Funcionalidad",
     key: "nombre",
     visible: true,
     alignment: "text-left",
+    width: "w-[20rem]",
+  },
+  {
+    cell: "N° Usuarios Lectura",
+    key: "n_usuarios_lectura",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "N° Usuarios Escritura",
+    key: "n_usuarios_escritura",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6rem]",
   },
   {
     cell: "",
