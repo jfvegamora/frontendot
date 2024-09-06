@@ -156,7 +156,7 @@ const MAccesorios: React.FC = () => {
             showDeleteButton={true}
             showForwardButton={false}
             showRefreshButton={true}
-            showImportCsv={true}
+            showImportCsv={false}
             idMenu={idMenu}
             classname={"translate-x-[18vw] translate-y-[2.5vw]  !w-[15vw]"}
           />
