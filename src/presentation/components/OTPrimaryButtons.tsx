@@ -36,6 +36,7 @@ import FOTOrdenCompra from "../views/forms/FOTOrdenCompra";
 import FOTFactura from "../views/forms/FOTFactura";
 import { usePermissionBotonesUser } from "../hooks/usePermissionBotonesUser";
 import FOTValidateArmazones from "../views/forms/FOTValidateArmazones";
+import { EnumGrid } from "../views/mantenedores/MOTHistorica";
 // import { OTAreasEnum } from '../Enums/OTAreasEnum';
 // import { OTGrillaEnum } from '../Enums';
 // import { CR1_OD_LAB, CR1_OI_LAB, CR2_OD_LAB, CR2_OI_LAB } from '../utils/FOTCristales_utils';
@@ -62,6 +63,9 @@ export const isValidateCR1OD = signal(false);
 export const isValidateCR1OI = signal(false);
 export const isValidateCR2OD = signal(false);
 export const isValidateCR2OI = signal(false);
+
+export const isValidateArmazon1 = signal(false);
+export const isValidateArmazon2 = signal(false);
 
 export const resultValidarBodega = signal<any>({
   ProcesarTB_1: true,
@@ -887,11 +891,29 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             toast.dismiss(toastLoading);
             return toast.error(`OT ${folio}: No se encuentra en esta área.`);
           }
+          const { data: dataFetchValidateCheckLAB } = await axios(
+            `${URLBackend}/api/ot/listado/?query=01&_p1=${folio}`
+          );
 
-          console.log(dataOT);
+          if (dataFetchValidateCheckLAB && dataFetchValidateCheckLAB[0]) {
+            if (
+              dataFetchValidateCheckLAB[0][
+                EnumGrid.estado_validacion_armazon1
+              ] === 1
+            ) {
+              isValidateArmazon1.value = true;
+            }
 
-          console.log(dataOT && dataOT[0][OTGrillaEnum.cr1_od]);
-          console.log(dataOT && dataOT[0][OTGrillaEnum.cr1_oi]);
+            if (
+              dataFetchValidateCheckLAB[0][
+                EnumGrid.estado_validacion_armazon2
+              ] === 1
+            ) {
+              isValidateArmazon2.value = true;
+            }
+          }
+
+          // console.log(dataOT && dataOT[0][OTGrillaEnumm]);
 
           if (
             dataOT &&
@@ -919,8 +941,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               dataOT[0][OTGrillaEnum.folio]
             }`
           );
-
-          console.log(dataAproximarCristales);
 
           const keys = ["a1_od", "a1_oi", "a2_od", "a2_oi"];
           structureCristalesBodega.value = {
@@ -1324,14 +1344,13 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                     let validateValue = e.target.value;
                     clearIndividualCheck.value = true;
                     if (validateValue.length >= 10) {
-                      console.log(validateValue);
                       const regex = /^0+/;
                       valueConfirmCristal.value = validateValue.replace(
                         regex,
                         ""
                       );
 
-                      const toastLoading: any = toast.loading("cargando...");
+                      const toastLoading: any = toast.loading("Cargando...");
                       await handleProcesarBodegaCristales(
                         parseInt(valueConfirmCristal.value),
                         toastLoading

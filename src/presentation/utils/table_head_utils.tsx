@@ -25,11 +25,11 @@ export const table_head_OT_diaria2 = [
     // background: true
   },
   {
-    cell: "Motivo",
+    cell: "Armazón / Cristal",
     key: "motivo",
     visible: true,
     alignment: "text-center",
-    width: "w-[6rem]",
+    width: "w-[8rem]",
   },
   {
     cell: "Estado ID",

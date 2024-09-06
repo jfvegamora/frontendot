@@ -800,7 +800,7 @@ const FReservarArmazones = () => {
 
   return (
     <form
-      className=" w-screen mx-auto px-6 !overflow-x-hidden form-container-reserva"
+      className=" w-screen mx-auto px-6 !overflow-x-hidden form-container-reserva "
       onSubmit={handleSubmit((data) => handleSaveChange(data))}
     >
       <div className="translate-y-[30vw] h-screen !mx-auto ">
