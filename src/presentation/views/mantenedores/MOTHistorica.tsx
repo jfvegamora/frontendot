@@ -194,18 +194,22 @@ export enum EnumGrid {
 
   empresa_adjudicada_id = 136,
   estado_validacion_armazon1 = 137,
-  estado_validacioon_armazon2 = 138,
+  estado_validacion_armazon2 = 138,
+  cristal1_od_validado = 139,
+  cristal1_oi_validado = 140,
+  cristal2_od_validado = 141,
+  cristal2_oi_validado = 142,
 
   //impresion:
-  ubicacion_armazon_1 = 139,
-  ubicacion_armazon_2 = 140,
-  ubicacion_cristal_1_od = 141,
-  ubicacion_cristal_1_oi = 142,
-  ubicacion_cristal_2_od = 143,
-  ubicacion_cristal_2_oi = 144,
-  cant_rbd = 145,
-  rbd_ubicacion = 146,
-  imagen_logo = 147,
+  ubicacion_armazon_1 = 143,
+  ubicacion_armazon_2 = 144,
+  ubicacion_cristal_1_od = 145,
+  ubicacion_cristal_1_oi = 146,
+  ubicacion_cristal_2_od = 147,
+  ubicacion_cristal_2_oi = 148,
+  cant_rbd = 149,
+  rbd_ubicacion = 150,
+  imagen_logo = 151,
 }
 
 const strEntidad = "Orden de Trabajo Histórico";

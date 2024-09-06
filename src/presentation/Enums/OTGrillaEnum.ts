@@ -2,7 +2,7 @@
 export enum OTGrillaEnum {
   folio = 1,
   ubicacion = 2,
-  motivo = 3,
+  validado = 3,
   estado_id = 4,
   estado = 5,
   estado_impresion = 6,
@@ -41,4 +41,5 @@ export enum OTGrillaEnum {
   opcion_montaje = 35,
   require_guia = 36,
   validar_parametrizacionm = 37,
+  motivo = 38,
 }

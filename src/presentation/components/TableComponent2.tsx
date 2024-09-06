@@ -288,6 +288,8 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
                             rowData[OTGrillaEnum.estado_id] !== 30 ||
                             rowData[OTGrillaEnum.estado_id] !== 40)
                           ? "bg-black"
+                          : rowData[OTGrillaEnum.motivo] === 2
+                          ? "bg-green-500"
                           : ""
                         : "";
 
