@@ -267,7 +267,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
             BUTTON_MESSAGES.refresh
           )} */}
         <Suspense>
-          {showExportButton && (
+          {showExportButton && escritura_lectura && (
             <ExportToCsv
               strEntidad={strEntidad}
               params={params}

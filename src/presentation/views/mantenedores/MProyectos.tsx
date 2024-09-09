@@ -121,7 +121,7 @@ const MProyectos: React.FC = () => {
   }, [selectedRows]);
 
   console.log(escritura_lectura);
-
+  console.log(table_head_proyectos);
   const newTableHead = useMemo(() => {
     console.log("render");
     return table_head_proyectos.map((column: any) => {
@@ -145,11 +145,14 @@ const MProyectos: React.FC = () => {
           "porc_saldo",
         ].includes(column.key)
       ) {
-        return { ...column, visible: false };
+        console.log("render");
+        return { ...column, visible: !column.visible };
       }
       return column;
     });
   }, [escritura_lectura]);
+
+  console.log(newTableHead);
 
   return (
     <div className="mantenedorContainer">
@@ -245,6 +248,7 @@ const MProyectos: React.FC = () => {
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
+          leftEdit={true}
         />
       </div>
 
