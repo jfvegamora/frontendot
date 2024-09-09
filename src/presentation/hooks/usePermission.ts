@@ -14,16 +14,7 @@ const selectPermisos = createSelector([selectUserState], (userState) =>
 );
 
 export const usePermission = (id: number): UserPermissions => {
-  // const userState = useAppSelector((store: AppStore) => store.user);
   const permisos = useAppSelector(selectPermisos);
-
-  // const permisos = JSON.parse(userState?.permisos) || [];
-  // const findPermiso = permisos.find((permiso: any) => permiso.id === id);
-
-  // const escritura_lectura =
-  //   findPermiso?.["permiso_tipo"] === "2" ? true : false;
-  // const lectura = findPermiso?.["permiso_tipo"] === "1" ? true : false;
-
   const { escritura_lectura, lectura } = useMemo(() => {
     const findPermiso = permisos.find((permiso: any) => permiso.id === id);
     return {

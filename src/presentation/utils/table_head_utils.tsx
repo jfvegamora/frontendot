@@ -1922,7 +1922,7 @@ export const table_head_vitrinas_armazones = [
   },
 ];
 
-/************ MENU PROYECTOS ************/  
+/************ MENU PROYECTOS ************/
 export const table_head_mandantes = [
   {
     cell: <input type="checkbox" />,
@@ -2344,7 +2344,7 @@ export const table_head_proyectos = [
   {
     cell: "",
     key: "opciones",
-    visible: true,
+    visible: false,
     width: "w-[4rem]",
   },
 ];

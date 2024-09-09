@@ -8,8 +8,6 @@ import React, {
 } from "react";
 import { IconButton, Tooltip } from "@material-tailwind/react";
 import { PencilIcon } from "@heroicons/react/24/solid";
-import { BsFillXSquareFill } from "react-icons/bs";
-import { BsPersonLock } from "react-icons/bs";
 import { usePermission } from "../hooks";
 import {
   BUTTON_MESSAGES,
@@ -83,17 +81,13 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
     toggleEditModal,
     toggleEditOTModal,
     toggleExcel,
-    handleDeleteSelected,
     selectedRows,
     setSelectedRows,
     showEditButton,
-    showDeleteButton,
     showPdfButton,
-    pkToDelete,
     idMenu,
     strBaseUrl,
     isOT,
-    togglePermisoOTModal,
     leftEdit,
     params,
     showExcelButton,
@@ -394,7 +388,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                       <td className="gridTableData">
                         {/* ===========BOTONES DE TABLA============ */}
                         <div className="flex">
-                          {showEditButton && (
+                          {/* {showEditButton && (
                             <Tooltip
                               content={BUTTON_MESSAGES.edit.concat(entidad)}
                             >
@@ -408,9 +402,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                                 <PencilIcon className="gridIcons" />
                               </IconButton>
                             </Tooltip>
-                          )}
+                          )} */}
 
-                          {escritura_lectura && (
+                          {/* {escritura_lectura && (
                             <Tooltip
                               content={BUTTON_MESSAGES.permiso_ot.concat(
                                 entidad
@@ -427,9 +421,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                                 <BsPersonLock className="gridIcons" />
                               </IconButton>
                             </Tooltip>
-                          )}
+                          )} */}
 
-                          {escritura_lectura && showDeleteButton && (
+                          {/* {escritura_lectura && showDeleteButton && (
                             <Tooltip
                               content={BUTTON_MESSAGES.delete.concat(entidad)}
                             >
@@ -444,7 +438,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                                 <BsFillXSquareFill className="gridIcons" />
                               </IconButton>
                             </Tooltip>
-                          )}
+                          )} */}
 
                           <Suspense>
                             {escritura_lectura && showPdfButton && (

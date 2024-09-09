@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 import {
   PrimaryButtonsComponent,
@@ -76,11 +76,12 @@ const strEntidad = "Proyecto ";
 const strEntidadExcel = "Proyectos";
 const strBaseUrl = "/api/proyectos/";
 const strQuery = "01";
-const idMenu = 15;
 
 const MProyectos: React.FC = () => {
+  const idMenu = React.useMemo(() => 15, []);
   const [params, setParams] = useState([]);
-  const { escritura_lectura } = usePermission(idMenu || 0);
+
+  const { escritura_lectura } = usePermission(idMenu);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -118,6 +119,37 @@ const MProyectos: React.FC = () => {
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
+
+  console.log(escritura_lectura);
+
+  const newTableHead = useMemo(() => {
+    console.log("render");
+    return table_head_proyectos.map((column: any) => {
+      if (
+        !escritura_lectura &&
+        [
+          "cantidad_presupuesto",
+          "total_presupuesto",
+          "porc_presupuesto",
+          "cantidad_ingresada",
+          "total_ingresado",
+          "porc_ingresado",
+          "cantidad_por_facturar",
+          "total_por_facturar",
+          "porc_por_facturar",
+          "cantidad_facturada",
+          "total_facturado",
+          "porc_facturado",
+          "cantidad_saldo",
+          "total_saldo",
+          "porc_saldo",
+        ].includes(column.key)
+      ) {
+        return { ...column, visible: false };
+      }
+      return column;
+    });
+  }, [escritura_lectura]);
 
   return (
     <div className="mantenedorContainer">
@@ -209,11 +241,10 @@ const MProyectos: React.FC = () => {
           setSelectedRows={setSelectedRows}
           entidad={strEntidad}
           data={entities}
-          tableHead={table_head_proyectos}
+          tableHead={newTableHead}
           showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
-          leftEdit={true}
         />
       </div>
 

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useCallback, Suspense } from "react";
-import { Text } from "@chakra-ui/react";
+import { Stack, Text } from "@chakra-ui/react";
+import { Checkbox } from "@material-tailwind/react";
 import { signal } from "@preact/signals-react";
 
 import { usePermission } from "../hooks";
@@ -172,6 +173,57 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
       },
       [handleColorEstado]
     );
+    const renderCjeckValidateCell = useCallback(
+      (
+        text: string
+        // alignment?: string,
+        // color2?: boolean,
+        // rowData?: any
+      ) => {
+        // const cellStyle: any = {
+        //   textAlign: alignment,
+        //   color: rowData && color2 && handleColorEstado(rowData[5]),
+        //   // color: rowData && color2 && "red",
+        //   backgroundColor:
+        //     rowData && color2 && handleColorEstado(rowData[5], "background"),
+        // };
+
+        const validateArmazon = text && text[0] === "1" ? true : false;
+        const validateCristal = text && text[1] === "1" ? true : false;
+
+        return (
+          // <Text // Combina estilos inline y de objeto
+          //   variant="small"
+          //   color="blue-gray"
+          //   style={{ ...cellStyle }}
+          //   className={` gridText h-[2.7rem]  py-2  ${
+          //     color2 ? "!text-white " : "text-black"
+          //   }`}
+          // >
+          //   {text !== null && text !== undefined ? text.toString() : ""}
+          // </Text>
+          <Stack
+            direction={"row"}
+            className="flex justify-around aria-disabled cursor-not-allowed"
+          >
+            <Checkbox
+              color={validateArmazon ? "green" : "gray"}
+              defaultChecked
+              aria-disabled
+              disabled={true}
+              className="cursor-not-allowed !h-6"
+            />
+            <Checkbox
+              color={validateCristal ? "green" : "gray"}
+              defaultChecked
+              disabled={true}
+              className="cursor-not-allowed !h-6"
+            />
+          </Stack>
+        );
+      },
+      [handleColorEstado]
+    );
 
     React.useEffect(() => {
       if (clearIndividualCheck.value === true) {
@@ -229,6 +281,23 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
 
     // if (!data || data.length === 0) return null;
 
+    console.log(OTAreaActual);
+
+    // useEffect(() => {
+    //   console.log(tableHead);
+
+    //   const dinamicTableHead = tableHead.map((th: any) => {
+    //     console.log(th);
+    //     if (th.key === "motivo") {
+    //       th.visible = false;
+    //     }
+
+    //     return th;
+    //   });
+
+    //   console.log(dinamicTableHead);
+    // }, [OTAreaActual]);
+
     return (
       <div className="gridCointainer">
         <table className="gridContainer">
@@ -270,12 +339,12 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
           </thead>
           <tbody className="gridData">
             {data && data.length > 0 ? (
-              data.map((rowData: any, rowIndex: number) => {
+              data.map((rowData: any, rowIndex: any) => {
                 const folio = rowData[1];
                 let estado = rowData[4];
                 return (
                   <tr key={rowIndex} className="overflow-hidden">
-                    {rowData.map((row: any, col: number) => {
+                    {rowData.map((row: any, col: any) => {
                       const visible = tableHead?.[col]?.visible || false;
                       const alignment = tableHead?.[col]?.alignment || "";
                       const color2 = tableHead?.[col]?.color || false;
@@ -294,7 +363,6 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
                         : "";
 
                       const type = color === "bg-black" ? 1 : 0;
-
                       return (
                         visible && (
                           <td
@@ -315,6 +383,8 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
                           >
                             {col === 0
                               ? renderCheckboxCell(rowIndex, folio, estado)
+                              : col === 3
+                              ? renderCjeckValidateCell(row)
                               : renderTextCell(
                                   row,
                                   "",
