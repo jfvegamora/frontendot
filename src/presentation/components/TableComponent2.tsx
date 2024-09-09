@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect, useCallback, Suspense } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  Suspense,
+  useMemo,
+} from "react";
 import { Stack, Text } from "@chakra-ui/react";
-import { Checkbox } from "@material-tailwind/react";
 import { signal } from "@preact/signals-react";
 
 import { usePermission } from "../hooks";
@@ -12,9 +17,11 @@ import {
 } from "../utils";
 import { AppStore, useAppSelector } from "../../redux/store";
 
-import { OTGrillaEnum, PermisosBotones } from "../Enums";
+import { OTAreasEnum, OTGrillaEnum, PermisosBotones } from "../Enums";
 
 import { usePermissionBotonesUser } from "../hooks/usePermissionBotonesUser";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const OTGrillaButtons = React.lazy(() => import("./OTGrillaButtons"));
 
@@ -191,6 +198,7 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
         const validateArmazon = text && text[0] === "1" ? true : false;
         const validateCristal = text && text[1] === "1" ? true : false;
 
+        console.log(text);
         return (
           // <Text // Combina estilos inline y de objeto
           //   variant="small"
@@ -206,7 +214,7 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
             direction={"row"}
             className="flex justify-around aria-disabled cursor-not-allowed"
           >
-            <Checkbox
+            {/* <Checkbox
               color={validateArmazon ? "green" : "gray"}
               defaultChecked
               aria-disabled
@@ -218,11 +226,29 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
               defaultChecked
               disabled={true}
               className="cursor-not-allowed !h-6"
+            /> */}
+            <FontAwesomeIcon
+              icon={faCheck}
+              size="2xl"
+              style={
+                validateArmazon
+                  ? { color: "#04db00" }
+                  : { color: "rgb(0,0,0, 0.3)" }
+              }
+            />
+            <FontAwesomeIcon
+              icon={faCheck}
+              size="2xl"
+              style={
+                validateCristal
+                  ? { color: "#04db00" }
+                  : { color: "rgb(0,0,0, 0.3)" }
+              }
             />
           </Stack>
         );
       },
-      [handleColorEstado]
+      [handleColorEstado, OTAreaActual]
     );
 
     React.useEffect(() => {
@@ -283,20 +309,30 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
 
     console.log(OTAreaActual);
 
-    // useEffect(() => {
-    //   console.log(tableHead);
+    console.log(OTAreaActual === OTAreasEnum["Bodega Insumos"]);
 
-    //   const dinamicTableHead = tableHead.map((th: any) => {
-    //     console.log(th);
-    //     if (th.key === "motivo") {
-    //       th.visible = false;
-    //     }
+    console.log(tableHead);
 
-    //     return th;
-    //   });
+    const dinamicTableHead = useMemo(() => {
+      return tableHead.map((th: any) => {
+        const updatedTh = { ...th };
 
-    //   console.log(dinamicTableHead);
-    // }, [OTAreaActual]);
+        if (OTAreaActual === OTAreasEnum["Bodega Insumos"]) {
+          if (updatedTh.key === "validation_armazon_cristal") {
+            updatedTh.visible = true;
+          }
+        } else {
+          // Cuando no estamos en "Bodega Insumos", aseguramos que el visible sea false
+          if (updatedTh.key === "validation_armazon_cristal") {
+            updatedTh.visible = false;
+          }
+        }
+
+        return updatedTh;
+      });
+    }, [OTAreaActual]);
+
+    console.log(dinamicTableHead);
 
     return (
       <div className="gridCointainer">
@@ -363,6 +399,7 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
                         : "";
 
                       const type = color === "bg-black" ? 1 : 0;
+
                       return (
                         visible && (
                           <td

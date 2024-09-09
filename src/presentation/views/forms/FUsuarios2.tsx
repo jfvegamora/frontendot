@@ -20,7 +20,6 @@ import useCustomToast from "../../hooks/useCustomToast";
 import { toast } from "react-toastify";
 import { Button } from "@material-tailwind/react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-import { PermisosBotones } from "../../Enums";
 
 const strBaseUrl = "/api/usuarios/";
 const strEntidad = "Usuario ";
@@ -113,46 +112,174 @@ const permiso_campo = [
   "permiso_editar_worktracking",
 ];
 
+// const permisos_botones = [
+//   "permiso_nuevo",
+//   "permiso_check",
+//   "permiso_imprimir",
+//   "permiso_exportar",
+//   "permiso_importar",
+//   "permiso_whatsapp",
+//   "permiso_procesar",
+//   "permiso_pausar",
+//   "permiso_derivar",
+//   "permiso_anular",
+//   "permiso_ingresar",
+//   "permiso_postVenta",
+//   "permiso_nguia", // index 12
+//   "permiso_nenvio", // index 13
+//   "permiso_marco_excel",
+//   "permiso_nfirma", // index 15
+//   "permiso_validar_armazones",
+//   "permiso_validar_cristales",
+//   "permiso_ubicacion",
+//   "permiso_opcion_bodega_insumos",
+//   "permiso_nreporte_entrega", // index 20
+//   "permiso_noc", // index 21
+//   "permiso_confirmar_entrega", // index 22
+//   "permiso_pre_facturar", // index 23
+//   "permiso_vb", // index 24
+//   "permiso_facturar", // index 25
+//   "permiso_confirmar_pago", // index 26
+// ];
+
 const permisos_botones = [
-  "permiso_nguia", // index 12
-  "permiso_nenvio", // index 13
-  "permiso_nfirma", // index 15
-  "permiso_nreporte_entrega", // index 20
-  "permiso_noc", // index 21
-  "permiso_confirmar_entrega", // index 22
-  "permiso_pre_facturar", // index 23
-  "permiso_vb", // index 24
-  "permiso_facturar", // index 25
-  "permiso_confirmar_pago", // index 26
+  {
+    key: "permiso_nuevo",
+    default: "1",
+  },
+  {
+    key: "permiso_check",
+    default: "1",
+  },
+  {
+    key: "permiso_imprimir",
+    default: "1",
+  },
+  {
+    key: "permiso_exportar",
+    default: "1",
+  },
+  {
+    key: "permiso_importar",
+    default: "1",
+  },
+  {
+    key: "permiso_whatsapp",
+    default: "1",
+  },
+  {
+    key: "permiso_procesar",
+    default: "1",
+  },
+  {
+    key: "permiso_pausar",
+    default: "1",
+  },
+  {
+    key: "permiso_derivar",
+    default: "1",
+  },
+  {
+    key: "permiso_anular",
+    default: "1",
+  },
+  {
+    key: "permiso_ingresar",
+    default: "1",
+  },
+  {
+    key: "permiso_postVenta",
+    default: "1",
+  },
+  {
+    key: "permiso_nguia",
+    default: "0",
+  },
+  {
+    key: "permiso_nenvio",
+    default: "0",
+  },
+  {
+    key: "permiso_marco_excel",
+    default: "1",
+  },
+  {
+    key: "permiso_nfirma",
+    default: "0",
+  },
+  {
+    key: "permiso_validar_armazones",
+    default: "1",
+  },
+  {
+    key: "permiso_validar_cristales",
+    default: "1",
+  },
+  {
+    key: "permiso_ubicacion",
+    default: "1",
+  },
+  {
+    key: "permiso_opcion_bodega_insumos",
+    default: "1",
+  },
+  {
+    key: "permiso_nreporte_entrega",
+    default: "0",
+  },
+  {
+    key: "permiso_noc",
+    default: "0",
+  },
+  {
+    key: "permiso_confirmar_entrega",
+    default: "0",
+  },
+  {
+    key: "permiso_pre_facturar",
+    default: "0",
+  },
+  {
+    key: "permiso_vb",
+    default: "0",
+  },
+  {
+    key: "permiso_facturar",
+    default: "0",
+  },
+  {
+    key: "permiso_confirmar_pago",
+    default: "0",
+  },
 ];
 
-const editablesIndices = [12, 13, 15, 20, 21, 25];
-
-function generatePermisosBotonesString(jsonData: any): string {
-  return Object.values(PermisosBotones)
-    .filter((value) => typeof value === "number")
-    .map((index: any) => {
-      if (editablesIndices.includes(index)) {
-        const permisoClave = permisos_botones[editablesIndices.indexOf(index)];
-        return permisoClave && jsonData[permisoClave] === "Lectura" ? "0" : "1";
-      }
-      return "1"; // Predeterminado a "1" para los no editables
-    })
-    .join("");
-}
+const insertarElementoEnPosicion = (jsonData: any) => {
+  let result = "";
+  permisos_botones.map((permiso) => {
+    if (Object.keys(jsonData).includes(permiso.key)) {
+      result = result.concat(jsonData[permiso.key] === "Escritura" ? "1" : "0");
+    } else {
+      result = result.concat(permiso.default);
+    }
+  });
+  return result;
+};
 
 export function transformInsertQuery(jsonData: any): any | null {
   const permisos_areas = permiso_area
-    .map((permiso: any) => (jsonData[permiso] === "Lectura" ? "0" : "1"))
+    .map((permiso: any) => (jsonData[permiso] === "Escritura" ? "1" : "0"))
     .join("");
 
   const permisos_campos = permiso_campo
-    .map((permiso: any) => (jsonData[permiso] === "Lectura" ? "0" : "1"))
+    .map((permiso: any) => (jsonData[permiso] === "Escritura" ? "1" : "0"))
     .join("");
 
-  const permisos_botonesOT = generatePermisosBotonesString(jsonData);
+  // const permisos_botonesOT = permisos_botones
+  //   .map((permiso: any) => (jsonData[permiso] === "Escritura" ? "1" : "0"))
+  //   .join("");
+  // const permisos_botonesOT = generatePermisosBotonesString(jsonData);
 
-  console.log(permisos_botonesOT);
+  console.log(insertarElementoEnPosicion(jsonData));
 
   let _p1 = ` "${jsonData.nombre}", 
               ${jsonData.cargo}, 
@@ -161,7 +288,7 @@ export function transformInsertQuery(jsonData: any): any | null {
               ${jsonData.estado === "Activo" ? 1 : 2},
               "${permisos_campos}",
               "${permisos_areas}",
-              "${permisos_botonesOT}"
+              "${insertarElementoEnPosicion(jsonData)}"
 `;
   _p1 = _p1.replace(/'/g, "!");
   const query: OutputData = {
@@ -178,26 +305,24 @@ export function transformUpdateQuery(
   jsonData: any,
   primaryKey: string
 ): OutputData | null {
-  const permisos_botonesOT = generatePermisosBotonesString(jsonData);
-
   const fields = [
     `nombre               ="${jsonData.nombre}"`,
     `telefono             ="${jsonData.telefono}"`,
     `correo               ="${jsonData.correo}"`,
     `estado               = ${jsonData.estado === "Activo" ? 1 : 2}`,
     `cargo                = ${jsonData.cargo}`,
-    `permisos_botones     = "${permisos_botonesOT}"`,
+    `permisos_botones     = "${insertarElementoEnPosicion(jsonData)}"`,
     `permisos_campos      = "${permiso_campo
       .map((permiso) =>
-        jsonData[permiso] === "Lectura"
+        jsonData[permiso] === "Escritura"
           ? // jsonData[permiso] === "Lectura" || jsonData[permiso] === "No"
-            "0"
-          : "1"
+            "1"
+          : "0"
       )
       .join("")}"`,
     // `permisos_campos      = "${permiso_campo.map((permiso) => jsonData[permiso] === 'Lectura' ? "0" : "1").join(''), '0', 1}"`,
     `permisos_areas       = "${permiso_area
-      .map((permiso) => (jsonData[permiso] === "Lectura" ? "0" : "1"))
+      .map((permiso) => (jsonData[permiso] === "Escritura" ? "1" : "0"))
       .join("")}"`,
   ];
 
@@ -1287,8 +1412,8 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                           />
                         </div>
                       </div> */}
-
-                      {/* <div className="input-container items-center rowForm  w-[14%]">
+                      {/* 
+                      <div className="input-container items-center rowForm  w-[14%]">
                         <div className="w-full">
                           <RadioButtonComponent
                             control={control}
