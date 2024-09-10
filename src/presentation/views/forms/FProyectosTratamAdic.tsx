@@ -313,7 +313,8 @@ const FProyectosTratamAdic: React.FC<IUserFormPrps> = React.memo(
                   control={control}
                   error={errors.valor_neto}
                   customWidth={"labelInput inputStyles"}
-                />
+                  textAlign="text-right"
+                  />
               </div>
             </div>
           </div>

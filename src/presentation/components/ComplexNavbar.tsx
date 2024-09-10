@@ -335,6 +335,11 @@ const navListMenuProyectos = [
     link: "/reservaarmazones",
     id: '42',
   },
+  {
+    title: "Tratamientos Adicionales",
+    link: "/tratamientosadicionales",
+    id: '45',
+  },
 ];
 
 const navListMenuSistema = [

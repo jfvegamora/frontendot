@@ -606,6 +606,12 @@ export const validationProyectosDocumSchema = () =>
     numero_doc_ref: yup.string().required(`${msg}`),
     observaciones: yup.string(),
   });
+// Schema TRATAMIENTOS ADICIONALES
+export const validationTratamientosAdicionalesSchema = () =>
+  yup.object().shape({
+    descripcion: yup.string().required(`${msg}`),
+  });
+
 
 /*************** S I S T E M A ***************/
 // Schema CARGOS

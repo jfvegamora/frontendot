@@ -108,6 +108,9 @@ const MOftalmologos = lazy(
 const MReservaArmazones = lazy(
   () => import("../presentation/views/mantenedores/MReservaArmazones")
 );
+const MTratamientosAdicionales = lazy(
+  () => import("../presentation/views/mantenedores/MTratamientosAdicionales")
+);
 
 const MCargos = lazy(
   () => import("../presentation/views/mantenedores/MCargos")
@@ -184,6 +187,7 @@ export const PrivateRoutes = {
   REPORTE_FIRMAS: "proyectoreportefirma",
   RESERVA_ARMAZONES: "reservaarmazones",
   OFTALMOLOGOS: "oftalmologos",
+  TRATAMIENTOS_ADICIONALES: "tratamientosadicionales",
 
   //MENU SISTEMA
   CARGOS: "cargos",
@@ -392,30 +396,12 @@ export const privateRoutes = [
     component: MProyectosDestinos,
     requiredPermissions: ["view_" + PrivateRoutes.PROYECTOS_DESTINOS],
   },
-  // {
-  //   id                  : "33",
-  //   path                : PrivateRoutes.PROYECTOS_PUNTOS_VENTA,
-  //   component           : MProyectosPuntosVenta,
-  //   requiredPermissions : ['view_' + PrivateRoutes.PROYECTOS_PUNTOS_VENTA]
-  // },
   {
     id: "34",
     path: PrivateRoutes.PROYECTOS_USUARIOS,
     component: MProyectosUsuarios,
     requiredPermissions: ["view_" + PrivateRoutes.PROYECTOS_USUARIOS],
   },
-  // {
-  //   id                  : "19",
-  //   path                : PrivateRoutes.REPORTE_ATENCION,
-  //   component           : MProyectosAtenciones,
-  //   requiredPermissions : ['view_' + PrivateRoutes.REPORTE_ATENCION]
-  // },
-  // {
-  //   id                  : "20",
-  //   path                : PrivateRoutes.REPORTE_FIRMAS,
-  //   component           : MProyectosFirmas,
-  //   requiredPermissions : ['view_' + PrivateRoutes.REPORTE_FIRMAS]
-  // },
   {
     id: "38",
     path: PrivateRoutes.PROYECTOS_DOCUM,
@@ -439,6 +425,12 @@ export const privateRoutes = [
     path: PrivateRoutes.RESERVA_ARMAZONES,
     component: MReservaArmazones,
     requiredPermissions: ["view_" + PrivateRoutes.RESERVA_ARMAZONES],
+  },
+  {
+    id: "45",
+    path: PrivateRoutes.TRATAMIENTOS_ADICIONALES,
+    component: MTratamientosAdicionales,
+    requiredPermissions: ["view_" + PrivateRoutes.TRATAMIENTOS_ADICIONALES],
   },
 
   //MENU DE BODEGA

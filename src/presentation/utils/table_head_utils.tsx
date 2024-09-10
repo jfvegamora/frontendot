@@ -2737,6 +2737,33 @@ export const table_head_reserva_armazones = [
     alignment: "text-left",
   },
 ];
+export const table_head_tratamientos_adicionales = [
+  {
+    cell: <input type="checkbox" />,
+    key: "checkbox",
+    visible: true,
+    width: "w-[5rem]",
+    alignment: "flex justify-center items-center",
+  },
+  {
+    cell: "ID",
+    key: "id",
+    visible: false,
+  },
+  {
+    cell: "Descripción",
+    key: "descripcion",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[20rem]",
+  },
+  {
+    cell: "",
+    key: "opciones",
+    visible: true,
+    width: "w-[4rem]",
+  },
+];
 
 /************ PROYECTOS -> MOTIVOS DE OT ************/
 export const table_head_motivos_ot = [
