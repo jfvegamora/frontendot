@@ -139,12 +139,15 @@ export const EnumAreas: any = {
   30: 2,
   40: 3,
   50: 4,
-  60: 5,
-  70: 6,
-  80: 7,
-  85: 8,
-  90: 9,
-  100: 10,
+  55: 5,
+  60: 6,
+  70: 7,
+  75: 8,
+  80: 9,
+  85: 10,
+  90: 11,
+  100: 12,
+  110: 13,
 };
 
 export const validationStateOT = (
@@ -259,7 +262,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
     const permisos_usuario_areas =
       User.permisos_areas[EnumAreas[OTAreas["areaActual"]]];
-
     const folios =
       OTPkToDelete && OTPkToDelete?.value.map(({ folio }: any) => folio);
 
@@ -1202,6 +1204,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           //   (permisos_usuario_areas === "2" &&
           //     permiso_usuario_btn_procesar &&
           //     OTAreas["areaActual"] === 50))
+          permisos_usuario_areas !== "0" &&
           permiso_usuario_btn_procesar && (
             // (permisos_usuario_areas !== '0') && (
             <Tooltip content={BUTTON_MESSAGES.procesar}>
@@ -1514,6 +1517,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         {areaPermissions &&
           areaPermissions[PermisosBotones.numeroFirma] === "1" &&
+          permisos_usuario_areas !== "0" &&
           permiso_usuario_btn_numeroFirma && (
             <Tooltip content={"Generar Reporte de Firmas"}>
               <Button
@@ -1655,6 +1659,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         {areaPermissions &&
           areaPermissions[PermisosBotones.numeroFactura] === "1" &&
+          permisos_usuario_areas !== "0" &&
           permiso_usuario_btn_numeroFactura && (
             <Button
               className="otActionButton mt-3 mx-5"

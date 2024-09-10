@@ -26,7 +26,7 @@ export const table_head_OT_diaria2 = [
   },
   {
     cell: "Armazón / Cristal",
-    key: "motivo",
+    key: "validation_armazon_cristal",
     visible: true,
     alignment: "text-center",
     width: "w-[8rem]",
@@ -293,7 +293,7 @@ export const table_head_OT_historica = [
   {
     cell: "Motivo",
     key: "motivo",
-    visible: true,
+    visible: false,
     alignment: "text-center",
     width: "w-[6rem]",
   },
