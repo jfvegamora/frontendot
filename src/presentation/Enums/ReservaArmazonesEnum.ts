@@ -13,4 +13,5 @@ export enum ReservaArmazonesEnum {
   usuario_id = 12,
   usuario = 13,
   fecha_hora = 14,
+  diametro = 15,
 }
