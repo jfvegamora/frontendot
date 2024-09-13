@@ -171,11 +171,6 @@ const navListMenuOT = [
 
 const subMenuParametrizacionBodega = [
   {
-    title: "Asignación de Accesorios",
-    link: "/proyectoaccesorios",
-    id: '30',
-  },
-  {
     title: "Asignación Armazones -> Muestrarios",
     link: "/muestrariosarmazones",
     id: '16',
@@ -184,6 +179,11 @@ const subMenuParametrizacionBodega = [
     title: "Asignación Armazones -> Vitrinas",
     link: "/vitrinasarmazones",
     id: '35',
+  },
+  {
+    title: "Asignación de Accesorios",
+    link: "/proyectoaccesorios",
+    id: '30',
   },
 ]
 
@@ -306,11 +306,6 @@ const subMenuMotivosOT = [
 
 const navListMenuProyectos = [
   {
-    title: "Mandantes",
-    link: "/mandantes",
-    id: '14',
-  },
-  {
     title: "Proyectos",
     link: "/proyectos",
     id: '15',
@@ -321,16 +316,6 @@ const navListMenuProyectos = [
     id: '38',
   },
   {
-    title: "Empresas",
-    link: "/empresas",
-    id: '27',
-  },
-  {
-    title: "Oftalmólogos",
-    link: "/oftalmologos",
-    id: '21',
-  },
-  {
     title: "Reserva de Armazones",
     link: "/reservaarmazones",
     id: '42',
@@ -339,6 +324,21 @@ const navListMenuProyectos = [
     title: "Tratamientos Adicionales",
     link: "/tratamientosadicionales",
     id: '45',
+  },
+  {
+    title: "Oftalmólogos",
+    link: "/oftalmologos",
+    id: '21',
+  },
+  {
+    title: "Mandantes",
+    link: "/mandantes",
+    id: '14',
+  },
+  {
+    title: "Empresas",
+    link: "/empresas",
+    id: '27',
   },
 ];
 
@@ -456,7 +456,6 @@ const NavListMenuOT = React.memo(function NavListMenuOT({ userPermission }: { us
 
 function NavListMenuBodega({ userPermission }: { userPermission: string[] }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const [openMenuParametrizacionBodega, setOpenMenuParametrizacionBodega] = useState(false)
   const [openMenuKardexBodega, setOpenMenuKardexBodega] = useState(false)
   const navigate = useNavigate();
 
@@ -575,8 +574,8 @@ function NavListMenuBodega({ userPermission }: { userPermission: string[] }) {
           <ul className="col-span-4 flex w-full flex-col gap-1">
           <Menu
               placement="right-start"
-              open={openMenuParametrizacionBodega}
-              handler={setOpenMenuParametrizacionBodega}
+              open={openMenuKardexBodega}
+              handler={setOpenMenuKardexBodega}
               allowHover
               offset={15}
             >
@@ -608,59 +607,8 @@ function NavListMenuBodega({ userPermission }: { userPermission: string[] }) {
                 })}
               </MenuList>
             </Menu>
-
-            <Menu
-              placement="right-start"
-              open={openMenuKardexBodega}
-              handler={setOpenMenuKardexBodega}
-              allowHover
-              offset={15}
-            >
-              <MenuHandler className="flex items-center justify-between" >
-                <MenuItem>
-                <Typography className="text-[1vw] w-[17vw] flex justify-between">
-                 Asignación <FontAwesomeIcon icon={faChevronRight} className=""/>
-                </Typography>
-                </MenuItem>
-              </MenuHandler>
-              <MenuList>
-                {subMenuParametrizacionBodega.map(({ title, id, link }) => {
-                  const hasPermission = userPermission.includes(id as any);
-                  return (
-                    <MenuItem
-                      className={`flex text-[1vw] items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
-                        }`}
-                      key={id}
-                      onClick={() => {
-                        if (hasPermission) {
-                          navigate(link);
-                          strNavTitle.value = title;
-                        }
-                      }}
-                    >
-                      {title}
-                    </MenuItem>
-                  )
-                })}
-              </MenuList>
-            </Menu>
-            
-            
-            
-            
-            
             
             {renderItems}
-            
-
-
-
-
-
-
-
-
-
           </ul>
         </MenuList>
       </Menu>
@@ -678,6 +626,7 @@ function NavListMenuProyectos({ userPermission }: { userPermission: string[] }) 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [openMenuParametrizacion, setOpenMenuParametrizacion] = React.useState(false);
   const [openMenuOTMotivos, setOpenMenuOTMotivos]             = React.useState(false);
+  const [openMenuAsignacion, setopenMenuAsignacion] = useState(false)
 
   const navigate = useNavigate();
 
@@ -791,8 +740,77 @@ function NavListMenuProyectos({ userPermission }: { userPermission: string[] }) 
           </Card>
           <ul className="col-span-4 flex w-full flex-col gap-1">
 
+            <Menu
+              placement="right-start"
+              open={openMenuParametrizacion}
+              handler={setOpenMenuParametrizacion}
+              allowHover
+              offset={15}
+            >
+              <MenuHandler className="flex items-center justify-between" >
+                <MenuItem>
+                <Typography className="text-[1vw] w-[18vw] flex justify-between">
+                  Parametrización <FontAwesomeIcon icon={faChevronRight} className="" />
+                </Typography>
+                </MenuItem>
+              </MenuHandler>
+              <MenuList>
+                {subMenuParametrizacion.map(({ title, id, link }) => {
+                  const hasPermission = userPermission.includes(id as any);
+                  return (
+                    <MenuItem
+                      className={`flex text-[1vw] items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+                        }`}
+                      key={id}
+                      onClick={() => {
+                        if (hasPermission) {
+                          navigate(link);
+                          strNavTitle.value = title;
+                        }
+                      }}
+                    >
+                      {title}
+                    </MenuItem>
+                  )
+                })}
+              </MenuList>
+            </Menu>
 
-          
+            <Menu
+              placement="right-start"
+              open={openMenuAsignacion}
+              handler={setopenMenuAsignacion}
+              allowHover
+              offset={15}
+            >
+              <MenuHandler className="flex items-center justify-between" >
+                <MenuItem>
+                <Typography className="text-[1vw] w-[17vw] flex justify-between">
+                 Asignación <FontAwesomeIcon icon={faChevronRight} className=""/>
+                </Typography>
+                </MenuItem>
+              </MenuHandler>
+              <MenuList>
+                {subMenuParametrizacionBodega.map(({ title, id, link }) => {
+                  const hasPermission = userPermission.includes(id as any);
+                  return (
+                    <MenuItem
+                      className={`flex text-[1vw] items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
+                        }`}
+                      key={id}
+                      onClick={() => {
+                        if (hasPermission) {
+                          navigate(link);
+                          strNavTitle.value = title;
+                        }
+                      }}
+                    >
+                      {title}
+                    </MenuItem>
+                  )
+                })}
+              </MenuList>
+            </Menu>
 
             <Menu
               placement="right-start"
@@ -830,42 +848,6 @@ function NavListMenuProyectos({ userPermission }: { userPermission: string[] }) 
               </MenuList>
             </Menu>
             
-            <Menu
-              placement="right-start"
-              open={openMenuParametrizacion}
-              handler={setOpenMenuParametrizacion}
-              allowHover
-              offset={15}
-            >
-              <MenuHandler className="flex items-center justify-between" >
-                <MenuItem>
-                <Typography className="text-[1vw] w-[18vw] flex justify-between">
-                  Parametrización <FontAwesomeIcon icon={faChevronRight} className="" />
-                </Typography>
-                </MenuItem>
-              </MenuHandler>
-              <MenuList>
-                {subMenuParametrizacion.map(({ title, id, link }) => {
-                  const hasPermission = userPermission.includes(id as any);
-                  return (
-                    <MenuItem
-                      className={`flex text-[1vw] items-center gap-2 rounded ${hasPermission ? "" : "text-gray-400 cursor-not-allowed"
-                        }`}
-                      key={id}
-                      onClick={() => {
-                        if (hasPermission) {
-                          navigate(link);
-                          strNavTitle.value = title;
-                        }
-                      }}
-                    >
-                      {title}
-                    </MenuItem>
-                  )
-                })}
-              </MenuList>
-            </Menu>
-
 
             {renderItems}
           </ul>
