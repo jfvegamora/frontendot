@@ -998,6 +998,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             structureCristalesBodega.value
           );
 
+          console.log(structureCristalesBodega.value);
+
           toast.dismiss(toastLoading);
           dataOTSignal.value = dataOT;
           setisFOTValidateBodegaCristales(true);

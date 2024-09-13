@@ -614,7 +614,7 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     <div
       className={` bg-[#676f9d] w-[35vw] mx-auto  xl:left-[35rem]  absolute  ${
         OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3
-          ? "top-[-1vw] !left-[30vw]"
+          ? "top-[2vw] !left-[30vw]"
           : "top-[2vw] !left-[30vw]"
       } right-auto rounded-xl shadow-md overflow-hidden lg:left-[18rem]  z-40`}
     >

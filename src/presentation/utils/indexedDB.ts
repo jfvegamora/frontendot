@@ -72,9 +72,6 @@ export const setReservaBeneficiario = (
       jsonData.rut_beneficiario
     );
 
-    console.log(request);
-    console.log(jsonData);
-
     request.onsuccess = function (event: Event) {
       const existingData = (event.target as IDBRequest).result;
 
@@ -94,6 +91,7 @@ export const setReservaBeneficiario = (
         armazon_2: jsonData.Armazon2,
         armazon_3: jsonData.Armazon3,
         usuario: userID,
+        diametro: jsonData.diametro === "+" ? "65" : "70",
       };
       const newBeneficiario = objectStore.put(data);
       newBeneficiario.onsuccess = function (_event: Event) {

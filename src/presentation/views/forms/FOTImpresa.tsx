@@ -511,20 +511,20 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                               <td className="w-[25%]">AD</td>
                             </tr>
                             <tr className="otDioptria !h-[10vw]">
-                              <td className=" otDioptria text-black w-[25%] separator">
+                              <td className=" otDioptria text-black w-[25%] separator font-bold">
                                 {formatPlusDioptria(
                                   ot[EnumImpresion.a1_od_esf]
                                 )}
                               </td>
-                              <td className=" otDioptria text-black w-[25%] separator">
+                              <td className=" otDioptria text-black w-[25%] separator font-bold">
                                 {formatPlusDioptria(
                                   ot[EnumImpresion.a1_od_cil]
                                 )}
                               </td>
-                              <td className=" otDioptria text-black w-[25%] separator">
+                              <td className=" otDioptria text-black w-[25%] separator font-bold">
                                 {ot[EnumImpresion.a1_od_eje]}
                               </td>
-                              <td className=" otDioptria text-black w-[20%] ">
+                              <td className=" otDioptria text-black w-[20%] font-bold">
                                 {ot[EnumImpresion.a1_od_ad]}
                               </td>
                               {/* {
@@ -536,20 +536,20 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                             )} */}
                             </tr>
                             <tr className="otDioptria !h-[10vw] ">
-                              <td className="text-black w-[25%] separator">
+                              <td className="text-black w-[25%] separator font-bold">
                                 {formatPlusDioptria(
                                   ot[EnumImpresion.a1_oi_esf]
                                 )}
                               </td>
-                              <td className="text-black w-[25%] separator">
+                              <td className="text-black w-[25%] separator font-bold">
                                 {formatPlusDioptria(
                                   ot[EnumImpresion.a1_oi_cil]
                                 )}
                               </td>
-                              <td className="text-black w-[25%] separator">
+                              <td className="text-black w-[25%] separator font-bold">
                                 {ot[EnumImpresion.a1_oi_eje]}
                               </td>
-                              <td className=" otDioptria text-black w-[20%] ">
+                              <td className=" otDioptria text-black w-[20%] font-bold">
                                 {ot[EnumImpresion.a1_oi_ad]}
                               </td>
                             </tr>
@@ -568,17 +568,17 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                                   <td className="w-[25%] ">EJE</td>
                                 </tr>
                                 <tr className="otDioptria !h-[10vw]">
-                                  <td className=" otDioptria text-black w-[25%] separator">
+                                  <td className=" otDioptria text-black w-[25%] separator font-bold">
                                     {formatPlusDioptria(
                                       ot[EnumImpresion.a2_od_esf]
                                     )}
                                   </td>
-                                  <td className=" otDioptria text-black w-[25%] separator">
+                                  <td className=" otDioptria text-black w-[25%] separator font-bold">
                                     {formatPlusDioptria(
                                       ot[EnumImpresion.a2_od_cil]
                                     )}
                                   </td>
-                                  <td className=" otDioptria text-black w-[25%] ">
+                                  <td className=" otDioptria text-black w-[25%] font-bold">
                                     {ot[EnumImpresion.a2_od_eje]}
                                   </td>
 
@@ -648,7 +648,7 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                       </div>
 
                       <div className="w-[47.8%] items-center flex ml-2">
-                        {ot[EnumImpresion.tipo_anteojo_id] === 3 && (
+                        {ot[EnumImpresion.a2_dp] !== "" && (
                           <span className="ml-4  !text-base font-bold ">
                             &nbsp;DP: {ot[EnumImpresion.a2_dp]}
                           </span>
@@ -657,8 +657,8 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                     </div>
 
                     {/*************** D E S P A C H O ***************/}
-                    <div className="header mt-1 w-[97%]  text-center2 border-black border-2 ml-3">
-                      <div className="-mt-2 border-black border-b-2 !h-auto">
+                    <div className="header mt-1 w-[97%]  text-center2 border-black border-2 ml-3 !h-auto">
+                      <div className="-mt-2 border-black border-b-2">
                         <div className="pl-6 ml-2 w-[100%] mx-auto br-red-300">
                           {ot[EnumImpresion.numero_receta] > 0 && (
                             <div
@@ -723,29 +723,29 @@ const FOTImpresa = React.forwardRef((props: any, ref: any) => {
                             }`}
                           >
                             <div className="flex text-left h-auto ">
-                              <p className=" text-left text-sm !mt-2 -ml-6">
+                              <p className=" text-left text-lg !mt-2 -ml-6">
                                 {ot[EnumImpresion.proyecto]}
                               </p>
                             </div>
                             <div className="flex text-left -mt-2">
-                              <p className=" text-left text-sm -ml-6  !mt-2">{`${
+                              <p className=" text-left text-lg -ml-6  !mt-2">{`${
                                 ot[EnumImpresion.establecimiento]
                               }`}</p>
                             </div>
                             <div className="flex text-left -mt-2">
-                              <p className=" text-left text-sm !mt-2 -ml-6">
+                              <p className=" text-left text-lg !mt-2 -ml-6">
                                 {ot[EnumImpresion.comuna]}
                               </p>
                             </div>
                             <div className="flex text-left -mt-2">
-                              <p className="-ml-6 text-[0.80rem] !mt-2 font-bold w-[90%]">
+                              <p className="-ml-6 text-lg !mt-2 font-bold w-[90%]">
                                 <span>{ot[EnumImpresion.lugar_despacho]}</span>{" "}
                               </p>
                             </div>
                             <div
                               className={`flex text-left -mt-2 ${
                                 ot[EnumImpresion.imprime_ticket] === 1
-                                  ? "-mb-4"
+                                  ? "mb-4"
                                   : ""
                               }`}
                             >

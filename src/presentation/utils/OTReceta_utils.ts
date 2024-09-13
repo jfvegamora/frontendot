@@ -224,7 +224,7 @@ export const validation_tipo_anteojo = () => {
       a1_oi_ad: 1,
       a1_alt: 0,
       a1_dp: 0,
-      a2_dp: 1,
+      a2_dp: 0,
       a2_od_esf: 1,
       a2_od_cil: 1,
       a2_od_eje: 1,
@@ -331,7 +331,8 @@ export const validation_tipo_anteojo = () => {
   //   deshabilitarCampo.value.a1_alt = tipoDeAnteojo !== '1' && tipoDeAnteojo !== '2' && tipoDeAnteojo !== '7';
   deshabilitarCampo.value.a1_alt =
     tipoDeAnteojo === "4" || tipoDeAnteojo === "5" || tipoDeAnteojo === "6";
-  deshabilitarCampo.value.a2_dp = tipoDeAnteojo === "3" ? true : false;
+  deshabilitarCampo.value.a2_dp =
+    tipoDeAnteojo === "3" || tipoDeAnteojo === "4" ? true : false;
 
   clearSelectInput.value =
     tipoDeAnteojo === "1" || tipoDeAnteojo === "2" || tipoDeAnteojo === "7";

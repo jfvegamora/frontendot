@@ -178,6 +178,10 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       structureCristalesBodega.value[name].estado === "1" ? true : false;
     console.log(structureCristalesBodega.value);
 
+    console.log(isAlReadyValidate);
+    console.log(checkedVariable);
+    console.log(CR1_OI_LAB.value);
+
     return (
       <div className="rowForm !h-[7vw] relative mb-4">
         {/* <label className="labelInput  ml-4">
@@ -280,24 +284,40 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         cristalStock_a1oi.value = "2";
         break;
       case "a2_od":
-        CR2_OD_LAB.value = !CR1_OD_LAB.value;
+        CR2_OD_LAB.value = !CR2_OD_LAB.value;
         cristalStock_a2od.value = "2";
         break;
       case "a2_oi":
-        CR2_OI_LAB.value = !CR1_OD_LAB.value;
+        CR2_OI_LAB.value = !CR2_OI_LAB.value;
         cristalStock_a2oi.value = "2";
         break;
       default:
         break;
     }
     console.log(OT[OTGrillaEnum.tipo_anteojo_id] === "3");
+    console.log(OT[OTGrillaEnum.tipo_anteojo_id]);
     console.log(CR1_OD_LAB.value);
     console.log(CR1_OI_LAB.value);
+    console.log(CR2_OD_LAB.value);
+    console.log(CR2_OI_LAB.value);
 
-    if (!CR1_OD_LAB.value || !CR1_OI_LAB.value) {
+    if (OT[OTGrillaEnum.tipo_anteojo_id] === 3) {
       console.log("render");
-      return;
+      if (
+        !CR1_OD_LAB.value &&
+        !CR1_OI_LAB.value &&
+        !CR2_OD_LAB.value &&
+        !CR2_OI_LAB.value
+      ) {
+        return;
+      }
+    } else {
+      if (!CR1_OD_LAB.value || !CR1_OI_LAB.value) {
+        console.log("render");
+        return;
+      }
     }
+
     console.log("render");
 
     console.log(cristalStock_a1od.value);
@@ -709,49 +729,18 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       console.log(OT && OT[OTGrillaEnum.validar_parametrizacionm]);
       if (OT && OT[OTGrillaEnum.validar_parametrizacionm] === "0") {
         setIsCheckLab(true);
-        // updateOT(
-        //   jsondata,
-        //   origen,
-        //   destino,
-        //   estado,
-        //   [],
-        //   data,
-        //   data.cristales,
-        //   data.armazones,
-        //   user,
-        //   observaciones,
-        //   isMasivo,
-        //   situacion,
-        //   validarBodega,
-        //   "",
-        //   false,
-        //   "",
-        //   _p2
-        // )
-        //   .then(() => {
-        //     handleClose();
-        //     // toast.dismiss(toastLoading);
-        //     toast.success("OT Procesada Correctamente.");
-        //     dispatch(
-        //       fetchOT({
-        //         OTAreas: OTAreas["areaActual"],
-        //         searchParams: paramsOT.value,
-        //       })
-        //     );
-        //     valueConfirmOT.value = "";
-        //     resetFields();
-        //   })
-        //   .catch((e) => {
-        //     console.log(e);
-        //     resetFields();
-        //     console.log("error");
-        //     // toast.dismiss(toastLoading);
-        //   });
-
         return;
       }
 
-      focusFirstInput("a1_od", inputsRef["a1_od"]);
+      if (structureCristalesBodega.value.a1_od.estado === "0") {
+        focusFirstInput("a1_od", inputsRef["a1_od"]);
+      } else if (structureCristalesBodega.value.a1_oi.estado === "0") {
+        focusFirstInput("a1_oi", inputsRef["a1_oi"]);
+      } else if (structureCristalesBodega.value.a2_od.estado === "0") {
+        focusFirstInput("a2_od", inputsRef["a2_od"]);
+      } else {
+        focusFirstInput("a2_oi", inputsRef["a2_oi"]);
+      }
 
       if (OT && OT[0][OTGrillaEnum.tipo_anteojo_id] === 3) {
         console.log("lejos/cerca");

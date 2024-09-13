@@ -1,5 +1,5 @@
-import React from "react";
-import { SelectInputComponent } from "..";
+import React, { useCallback } from "react";
+import { SelectInputComponent, TextInputComponent } from "..";
 import { EnumGrid } from "../../views/mantenedores/MOTHistorica";
 import {
   validation_Cristal1_color,
@@ -31,7 +31,6 @@ import {
   A1_GRUPO_OI,
   A2_CR_OD,
   A2_CR_OI,
-  A2_Diametro,
   A2_GRUPO_OD,
   A2_GRUPO_OI,
   codigoProyecto,
@@ -54,6 +53,8 @@ import {
   CR2_OD_LAB,
   CR2_OI_LAB,
 } from "../../utils/FOTCristales_utils";
+import { toast } from "react-toastify";
+import { disabledCristalDiseño } from "../../views/forms/FOT";
 // import { OTTextInputComponent } from '.';
 // import { validationNivel3 } from '../../views/forms/FOT';
 // import { AppStore, useAppSelector } from '../../../redux/store';
@@ -67,6 +68,7 @@ interface ICristales {
   onlyRead?: boolean;
   a2Grupo?: any;
   isEditting?: boolean;
+  setValue?: any;
   permiso_usuario_cristales?: boolean;
   permiso_areas_cristales: boolean;
   permiso_areas_grupo_dioptria: boolean;
@@ -87,7 +89,7 @@ const FOTCristales: React.FC<ICristales> = ({
   // permiso_usuario_verificar_cristal,
   // permiso_area_verificar_cristal,
   isEditting,
-  formValuesCompleto,
+  setValue,
 }) => {
   const [inputsRef] = React.useState({
     firstInputRef: React.useRef<HTMLInputElement>(null),
@@ -97,10 +99,48 @@ const FOTCristales: React.FC<ICristales> = ({
   const handleInputChange = async (e: any) => {
     const { name, value } = e;
 
-    console.log(name);
-    console.log(value);
-    onDataChange({ [name]: value.trim() });
+    if (name === "cristal1_tratamiento_adicional_id") {
+      if (
+        (formValues && formValues["cristal1_marca_id"] !== "1") ||
+        (formValues && formValues["cristal1_indice_id"] !== "1") ||
+        (formValues && formValues["cristal1_material_id"] !== "1") ||
+        (formValues && formValues["cristal1_color_id"] !== "1") ||
+        (formValues && formValues["cristal1_tratamiento_id"] !== "1") ||
+        (formValues && formValues["cristal1_diseno_id"] !== "1") ||
+        (formValues && formValues["cristal1_diametro"] !== "65")
+      ) {
+        toast.warning(
+          "Tratamiento Adicional no compatible con opciones de Cristal, reiniciando opciones."
+        );
+        handleResetSelect("CR1");
+      }
+    }
+    if (name !== "cristal1_tratamiento_adicional_id") {
+      setValue("cristal1_tratamiento_adicional_id", "0");
+    }
 
+    if (name === "cristal2_tratamiento_adicional_id") {
+      if (
+        (formValues && formValues["cristal2_marca_id"] !== "1") ||
+        (formValues && formValues["cristal2_indice_id"] !== "1") ||
+        (formValues && formValues["cristal2_material_id"] !== "1") ||
+        (formValues && formValues["cristal2_color_id"] !== "1") ||
+        (formValues && formValues["cristal2_tratamiento_id"] !== "1") ||
+        (formValues && formValues["cristal2_diseno_id"] !== "1") ||
+        (formValues && formValues["cristal2_diametro"] !== "65")
+      ) {
+        toast.warning(
+          "Tratamiento Adicional no compatible con opciones de Cristal, reiniciando opciones."
+        );
+        handleResetSelect("CR2");
+      }
+    }
+
+    if (name !== "cristal2_tratamiento_adicional_id") {
+      setValue("cristal2_tratamiento_adicional_id", "0");
+    }
+
+    onDataChange({ [name]: value.trim() });
     validationOTlevel2(name, value);
     validationOTlevel3(name, value);
 
@@ -119,7 +159,6 @@ const FOTCristales: React.FC<ICristales> = ({
     if (name === "validar_cristal2_oi") {
       validar_cristal2_oi.value = value.trim();
     }
-    console.log(formValuesCompleto);
   };
 
   const gruposDioptrias: any = {
@@ -185,32 +224,35 @@ const FOTCristales: React.FC<ICristales> = ({
     },
   };
 
-  const renderInputCristal = (cristal: string) => {
-    const { label, name, data } = CodigosCristales[cristal]();
+  const renderInputCristal = useCallback(
+    (cristal: string) => {
+      const { label, name, data } = CodigosCristales[cristal]();
 
-    return (
-      <div className="!w-[48%] !pr-[1rem] ml-1 !translate-y-4">
-        <TextInputInteractive
-          type="text"
-          label={label}
-          name={name}
-          isOT={true}
-          handleChange={handleInputChange}
-          data={data}
-          control={control}
-          // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
-          onlyRead={true}
-          textAlign="text-center"
-          className={` custom-input !w-[15rem]  ${
-            validacionIncompleta.value.a1_oi === true
-              ? "!bg-red-600 opacity-60"
-              : ""
-          } `}
-          customWidth={"labelInputx2 inputStyles"}
-        />
-      </div>
-    );
-  };
+      return (
+        <div className="!w-[48%] !pr-[1rem] ml-1 !translate-y-4">
+          <TextInputInteractive
+            type="text"
+            label={label}
+            name={name}
+            isOT={true}
+            handleChange={handleInputChange}
+            data={data}
+            control={control}
+            // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
+            onlyRead={true}
+            textAlign="text-center"
+            className={` custom-input !w-[15rem]  ${
+              validacionIncompleta.value.a1_oi === true
+                ? "!bg-red-600 opacity-60"
+                : ""
+            } `}
+            customWidth={"labelInputx2 inputStyles"}
+          />
+        </div>
+      );
+    },
+    [A1_CR_OD.value, A1_CR_OI.value]
+  );
 
   const renderGrupo1 = (grupo: string) => {
     const { label, name, data } = gruposDioptrias[grupo]();
@@ -245,8 +287,6 @@ const FOTCristales: React.FC<ICristales> = ({
       const focusedElement = document.activeElement;
       if (focusedElement instanceof HTMLInputElement) {
         const inputName = focusedElement.name;
-        console.log(inputName);
-        console.log(document.activeElement?.localName);
         const inputRefName =
           tipo_de_anteojo.value === "3"
             ? "cristal2_tratamiento_adicional_id"
@@ -263,6 +303,44 @@ const FOTCristales: React.FC<ICristales> = ({
   React.useEffect(() => {
     if (inputsRef.firstInputRef) {
       inputsRef.firstInputRef.current?.focus();
+    }
+
+    const {
+      cristal1_marca_id,
+      cristal1_indice_id,
+      cristal1_material_id,
+      cristal1_color_id,
+      cristal1_tratamiento_id,
+      cristal1_diseno_id,
+      cristal1_diametro,
+    } = formValues;
+
+    validation_Cristal1_marca(cristal1_marca_id);
+    validation_Cristal1_indice(cristal1_indice_id);
+    validation_Cristal1_material(cristal1_material_id);
+    validation_Cristal1_color(cristal1_color_id);
+    validation_Cristal1_tratamiento(cristal1_tratamiento_id);
+    validation_Cristal1_diseño(cristal1_diseno_id);
+    validation_Cristal1_diametro(cristal1_diametro);
+
+    if (tipo_de_anteojo.value === "3") {
+      const {
+        cristal2_marca_id,
+        cristal2_indice_id,
+        cristal2_material_id,
+        cristal2_color_id,
+        cristal2_tratamiento_id,
+        cristal2_diseno_id,
+        cristal2_diametro,
+      } = formValues;
+
+      validation_cristal2_marca(cristal2_marca_id);
+      validation_Cristal2_indice(cristal2_indice_id);
+      validation_Cristal2_material(cristal2_material_id);
+      validation_Cristal2_color(cristal2_color_id);
+      validation_Cristal2_tratamiento(cristal2_tratamiento_id);
+      validation_Cristal2_diseño(cristal2_diseno_id);
+      validation_Cristal2_diametro(cristal2_diametro);
     }
   }, []);
 
@@ -349,6 +427,27 @@ const FOTCristales: React.FC<ICristales> = ({
       (EmpresaAdjudicadaOT_ID.value === 3 ||
         EmpresaAdjudicadaOT_ID.value === 2))
   );
+
+  const handleResetSelect = useCallback((anteojo: string) => {
+    console.log("render");
+    if (anteojo === "CR1") {
+      setValue("cristal1_marca_id", "1");
+      setValue("cristal1_indice_id", "1");
+      setValue("cristal1_material_id", "1");
+      setValue("cristal1_color_id", "1");
+      setValue("cristal1_tratamiento_id", "1");
+      setValue("cristal1_diseno_id", "1");
+      setValue("cristal1_diametro", "65");
+    } else {
+      setValue("cristal2_marca_id", "1");
+      setValue("cristal2_indice_id", "1");
+      setValue("cristal2_material_id", "1");
+      setValue("cristal2_color_id", "1");
+      setValue("cristal2_tratamiento_id", "1");
+      setValue("cristal2_diseno_id", "1");
+      setValue("cristal2_diametro", "65");
+    }
+  }, []);
 
   return (
     <form onKeyDown={handleKeyDown}>
@@ -448,7 +547,7 @@ const FOTCristales: React.FC<ICristales> = ({
                           !isEditting ||
                           (permiso_areas_grupo_dioptria &&
                             permiso_usuario_grupo_dioptria)
-                        ) || inputOnlyReadBodegaProcesado.value
+                        ) || disabledCristalDiseño.value
                       }
                       customWidth={"labelInput inputStyles"}
                     />
@@ -490,9 +589,9 @@ const FOTCristales: React.FC<ICristales> = ({
                       isOT={true}
                       handleSelectChange={handleInputChange}
                       data={
-                        formValues && formValues["cristal1_material_id"]
-                          ? formValues["cristal1_material_id"]
-                          : data && data[EnumGrid.cristal1_material_id]
+                        isEditting
+                          ? data && data[EnumGrid.cristal1_material_id]
+                          : formValues && formValues["cristal1_material_id"]
                       }
                       control={control}
                       entidad={"CristalesMateriales"}
@@ -585,7 +684,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                     )} */}
 
                   <div className="w-[20%] mr-2 ">
-                    <TextInputInteractive
+                    <TextInputComponent
                       control={control}
                       type="number"
                       label="Diámetro"
@@ -593,9 +692,9 @@ const FOTCristales: React.FC<ICristales> = ({
                       handleChange={handleInputChange}
                       isOT={true}
                       data={
-                        formValues && formValues["cristal1_diametro"]
-                          ? formValues["cristal1_diametro"]
-                          : data && data[EnumGrid.cristal1_diametro]
+                        isEditting
+                          ? data && data[EnumGrid.cristal1_diametro]
+                          : formValues["cristal1_diametro"]
                       }
                       onlyRead={
                         !(
@@ -813,7 +912,7 @@ const FOTCristales: React.FC<ICristales> = ({
                               permiso_areas_grupo_dioptria &&
                               permiso_usuario_grupo_dioptria &&
                               tipo_de_anteojo.value === "3")
-                          ) || inputOnlyReadBodegaProcesado.value
+                          ) || disabledCristalDiseño.value
                         }
                         customWidth={"labelInput inputStyles"}
                         labelProps={" bg-wite"}
@@ -963,14 +1062,15 @@ const FOTCristales: React.FC<ICristales> = ({
                                          )} */}
 
                     <div className="w-[20%] mr-2 ">
-                      <TextInputInteractive
+                      <TextInputComponent
                         type="number"
                         label="Diámetro"
                         name="cristal2_diametro"
                         handleChange={handleInputChange}
                         data={
-                          A2_Diametro.value ||
-                          (data && data[EnumGrid.cristal2_diametro])
+                          formValues && formValues["cristal2_diametro"]
+                            ? formValues["cristal2_diametro"]
+                            : data && data[EnumGrid.cristal2_diametro]
                         }
                         control={control}
                         isOT={true}

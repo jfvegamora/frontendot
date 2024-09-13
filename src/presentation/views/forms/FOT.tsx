@@ -207,6 +207,8 @@ export const a1Grupo = signal(0);
 export const tipo_lejos_cerca = signal(false);
 export const keepForm = signal(false);
 export const isNotFetching = signal(false);
+export const disabledCristalDiseño = signal(false);
+export const isLoadingOT = signal(false);
 
 const FOT: React.FC<IFOTProps> = ({
   closeModal,
@@ -217,8 +219,28 @@ const FOT: React.FC<IFOTProps> = ({
   permisos_ot_historica,
 }) => {
   //Estados locales
-  const { control, handleSubmit, setValue, register, getValues } =
-    useForm<any>();
+  const { control, handleSubmit, setValue, register, getValues } = useForm<any>(
+    {
+      defaultValues: {
+        // cristal1_marca_id: "1",
+        // cristal1_indice_id: "1",
+        // cristal1_material_id: "1",
+        // cristal1_diseno_id: "1",
+        // cristal1_color_id: "1",
+        // cristal1_tratamiento_id: "1",
+        // cristal1_diametro: "65",
+        // cristal2_marca_id: "1",
+        // cristal2_indice_id: "1",
+        // cristal2_material_id: "1",
+        // cristal2_diseno_id: "1",
+        // cristal2_color_id: "1",
+        // cristal2_tratamiento_id: "1",
+        // cristal2_diametro: "65",
+      },
+    }
+  );
+
+  const formValuesCompleto = getValues();
 
   const [formValues, setFormValues] = useState<any>({});
 
@@ -376,6 +398,8 @@ const FOT: React.FC<IFOTProps> = ({
     clearGrupos();
     dispatch(clearCodigos());
     clearSelectInput.value = false;
+    disabledCristalDiseño.value = false;
+    isLoadingOT.value = false;
     keepForm.value = false;
     codigoProyecto.value = "";
   };
@@ -583,12 +607,9 @@ const FOT: React.FC<IFOTProps> = ({
       !Number.isNaN(dioptrias_receta.value.a1_oi.eje)
         ? dioptrias_receta.value.a1_oi.eje
         : 0
-    },"${
-      typeof dioptrias_receta.value.a1_oi.ad !== "string" &&
-      !Number.isNaN(dioptrias_receta.value.a1_oi.ad)
-        ? dioptrias_receta.value.a1_oi.ad
-        : 0
-    }",${A1_DP.value !== "" ? A1_DP.value : 0},${
+    },"${a1_oi_ad.value !== "" ? parseInt(a1_oi_ad.value) : 0}",${
+      A1_DP.value !== "" ? A1_DP.value : 0
+    },${
       formValues["receta"]["a1_alt"] > 0 ? formValues["receta"]["a1_alt"] : 0
     }, "${A1_GRUPO_OD.value.trim()}" ,"${A1_GRUPO_OI.value.trim()}" ,"${
       typeof a2_od_esf.value === "string" ? a2_od_esf.value : 0
@@ -976,6 +997,47 @@ const FOT: React.FC<IFOTProps> = ({
         ...dataForm,
       },
     }));
+
+    if (key === "cristal1_tratamiento_adicional_id") {
+      setValue("cristal1_marca_id", "1");
+      setValue("cristal1_indice_id", "1");
+      setValue("cristal1_material_id", "1");
+      setValue("cristal1_color_id", "1");
+      setValue("cristal1_tratamiento_id", "1");
+      setValue("cristal1_diseno_id", "1");
+      setValue("cristal1_diametro", "65");
+
+      const formValores = getValues();
+
+      await getGrupoCristales_A1(
+        formValores,
+        data,
+        setErrorGrupoDioptriaA1,
+        setChangeboolean,
+        isEditting,
+        setErrorGrupoDioptriaA2
+      );
+    }
+
+    if (key === "cristal2_tratamiento_adicional_id") {
+      setValue("cristal2_marca_id", "1");
+      setValue("cristal2_indice_id", "1");
+      setValue("cristal2_material_id", "1");
+      setValue("cristal2_color_id", "1");
+      setValue("cristal2_tratamiento_id", "1");
+      setValue("cristal2_diseno_id", "1");
+      setValue("cristal2_diametro", "65");
+
+      const formValores = getValues();
+      console.log("render");
+      await getGrupoCristales_A2(
+        formValores,
+        data,
+        setErrorGrupoDioptriaA2,
+        setChangeboolean
+      );
+    }
+
     //TODO: inputChangeAction
     if (inputChangeActions[key]) {
       inputChangeActions[key](dataForm);
@@ -1021,6 +1083,9 @@ const FOT: React.FC<IFOTProps> = ({
           validation_A2_OD_ESF(a2_od_esf.value);
           validation_A2_OD_CIL(a2_od_cil.value);
           validation_A2_OD_EJE(a2_od_eje.value);
+          setValue("a2_od_esf", a2_od_esf.value);
+          setValue("a2_od_cil", a2_od_cil.value);
+          setValue("a2_od_eje", a2_od_eje.value);
         }
       }
       //? OJO IZQUIERDO
@@ -1056,6 +1121,13 @@ const FOT: React.FC<IFOTProps> = ({
               ? 0
               : dioptrias_receta.value.a1_oi.cil;
         }
+
+        setValue("a2_od_esf", a2_od_esf.value);
+        setValue("a2_od_cil", a2_od_cil.value);
+        setValue("a2_od_eje", a2_od_eje.value);
+        setValue("a2_oi_esf", a2_oi_esf.value);
+        setValue("a2_oi_cil", a2_oi_cil.value);
+        setValue("a2_oi_eje", a2_oi_eje.value);
       }
 
       validation_A2_OD_ESF(a2_od_esf.value);
@@ -1078,10 +1150,13 @@ const FOT: React.FC<IFOTProps> = ({
         setErrorGrupoDioptriaA2
       );
     }
+
+    console.log(formValuesCompleto);
     //? CODIGO CRISTALES Y GRUPO  ANTEOJO 2:
-    if (tipo_de_anteojo.value === "3") {
-      if (changeCodigoCristal_A2[key]) {
-        const formValue = getValues();
+    if (changeCodigoCristal_A2[key]) {
+      const formValue = getValues();
+      console.log(formValuesCompleto);
+      if (tipo_de_anteojo.value === "3") {
         getGrupoCristales_A2(
           formValue,
           data,
@@ -1104,6 +1179,25 @@ const FOT: React.FC<IFOTProps> = ({
   const handleIngresarClick = () => {
     setSubmitAction("ingresar");
   };
+
+  React.useEffect(() => {
+    if (!isEditting) {
+      setValue("cristal1_marca_id", "1");
+      setValue("cristal1_indice_id", "1");
+      setValue("cristal1_material_id", "1");
+      setValue("cristal1_color_id", "1");
+      setValue("cristal1_tratamiento_id", "1");
+      setValue("cristal1_diseno_id", "1");
+      setValue("cristal1_diametro", "65");
+      setValue("cristal2_marca_id", "1");
+      setValue("cristal2_indice_id", "1");
+      setValue("cristal2_material_id", "1");
+      setValue("cristal2_color_id", "1");
+      setValue("cristal2_tratamiento_id", "1");
+      setValue("cristal2_diseno_id", "1");
+      setValue("cristal2_diametro", "65");
+    }
+  }, [setValue, isEditting]);
 
   React.useEffect(() => {
     validar_parametrizacion.value =
@@ -1433,6 +1527,7 @@ const FOT: React.FC<IFOTProps> = ({
           <Tab
             className="custom-tab items-center  flex relative"
             tabIndex={"-1"}
+            disabled={isLoadingOT.value}
           >
             <span className="!text-[1vw]">ÓPTICA</span>
             {checkOptica && (
@@ -1447,6 +1542,7 @@ const FOT: React.FC<IFOTProps> = ({
           <Tab
             className="custom-tab items-center flex relative"
             tabIndex={"-1"}
+            disabled={isLoadingOT.value}
           >
             <span className="text-[1vw]">CLIENTE</span>
             {checkCliente && (
@@ -1461,6 +1557,7 @@ const FOT: React.FC<IFOTProps> = ({
           <Tab
             className="custom-tab items-center flex relative"
             tabIndex={"-1"}
+            disabled={isLoadingOT.value}
           >
             <span className="text-[1vw]">RECETA</span>
             {checkReceta && (
@@ -1475,6 +1572,7 @@ const FOT: React.FC<IFOTProps> = ({
           <Tab
             className="custom-tab items-center flex relative"
             tabIndex={"-1"}
+            disabled={isLoadingOT.value}
           >
             CRISTALES
             {checkCristales && (
@@ -1513,6 +1611,7 @@ const FOT: React.FC<IFOTProps> = ({
           <Tab
             className="custom-tab items-center flex relative"
             tabIndex={"-1"}
+            disabled={isLoadingOT.value}
           >
             ARMAZONES
             {checkArmazones && (
@@ -1524,7 +1623,9 @@ const FOT: React.FC<IFOTProps> = ({
               </div>
             )}
           </Tab>
-          <Tab className="custom-tab ">BITÁCORA</Tab>
+          <Tab className="custom-tab " disabled={isLoadingOT.value}>
+            BITÁCORA
+          </Tab>
           {isEditting && (
             <h1 className="tabFolioNumber">
               Folio OT: {data && data[EnumGrid.folio]}
@@ -1601,7 +1702,8 @@ const FOT: React.FC<IFOTProps> = ({
               onlyRead={onlyRead}
               isEditting={isEditting}
               data={data && data}
-              formValues={formValues["receta"]}
+              setValue={setValue}
+              formValues={formValuesCompleto}
               control={control}
               onDataChange={(data: any) => handleFormChange(data, "receta")}
             />
@@ -1620,8 +1722,9 @@ const FOT: React.FC<IFOTProps> = ({
               onlyRead={onlyRead}
               isEditting={isEditting}
               data={data && data}
-              formValues={formValues["cristales"]}
-              formValuesCompleto={formValues}
+              formValues={formValuesCompleto}
+              formValuesCompleto={formValuesCompleto}
+              setValue={setValue}
               control={control}
               onDataChange={(data: any) => handleFormChange(data, "cristales")}
             />

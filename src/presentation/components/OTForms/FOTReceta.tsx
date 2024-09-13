@@ -39,6 +39,7 @@ import { OTTextInputComponent } from ".";
 import { transponer } from "../../utils/FOTReceta_utils";
 import TextInputInteractive from "../forms/TextInputInteractive";
 import { inputOnlyReadReserva } from "../../utils/FReservaArmazones_utils";
+import { disabledCristalDiseño } from "../../views/forms/FOT";
 
 // export const inputName = signal(0)
 
@@ -51,6 +52,7 @@ interface IReceta {
   isEditting?: boolean;
   permiso_areas_receta: boolean;
   permiso_usuario_receta: boolean;
+  setValue: any;
 }
 
 const FOTReceta: React.FC<IReceta> = ({
@@ -61,6 +63,7 @@ const FOTReceta: React.FC<IReceta> = ({
   permiso_areas_receta,
   isEditting,
   permiso_usuario_receta,
+  setValue,
 }) => {
   const [_isRender, setIsRender] = useState(false);
 
@@ -98,6 +101,91 @@ const FOTReceta: React.FC<IReceta> = ({
       onDataChange({ [name]: value });
     }
     onDataChange({ [name]: value });
+
+    if (name === "a1_oi_esf" || name === "a1_od_esf") {
+      let valueDioptria;
+
+      if (name === "a1_od_esf") {
+        valueDioptria = a1_oi_esf.value;
+      }
+
+      if (name === "a1_oi_esf") {
+        valueDioptria = a1_od_esf.value;
+      }
+
+      if (parseInt(value) < 0 || parseInt(valueDioptria) < 0) {
+        setValue("cristal1_diametro", "70");
+        onDataChange({ ["cristal1_diametro"]: "70" });
+      } else {
+        setValue("cristal1_diametro", "65");
+        onDataChange({ ["cristal1_diametro"]: "65" });
+      }
+    }
+
+    if (tipo_de_anteojo.value === "3") {
+      let valueDioptria;
+
+      if (name === "a2_od_esf") {
+        valueDioptria = a2_od_esf.value;
+      }
+
+      if (name === "a2_oi_esf") {
+        valueDioptria = a2_oi_cil.value;
+      }
+
+      if (parseInt(value) < 0 || parseInt(valueDioptria) < 0) {
+        setValue("cristal2_diametro", "70");
+        onDataChange({ ["cristal2_diametro"]: "70" });
+      } else {
+        console.log("render");
+        setValue("cristal2_diametro", "65");
+        onDataChange({ ["cristal2_diametro"]: "65" });
+      }
+    }
+
+    if (name === "tipo_anteojo_id") {
+      console.log(value);
+
+      switch (value) {
+        case "1":
+          setValue("cristal1_diseno_id", "1");
+          setValue("cristal2_diseno_id", "1");
+          disabledCristalDiseño.value = true;
+          break;
+        case "2":
+          setValue("cristal1_diseno_id", "1");
+          setValue("cristal2_diseno_id", "1");
+          disabledCristalDiseño.value = true;
+          break;
+        case "3":
+          setValue("cristal1_diseno_id", "1");
+          setValue("cristal2_diseno_id", "1");
+          disabledCristalDiseño.value = true;
+          break;
+        case "4":
+          setValue("cristal1_diseno_id", "2");
+          setValue("cristal2_diseno_id", "2");
+          disabledCristalDiseño.value = true;
+          break;
+        case "5":
+          setValue("cristal1_diseno_id", "3");
+          setValue("cristal2_diseno_id", "3");
+          disabledCristalDiseño.value = true;
+          break;
+        case "6":
+          setValue("cristal1_diseno_id", "4");
+          setValue("cristal2_diseno_id", "4");
+          disabledCristalDiseño.value = true;
+          break;
+        case "7":
+          setValue("cristal1_diseno_id", "5");
+          setValue("cristal2_diseno_id", "5");
+          disabledCristalDiseño.value = true;
+          break;
+        default:
+          break;
+      }
+    }
   };
 
   React.useEffect(() => {
@@ -425,7 +513,7 @@ const FOTReceta: React.FC<IReceta> = ({
                 customWidth={"labelInput inputStyles"}
               />
             </div>
-            <div className="w-[70%] mx-auto mt-10 labelInput">
+            <div className="w-[70%] mx-auto mt-5 labelInput">
               <TextInputInteractive
                 type="number"
                 label="ALT"
@@ -443,6 +531,28 @@ const FOTReceta: React.FC<IReceta> = ({
                 }
                 textAlign="text-center"
                 customWidth={"labelInput inputStyles"}
+              />
+            </div>
+            <div className="w-[70%] mx-auto labelInput mt-5">
+              <TextInputInteractive
+                type="number"
+                label="DP"
+                name="a2_dp"
+                handleChange={handleInputChange}
+                data={A2_DP.value ? A2_DP.value : data && data[EnumGrid.a2_dp]}
+                control={control}
+                isOT={true}
+                textAlign="text-center"
+                // onlyRead={!(deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)) )}
+                onlyRead={
+                  !(
+                    deshabilitarCampo.value.a2_dp &&
+                    (!isEditting ||
+                      (permiso_usuario_receta && permiso_areas_receta))
+                  )
+                }
+                customWidth={"!h-[3vw]  labelInput"}
+                // error={errors.fecha_nacimiento}
               />
             </div>
           </div>
@@ -561,33 +671,6 @@ const FOTReceta: React.FC<IReceta> = ({
                     customWidth={"labelInput inputStyles"}
                   />
                 </div>
-              </div>
-            </div>
-
-            <div className="w-[14%] items-center ">
-              <div className="w-[70%] mx-auto labelInput">
-                <TextInputInteractive
-                  type="number"
-                  label="DP"
-                  name="a2_dp"
-                  handleChange={handleInputChange}
-                  data={
-                    A2_DP.value ? A2_DP.value : data && data[EnumGrid.a2_dp]
-                  }
-                  control={control}
-                  isOT={true}
-                  textAlign="text-center"
-                  // onlyRead={!(deshabilitarCampo.value.a2_dp && (!isEditting || (permiso_usuario_receta && permiso_areas_receta)) )}
-                  onlyRead={
-                    !(
-                      deshabilitarCampo.value.a2_dp &&
-                      (!isEditting ||
-                        (permiso_usuario_receta && permiso_areas_receta))
-                    )
-                  }
-                  customWidth={"!h-[3vw]  labelInput"}
-                  // error={errors.fecha_nacimiento}
-                />
               </div>
             </div>
           </div>

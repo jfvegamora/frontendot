@@ -126,10 +126,14 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
         try {
           if (OTColores[rowData]) {
             return background
-              ? `${OTColores[rowData][1]}`
+              ? `${
+                  OTColores[rowData][1] === "#"
+                    ? "#FFFFFF"
+                    : OTColores[rowData][1]
+                }`
               : `${OTColores[rowData][0]}`;
           }
-          console.log(background);
+
           return background ? `black` : "red";
         } catch (error) {
           throw error;
@@ -306,12 +310,6 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
     );
 
     // if (!data || data.length === 0) return null;
-
-    console.log(OTAreaActual);
-
-    console.log(OTAreaActual === OTAreasEnum["Bodega Insumos"]);
-
-    console.log(tableHead);
 
     const dinamicTableHead = useMemo(() => {
       return tableHead.map((th: any) => {

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, Suspense } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { IconButton, Input, Switch, Tooltip } from "@material-tailwind/react";
 // import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
@@ -81,7 +81,6 @@ interface PrimaryKeySearchProps {
   }[];
   baseUrl: string;
   updateParams: any;
-  description?: any;
   otHistorica?: boolean;
   classNameSearchButton?: string;
 }
@@ -94,7 +93,6 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
     setEntities,
     primaryKeyInputs,
     updateParams,
-    description,
     otHistorica,
     baseUrl,
     classNameSearchButton,
@@ -106,16 +104,9 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
     const [esferico, setEsferico] = useState();
     const { control, handleSubmit, setValue } = useForm<IPrimaryKeyState>();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
-    const [cristalDescritpion, setCristalDescription] = useState(
-      description || ""
-    );
+
     const dispatch: any = useAppDispatch();
     const { ListEntity } = useCrud(baseUrl);
-
-    useEffect(() => {
-      console.log(description);
-      setCristalDescription(description || "");
-    }, [description]);
 
     const handleRefresh = React.useCallback(() => {
       console.log("render");
@@ -549,7 +540,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
           ))}
         </div>
       ));
-    }, [OTAreaActual]);
+    }, [OTAreaActual, inputValues]);
 
     React.useEffect(() => {
       filterOTSearchTitle.value = {};
@@ -622,12 +613,6 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
             </IconButton>
           </Tooltip>
         </div>
-
-        {description && (
-          <span className="mx-8 h-auto  w-[28rem] text-base border-none absolute bottom-[-5rem] left-[40vw]">
-            {cristalDescritpion && cristalDescritpion[3]}
-          </span>
-        )}
       </form>
     );
   }

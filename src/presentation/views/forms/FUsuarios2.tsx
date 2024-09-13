@@ -383,6 +383,12 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
       setValue,
     } = useForm({
       resolver: yupResolver(schema),
+      defaultValues: {
+        permiso_confirmar_entrega: "Lectura",
+        permiso_pre_facturar: "Lectura",
+        permiso_vb: "Lectura",
+        permiso_confirmar_pago: "Lectura",
+      },
     });
 
     const resetTextFields = React.useCallback(() => {
@@ -599,6 +605,8 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
         );
       }
     }, [data]);
+
+    console.log(errors);
 
     return (
       <div className="useFormContainer centered-div w-[90%]">

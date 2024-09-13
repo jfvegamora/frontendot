@@ -1,92 +1,96 @@
-import React, {useCallback, useState, useEffect, Suspense} from 'react'
-import {useDropzone} from 'react-dropzone';
-import { useCrud } from '../hooks';
-import {toast} from 'react-toastify';
+import React, { useCallback, useState, useEffect, Suspense } from "react";
+import { useDropzone } from "react-dropzone";
+import { useCrud } from "../hooks";
+import { toast } from "react-toastify";
 // import { TfiImport } from "react-icons/tfi";
-import { IconButton, Tooltip } from '@material-tailwind/react';
-import { signal } from '@preact/signals-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
-import { AppStore, useAppDispatch, useAppSelector } from '../../redux/store';
-import { fetchOT } from '../../redux/slices/OTSlice';
-import { paramsOT, switchFetchOT } from '../views/mantenedores/MOT';
-import axios from 'axios';
-// import { excelOTValidationStructure } from '../utils';
+import { IconButton, Tooltip } from "@material-tailwind/react";
+import { signal } from "@preact/signals-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
+import { fetchOT } from "../../redux/slices/OTSlice";
+import { paramsOT, switchFetchOT } from "../views/mantenedores/MOT";
+import axios from "axios";
 
-import {executeFetchImportOT, handleFileUpload} from '../utils/validationCSVFile';
-import { URLBackend } from '../utils/config';
+import {
+  executeFetchImportOT,
+  handleFileUpload,
+} from "../utils/validationCSVFile";
+import { URLBackend } from "../utils/config";
 
+const ModalImport = React.lazy(() => import("./ModalImpor"));
 
-const ModalImport = React.lazy(()=>import("./ModalImpor"));
+export const resultExcelTypes = signal({});
+export const totalImport = signal(0);
+export const restanteImport = signal(1);
+export const isFetchCompleted = signal(false);
+export const progressBar = signal(0);
 
-
-export const resultExcelTypes  = signal({});
-export const totalImport       = signal(0);
-export const restanteImport    = signal(1);
-export const isFetchCompleted  = signal(false);
-export const progressBar       = signal(0);
-
-
-interface ImportProps{
+interface ImportProps {
   // strEntidad: string | undefined;
   strEntidad: "Clientes" | "Armazones" | any;
 }
 
-const PositionToRemove ={
+const PositionToRemove = {
   // Mandantes:    [4,5,6,7,9],
-  Clientes:     [3,5,9,13],
-  
+  Clientes: [3, 5, 9, 13],
+
   // Armazones:    [2,3,4,5],
-}
+};
 
 const strUseCrud = "/api/typesexcel";
 export const isModalOT = signal(false);
 
-const ImportToCsv:React.FC<ImportProps> = ({
-  strEntidad
-}) => {
-  const {excelTypes} = useCrud(strUseCrud)
+const ImportToCsv: React.FC<ImportProps> = ({ strEntidad }) => {
+  const { excelTypes } = useCrud(strUseCrud);
   const [progress, setProgress] = useState(1);
-  const [currentStage, setCurrentStage] = useState('Validacion');
-  const [isOpen, setIsOpen] = useState(false)
-  const dispatch         = useAppDispatch();
+  const [currentStage, setCurrentStage] = useState("Validacion");
+  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
   const userState = useAppSelector((store: AppStore) => store.user);
-  const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-  const [errors, setErrors] = useState<any>()
- 
-  const handleClose = () => {
-    setIsOpen(false)
-    setErrors([])
-    setProgress(0)
-    setCurrentStage("Validacion")
-    restanteImport.value   = 1;
-    totalImport.value      = 0;
-    isFetchCompleted.value = false;
-    progressBar.value      = 0;
-  }
+  const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
+  const [errors, setErrors] = useState<any>();
 
-  async function executeFetchWithProgress(validate:any, numberOfElements:any) {
+  const handleClose = () => {
+    setIsOpen(false);
+    setErrors([]);
+    setProgress(0);
+    setCurrentStage("Validacion");
+    restanteImport.value = 1;
+    totalImport.value = 0;
+    isFetchCompleted.value = false;
+    progressBar.value = 0;
+  };
+
+  async function executeFetchWithProgress(
+    validate: any,
+    numberOfElements: any
+  ) {
     const abortController = new AbortController();
 
-
-    const fetchPromise = executeFetch(validate, numberOfElements).then((result) => {
-      isFetchCompleted.value = true;  // Mark fetch as completed
-      return result;
-    });
+    const fetchPromise = executeFetch(validate, numberOfElements).then(
+      (result) => {
+        isFetchCompleted.value = true; // Mark fetch as completed
+        return result;
+      }
+    );
 
     const [fetchResult] = await Promise.all([
       fetchPromise,
-      handleProgressUpdate(0,100,'', numberOfElements, abortController)
+      handleProgressUpdate(0, 100, "", numberOfElements, abortController),
     ]);
-
 
     abortController.abort();
     return fetchResult;
   }
 
-
-
-  const handleProgressUpdate = async (start: number, end: number, _nextStage: string, _size: number,_abortController?:any) => {
+  const handleProgressUpdate = async (
+    start: number,
+    end: number,
+    _nextStage: string,
+    _size: number,
+    _abortController?: any
+  ) => {
     const totalTime = 60000; // 60 seconds in milliseconds
     const increments = 1000; // Number of increments (for smooth progress)
     const timePerUpdate = totalTime / increments; // Time per update to achieve 60 seconds total
@@ -94,102 +98,100 @@ const ImportToCsv:React.FC<ImportProps> = ({
 
     for (let i = start; i <= 100; i += increment) {
       if (isFetchCompleted.value) {
-        setProgress(100)
+        setProgress(100);
         return;
       }
 
-      if(Math.round(progressBar.value) === 99 && !isFetchCompleted.value){
-        setTimeout(()=>{
-          console.log('')
-        },1000)
-        setProgress(0)
+      if (Math.round(progressBar.value) === 99 && !isFetchCompleted.value) {
+        setTimeout(() => {
+          console.log("");
+        }, 1000);
+        setProgress(0);
         progressBar.value = 0;
         i = start;
-        continue
+        continue;
       }
-
 
       await new Promise((resolve) => {
         setTimeout(() => {
           const progressPercentage = Math.min((i / end) * 100, 100);
           setProgress(progressPercentage);
-          progressBar.value = progressPercentage
-          resolve(null)
+          progressBar.value = progressPercentage;
+          resolve(null);
         }, timePerUpdate);
       });
-   
     }
   };
 
-  
-  async function executeFetch(validate:any,numberOfElements:any) {
+  async function executeFetch(validate: any, numberOfElements: any) {
     if (validate["blob"] && numberOfElements) {
       switchFetchOT.value = false;
-      let jsonResponse:any = [];
+      let jsonResponse: any = [];
 
       //?==============================================METODO OT =====================================================
       totalImport.value = validate["blob"].length;
-      
-      for(let i = 0; i < validate["blob"].length; i++){
 
+      for (let i = 0; i < validate["blob"].length; i++) {
         const formData = new FormData();
-        const libroExcel = validate["blob"][i]
-        formData.append('file', libroExcel["blob"])
-        formData.append('positions_to_remove', JSON.stringify(PositionToRemove[strEntidad as "Clientes"]));
-        formData.append('entidad', JSON.stringify(strEntidad));
-        formData.append('userID', JSON.stringify(userState?.id));
-        formData.append('tramo',JSON.stringify(restanteImport.value) )
-        
-        if(strEntidad === 'Ordenen de Trabajo'){
-          isModalOT.value = true
+        const libroExcel = validate["blob"][i];
+        formData.append("file", libroExcel["blob"]);
+        formData.append(
+          "positions_to_remove",
+          JSON.stringify(PositionToRemove[strEntidad as "Clientes"])
+        );
+        formData.append("entidad", JSON.stringify(strEntidad));
+        formData.append("userID", JSON.stringify(userState?.id));
+        formData.append("tramo", JSON.stringify(restanteImport.value));
+
+        if (strEntidad === "Ordenen de Trabajo") {
+          isModalOT.value = true;
         }
         const url = `${URLBackend.value}/api/excel/import/`;
         try {
           const response = await axios.post(url, formData);
 
-          jsonResponse.push(response.data)
-          
-          if(response.status === 200 && (i < validate["blob"].length - 1)){
+          jsonResponse.push(response.data);
+
+          if (response.status === 200 && i < validate["blob"].length - 1) {
             // handleValidacion(0)
-            restanteImport.value = restanteImport.value + 1
-          }else{
-            setProgress(100)
+            restanteImport.value = restanteImport.value + 1;
+          } else {
+            setProgress(100);
           }
-
-
-        } catch (error:any) {
-          jsonResponse.push(error)
-          if(error.response){
-            return [{Error: [error.response.data.Error]}]
+        } catch (error: any) {
+          jsonResponse.push(error);
+          if (error.response) {
+            return [{ Error: [error.response.data.Error] }];
           }
-          setProgress(100)
-          return jsonResponse
+          setProgress(100);
+          return jsonResponse;
         }
-
       }
-      
 
-      console.log(jsonResponse)
+      console.log(jsonResponse);
       // if(jsonResponse){
       //   setProgress(100)
       // }
-      const isErrorImport = jsonResponse.some((mensaje:any)=>mensaje.Error)
+      const isErrorImport = jsonResponse.some((mensaje: any) => mensaje.Error);
 
       //?CAMBIAR A FALSE PARA DEJAR DE PROBAR
-      if(!isErrorImport){
-        const resultImportOt:any = await executeFetchImportOT(jsonResponse,userState?.id)
+      if (!isErrorImport) {
+        const resultImportOt: any = await executeFetchImportOT(
+          jsonResponse,
+          userState?.id
+        );
         if (resultImportOt?.response?.data) {
-          if(resultImportOt?.response?.data.hasOwnProperty('Error')){
-            return [{Error:[resultImportOt.response.data.Error]}]
+          if (resultImportOt?.response?.data.hasOwnProperty("Error")) {
+            return [{ Error: [resultImportOt.response.data.Error] }];
           }
         }
       }
 
-      console.log(jsonResponse)
-      switchFetchOT.value     = true;
-      isFetchCompleted.value  = false;
-      return jsonResponse
-      
+      console.log(jsonResponse);
+      switchFetchOT.value = true;
+      isFetchCompleted.value = false;
+      return jsonResponse;
+
       //?==============================================METODO OT =====================================================
       // formData.append('file', validate["blob"], 'modified_file.xls');
       // formData.append('positions_to_remove', JSON.stringify(PositionToRemove[strEntidad as "Clientes"]));
@@ -202,9 +204,8 @@ const ImportToCsv:React.FC<ImportProps> = ({
       //   isModalOT.value = true
       // }
 
-
       // const url = `${URLBackend.value}/api/excel/import/`;
-  
+
       // try {
       //   const response = await fetch(url, {
       //     method: 'POST',
@@ -223,29 +224,35 @@ const ImportToCsv:React.FC<ImportProps> = ({
       //   return { error };
       // }
     } else {
-      return { error: "No se puede realizar la carga debido a datos faltantes." };
+      return {
+        error: "No se puede realizar la carga debido a datos faltantes.",
+      };
     }
   }
-  
+
   // const handleValidacion = async (size:number) => {
   //   await handleProgressUpdate(0, 100, 'Almacenamiento',size);
   //   setProgress(100)
   // };
 
-  useEffect(()=>{
-    setErrors((prev:any)=>prev)
+  useEffect(() => {
+    setErrors((prev: any) => prev);
     // console.log('actualizando...')
-  },[isOpen])
+  }, [isOpen]);
   //ETAPA LECTURA
-  
-  const onDrop = useCallback(async(acceptedFiles:any) => {
-    setIsOpen((prev)=>!prev)  
-    // const formData = new FormData();
-    const result = await excelTypes(strEntidad)
-    // 
-    const validate = await  handleFileUpload(acceptedFiles[0], JSON.parse(result["resul"]),strEntidad)
 
-    //?TRATAR DE EJECUTAR HANDLEVALIDACTION AL MISMO TIEMPO QUE LA LLAMADA 
+  const onDrop = useCallback(async (acceptedFiles: any) => {
+    setIsOpen((prev) => !prev);
+    // const formData = new FormData();
+    const result = await excelTypes(strEntidad);
+    //
+    const validate = await handleFileUpload(
+      acceptedFiles[0],
+      JSON.parse(result["resul"]),
+      strEntidad
+    );
+
+    //?TRATAR DE EJECUTAR HANDLEVALIDACTION AL MISMO TIEMPO QUE LA LLAMADA
     // if(validate["errors"]){
     //   console.log(validate)
     //   setErrors((_prev:any)=>validate["errors"])
@@ -253,51 +260,56 @@ const ImportToCsv:React.FC<ImportProps> = ({
     //   setIsOpen(true)
     //   setCurrentStage("Errores")
     // }
-    setTimeout(()=>{
-      if(validate["errors"]){
-        console.log(validate)
-        setErrors((_prev:any)=>validate["errors"])
-        setProgress(100)
-        setIsOpen(true)
-        setCurrentStage("Errores")
+    setTimeout(() => {
+      if (validate["errors"]) {
+        console.log(validate);
+        setErrors((_prev: any) => validate["errors"]);
+        setProgress(100);
+        setIsOpen(true);
+        setCurrentStage("Errores");
       }
-    },200)
-    
-    
-    if(validate["blob"] && validate["numberOfElements"]){ 
-      
+    }, 200);
+
+    if (validate["blob"] && validate["numberOfElements"]) {
       // const [fetchResult] = await Promise.all([
       //   executeFetch(validate, validate["numberOfElements"]),
       //   handleValidacion(validate["numberOfElements"] || 0),
       // ]);
 
-      const fetchResult = await executeFetchWithProgress(validate, validate["numberOfElements"])
+      const fetchResult = await executeFetchWithProgress(
+        validate,
+        validate["numberOfElements"]
+      );
 
-      console.log('render')
+      console.log("render");
 
-      console.log(fetchResult)
+      console.log(fetchResult);
 
-      const isErrorImport = fetchResult.some((mensaje:any)=>mensaje.Error)
-      const axiosError    = fetchResult?.response
+      const isErrorImport = fetchResult.some((mensaje: any) => mensaje.Error);
+      const axiosError = fetchResult?.response;
 
-      console.log(axiosError)
+      console.log(axiosError);
 
       console.log(isErrorImport);
 
-      if(isErrorImport){
-        setProgress(100)        
-        setCurrentStage("Errores")
-        setErrors(fetchResult)
-        setIsOpen(true)
-        
-      }else{
-        toast.success('Import Finalizado Correctamente')
-          handleClose()
-          dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
+      if (isErrorImport) {
+        setProgress(100);
+        setCurrentStage("Errores");
+        setErrors(fetchResult);
+        setIsOpen(true);
+      } else {
+        toast.success("Import Finalizado Correctamente");
+        handleClose();
+        dispatch(
+          fetchOT({
+            OTAreas: OTAreas["areaActual"],
+            searchParams: paramsOT.value,
+          })
+        );
       }
 
       // if(fetchResult.data["Error"]){
-      
+
       //   setCurrentStage("Errores")
       //     setErrors((_prev:any)=>fetchResult.data["Error"])
       //     setIsOpen(true)
@@ -332,8 +344,8 @@ const ImportToCsv:React.FC<ImportProps> = ({
       //     toast.success('Import Finalizado Correctamente');
       //     handleClose();
       //   }
-      // }  
-      
+      // }
+
       // formData.append('file', validate["blob"], 'modified_file.xls');
       // formData.append('positions_to_remove', JSON.stringify(PositionToRemove[strEntidad as "Clientes"]));
       // formData.append('entidad', JSON.stringify(strEntidad));
@@ -359,55 +371,64 @@ const ImportToCsv:React.FC<ImportProps> = ({
       //  })
       // .catch(error => {
       //   console.error('Error uploading file:', error)
-      //   setErrors(error)  
+      //   setErrors(error)
       // });
     }
   }, []);
 
-  
-    React.useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-          if (event.key === "Escape") {
-            restanteImport.value = 1;
-            totalImport.value = 0;
-            handleClose();
-          }
-        };
-  
-        window.addEventListener("keydown", handleKeyDown);
-  
-        return () => {
-          window.removeEventListener("keydown", handleKeyDown);
-        };
-      }, [handleClose]);
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        restanteImport.value = 1;
+        totalImport.value = 0;
+        handleClose();
+      }
+    };
 
-    const {getInputProps, getRootProps} = useDropzone({
-        onDrop,
-    })
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleClose]);
+
+  const { getInputProps, getRootProps } = useDropzone({
+    onDrop,
+  });
 
   return (
-     <div {...getRootProps()} className='cursor-pointer'>
-        <Tooltip content="Importar">
-          <IconButton
-            variant="text"
-            color="blue-gray"
-            className="primaryBtnIconButton"
-            tabIndex={1}
-          >
+    <div {...getRootProps()} className="cursor-pointer">
+      <Tooltip content="Importar">
+        <IconButton
+          variant="text"
+          color="blue-gray"
+          className="primaryBtnIconButton"
+          tabIndex={1}
+        >
           {/* <TfiImport className="primaryBtnIcon"/>   */}
-          <FontAwesomeIcon icon={faUpload} className={` ${"primaryBtnIcon"}`}  />
-          </IconButton>
-        </Tooltip>
-        <input className='cursor-pointer'  type='file' {...getInputProps()} accept="text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-        
-        
-          <Suspense>
-            {isOpen && (
-              <ModalImport errors={errors} progress={progress} titleState={currentStage}  onClose={handleClose} isModalOT={isModalOT}/>
-            )}
-          </Suspense>    
-      </div>
-  )
-}
+          <FontAwesomeIcon icon={faUpload} className={` ${"primaryBtnIcon"}`} />
+        </IconButton>
+      </Tooltip>
+      <input
+        className="cursor-pointer"
+        type="file"
+        {...getInputProps()}
+        accept="text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      />
 
-export default ImportToCsv
+      <Suspense>
+        {isOpen && (
+          <ModalImport
+            errors={errors}
+            progress={progress}
+            titleState={currentStage}
+            onClose={handleClose}
+            isModalOT={isModalOT}
+          />
+        )}
+      </Suspense>
+    </div>
+  );
+};
+
+export default ImportToCsv;

@@ -30,7 +30,7 @@ import {
 } from "./validationOT";
 import axios from "axios";
 import { signal } from "@preact/signals-react";
-import { isNotFetching } from "../views/forms/FOT";
+import { isLoadingOT, isNotFetching } from "../views/forms/FOT";
 import { URLBackend } from "./config";
 import { EnumGrid } from "../views/mantenedores/MOTHistorica";
 
@@ -91,6 +91,12 @@ export const changeCodigoCristal_A2: any = {
   a2_od_cil: true,
   a2_oi_esf: true,
   a2_oi_cil: true,
+  a2_dp: true,
+
+  a1_od_esf: true,
+  a1_od_cil: true,
+  a1_oi_esf: true,
+  a1_oi_cil: true,
 };
 
 export const getGrupoCristales_A1 = async (
@@ -112,7 +118,23 @@ export const getGrupoCristales_A1 = async (
     cristal1_color_id,
     cristal1_material_id,
     cristal1_tratamiento_id,
+    cristal1_diametro,
   } = formValue;
+
+  // console.log(cristal1_marca_id);
+  // console.log(cristal1_diseno_id);
+  // console.log(cristal1_indice_id);
+  // console.log(cristal1_color_id);
+  // console.log(cristal1_material_id);
+  // console.log(cristal1_tratamiento_id);
+  // console.log(cristal1_diametro);
+
+  // console.log(A1_Diametro.value);
+
+  // console.log(dioptrias_receta.value.a1_od.esf);
+  // console.log(dioptrias_receta.value.a1_od.cil);
+  // console.log(dioptrias_receta.value.a1_oi.esf);
+  // console.log(dioptrias_receta.value.a1_oi.cil);
 
   if (
     (cristal1_marca_id !== undefined ||
@@ -127,7 +149,8 @@ export const getGrupoCristales_A1 = async (
       data?.[OTFormsEnum.cristal1_material_id] !== undefined) &&
     (cristal1_tratamiento_id !== undefined ||
       data?.[OTFormsEnum.cristal1_tratamiento_id] !== undefined) &&
-    A1_Diametro.value.toString().trim() !== "" &&
+    (cristal1_diametro !== undefined ||
+      A1_Diametro.value.toString().trim() !== "") &&
     dioptrias_receta.value.a1_od.esf !== " " &&
     dioptrias_receta.value.a1_od.cil !== " " &&
     dioptrias_receta.value.a1_oi.esf !== " " &&
@@ -149,7 +172,8 @@ export const getGrupoCristales_A1 = async (
     ) {
       return;
     }
-
+    isLoadingOT.value = true;
+    console.log("render");
     const _pkToDelete1_od = {
       marca: cristal1_marca_id || data?.[OTFormsEnum.cristal1_marca_id],
       diseno: cristal1_diseno_id || data?.[OTFormsEnum.cristal1_diseno_id],
@@ -159,7 +183,7 @@ export const getGrupoCristales_A1 = async (
       color: cristal1_color_id || data?.[OTFormsEnum.cristal1_color_id],
       tratamiento:
         cristal1_tratamiento_id || data?.[OTFormsEnum.cristal1_tratamiento_id],
-      diametro: A1_Diametro.value,
+      diametro: cristal1_diametro || A1_Diametro.value,
       esferico: dioptrias_receta.value.a1_od.esf ?? 0,
       cilindrico: dioptrias_receta.value.a1_od.cil ?? 0,
       punto_venta: punto_venta.value,
@@ -182,7 +206,7 @@ export const getGrupoCristales_A1 = async (
       color: cristal1_color_id || data?.[OTFormsEnum.cristal1_color_id],
       tratamiento:
         cristal1_tratamiento_id || data?.[OTFormsEnum.cristal1_tratamiento_id],
-      diametro: A1_Diametro.value,
+      diametro: cristal1_diametro || A1_Diametro.value,
       esferico: dioptrias_receta.value.a1_oi.esf ?? 0,
       cilindrico: dioptrias_receta.value.a1_oi.cil ?? 0,
       punto_venta: punto_venta.value,
@@ -193,9 +217,7 @@ export const getGrupoCristales_A1 = async (
       cliente_sexo: 0,
       cliente_fecha_nac: new Date(),
     };
-
-    // console.log(_pkToDelete1_oi)
-
+    // const toastLoading = toast.loading("Cargando....");
     try {
       const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi]);
       const encodedJSON = encodeURIComponent(pkJSON);
@@ -207,7 +229,6 @@ export const getGrupoCristales_A1 = async (
       );
 
       const cristalesDATA = JSON.parse(cristalesDataOD[0][0]);
-      console.log(cristalesDATA);
       if (tipo_de_anteojo.value === "3" && isEditting) {
         getGrupoCristales_A2(
           formValue,
@@ -217,10 +238,7 @@ export const getGrupoCristales_A1 = async (
         );
       }
 
-      console.log(cristalesDATA && cristalesDATA);
       if (cristalesDATA && cristalesDATA["ERROR"] !== "") {
-        console.log(cristalesDATA["ERROR"]);
-
         if (cristalesDATA["ERROR"].includes("CROD")) {
           validacionIncompleta.value.a1_od = false;
           validacionIncompleta.value.a1_oi = true;
@@ -315,11 +333,15 @@ export const getGrupoCristales_A1 = async (
         validation_Cristal1_oi("32");
 
         setChangeboolean((prev: boolean) => !prev);
+        // toast.dismiss(toastLoading);
 
         // console.log(key)
+        isLoadingOT.value = false;
       }
     } catch (error) {
       // console.log(error)
+      // toast.dismiss(toastLoading);
+      isLoadingOT.value = false;
       throw error;
     }
   }
@@ -338,6 +360,7 @@ export const getGrupoCristales_A2 = async (
     cristal2_color_id,
     cristal2_material_id,
     cristal2_tratamiento_id,
+    cristal2_diametro,
   } = formValue;
 
   if (CR2_OD_LAB.value === true && CR2_OI_LAB.value === true) {
@@ -357,9 +380,10 @@ export const getGrupoCristales_A2 = async (
       data?.[OTFormsEnum.cristal2_material_id] !== undefined) &&
     (cristal2_tratamiento_id !== undefined ||
       data?.[OTFormsEnum.cristal2_tratamiento_id] !== undefined) &&
-    A2_Diametro.value.toString().trim() !== "" &&
-    dioptrias_receta.value.a2_od.esf !== "  " &&
-    dioptrias_receta.value.a2_od.cil !== "  "
+    (cristal2_diametro !== undefined ||
+      A2_Diametro.value.toString().trim() !== "") &&
+    dioptrias_receta.value.a2_od.esf.value !== "  " &&
+    dioptrias_receta.value.a2_od.cil.value !== "  "
     // (a2_od_esf.value                          !== '  ')        &&
     // (a2_od_cil.value                          !== '  ')
   ) {
@@ -373,7 +397,7 @@ export const getGrupoCristales_A2 = async (
       color: cristal2_color_id || data?.[OTFormsEnum.cristal2_color_id],
       tratamiento:
         cristal2_tratamiento_id || data?.[OTFormsEnum.cristal2_tratamiento_id],
-      diametro: A2_Diametro.value,
+      diametro: cristal2_diametro || A2_Diametro.value,
       esferico: a2_od_esf.value ?? 0,
       cilindrico: a2_od_cil.value ?? 0,
       punto_venta: punto_venta.value,
@@ -398,7 +422,7 @@ export const getGrupoCristales_A2 = async (
       color: cristal2_color_id || data?.[OTFormsEnum.cristal2_color_id],
       tratamiento:
         cristal2_tratamiento_id || data?.[OTFormsEnum.cristal2_tratamiento_id],
-      diametro: A2_Diametro.value,
+      diametro: cristal2_diametro || A2_Diametro.value,
       esferico: a2_oi_esf.value ?? 0,
       cilindrico: a2_oi_cil.value ?? 0,
       punto_venta: punto_venta.value,
@@ -412,8 +436,6 @@ export const getGrupoCristales_A2 = async (
       optcion_vta: "",
     };
 
-    // console.log(_pkToDelete1_oi)
-
     try {
       const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi]);
       const encodedJSON = encodeURIComponent(pkJSON);
@@ -423,11 +445,8 @@ export const getGrupoCristales_A2 = async (
       );
 
       const cristalesDATA = JSON.parse(cristalesDataOI[0][0]);
-      console.log(cristalesDATA);
 
       if (cristalesDATA && cristalesDATA["ERROR"] !== "") {
-        console.log("render");
-
         if (cristalesDATA["MSG"].includes("STOCK")) {
           A2_CR_OD.value = cristalesDATA["CR_OD"].trim() || " ";
           A2_CR_OI.value = cristalesDATA["CR_OI"].trim() || " ";
@@ -460,8 +479,6 @@ export const getGrupoCristales_A2 = async (
         }
         setErrorGrupoDioptriaA2(cristalesDATA["ERROR"]);
       } else {
-        console.log("render");
-
         validacionIncompleta.value.a2_od = false;
         validacionIncompleta.value.a2_oi = false;
 

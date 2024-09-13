@@ -2698,6 +2698,13 @@ export const table_head_reserva_armazones = [
     width: "w-[4rem]",
   },
   {
+    cell: "Diametro",
+    key: "diametro",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[4rem]",
+  },
+  {
     cell: "Armazon 1",
     key: "cod_armazon_1",
     visible: true,
