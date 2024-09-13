@@ -49,9 +49,9 @@ const limit = 0;
 export const fetchOT = createAsyncThunk("ot/fetchOT", async (params: any) => {
   const { OTAreas, searchParams, historica } = params;
 
-  if (searchParams.length === 0) {
-    return;
-  }
+  // if (searchParams.length === 0) {
+  //   return;
+  // }
 
   const OTUrl = searchParams
     ? historica
