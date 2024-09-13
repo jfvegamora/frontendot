@@ -22,6 +22,7 @@ import { updateActualArea } from "../../../redux/slices/OTAreasSlice";
 import OTPrimaryButtons from "../../components/OTPrimaryButtons";
 import { PermisosBotones } from "../../Enums";
 import FilterComponent from "../../components/FilterComponent";
+import { OTGrillaHistoricaEnum } from "../../Enums/OTGrillaHistoricaEnum";
 
 // import ExportCSV  from "../../components/ExportToCsv";
 
@@ -351,19 +352,27 @@ const MOTHistorica: React.FC = () => {
   // console.log("params:", params);
   useEffect(() => {
     const newPkToDelete = selectedRows.map((row: number) => ({
-      folio: OTs.data[row] && OTs.data[row][1],
-      estado: OTs.data[row] && OTs.data[row][5],
-      estado_id: OTs.data[row] && OTs.data[row][4],
-      proyecto_codigo: OTs.data[row] && OTs.data[row][7],
-      proyecto: OTs.data[row] && OTs.data[row][14],
+      folio: OTs.data[row] && OTs.data[row][OTGrillaHistoricaEnum.folio],
+      estado: OTs.data[row] && OTs.data[row][OTGrillaHistoricaEnum.estado],
+      estado_id:
+        OTs.data[row] && OTs.data[row][OTGrillaHistoricaEnum.estado_id],
+      proyecto_codigo:
+        OTs.data[row] && OTs.data[row][OTGrillaHistoricaEnum.proyecto_codigo],
+      proyecto:
+        OTs.data[row] && OTs.data[row][OTGrillaHistoricaEnum.proyecto_titulo],
 
-      reporte_firma: OTs.data[row] && OTs.data[row][9],
-      reporte_atencion: OTs.data[row] && OTs.data[row][10],
-      orden_compra: OTs.data[row] && OTs.data[row][11],
-      numero_guia: OTs.data[row] && OTs.data[row][12],
-      numero_factura: OTs.data[row] && OTs.data[row][13],
+      reporte_firma:
+        OTs.data[row] && OTs.data[row][OTGrillaHistoricaEnum.reporte_firma],
+      reporte_atencion:
+        OTs.data[row] && OTs.data[row][OTGrillaHistoricaEnum.reporte_atencion],
+      orden_compra:
+        OTs.data[row] && OTs.data[row][OTGrillaHistoricaEnum.orden_compra],
+      numero_guia:
+        OTs.data[row] && OTs.data[row][OTGrillaHistoricaEnum.numero_guia],
+      numero_factura:
+        OTs.data[row] && OTs.data[row][OTGrillaHistoricaEnum.numero_factura],
 
-      area: OTs.data[row] && OTs.data[row][6],
+      area: OTs.data[row] && OTs.data[row][OTGrillaHistoricaEnum.areas],
     }));
     totoalTrabajosSeleccionados.value = newPkToDelete?.reduce(
       (acc: any, ot: any) => {

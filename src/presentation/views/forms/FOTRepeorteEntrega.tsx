@@ -39,7 +39,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
     formState: { errors },
     setValue,
   } = useForm<any>({ resolver: yupResolver(validationOTGuiaSchema()) });
-  const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
+  // const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
 
   const [numeroRepEntrega, setNumeroRepEntrega] = useState(null);
   // const { control, handleSubmit } = useForm<any>()
@@ -195,7 +195,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
     };
   }, [closeModal]);
 
-  const fechaFormateada = fechaHoraActual.toISOString().split("T")[0];
+  // const fechaFormateada = fechaHoraActual.toISOString().split("T")[0];
 
   return (
     <div className="useFormContainer centered-div w-[35rem]">
@@ -248,7 +248,7 @@ const FOTReporteEntrega: React.FC<Interface> = ({
                       label="Fecha Doc"
                       name="fecha_doc"
                       control={control}
-                      data={fechaFormateada}
+                      // data={fechaFormateada}
                       textAlign="text-center"
                       error={errors.fecha_doc}
                       customWidth={"labelInput inputStyles"}

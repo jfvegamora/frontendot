@@ -202,7 +202,6 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
         const validateArmazon = text && text[0] === "1" ? true : false;
         const validateCristal = text && text[1] === "1" ? true : false;
 
-        console.log(text);
         return (
           // <Text // Combina estilos inline y de objeto
           //   variant="small"
@@ -418,7 +417,7 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
                           >
                             {col === 0
                               ? renderCheckboxCell(rowIndex, folio, estado)
-                              : col === 3
+                              : col === OTGrillaEnum["validado"]
                               ? renderCjeckValidateCell(row)
                               : renderTextCell(
                                   row,

@@ -4,7 +4,7 @@ export const table_head_OT_diaria2 = [
     cell: <input type="checkbox" />,
     key: "checkbox",
     visible: true,
-    width: "w-[6rem]",
+    width: "w-[8rem]",
     alignment: "flex justify-center items-center",
   },
   //************ ÓPTICA */
