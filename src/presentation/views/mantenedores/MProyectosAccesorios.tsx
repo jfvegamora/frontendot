@@ -92,14 +92,14 @@ const MProyectosAccesorios: React.FC = () => {
                 selectUrl: "/api/proyectos/", 
                 styles:{
                   styles:"labelInput inputStyles",
-                  container:"!w-[20vw]  text-[1vw] translate-x-[1vw] ", 
+                  container:"!w-[auto]  text-[1vw] translate-x-[1vw] ", 
                   labelProps: "labelInput"
                 },
               },
               { name: "_p2", label: "Código Proyecto / Licitación", type: "text", 
                 styles:{
                   styles:"labelInput inputStyles",
-                  container:"!w-[20vw]  text-[1vw] !translate-x-[3vw] translate-y-[18%] mb-4 ", 
+                  container:"!w-[20vw]  text-[1vw] !translate-x-[12vw] translate-y-[18%] mb-4 ", 
                   labelProps: "-!translate-y-[-2vw] !text-[1.2vw] !font-[2vw]"
                 
                 }, },
