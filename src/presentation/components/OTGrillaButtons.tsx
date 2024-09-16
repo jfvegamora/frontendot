@@ -326,24 +326,25 @@ const OTGrillaButtons: React.FC<AreaButtonsProps> = React.memo(
       <div className="flex items-center">
         {/* { historica || (areaPermissions && areaPermissions[1] === '1')  && */}
         {/* { historica || */}
-        {permisos_usuario_areas !== "0" && (
-          <Tooltip content={BUTTON_MESSAGES.edit.concat(strEntidad)}>
-            <IconButton
-              variant="text"
-              color="blue-gray"
-              onClick={() => {
-                const loadingToast = toast.loading("Cargando...");
-                new Promise((_resolve) => {
-                  toggleEditOTModal(folio, historica, estado).finally(() => {
-                    toast.dismiss(loadingToast);
-                  });
+        {/* {permisos_usuario_areas !== "0" && ( */}
+        <Tooltip content={BUTTON_MESSAGES.edit.concat(strEntidad)}>
+          <IconButton
+            variant="text"
+            color="blue-gray"
+            onClick={() => {
+              const loadingToast = toast.loading("Cargando...");
+              new Promise((_resolve) => {
+                toggleEditOTModal(folio, historica, estado).finally(() => {
+                  toast.dismiss(loadingToast);
                 });
-              }}
-            >
-              <PencilIcon className="gridIcons" />
-            </IconButton>
-          </Tooltip>
-        )}
+              });
+            }}
+          >
+            <PencilIcon className="gridIcons" />
+          </IconButton>
+        </Tooltip>
+        {/* )} */}
+
         {areaPermissions &&
           areaPermissions[PermisosBotones.imprimir] === "1" &&
           permisos_usuario_areas !== "0" &&

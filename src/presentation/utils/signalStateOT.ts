@@ -19,6 +19,7 @@ import {
   CR2_OI_LAB,
 } from "./FOTCristales_utils";
 import { URLBackend } from "./config";
+import { OTPkToDelete, paramsOT } from "../views/mantenedores/MOT";
 
 export const dioptrias: any = signal<any>({
   ESF: [""],
@@ -806,6 +807,30 @@ export function validarValor(str: string) {
 
   return false;
 }
+
+export const validateFiltros = () => {
+  const folios = OTPkToDelete?.value.map(({ folio }: any) => folio);
+  const isValidateSameProject = OTPkToDelete.value.every(
+    (ot: any) =>
+      ot["proyecto_codigo"] === OTPkToDelete.value[0]["proyecto_codigo"]
+  );
+
+  if (OTPkToDelete.value.length === 0) {
+    return toast.error("No hay OT seleccionada.");
+  }
+
+  if (!isValidateSameProject) {
+    toast.error(`Folio ${folios} deben pertenecer al mismo proyecto`);
+    return true;
+  }
+
+  if (paramsOT.value.length === 0) {
+    toast.error("Debe seleccionar filtros de Busqueda");
+    return true;
+  }
+
+  return false;
+};
 
 export const fetchFechas = async (
   fecha_atencion: string,

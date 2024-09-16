@@ -171,11 +171,19 @@ const FReservarArmazones = () => {
   const handleRadioChange = (option: any) => {
     setSelectedOption(option);
     console.log(option);
+    setValue("Armazon1", "");
+    codArmazon1.value = "";
+    setValue("Armazon2", "");
+    codArmazon2.value = "";
+    codArmazon3.value = "";
+    setValue("Armazon3", "");
     const value = option === "+" ? "65" : "70";
     setValue("diametro", value);
   };
 
   const userID: any = useAppSelector((store: AppStore) => store.user?.id);
+  const hiddenInputRef = React.useRef<any>(null);
+
   // const userAgent = navigator.userAgent
   // const isMobile = /Mobi/.test(userAgent)
   // const navigate = useNavigate()
@@ -330,6 +338,7 @@ const FReservarArmazones = () => {
 
           const result = await axios(fetchURL);
           if (result.data && result.data[0] && result.data[0][19] !== "") {
+            hiddenInputRef.current.focus();
             toast.error(result.data[0][19]);
             isLoadingArmazon.value = false;
             clearInputsArmazones(armazon);
@@ -352,6 +361,7 @@ const FReservarArmazones = () => {
         } catch (error) {
           isLoadingArmazon.value = false;
           clearInputsArmazones(armazon);
+          hiddenInputRef.current.focus();
           toast.error("Error al validar Armazón.");
         }
       }
@@ -378,12 +388,14 @@ const FReservarArmazones = () => {
             resultValidateArmazon["armazonEnMuestrario"] &&
             resultValidateArmazon["armazonEnMuestrario"] === false
           ) {
+            hiddenInputRef.current.focus();
             toast.error("Armazon no se encuentra en el muestrario.");
             clearInputsArmazones(armazon);
           } else if (
             resultValidateArmazon["diametroEfectivo"] &&
             resultValidateArmazon["diametroEfectivo"] === false
           ) {
+            hiddenInputRef.current.focus();
             toast.error("Armazon no esta correctamente validado.");
             clearInputsArmazones(armazon);
           } else {
@@ -447,6 +459,7 @@ const FReservarArmazones = () => {
       setValue("rut_beneficiario", "");
       rutBeneficiarioSignal.value = "";
       clearRutCliente.value = !clearRutCliente.value;
+      hiddenInputRef.current.focus();
       toast.error("Rut no Válido.");
     } else {
       rutBeneficiarioSignal.value = e;
@@ -486,6 +499,7 @@ const FReservarArmazones = () => {
           clearRutCliente.value = !clearRutCliente.value;
           return toast.success("Armazones reservados correctamente");
         } else {
+          hiddenInputRef.current.focus();
           return toast.error(reservaResponse["data"][0][1]);
         }
       } catch (error) {
@@ -504,6 +518,7 @@ const FReservarArmazones = () => {
             console.log(resultExistBeneficiario);
 
             if (resultExistBeneficiario) {
+              hiddenInputRef.current.focus();
               toast.error("Ya existe un registro para este Beneficiario");
               return;
             }
@@ -516,6 +531,8 @@ const FReservarArmazones = () => {
 
             if (!resultExist.value) {
               console.log(resultExist);
+              hiddenInputRef.current.focus();
+
               toast.error(
                 `Armazon no pertenece al proyecto: ${resultExist.missingData}`
               );
@@ -566,11 +583,15 @@ const FReservarArmazones = () => {
               toast.success("Reserva guardada correctamente");
               clearTextInputs();
             } else {
+              hiddenInputRef.current.focus();
+
               toast.error("No se encontro codigo de armazon");
               throw new Error();
             }
           } catch (error) {
             console.log(error);
+            hiddenInputRef.current.focus();
+
             toast.error(error as string);
           } finally {
             db.close();
@@ -599,6 +620,11 @@ const FReservarArmazones = () => {
         codArmazon2.value === codArmazon1.value ||
         codArmazon3.value === codArmazon1.value
       ) {
+        hiddenInputRef.current.focus();
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth", // Para un desplazamiento suave
+        });
         toast.error("Códigos de Armazones no deben ser iguales");
         setValue("Armazon1", "");
         codArmazon1.value = "";
@@ -615,6 +641,7 @@ const FReservarArmazones = () => {
         codArmazon2.value === codArmazon1.value ||
         codArmazon3.value === codArmazon2.value
       ) {
+        hiddenInputRef.current.focus();
         toast.error("Códigos de Armazones no deben ser iguales");
         setValue("Armazon2", "");
         codArmazon2.value = "";
@@ -633,6 +660,7 @@ const FReservarArmazones = () => {
         codArmazon3.value === codArmazon1.value ||
         codArmazon3.value === codArmazon2.value
       ) {
+        hiddenInputRef.current.focus();
         toast.error("Códigos de Armazones no deben ser iguales");
         setValue("Armazon3", "");
         codArmazon3.value = "";
@@ -706,6 +734,7 @@ const FReservarArmazones = () => {
           ) {
             if (response03["data"] && response03["data"][0].includes("ERROR")) {
               console.log(response03["data"][0][1]);
+              hiddenInputRef.current.focus();
               toast.error(response03["data"][0][1]);
               return;
             }
@@ -826,6 +855,10 @@ const FReservarArmazones = () => {
             </Button>
           )}
         <div className="w-full h-[150vh] overflow-scroll">
+          <input
+            ref={hiddenInputRef}
+            style={{ position: "absolute", left: -1000 }}
+          />
           <div className="w-full !mb-5 rowForm ">
             <SelectInputComponent
               label="Proyecto"
@@ -933,6 +966,12 @@ const FReservarArmazones = () => {
                 name="dp"
                 handleChange={(e: any) => {
                   codDP.value = e.value;
+                  setValue("Armazon1", "");
+                  codArmazon1.value = "";
+                  setValue("Armazon2", "");
+                  codArmazon2.value = "";
+                  codArmazon3.value = "";
+                  setValue("Armazon3", "");
                 }}
                 data={formValues && formValues["dp"]}
                 isOT={true}

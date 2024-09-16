@@ -272,6 +272,7 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
                   const newSelectedRows = selectedRows?.filter(
                     (checkId: number) => checkId !== id
                   );
+
                   return setSelectedRows(newSelectedRows);
                 }
                 handleSelectChecked && handleSelectChecked(id);

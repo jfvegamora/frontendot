@@ -25,6 +25,7 @@ import { fetchDioptriaParametros } from "../../../redux/slices/utilsSlice";
 import { OTGrillaEnum } from "../../Enums";
 import TableComponent2 from "../../components/TableComponent2";
 import FilterComponent from "../../components/FilterComponent";
+// import { toast } from "react-toastify";
 // import OTPrimaryButtons from "../../components/OTPrimaryButtons";
 // import { OTGrillaEnum } from "../../Enums";
 // import axios from "axios";
@@ -143,76 +144,86 @@ const MOT: React.FC = () => {
   useEffect(() => {
     let cristalStock = "1";
 
-    const newPkToDelete = selectedRows?.map((row: number) => ({
-      folio: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.folio]}`,
-      estado_id: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_id]}`,
-      estado: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.estado]}`,
-      estado_impresion: `${
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_impresion]
-      }`,
-      armazones: [
-        { codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.a1_armazon_id] },
-        { codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.a2_armazon_id] },
-      ],
-      cristales: [
-        {
-          codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr1_od],
-          opcion_vta: cristalStock,
-        },
-        {
-          codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr1_oi],
-          opcion_vta: cristalStock,
-        },
-        {
-          codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr2_od],
-          opcion_vta: cristalStock,
-        },
-        {
-          codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr2_oi],
-          opcion_vta: cristalStock,
-        },
-      ],
-      proyecto_codigo: `${
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.proyecto_titulo]
-      }`,
-      proyecto: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.proyecto]}`,
-      punto_venta: `${
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.punto_venta]
-      }`,
-      tipo_anteojo: `${
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.tipo_anteojo_id]
-      }`,
-      estado_validacion: `${
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_validacion]
-      }`,
-      numero_envio: `${
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_envio]
-      }`,
-      numero_reporte_firma: `${
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_reporte_firma]
-      }`,
-      numero_reporte_atencion: `${
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_reporte_atencion]
-      }`,
-      numero_orden_compra: `${
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_oc]
-      }`,
-      numero_factura: `${
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_factura]
-      }`,
-      numero_guia: `${
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_guia]
-      }`,
-      usuario_id: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.usuario]}`,
-      ot_ubicacion: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.ubicacion]}`,
-      validar_parametrizacion: `${
-        OTs.data[row] && OTs.data[row][OTGrillaEnum.validar_parametrizacionm]
-      }`,
-    }));
+    const newPkToDelete = selectedRows?.map((row: number) => {
+      return {
+        folio: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.folio]}`,
+        estado_id: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_id]}`,
+        estado: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.estado]}`,
+        estado_impresion: `${
+          OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_impresion]
+        }`,
+        armazones: [
+          {
+            codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.a1_armazon_id],
+          },
+          {
+            codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.a2_armazon_id],
+          },
+        ],
+        cristales: [
+          {
+            codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr1_od],
+            opcion_vta: cristalStock,
+          },
+          {
+            codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr1_oi],
+            opcion_vta: cristalStock,
+          },
+          {
+            codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr2_od],
+            opcion_vta: cristalStock,
+          },
+          {
+            codigo: OTs.data[row] && OTs.data[row][OTGrillaEnum.cr2_oi],
+            opcion_vta: cristalStock,
+          },
+        ],
+        proyecto_codigo: `${
+          OTs.data[row] && OTs.data[row][OTGrillaEnum.proyecto_titulo]
+        }`,
+        proyecto: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.proyecto]}`,
+        punto_venta: `${
+          OTs.data[row] && OTs.data[row][OTGrillaEnum.punto_venta]
+        }`,
+        tipo_anteojo: `${
+          OTs.data[row] && OTs.data[row][OTGrillaEnum.tipo_anteojo_id]
+        }`,
+        estado_validacion: `${
+          OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_validacion]
+        }`,
+        numero_envio: `${
+          OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_envio]
+        }`,
+        numero_reporte_firma: `${
+          OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_reporte_firma]
+        }`,
+        numero_reporte_atencion: `${
+          OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_reporte_atencion]
+        }`,
+        numero_orden_compra: `${
+          OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_oc]
+        }`,
+        numero_factura: `${
+          OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_factura]
+        }`,
+        numero_guia: `${
+          OTs.data[row] && OTs.data[row][OTGrillaEnum.numero_guia]
+        }`,
+        usuario_id: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.usuario]}`,
+        ot_ubicacion: `${
+          OTs.data[row] && OTs.data[row][OTGrillaEnum.ubicacion]
+        }`,
+        validar_parametrizacion: `${
+          OTs.data[row] && OTs.data[row][OTGrillaEnum.validar_parametrizacionm]
+        }`,
+      };
+    });
+
+    // 0000002736
+    // 0000002738
 
     OTPkToDelete.value = newPkToDelete;
     setPkToDelete(newPkToDelete);
-
     checkCount.value = newPkToDelete.length;
     totoalTrabajosSeleccionados.value = newPkToDelete?.reduce(
       (acc: any, ot: any) => {

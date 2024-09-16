@@ -271,7 +271,6 @@ const OTSlice = createSlice({
     });
     builder.addCase(fetchOTImpresionByID.fulfilled, (state, action) => {
       state.impresionOT = [...state.impresionOT, action.payload];
-      console.log(action.payload);
 
       state.ot = [...state.ot, ...action.payload];
       return state;

@@ -346,6 +346,7 @@ const FOTValidarBodega: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       if (formatValue === "") {
         validationCodigoCristal1_od("");
       }
+      console.log(value.lenght);
 
       if (OT && OT[OTGrillaEnum.cr1_od] === formatValue && value.length >= 11) {
         console.log("render");
@@ -360,9 +361,9 @@ const FOTValidarBodega: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           validation_cristal1_od.value = "";
           errorSound.play();
           validationCodigoCristal1_od("");
-          toast.error("Código Cristal OD no corresponde.", {
-            autoClose: 500,
-          });
+          // toast.error("Código Cristal OD no corresponde.", {
+          //   autoClose: 500,
+          // });
           resetField("a1_od");
           setFormValues({ [name]: "" } as any);
         }

@@ -505,9 +505,9 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         validation_cristal1_od.value = "";
         errorSound.play();
         validateBodegaCristal1_od("");
-        toast.error("Código Cristal OD no corresponde.", {
-          autoClose: 500,
-        });
+        // toast.error("Código Cristal OD no corresponde.", {
+        //   autoClose: 500,
+        // });
         resetField("a1_od");
         setFormValues({ [name]: "" } as any);
       }
@@ -533,9 +533,9 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         validation_cristal1_oi.value = "";
         errorSound.play();
         validateBodegaCristal1_oi("");
-        toast.error("Código Cristal OI no correspsonde.", {
-          autoClose: 500,
-        });
+        // toast.error("Código Cristal OI no correspsonde.", {
+        //   autoClose: 500,
+        // });
         resetField("a1_oi");
         setFormValues({ [name]: "" } as any);
         // toast.error('Anteojo 1, Código cristal OI no son iguales')
@@ -563,9 +563,9 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           validation_cristal2_od.value = "";
           errorSound.play();
           validateBodegaCristal2_od("");
-          toast.error("Codigo Cristal 2 OD no corresponde.", {
-            autoClose: 500,
-          });
+          // toast.error("Codigo Cristal 2 OD no corresponde.", {
+          //   autoClose: 500,
+          // });
           resetField("a2_od");
           setFormValues({ [name]: "" } as any);
         }
@@ -592,9 +592,9 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           validation_cristal2_oi.value = "";
           errorSound.play();
           validateBodegaCristal2_oi("");
-          toast.error("Código de Cristal 2 OI no corresponde.", {
-            autoClose: 500,
-          });
+          // toast.error("Código de Cristal 2 OI no corresponde.", {
+          //   autoClose: 500,
+          // });
           resetField("a2_oi");
           setFormValues({ [name]: "" } as any);
         }
