@@ -241,12 +241,13 @@ const OTSlice = createSlice({
           acc[key] = 0;
           return acc;
         },
-        { S: 0 }
+        { S: 0, "Sin Ubicacion": 0 }
       );
 
       const reduce = action.payload.reduce((acc: any, ot: any) => {
         let estado_ot = ot[OTGrillaEnum.estado];
         let por_vencer = ot[OTGrillaEnum.por_vencer];
+        let sinUbicacion = ot[OTGrillaEnum.ubicacion];
 
         // Manejar el caso de por_vencer
         if (por_vencer === "S") {
@@ -254,6 +255,10 @@ const OTSlice = createSlice({
           acc[por_vencer]++;
         }
 
+        if (sinUbicacion === "") {
+          acc["Sin Ubicacion"] ??= 0;
+          acc["Sin Ubicacion"]++;
+        }
         // Manejar el caso de estado_ot
         acc[estado_ot] ??= 0; // Si acc[estado_ot] es undefined o null, lo inicializa a 0
         acc[estado_ot]++;

@@ -42,7 +42,7 @@ export const validationEmpaqueSchema = () =>
   });
 export const validationUbicacionSchema = () =>
   yup.object().shape({
-    ubicacion: yup.string().required(`${msg}`),
+    ubicacion: yup.string(),
   });
 
 //Schema OTHistorica Asignacion OC
@@ -611,7 +611,6 @@ export const validationTratamientosAdicionalesSchema = () =>
   yup.object().shape({
     descripcion: yup.string().required(`${msg}`),
   });
-
 
 /*************** S I S T E M A ***************/
 // Schema CARGOS

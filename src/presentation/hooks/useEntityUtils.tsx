@@ -17,31 +17,27 @@ import { fetchOTByID } from "../../redux/slices/OTSlice";
 import axios from "axios";
 import { URLBackend } from "../utils/config";
 
-
 export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
+  const baseUrl = baseURL(entityApiBaseUrl);
 
-  const baseUrl = baseURL(entityApiBaseUrl)
-
-  const [entity, setEntity]                    = useState<any | null>(null);
-  const [entities, setEntities]                = useState<never[]>([]);
-  const [pageSize, setPageSize]                = useState(1);
-  const [selectedRows, setSelectedRows]        = useState<number[]>([]);
-  const [isModalInsert, setisModalInsert]      = useState<boolean>(false);
-  const [isModalCopiar, setisModalCopiar]      = useState<boolean>(false);
-  const [isModalEdit, setIsModalEdit]          = useState<boolean>(false);
+  const [entity, setEntity] = useState<any | null>(null);
+  const [entities, setEntities] = useState<never[]>([]);
+  const [pageSize, setPageSize] = useState(1);
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  const [isModalInsert, setisModalInsert] = useState<boolean>(false);
+  const [isModalCopiar, setisModalCopiar] = useState<boolean>(false);
+  const [isModalEdit, setIsModalEdit] = useState<boolean>(false);
   const [isModalPermisoOT, setIsModalPermisOT] = useState<boolean>(false);
-  const [isEntityProfile, setIsEntityProfile]  = useState<boolean>(false);
-  const [isTraspaso, setIsTraspaso]            = useState<boolean>(false);
+  const [isEntityProfile, setIsEntityProfile] = useState<boolean>(false);
+  const [isTraspaso, setIsTraspaso] = useState<boolean>(false);
 
   const [onDelete, setDataGrid] = useState<boolean>(false);
   const { showModal } = useModal();
   const { deleteAllEntity, ListEntity } = useCrud(baseUrl);
 
   const dispatch = useAppDispatch();
-  const OTAreas:any = useAppSelector((store: AppStore) => store.OTAreas);
-  const areaActual = OTAreas["areaActual"]
-  
-  
+  const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
+  const areaActual = OTAreas["areaActual"];
 
   const refreshData = useCallback(() => {
     ListEntity("", query)
@@ -55,9 +51,9 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     setisModalInsert(true);
   }, []);
 
-  const toggleModalCopiar = useCallback(()=>{
-    setisModalCopiar(true)
-  },[])
+  const toggleModalCopiar = useCallback(() => {
+    setisModalCopiar(true);
+  }, []);
 
   const closeModal = useCallback(() => {
     setisModalInsert(false);
@@ -87,7 +83,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   //Metodo Check aLL
   const handleSelectedAll = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, row?: any) => {
-      console.log(row)
+      console.log(row);
       const selectedRowsLimited = event.target.checked ? row.slice(0, 500) : [];
       setSelectedRows(selectedRowsLimited);
     },
@@ -103,30 +99,42 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
 
   //METODO CHECK INDIVIDUAL
   const handleSelect = useCallback((rowIndex: number): void => {
-    setSelectedRows((prevSelectedRow) =>{
-      if(prevSelectedRow.length >= 500){
-        toast.error("Ya tienes 500 elementos seleccionados")
+    setSelectedRows((prevSelectedRow) => {
+      if (prevSelectedRow.length >= 500) {
+        toast.error("Ya tienes 500 elementos seleccionados");
         return prevSelectedRow;
       }
       return prevSelectedRow.includes(rowIndex)
-      ? prevSelectedRow.filter((selectedRow) => selectedRow !== rowIndex)
-      : [...prevSelectedRow, rowIndex]
+        ? prevSelectedRow.filter((selectedRow) => selectedRow !== rowIndex)
+        : [...prevSelectedRow, rowIndex];
     });
   }, []);
 
-
-  const toggleEditOTModal = useCallback(async(folio:any,historica:any, estado?:any)=>{
+  const toggleEditOTModal = useCallback(
+    async (folio: any, historica: any, estado?: any) => {
       try {
-      const endpoint = historica === false ? `${URLBackend}/api/ot/listado/?query=01&_p1=${folio}&_estado=${estado}&_p2=0` : `${URLBackend}/api/othistorica/listado/?query=01&_p1=${folio}&_estado=${estado}&_p2=0`
-      const response = await axios(endpoint)
-      setEntity(response.data[0])
-      dispatch(fetchOTByID({ folio: folio, OTAreas: areaActual, historica: historica, estado:estado }));
-      setIsModalEdit(true);
-      return ''
+        const endpoint =
+          historica === false
+            ? `${URLBackend}/api/ot/listado/?query=01&_p1=${folio}&_estado=${estado}&_p2=0`
+            : `${URLBackend}/api/othistorica/listado/?query=01&_p1=${folio}&_estado=${estado}&_p2=0`;
+        const response = await axios(endpoint);
+        setEntity(response.data[0]);
+        dispatch(
+          fetchOTByID({
+            folio: folio,
+            OTAreas: areaActual,
+            historica: historica,
+            estado: estado,
+          })
+        );
+        setIsModalEdit(true);
+        return "";
       } catch (error) {
-        throw error;        
+        throw error;
       }
-  },[])
+    },
+    []
+  );
 
   //METODO EDITAR DE LA GRILLA
   const toggleEditModal = useCallback(
@@ -140,18 +148,15 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     },
     [entities]
   );
-  
-  const toggleTraspaso = useCallback(()=>{
-    setIsTraspaso((prev)=>!prev)
-  },[entities])
-  
+
+  const toggleTraspaso = useCallback(() => {
+    setIsTraspaso((prev) => !prev);
+  }, [entities]);
+
   //METODO PERMISOS DE OT USUARIO DE LA GRILLA
-  const togglePermisoOTModal = useCallback(
-    () => {
-      setIsModalPermisOT((prev) => !prev);
-    },
-    [entities]
-  );
+  const togglePermisoOTModal = useCallback(() => {
+    setIsModalPermisOT((prev) => !prev);
+  }, [entities]);
 
   //METODO EXCEL DE LA GRILLA
   const toggleExcel = useCallback(
@@ -164,8 +169,6 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     },
     [entities]
   );
-
-  
 
   const handleDeleteSelected = useCallback(
     async (rowData?: any, comilla?: string) => {
@@ -201,7 +204,6 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     },
     [selectedRows, showModal]
   );
-  
 
   return {
     openModal,

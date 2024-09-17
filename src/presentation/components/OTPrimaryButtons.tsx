@@ -577,8 +577,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       if (folio === "") {
         return;
       }
-      // 0000002727
-      // 0000002728
+      // 0000002736
+      // 0000002738
       // 0000002726
 
       // console.log(otdata.some((ot)=>ot[1] === 2736))
@@ -592,10 +592,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           if (!prev.includes(resultIndex)) {
             return [...prev, resultIndex];
           } else {
-            const filteredPrev = prev.filter(
-              (item: any) => item !== resultIndex
-            );
-            return [...filteredPrev];
+            // const filteredPrev = prev.filter(
+            //   (item: any) => item !== resultIndex
+            // );
+            // return [...filteredPrev];
+            return prev;
           }
         });
         // setValueSearchOT("")
