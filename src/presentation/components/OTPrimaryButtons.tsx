@@ -5,6 +5,7 @@ import { SiAddthis } from "react-icons/si";
 import { PiPrinterFill } from "react-icons/pi";
 import { LuBox } from "react-icons/lu";
 import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
+import { EnumGrid as EnumClientes } from "../views/mantenedores/MClientes";
 import {
   BUTTON_MESSAGES,
   clearAllCheck,
@@ -77,7 +78,7 @@ export const resultValidarBodega = signal<any>({
 
 export const valueSearchOT = signal<any>("");
 export const valueConfirmOT = signal<any>("");
-
+export const foliosSinTelefono = signal<any>([]);
 export const valueConfirmArmazon = signal<any>("");
 export const valueConfirmCristal = signal<any>("");
 const strEntidad = "Ordenen de Trabajo";
@@ -655,8 +656,32 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       }
     };
 
-    const handleWhatsappMasivo = () => {
-      console.log("click");
+    const handleWhatsappMasivo = async () => {
+      if (OTPkToDelete.value.length === 0) {
+        return toast.error("No hay OT seleccionada.");
+      }
+      const toastLoading = toast.loading("Cargando...");
+      const request = OTPkToDelete.value.map(async (OT: any) => {
+        try {
+          const { data } = await axios(
+            `${URLBackend}/api/clientes/listado/?query=01&_p1=${OT.rut_cliente}`
+          );
+          if (data && data[0][EnumClientes.telefono].trim() === "") {
+            foliosSinTelefono.value = [
+              {
+                folio: OT.folio,
+                rut_cliente: OT.rut_cliente,
+              },
+            ];
+          }
+        } catch (error) {
+          return error;
+        }
+      });
+
+      await Promise.all(request);
+      console.log(foliosSinTelefono.value);
+      toast.dismiss(toastLoading);
       setIsWhastApp((prev) => !prev);
     };
 
@@ -1179,7 +1204,9 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           permiso_usuario_btn_whatsapp &&
           renderButton(
             <SocialIcon
-              onClick={(e) => e.preventDefault()}
+              onClick={(e) => {
+                e.preventDefault();
+              }}
               url="https://www.whatsapp.com/"
             />,
             handleWhatsappMasivo!,

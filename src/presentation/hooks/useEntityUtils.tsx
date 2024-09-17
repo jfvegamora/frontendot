@@ -47,7 +47,8 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
       });
   }, [pageSize, onDelete, query]);
 
-  const openModal = useCallback(() => {
+  const openModal = useCallback((prop?: any) => {
+    console.log(prop);
     setisModalInsert(true);
   }, []);
 

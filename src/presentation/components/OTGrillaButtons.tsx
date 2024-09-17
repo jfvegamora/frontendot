@@ -322,6 +322,8 @@ const OTGrillaButtons: React.FC<AreaButtonsProps> = React.memo(
 
     const { permiso_usaurio_btn_impresion } = usePermissionBotonesUser();
 
+    console.log(OTAreas["areaActual"]);
+
     return (
       <div className="flex items-center">
         {/* { historica || (areaPermissions && areaPermissions[1] === '1')  && */}
@@ -373,6 +375,22 @@ const OTGrillaButtons: React.FC<AreaButtonsProps> = React.memo(
               </IconButton>
             </Tooltip>
           )} */}
+        {/* {OTAreas["areaActual"] === 100 && (
+          <Suspense>
+            <Tooltip content="Enviar Mensaje WSP">
+              <IconButton variant="text" color="blue-gray" onClick={() => {}}>
+                <Suspense>
+                  <SocialIcon
+                    className="!w-10 !h-10"
+                    onClick={(e) => e.preventDefault()}
+                    url="https://www.whatsapp.com/"
+                  />
+                </Suspense>
+              </IconButton>
+            </Tooltip>
+          </Suspense>
+        )} */}
+
         {isFotImpresa && (
           <Suspense>
             <div className="hidden">

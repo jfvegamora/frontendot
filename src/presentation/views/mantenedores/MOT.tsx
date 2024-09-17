@@ -56,6 +56,7 @@ export enum OptionValuesEstado {
 
 export const checkCount = signal(0);
 export const totoalTrabajosSeleccionados = signal(0);
+export const areaActualOTSignal = signal(0);
 
 // const idMenu = 1;
 export const paramsOT = signal("");
@@ -151,6 +152,9 @@ const MOT: React.FC = () => {
         estado: `${OTs.data[row] && OTs.data[row][OTGrillaEnum.estado]}`,
         estado_impresion: `${
           OTs.data[row] && OTs.data[row][OTGrillaEnum.estado_impresion]
+        }`,
+        rut_cliente: `${
+          OTs.data[row] && OTs.data[row][OTGrillaEnum.cliente_rut]
         }`,
         armazones: [
           {

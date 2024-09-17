@@ -145,18 +145,6 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
       [User.token]
     );
 
-    // console.log(areaActual)
-    // console.log(OTAreas.areas)
-
-    // const permissions = (area:number) => areaActual && OTAreas["areas"].find((permiso:any)=>permiso[1] === area)
-
-    // useEffect(()=>{
-    //   // console.log('render')
-    //   const permiso = areaActual && permissions(areaActual)
-    //       // console.log(permiso)
-    //   setOTPermissions(permiso && permiso[5])
-    // },[areaActual])
-
     const renderButton = useCallback(
       (icon: React.ReactNode, handle: () => void, tooltip: string) => (
         <Tooltip content={tooltip}>
@@ -174,25 +162,6 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
       ),
       [escritura_lectura]
     );
-
-    // if(isOT){
-    //   return (
-    //     <Suspense>
-    //       <OTPrimaryButtons
-    //         areaName={"name"}
-    //         areaPermissions={OTPermissions}
-    //         areaActual={areaActual}
-    //         handleAddPerson={handleAddPerson}
-    //         params={params}
-    //         setSelectedRows={setSelectedRows}
-
-    //       />
-    //     </Suspense>
-    //   )
-    // }
-
-    console.log(escritura_lectura);
-    console.log(showExportButton);
 
     return (
       <div className={`primaryBtnContainer ${classname ? classname : ""}`}>
