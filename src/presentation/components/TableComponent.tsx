@@ -277,9 +277,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                             type="checkbox"
                             checked={clearAllCheck.value}
                             onChange={(e) => {
-                              console.log("click");
-                              console.log(clearAllCheck.value);
-                              console.log(disabledIndividualCheck.value);
+                              console.log(rowIds);
                               clearAllCheck.value = !clearAllCheck.value;
                               handleSelectedCheckedAll &&
                                 handleSelectedCheckedAll(e, rowIds);

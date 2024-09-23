@@ -1,27 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  Suspense,
-  useMemo,
-} from "react";
+import React, { useState, useEffect, useCallback, Suspense } from "react";
 import { Stack, Text } from "@chakra-ui/react";
 import { signal } from "@preact/signals-react";
 
 import { usePermission } from "../hooks";
-import {
-  clearAllCheck,
-  clearIndividualCheck,
-  disabledIndividualCheck,
-} from "../utils";
+import { disabledIndividualCheck } from "../utils";
 import { AppStore, useAppSelector } from "../../redux/store";
 
-import { OTAreasEnum, OTGrillaEnum, PermisosBotones } from "../Enums";
+import { OTGrillaEnum, PermisosBotones } from "../Enums";
 
 import { usePermissionBotonesUser } from "../hooks/usePermissionBotonesUser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { paramsOT } from "../views/mantenedores/MOT";
 
 const OTGrillaButtons = React.lazy(() => import("./OTGrillaButtons"));
 
@@ -93,6 +84,7 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
         data: state.OTS.data,
       })
     );
+    const { permiso_usuario_btn_check } = usePermissionBotonesUser();
 
     const permissions = React.useCallback(
       (area: number) =>
@@ -100,8 +92,6 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
         OTAreas["areas"].find((permiso: any) => permiso[1] === area),
       [OTAreaActual, OTAreas]
     );
-
-    const { permiso_usuario_btn_check } = usePermissionBotonesUser();
 
     let permiso_area_check = React.useMemo(
       () =>
@@ -254,36 +244,38 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
       [handleColorEstado, OTAreaActual]
     );
 
-    React.useEffect(() => {
-      if (clearIndividualCheck.value === true) {
-        setSelectedRows([]);
-        clearIndividualCheck.value = false;
-      }
-    }, [clearIndividualCheck.value]);
+    // React.useEffect(() => {
+    //   if (clearIndividualCheck.value === true) {
+    //     setSelectedRows([]);
+    //     clearIndividualCheck.value = false;
+    //   }
+    // }, [clearIndividualCheck.value]);
 
     const renderCheckboxCell = React.useCallback(
       (id: number, folio: number, estado?: any) => {
         return (
           <>
-            <input
-              checked={selectedRows && selectedRows.includes(id)}
-              onChange={() => {
-                if (clearAllCheck.value && selectedRows?.includes(id)) {
-                  const newSelectedRows = selectedRows?.filter(
-                    (checkId: number) => checkId !== id
-                  );
+            {permiso_area_check && (
+              <input
+                checked={selectedRows && selectedRows.includes(id)}
+                onChange={() => {
+                  if (selectedRows?.includes(id)) {
+                    const newSelectedRows = selectedRows?.filter(
+                      (checkId: number) => checkId !== id
+                    );
 
-                  return setSelectedRows(newSelectedRows);
+                    return setSelectedRows(newSelectedRows);
+                  }
+                  handleSelectChecked && handleSelectChecked(id);
+                }}
+                type="checkbox"
+                disabled={
+                  disabledIndividualCheck.value ||
+                  !(permiso_usuario_btn_check && permiso_area_check)
                 }
-                handleSelectChecked && handleSelectChecked(id);
-              }}
-              type="checkbox"
-              disabled={
-                disabledIndividualCheck.value ||
-                !(permiso_usuario_btn_check && permiso_area_check)
-              }
-              className="mx-6"
-            />
+                className="mx-6"
+              />
+            )}
             <Suspense>
               <OTGrillaButtons
                 id={id}
@@ -311,26 +303,32 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
 
     // if (!data || data.length === 0) return null;
 
-    const dinamicTableHead = useMemo(() => {
-      return tableHead.map((th: any) => {
-        const updatedTh = { ...th };
+    // const dinamicTableHead = useMemo(() => {
+    //   return tableHead.map((th: any) => {
+    //     const updatedTh = { ...th };
 
-        if (OTAreaActual === OTAreasEnum["Bodega Insumos"]) {
-          if (updatedTh.key === "validation_armazon_cristal") {
-            updatedTh.visible = true;
-          }
-        } else {
-          // Cuando no estamos en "Bodega Insumos", aseguramos que el visible sea false
-          if (updatedTh.key === "validation_armazon_cristal") {
-            updatedTh.visible = false;
-          }
-        }
+    //     if (OTAreaActual === OTAreasEnum["Bodega Insumos"]) {
+    //       if (updatedTh.key === "validation_armazon_cristal") {
+    //         updatedTh.visible = true;
+    //       }
+    //     } else {
+    //       // Cuando no estamos en "Bodega Insumos", aseguramos que el visible sea false
+    //       if (updatedTh.key === "validation_armazon_cristal") {
+    //         updatedTh.visible = false;
+    //       }
+    //     }
 
-        return updatedTh;
-      });
-    }, [OTAreaActual]);
+    //     return updatedTh;
+    //   });
+    // }, [OTAreaActual]);
 
-    console.log(dinamicTableHead);
+    React.useEffect(() => {
+      const target = { target: { checked: true } };
+      if (!permiso_area_check && paramsOT.value !== "") {
+        handleSelectedCheckedAll &&
+          handleSelectedCheckedAll(target, indicesOT.value);
+      }
+    }, [paramsOT.value, OTAreaActual, indicesOT.value]);
 
     return (
       <div className="gridCointainer">
@@ -350,17 +348,19 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
                       >
                         {column.key === "checkbox" ? (
                           <input
-                            className="checkTable"
+                            className={`checkTable ${
+                              permiso_area_check ? "" : "hidden"
+                            }`}
                             type="checkbox"
                             disabled={
                               !(permiso_usuario_btn_check && permiso_area_check)
                             }
-                            checked={clearAllCheck.value}
-                            onChange={(e) => {
-                              clearAllCheck.value = !clearAllCheck.value;
-                              handleSelectedCheckedAll &&
-                                handleSelectedCheckedAll(e, indicesOT.value);
-                            }}
+                            // checked={clearAllCheck.value}
+                            // onChange={(e) => {
+                            //   clearAllCheck.value = !clearAllCheck.value;
+                            //   handleSelectedCheckedAll &&
+                            //     handleSelectedCheckedAll(e, indicesOT.value);
+                            // }}
                           />
                         ) : (
                           renderTextCell(column.cell as string)

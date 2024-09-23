@@ -8,9 +8,6 @@ import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { EnumGrid as EnumClientes } from "../views/mantenedores/MClientes";
 import {
   BUTTON_MESSAGES,
-  clearAllCheck,
-  clearIndividualCheck,
-  disabledIndividualCheck,
   reiniciarValidationNivel3,
   updateOT,
   validateFiltros,
@@ -60,6 +57,7 @@ type AreaButtonsProps = {
 export const dataOTSignal = signal([]);
 export const isFinishImpression = signal(false);
 export const barCodeSignal = signal("");
+export const dataWsp = signal<any>({});
 
 export const isValidateCR1OD = signal(false);
 export const isValidateCR1OI = signal(false);
@@ -344,9 +342,9 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               searchParams: paramsOT.value,
             })
           );
-          setSelectedRows([]);
+          // setSelectedRows([]);
           checkCount.value = 0;
-          clearAllCheck.value = false;
+          // clearAllCheck.value = false;
           toast.dismiss(toastLoading);
         }
 
@@ -395,7 +393,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       if (isValidateFiltros) {
         return;
       }
-      disabledIndividualCheck.value = true;
+      // disabledIndividualCheck.value = true;
       const toastLoading = toast.loading("Imprimiendo OTs.");
       const primerProyectoCodigo = OTPkToDelete.value[0].proyecto_codigo;
       const todosIguales = OTPkToDelete.value
@@ -431,8 +429,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
       if (!todosIguales) {
         toast.dismiss(toastLoading);
-        disabledIndividualCheck.value = false;
-        clearAllCheck.value = false;
+        // disabledIndividualCheck.value = false;
+        // clearAllCheck.value = false;
         setSelectedRows([]);
         toast.error("Las OTs no pertenecen al mismo proyecto");
         return;
@@ -463,16 +461,16 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             })
           ).then(() => {
             toast.dismiss(toastLoading);
-            disabledIndividualCheck.value = false;
-            clearAllCheck.value = false;
+            // disabledIndividualCheck.value = false;
+            // clearAllCheck.value = false;
             setSelectedRows([]);
           });
         });
       } catch (error) {
         toast.dismiss(toastLoading);
-        clearAllCheck.value = false;
+        // clearAllCheck.value = false;
         setSelectedRows([]);
-        disabledIndividualCheck.value = false;
+        // disabledIndividualCheck.value = false;
         return;
       }
     };
@@ -496,7 +494,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             masivo,
             User
           ).then(() => {
-            clearIndividualCheck.value = true;
+            // clearIndividualCheck.value = true;
 
             dispatch(
               fetchOT({
@@ -505,7 +503,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               })
             );
 
-            clearAllCheck.value = false;
+            // clearAllCheck.value = false;
             isFinishImpression.value = false;
             // const loadingToast = toast.load ing('Cargando...')
             // OTPkToDelete.value.map((ot:any)=>{
@@ -660,17 +658,54 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       if (OTPkToDelete.value.length === 0) {
         return toast.error("No hay OT seleccionada.");
       }
+      let datalocapwsp: any = [];
+      let foliosintelefonolocal: any = [];
+
       const toastLoading = toast.loading("Cargando...");
+
       const request = OTPkToDelete.value.map(async (OT: any) => {
         try {
           const { data } = await axios(
             `${URLBackend}/api/clientes/listado/?query=01&_p1=${OT.rut_cliente}`
           );
+          const { data: mensajeWSP } = await axios(
+            `${URLBackend}/api/parametros/listado/?query=01&_p1=p35`
+          );
           if (data && data[0][EnumClientes.telefono].trim() === "") {
-            foliosSinTelefono.value = [
+            foliosintelefonolocal = [
+              ...foliosintelefonolocal,
               {
                 folio: OT.folio,
                 rut_cliente: OT.rut_cliente,
+                mensaje: "Número no asignado",
+              },
+            ];
+          } else {
+            let parseNumber = data[0][EnumClientes.telefono]
+              .split(" ")
+              .join("");
+
+            if (parseNumber.length < 8) {
+              foliosintelefonolocal = [
+                ...foliosintelefonolocal,
+                {
+                  folio: OT.folio,
+                  rut_cliente: OT.rut_cliente,
+                  mensaje: "Número ingresado incorrecto",
+                },
+              ];
+            } else {
+              parseNumber = "+569".concat(parseNumber.slice(-8));
+            }
+
+            datalocapwsp = [
+              ...datalocapwsp,
+              {
+                nombre: data[0][EnumClientes.nombre],
+                telefono: parseNumber,
+                folio: OT.folio,
+                mensajeEnviado: false,
+                mensaje: mensajeWSP[0][3],
               },
             ];
           }
@@ -680,7 +715,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       });
 
       await Promise.all(request);
+      dataWsp.value = datalocapwsp;
+      foliosSinTelefono.value = foliosintelefonolocal;
       console.log(foliosSinTelefono.value);
+      console.log(datalocapwsp);
+      console.log(dataWsp.value);
       toast.dismiss(toastLoading);
       setIsWhastApp((prev) => !prev);
     };
@@ -781,7 +820,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             );
             setSelectedRows([]);
             checkCount.value = 0;
-            clearAllCheck.value = false;
+            // clearAllCheck.value = false;
           })
           .catch(() => {
             toast.error("Error al Ejecutar el proceso.");
@@ -876,9 +915,9 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               "Procesada"
             ).then(() => {
               // dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
-              setSelectedRows([]);
-              checkCount.value = 0;
-              clearAllCheck.value = false;
+              // setSelectedRows([]);
+              // checkCount.value = 0;
+              // clearAllCheck.value = false;
             });
           });
 
@@ -890,9 +929,9 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               searchParams: paramsOT.value,
             })
           );
-          setSelectedRows([]);
-          checkCount.value = 0;
-          clearAllCheck.value = false;
+          // setSelectedRows([]);
+          // checkCount.value = 0;
+          // clearAllCheck.value = false;
           toast.dismiss(toastLoading);
           toast.success("OTs Procesadas Correctamente", {
             autoClose: 900,
@@ -1453,7 +1492,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                 onChange={async (e: any) => {
                   if (e.target.value !== "") {
                     let validateValue = e.target.value;
-                    clearIndividualCheck.value = true;
                     if (validateValue.length >= 10) {
                       console.log(validateValue);
                       const regex = /^0+/;
@@ -1498,7 +1536,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                 onChange={async (e: any) => {
                   if (e.target.value !== "") {
                     let validateValue = e.target.value;
-                    clearIndividualCheck.value = true;
                     if (validateValue.length >= 10) {
                       const regex = /^0+/;
                       valueConfirmCristal.value = validateValue.replace(
@@ -1944,7 +1981,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         <Suspense>
           {isFOTUbicacion && (
             <FOTUbicacion
-              setSelectedRows={setSelectedRows}
               pkToDelete={OTPkToDelete.value}
               closeModal={() => setIsFOTUbicacion(false)}
             />

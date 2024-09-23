@@ -6,8 +6,6 @@ import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 // import { SEXO, TIPO_CLIENTE } from '../../utils';
 import { Button } from "@material-tailwind/react";
 import {
-  clearAllCheck,
-  clearIndividualCheck,
   updateOT,
   validationMotivosOTSchema,
   validationNivel1,
@@ -106,8 +104,6 @@ const FOTDerivacion: React.FC<IDerivacion> = ({
             searchParams: paramsOT.value,
           })
         );
-        clearAllCheck.value = false;
-        clearIndividualCheck.value = true;
       }
     } else {
       const sumatoriaNivel1 = validationNivel1.value.reduce(
@@ -140,7 +136,6 @@ const FOTDerivacion: React.FC<IDerivacion> = ({
             searchParams: paramsOT.value,
           })
         );
-        clearAllCheck.value = false;
       });
     }
   };

@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import { fetchOT } from "../../../redux/slices/OTSlice";
 import { TextInputComponent } from "../../components";
-import { MODAL, TITLES, clearAllCheck } from "../../utils";
+import { MODAL, TITLES } from "../../utils";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -22,11 +22,7 @@ interface Interface {
   setSelectedRows?: any;
 }
 
-const FOTReporteFirma: React.FC<Interface> = ({
-  closeModal,
-  pkToDelete,
-  setSelectedRows,
-}) => {
+const FOTReporteFirma: React.FC<Interface> = ({ closeModal, pkToDelete }) => {
   const strUrl = `${URLBackend}/api/proyectodocum/listado`;
   const {
     control,
@@ -112,7 +108,6 @@ const FOTReporteFirma: React.FC<Interface> = ({
       );
 
       if (!result) {
-        setSelectedRows([]);
         return;
       }
     }
@@ -146,13 +141,11 @@ const FOTReporteFirma: React.FC<Interface> = ({
       if (resultQuery07?.status === 200) {
         toast.success("Reporte de firmas generado");
         toast.dismiss(toastLoading);
-        clearAllCheck.value = false;
         dispatch(fetchOT({ OTAreas: OTAreas, searchParams: paramsOT.value }));
       } else {
         toast.dismiss(toastLoading);
         toast.error("error: Reporte de firmas");
       }
-      setSelectedRows([]);
       closeModal();
       toast.dismiss(toastLoading);
     } catch (error) {

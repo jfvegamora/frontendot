@@ -1,6 +1,6 @@
 import React from "react";
 import { AppStore, useAppSelector } from "../../redux/store";
-import { OTGrillaEnum } from "../Enums";
+import { OTGrillaEnum, PermisosBotones } from "../Enums";
 import { totoalTrabajosSeleccionados } from "../views/mantenedores/MOT";
 import { Tooltip } from "@material-tailwind/react";
 import { LuBox } from "react-icons/lu";
@@ -28,6 +28,14 @@ let width = "w-[6vw]";
 const StateCountBarOT: React.FC<IStateCountBar> = React.memo(
   ({ checkCount, isMotHistorica }) => {
     const OTs: any = useAppSelector((store: AppStore) => store.OTS);
+    const [OTPermissions, setOTPermissions] = React.useState("");
+    const { OTAreaActual, OTAreas } = useAppSelector((state: AppStore) => ({
+      OTAreaActual:
+        state.OTAreas.areaActual ||
+        JSON.parse(localStorage.getItem("OTAreas") || ""),
+      OTAreas:
+        state.OTAreas || JSON.parse(localStorage.getItem("areaActual") || ""),
+    }));
     const [stateCheckCount, setStateCheckCount] = React.useState(
       checkCount.value
     );
@@ -48,6 +56,26 @@ const StateCountBarOT: React.FC<IStateCountBar> = React.memo(
       }, 0);
       setNewCountAnteojos(newCount);
     }, [OTs.data]);
+
+    const permissions = React.useCallback(
+      (area: number) =>
+        OTAreaActual &&
+        OTAreas["areas"].find((permiso: any) => permiso[1] === area),
+      [OTAreaActual, OTAreas]
+    );
+
+    let permiso_area_check = React.useMemo(
+      () =>
+        OTPermissions && OTPermissions[PermisosBotones.check] === "1"
+          ? true
+          : false,
+      [OTPermissions]
+    );
+
+    React.useEffect(() => {
+      const permiso = permissions(OTAreaActual);
+      setOTPermissions(permiso && permiso[6]);
+    }, [OTAreaActual, permissions]);
 
     return (
       <>
@@ -120,7 +148,7 @@ const StateCountBarOT: React.FC<IStateCountBar> = React.memo(
             </div>
           )}
 
-          {stateCheckCount >= 1 && (
+          {stateCheckCount >= 1 && permiso_area_check && (
             <div className="w-[8vw] flex mx-2 ">
               <p className="text-center">Checked: </p>{" "}
               <label className="text-center ">{stateCheckCount}</label>

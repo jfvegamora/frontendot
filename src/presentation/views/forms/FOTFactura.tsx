@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import { fetchOT } from "../../../redux/slices/OTSlice";
 import { TextInputComponent } from "../../components";
-import { clearAllCheck, MODAL, TITLES } from "../../utils";
+import { MODAL, TITLES } from "../../utils";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -26,7 +26,6 @@ interface IDerivacion {
 // const strUrlOT = `${URLBackend}/api/othistorica/listado`;
 
 const FOTFactura: React.FC<IDerivacion> = ({
-  setSelectedRows,
   closeModal,
   pktoDelete,
   otArchivo,
@@ -134,13 +133,11 @@ const FOTFactura: React.FC<IDerivacion> = ({
       if (resultQuery07?.status === 200) {
         toast.success("Número factura asignado.");
         toast.dismiss(toastLoading);
-        clearAllCheck.value = false;
         otArchivo
           ? dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
           : dispatch(
               fetchOT({ OTAreas: OTAreas, searchParams: paramsOT.value })
             );
-        setSelectedRows([]);
         closeModal();
         toast.dismiss(toastLoading);
         // const query06 = {
@@ -157,7 +154,6 @@ const FOTFactura: React.FC<IDerivacion> = ({
         toast.dismiss(toastLoading);
         toast.error("error: Factura");
       }
-      setSelectedRows([]);
       closeModal();
       toast.dismiss(toastLoading);
     } catch (error) {

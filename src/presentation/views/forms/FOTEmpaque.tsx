@@ -3,12 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import { fetchOT } from "../../../redux/slices/OTSlice";
 import { TextInputComponent } from "../../components";
-import {
-  MODAL,
-  TITLES,
-  clearAllCheck,
-  validationOTNumeroEnvio,
-} from "../../utils";
+import { MODAL, TITLES, validationOTNumeroEnvio } from "../../utils";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -27,11 +22,7 @@ interface IFOTEmpaque {
   params?: string[];
 }
 
-const FOTEmpaque: React.FC<IFOTEmpaque> = ({
-  setSelectedRows,
-  closeModal,
-  pktoDelete,
-}) => {
+const FOTEmpaque: React.FC<IFOTEmpaque> = ({ closeModal, pktoDelete }) => {
   const strUrl = `${URLBackend}/api/proyectodocum/listado`;
   const {
     control,
@@ -108,13 +99,11 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
       if (resultQuery07?.status === 200) {
         toast.success("Número de Envío generado");
         toast.dismiss(toastLoading);
-        clearAllCheck.value = false;
         dispatch(fetchOT({ OTAreas: OTAreas, searchParams: paramsOT.value }));
       } else {
         toast.dismiss(toastLoading);
         toast.error("error: Número de envío");
       }
-      setSelectedRows([]);
       closeModal();
       toast.dismiss(toastLoading);
     } catch (error) {
@@ -128,7 +117,6 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setSelectedRows([]);
         closeModal();
       }
     };

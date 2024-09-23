@@ -7,8 +7,6 @@ import { PencilIcon } from "@heroicons/react/24/solid";
 // import { usePermission } from '../hooks';
 import {
   BUTTON_MESSAGES,
-  clearAllCheck,
-  clearIndividualCheck,
   disabledIndividualCheck,
   isToggleImpression,
 } from "../utils";
@@ -88,9 +86,9 @@ export const setEstadoImpresion = async (
     console.log(result);
 
     if (masivo) {
-      clearAllCheck.value = false;
-      clearIndividualCheck.value = true;
-      console.log(masivo);
+      // clearAllCheck.value = false;
+      // clearIndividualCheck.value = true;
+      // console.log(masivo);
       return;
     }
 
@@ -191,7 +189,6 @@ const OTGrillaButtons: React.FC<AreaButtonsProps> = React.memo(
             false,
             user
           ).then(() => {
-            clearIndividualCheck.value = true;
             dispatch(
               fetchOT({
                 OTAreas: OTAreas["areaActual"],
@@ -199,7 +196,7 @@ const OTGrillaButtons: React.FC<AreaButtonsProps> = React.memo(
               })
             );
             console.log("render");
-            clearAllCheck.value = false;
+            // clearAllCheck.value = false;
             folioActual.value = false;
             toast.dismiss(toastloading);
           });

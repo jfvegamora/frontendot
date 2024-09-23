@@ -1,11 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import {
-  clearAllCheck,
-  clearIndividualCheck,
-  disabledIndividualCheck,
-  isToggleImpression,
-} from "./signalStateOT";
+import { disabledIndividualCheck, isToggleImpression } from "./signalStateOT";
 import { URLBackend } from "./config";
 
 export const setEstadoImpresion = async (
@@ -36,9 +31,6 @@ export const setEstadoImpresion = async (
     console.log(result);
 
     if (masivo) {
-      clearAllCheck.value = false;
-      clearIndividualCheck.value = true;
-      console.log(masivo);
       return;
     }
 

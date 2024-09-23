@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import { fetchOT } from "../../../redux/slices/OTSlice";
 import { TextInputComponent } from "../../components";
-import { clearAllCheck, MODAL, TITLES } from "../../utils";
+import { MODAL, TITLES } from "../../utils";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -29,7 +29,6 @@ interface Interface {
 const FOTReporteEntrega: React.FC<Interface> = ({
   closeModal,
   pktoDelete,
-  setSelectedRows,
   otArchivo,
 }) => {
   const strUrl = `${URLBackend}/api/proyectodocum/listado`;
@@ -145,13 +144,11 @@ const FOTReporteEntrega: React.FC<Interface> = ({
       if (resultQuery07?.status === 200) {
         toast.success("Número reporte asignado.");
         toast.dismiss(toastLoading);
-        clearAllCheck.value = false;
         otArchivo
           ? dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
           : dispatch(
               fetchOT({ OTAreas: OTAreas, searchParams: paramsOT.value })
             );
-        setSelectedRows([]);
         closeModal();
         toast.dismiss(toastLoading);
       }
@@ -171,7 +168,6 @@ const FOTReporteEntrega: React.FC<Interface> = ({
       //     toast.dismiss(toastLoading)
       //     toast.error('error: Número de envío')
       // }
-      setSelectedRows([]);
       closeModal();
       toast.dismiss(toastLoading);
     } catch (error) {

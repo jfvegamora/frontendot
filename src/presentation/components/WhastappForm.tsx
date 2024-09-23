@@ -1,16 +1,14 @@
 import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Textarea } from "@material-tailwind/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 // import { TextInputComponent } from './forms';
 // import { FaWhatsapp } from "react-icons/fa";
 import { validationWhastApp } from "../utils";
-import axios from "axios";
 import { signal } from "@preact/signals-react";
-import { ScaleLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import { IoSend } from "react-icons/io5";
-import { foliosSinTelefono } from "./OTPrimaryButtons";
+import { dataWsp, foliosSinTelefono } from "./OTPrimaryButtons";
 
 interface IDerivacion {
   data?: any;
@@ -19,54 +17,87 @@ interface IDerivacion {
   closeModal?: any;
 }
 
-interface FormData {
-  descripcion: string;
-}
+// interface FormData {
+//   descripcion: string;
+// }
 
-let linkStatus = "https://nodeexpress3.onrender.com/status";
-let linkisWhastappConnected = "https://nodeexpress3.onrender.com/conection";
-let linkSendMessage = "https://nodeexpress3.onrender.com/enviar-mensaje";
+// let linkStatus = "https://nodeexpress3.onrender.com/status";
+// let linkisWhastappConnected = "https://nodeexpress3.onrender.com/conection";
+// let linkSendMessage = "https://nodeexpress3.onrender.com/enviar-mensaje";
 
 let isWhastAppConnected = signal(true);
 let isLoadingWhastAppConnection = signal(false);
 let isLoadingStatus = signal(false);
 
 const WhastappForm: React.FC<IDerivacion> = ({
-  data,
+  // data,
   onClose,
   // formValues,
   // closeModal,
   // formValues
 }) => {
+  const [linkNumber, setLinkNumber] = React.useState(
+    dataWsp.value[0]?.telefono || ""
+  );
   const schema = validationWhastApp();
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    setValue,
+    // formState: { errors },
+    // setValue,
   } = useForm<any>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormData> = async (jsonData) => {
-    console.log(jsonData);
-    console.log(data);
-    const body = {
-      numero: ["56949018251"],
-      mensaje: jsonData?.descripcion,
-    };
-    // if (!isWhastAppConnected.value) {
-    //   fetchStatus();
-    // }
+  // const onSubmit: SubmitHandler<FormData> = async (jsonData) => {
+  //   console.log(jsonData);
+  //   console.log(data);
+  //   const body = {
+  //     numero: ["56949018251"],
+  //     mensaje: jsonData?.descripcion,
+  //   };
 
+  //   // if (!isWhastAppConnected.value) {
+  //   //   fetchStatus();
+  //   // }
+
+  //   try {
+  //     const { data } = await axios.post(linkSendMessage, body);
+  //     console.log(data);
+  //     toast.success("Mensaje enviado correctamente.");
+  //     setValue("descripcion", "");
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error(error as string);
+  //   }
+  // };
+
+  const redirectToWhastappWeb = async () => {
     try {
-      const { data } = await axios.post(linkSendMessage, body);
-      console.log(data);
-      toast.success("Mensaje enviado correctamente.");
-      setValue("descripcion", "");
+      let url = "";
+      console.log(dataWsp.value);
+      console.log(linkNumber);
+      await dataWsp.value.map((registro: any) => {
+        if (registro.telefono === linkNumber) {
+          url = `https://web.whatsapp.com/send?phone=${linkNumber}&text=${registro.mensaje}`;
+          return window.open(url, "_blank", "noopener,noreferrer");
+        } else {
+          setLinkNumber(registro.telefono);
+          url = `https://web.whatsapp.com/send?phone=${linkNumber}&text=${registro.mensaje}`;
+          return window.open(url, "_blank", "noopener,noreferrer");
+        }
+      });
+
+      dataWsp.value.find(
+        (registro: any) => registro.telefono === linkNumber
+      ).mensajeEnviado = true;
+
+      return toast.success("Mensaje enviado correctamente", {
+        autoClose: 500,
+      });
     } catch (error) {
       console.log(error);
-      toast.error(error as string);
+      return error;
     }
   };
 
@@ -118,8 +149,6 @@ const WhastappForm: React.FC<IDerivacion> = ({
     };
   }, [onClose]);
 
-  //   console.log(errors);
-  //   console.log(foliosSinTelefono.value);
   return (
     <div className="useFormContainer useFormDerivacion centered-div w-[90vw] sm:w-[30vw] sm:h-[50vh] !h-[25vw] z-30 !translate-y-[-14vw] !translate-x-[-14vw]">
       <div className="userFormBtnCloseContainer flex ">
@@ -137,26 +166,19 @@ const WhastappForm: React.FC<IDerivacion> = ({
 
       <form
         className=" w-full translate-y-4 h-[10vh]"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(redirectToWhastappWeb)}
       >
         <div className=" w-full flex items-center  rowForm">
           {isLoadingWhastAppConnection.value || isLoadingStatus.value ? (
-            <div className="w-full items-center !h-[8rem] mt-8 translate-y-[0.5rem] rowForm bg-white rounded-xl">
-              {/* <Spinner className="h-12 w-12" style={{ color: '#f39c12' }} /> */}
-              <div className="w-[13rem] mx-auto mt-5">
-                <h1 className="bg-[#4dc659] text-xl">{`${
-                  isLoadingStatus
-                    ? "Conectandose al Servidor"
-                    : "Conectando WhastApp"
-                }`}</h1>
-              </div>
-            </div>
+            <div className="w-full items-center !h-[8rem] mt-8 translate-y-[0.5rem] rowForm bg-white rounded-xl"></div>
           ) : (
             <div className="w-[86%]">
               <div className="w-full ml-8 !-mt-3 !mb-4 bg-white ">
-                <h1 className="bg-[#4dc659] text-xl pl-32">
-                  Folios Sin Numero
-                </h1>
+                {foliosSinTelefono.value.length > 0 && (
+                  <h1 className="bg-[#4dc659] text-xl pl-32">
+                    Folios Sin Numero
+                  </h1>
+                )}
                 {foliosSinTelefono.value.map((sinNumero: any) => (
                   <div key={sinNumero.folio} className="flex flex-col scroll">
                     <p className="text-2xl">
@@ -167,11 +189,39 @@ const WhastappForm: React.FC<IDerivacion> = ({
                     {/* <span>Sin Numero Asignado</span> */}
                   </div>
                 ))}
+                <h1 className="bg-[#4dc659] text-xl pl-32">
+                  Folios Con Numero
+                </h1>
+                {dataWsp.value?.map((conNumero: any) => (
+                  <div
+                    key={conNumero.telefono}
+                    className="flex flex-col scroll"
+                  >
+                    <p className="text-2xl">
+                      Folio:{" "}
+                      <span className="font-bold">{conNumero.folio}</span>
+                      <input
+                        className="mx-4"
+                        type="checkbox"
+                        checked={conNumero.mensajeEnviado}
+                      />
+                      {conNumero.mensajeEnviado
+                        ? "Mensaje enviado"
+                        : "Esperando Envio"}
+                    </p>{" "}
+                    {/* <span>Sin Numero Asignado</span> */}
+                  </div>
+                ))}
               </div>
               <div className="w-full ml-8">
                 <Textarea
                   {...register("descripcion")}
                   name="descripcion"
+                  value={
+                    dataWsp.value[0]?.mensaje ||
+                    "Sin numero asignado para enviar mensaje "
+                  }
+                  disabled={dataWsp.value.length === 0}
                   // type='text'
                   className="rounded w-full  !h-[8vw] bg-white border-none text-xl"
                 />
@@ -180,7 +230,9 @@ const WhastappForm: React.FC<IDerivacion> = ({
                 {/* <FaWhatsapp /> */}
                 <button
                   type="submit"
-                  className="bg-[#4dc659] translate-y-[-6rem] mr-6 rounded-full w-10 h-10"
+                  disabled={dataWsp.value.length === 0}
+                  className="bg-[#4dc659] translate-y-[-5.5rem] mr-6 rounded-full w-10 h-10"
+                  onClick={() => redirectToWhastappWeb()}
                 >
                   <IoSend className="text-white mx-auto" />
                 </button>

@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import { fetchOT } from "../../../redux/slices/OTSlice";
 import { TextInputComponent } from "../../components";
-import { MODAL, TITLES, clearAllCheck } from "../../utils";
+import { MODAL, TITLES } from "../../utils";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -29,7 +29,6 @@ interface IDerivacion {
 const FOTGuiaDespacho: React.FC<IDerivacion> = ({
   closeModal,
   pktoDelete,
-  setSelectedRows,
   otArchivo,
 }) => {
   const strUrl = `${URLBackend}/api/proyectodocum/listado`;
@@ -164,13 +163,11 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
       if (resultQuery07?.status === 200) {
         toast.success("Número de Guía asignado.");
         toast.dismiss(toastLoading);
-        clearAllCheck.value = false;
         otArchivo
           ? dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
           : dispatch(
               fetchOT({ OTAreas: OTAreas, searchParams: paramsOT.value })
             );
-        setSelectedRows([]);
         closeModal();
         toast.dismiss(toastLoading);
       }

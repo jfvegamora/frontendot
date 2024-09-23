@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import { fetchOT } from "../../../redux/slices/OTSlice";
 import { TextInputComponent } from "../../components";
-import { clearAllCheck, MODAL, TITLES } from "../../utils";
+import { MODAL, TITLES } from "../../utils";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -28,7 +28,6 @@ interface IDerivacion {
 const FOTOrdenCompra: React.FC<IDerivacion> = ({
   closeModal,
   pktoDelete,
-  setSelectedRows,
   otArchivo,
 }) => {
   const strUrl = `${URLBackend}/api/proyectodocum/listado`;
@@ -137,13 +136,11 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
       if (resultQuery07?.status === 200) {
         toast.success("Número OC asignado.");
         toast.dismiss(toastLoading);
-        clearAllCheck.value = false;
         otArchivo
           ? dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
           : dispatch(
               fetchOT({ OTAreas: OTAreas, searchParams: paramsOT.value })
             );
-        setSelectedRows([]);
         closeModal();
         toast.dismiss(toastLoading);
 
@@ -156,13 +153,10 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
         //     toast.success('Orden de Compra generado')
         //     toast.dismiss(toastLoading)
         //     dispatch(fetchOT({ historica: true, searchParams: paramsOT.value }))
-
-        // });
       } else {
         toast.dismiss(toastLoading);
         toast.error("error: Orden de Compra.");
       }
-      setSelectedRows([]);
       closeModal();
       toast.dismiss(toastLoading);
     } catch (error) {
@@ -177,7 +171,6 @@ const FOTOrdenCompra: React.FC<IDerivacion> = ({
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setSelectedRows([]);
         closeModal();
       }
     };

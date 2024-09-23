@@ -204,7 +204,7 @@ const MEstablecimientos: React.FC = () => {
             // showPdfButton={true}
             showDeleteButton={false}
             idMenu={idMenu}
-            // leftEdit={true}
+            leftEdit={true}
           />
         }
       </div>

@@ -5,12 +5,7 @@ import { Button } from "@material-tailwind/react";
 
 import { TextInputComponent } from "../../components";
 import { useModal } from "../../hooks/useModal";
-import {
-  clearAllCheck,
-  MODAL,
-  TITLES,
-  validationUbicacionSchema,
-} from "../../utils";
+import { MODAL, TITLES, validationUbicacionSchema } from "../../utils";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -21,15 +16,10 @@ import { focusFirstInput } from "../../components/OTForms/FOTValidarBodega";
 
 interface IFOTUbicacion {
   closeModal?: () => void;
-  setSelectedRows?: ([]) => void;
   pkToDelete?: any;
 }
 
-const FOTUbicacion: React.FC<IFOTUbicacion> = ({
-  closeModal,
-  setSelectedRows,
-  pkToDelete,
-}) => {
+const FOTUbicacion: React.FC<IFOTUbicacion> = ({ closeModal, pkToDelete }) => {
   const {
     control,
     handleSubmit,
@@ -92,11 +82,9 @@ const FOTUbicacion: React.FC<IFOTUbicacion> = ({
       if (response.status === 200) {
         toast.success("Ubicacion asignada correctamente.");
         toast.dismiss(toastLoading);
-        clearAllCheck.value = false;
         dispatch(
           fetchOT({ OTAreas: OTAreaActual, searchParams: paramsOT.value })
         );
-        setSelectedRows && setSelectedRows([]);
         closeModal && closeModal();
         toast.dismiss(toastLoading);
       }

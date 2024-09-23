@@ -1517,6 +1517,8 @@ const FOT: React.FC<IFOTProps> = ({
     return campoEncontrado && campoEncontrado.valor === 1;
   });
 
+  // console.log(validationNivel1.value);
+
   return (
     <div className="useFormContainerOT top-[0%]  w-full h-[100%] !z-40">
       <Tabs

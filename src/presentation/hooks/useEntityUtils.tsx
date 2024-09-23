@@ -32,6 +32,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   const [isTraspaso, setIsTraspaso] = useState<boolean>(false);
 
   const [onDelete, setDataGrid] = useState<boolean>(false);
+
   const { showModal } = useModal();
   const { deleteAllEntity, ListEntity } = useCrud(baseUrl);
 
@@ -84,8 +85,8 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   //Metodo Check aLL
   const handleSelectedAll = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, row?: any) => {
-      console.log(row);
       const selectedRowsLimited = event.target.checked ? row.slice(0, 500) : [];
+      console.log(selectedRows);
       setSelectedRows(selectedRowsLimited);
     },
     [entities]
