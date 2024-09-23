@@ -28,7 +28,10 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({ closeModal, pktoDelete }) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<any>({ resolver: yupResolver(validationOTNumeroEnvio()) });
+  } = useForm<any>({
+    resolver: yupResolver(validationOTNumeroEnvio()),
+    defaultValues: { numero_doc: "" },
+  });
   //   const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
   const { showModal, CustomModal } = useModal();
 
@@ -39,15 +42,13 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({ closeModal, pktoDelete }) => {
   const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<any> = async (jsonData) => {
-    console.log(pktoDelete);
-
     if (pktoDelete.length < 1) {
       return toast.error("No Hay OT Seleccionada");
     }
 
-    if (!(parseInt(jsonData.numero_doc) >= 0)) {
-      return toast.error("Número de documento debe ser mayor a 0");
-    }
+    // if (!(parseInt(jsonData.numero_doc) >= 0)) {
+    //   return toast.error("Número de documento debe ser mayor a 0");
+    // }
 
     const proyectoPrimero = pktoDelete[0].proyecto;
     if (pktoDelete.some((ot: any) => ot.proyecto !== proyectoPrimero)) {
@@ -159,7 +160,7 @@ const FOTEmpaque: React.FC<IFOTEmpaque> = ({ closeModal, pktoDelete }) => {
             <div className="input-container items-center rowForm">
               <div className="labelInputDiv">
                 <TextInputComponent
-                  type="number"
+                  type="text"
                   label="N° Documento"
                   name="numero_doc"
                   control={control}

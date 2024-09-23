@@ -69,14 +69,14 @@ export const validationOTFacturaSchema = () =>
 //Schema OTHistorica Asignacion Guía Despacho
 export const validationOTGuiaSchema = () =>
   yup.object().shape({
-    numero_doc: yup.string().required(`${msg}`),
+    numero_doc: yup.string(),
     fecha_doc: yup.string().required(`${msg}`),
   });
 
 //Schema OT Asignacion numero envio
 export const validationOTNumeroEnvio = () =>
   yup.object().shape({
-    numero_doc: yup.string().required(`${msg}`),
+    numero_doc: yup.string(),
     fecha_doc: yup.string().required(`${msg}`),
   });
 

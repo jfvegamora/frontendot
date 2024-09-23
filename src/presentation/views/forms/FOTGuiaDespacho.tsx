@@ -36,7 +36,10 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<any>({ resolver: yupResolver(validationOTGuiaSchema()) });
+  } = useForm<any>({
+    resolver: yupResolver(validationOTGuiaSchema()),
+    defaultValues: { numero_doc: "" },
+  });
   // const [fechaHoraActual, _setFechaHoraActual] = useState(new Date());
   const [numeroGuia, setNumeroGuia] = useState(null);
 
@@ -75,9 +78,9 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
 
     if (otArchivo) {
       if (jsonData["numero_doc"] > 0) {
-        if (!(parseInt(jsonData["numero_doc"]) >= 0)) {
-          return toast.error("Numero de documento debe ser mayor a 0");
-        }
+        // if (!(parseInt(jsonData["numero_doc"]) >= 0)) {
+        //   return toast.error("Numero de documento debe ser mayor a 0");
+        // }
         if (
           pktoDelete.some(
             (OT: any) =>
