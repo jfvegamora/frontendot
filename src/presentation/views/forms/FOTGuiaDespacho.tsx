@@ -53,10 +53,6 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
   const folios = pktoDelete.map((OT: any) => OT.folio);
 
   const onSubmit: SubmitHandler<any> = async (jsonData) => {
-    console.log(pktoDelete);
-    console.log(jsonData);
-    console.log(errors);
-
     const proyectoPrimero = pktoDelete[0].proyecto;
     if (pktoDelete.some((ot: any) => ot.proyecto !== proyectoPrimero)) {
       toast.error("OT deben pertenecer al mismo proyecto");
@@ -233,7 +229,7 @@ const FOTGuiaDespacho: React.FC<IDerivacion> = ({
                 <div className="input-container items-center rowForm w-[50%]">
                   <div className="labelInputDiv">
                     <TextInputComponent
-                      type="number"
+                      type="text"
                       label="N° Documento"
                       name="numero_doc"
                       data={numeroGuia}
