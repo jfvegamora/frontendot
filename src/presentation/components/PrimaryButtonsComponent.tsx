@@ -29,6 +29,7 @@ const PiMicrosoftExcelLogoFill: any = React.lazy(() =>
 
 import axios from "axios";
 import { URLBackend } from "../utils/config";
+import { usePermissionBotonesAreas } from "../hooks/usePermissionBotonesAreas";
 
 // import ExportToCsv from "./ExportToCsv";
 
@@ -109,6 +110,7 @@ const PrimaryButtonsComponent: React.FC<IPrimaryButtonProps> = React.memo(
 
     const User: any = useAppSelector((store: AppStore) => store.user);
 
+    usePermissionBotonesAreas();
     // const areaActual = OTAreas["areaActual"]
 
     const handleDownloadMacro = React.useCallback(

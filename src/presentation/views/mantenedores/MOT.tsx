@@ -135,6 +135,7 @@ const MOT: React.FC = () => {
     areas?.find((permiso: any) => {
       return permiso[1] === area;
     });
+
   useEffect(() => {
     // console.log('render')
     const permiso = areaActualOT && permissions(areaActualOT);

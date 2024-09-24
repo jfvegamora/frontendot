@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Textarea } from "@material-tailwind/react";
+import { Textarea, Tooltip } from "@material-tailwind/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 // import { TextInputComponent } from './forms';
 // import { FaWhatsapp } from "react-icons/fa";
@@ -36,6 +36,9 @@ const WhastappForm: React.FC<IDerivacion> = ({
   // closeModal,
   // formValues
 }) => {
+  const [foliosMensajeEnviados, setFoliosMensajeEnviados] = React.useState(
+    dataWsp.value
+  );
   const [linkNumber, setLinkNumber] = React.useState(
     dataWsp.value[0]?.telefono || ""
   );
@@ -75,22 +78,102 @@ const WhastappForm: React.FC<IDerivacion> = ({
   const redirectToWhastappWeb = async () => {
     try {
       let url = "";
-      console.log(dataWsp.value);
-      console.log(linkNumber);
-      await dataWsp.value.map((registro: any) => {
+      // await dataWsp.value.map((registro: any) => {
+      //   if (registro.telefono === linkNumber) {
+      //     url = `https://web.whatsapp.com/send?phone=${linkNumber}&text=${registro.mensaje}`;
+      //     return window.open(url, "_blank", "noopener,noreferrer");
+      //   } else {
+      //     setLinkNumber(registro.telefono);
+      //     url = `https://web.whatsapp.com/send?phone=${linkNumber}&text=${registro.mensaje}`;
+      //     return window.open(url, "_blank", "noopener,noreferrer");
+      //   }
+      // });
+
+      // await dataWsp.value.forEach((registro: any, index: number) => {
+      //   if (registro.telefono === linkNumber) {
+      //     url = `https://web.whatsapp.com/send?phone=${linkNumber}&text=${registro.mensaje}`;
+
+      //     console.log(linkNumber);
+      //     console.log(registro);
+      //     console.log(index);
+      //     console.log(foliosMensajeEnviados[index].telefono);
+
+      //     console.log(url);
+      //     return window.open(url, "_blank", "noopener,noreferrer");
+      //   } else {
+      //     setLinkNumber(registro.telefono);
+      //     url = `https://web.whatsapp.com/send?phone=${linkNumber}&text=${registro.mensaje}`;
+      //     return window.open(url, "_blank", "noopener,noreferrer");
+      //   }
+      // });
+
+      await dataWsp.value.some((registro: any, index: number) => {
         if (registro.telefono === linkNumber) {
           url = `https://web.whatsapp.com/send?phone=${linkNumber}&text=${registro.mensaje}`;
-          return window.open(url, "_blank", "noopener,noreferrer");
+          window.open(url, "_blank", "noopener,noreferrer");
+          if (linkNumber === foliosMensajeEnviados[index].telefono) {
+            setLinkNumber(foliosMensajeEnviados[index + 1].telefono);
+          }
+          foliosMensajeEnviados[index].mensajeEnviado = true;
+          return true;
         } else {
-          setLinkNumber(registro.telefono);
           url = `https://web.whatsapp.com/send?phone=${linkNumber}&text=${registro.mensaje}`;
-          return window.open(url, "_blank", "noopener,noreferrer");
+          foliosMensajeEnviados[index + 1].mensajeEnviado = true;
+          setLinkNumber(registro.telefono);
+          window.open(url, "_blank", "noopener,noreferrer");
+          return true;
         }
       });
 
-      dataWsp.value.find(
-        (registro: any) => registro.telefono === linkNumber
-      ).mensajeEnviado = true;
+      // foliosMensajeEnviados.some((registro: any, index: number) => {
+      //   console.log(registro);
+
+      //   if (registro.telefono === linkNumber) {
+      //     if (index + 1 < foliosMensajeEnviados.length) {
+      //       setLinkNumber(foliosMensajeEnviados[index + 1].telefono);
+      //     } else {
+      //       setLinkNumber("");
+      //     }
+
+      //     url = `https://web.whatsapp.com/send?phone=${linkNumber}&text=${registro.mensaje}`;
+      //     window.open(url, "_blank", "noopener,noreferrer");
+      //     return true;
+      //   }
+
+      //   console.log(registro.telefono);
+      //   console.log(linkNumber);
+      //   return false;
+      // });
+
+      // const currentRegistroIndex = dataWsp.value.findIndex(
+      //   (registro: any) => registro.telefono === linkNumber
+      // );
+
+      // // Si encuentras el registro actual
+      // if (currentRegistroIndex !== -1) {
+      //   const registro = dataWsp.value[currentRegistroIndex]; // Registro actual
+      //   const url = `https://web.whatsapp.com/send?phone=${registro.telefono}&text=${registro.mensaje}`;
+      //   window.open(url, "_blank", "noopener,noreferrer");
+
+      //   // Buscar el siguiente número
+      //   const nextIndex = (currentRegistroIndex + 1) % dataWsp.value.length; // Avanzar al siguiente, reiniciar si es el último
+      //   setLinkNumber(dataWsp.value[nextIndex].telefono); // Actualizar al siguiente número
+      // }
+
+      // console.log(currentIndex);
+      // console.log(dataWsp.value[currentIndex]);
+
+      // if (currentIndex < dataWsp.value.length) {
+      //   const registro = dataWsp.value[currentIndex]; // Obtén el registro actual
+      //   const url = `https://web.whatsapp.com/send?phone=${registro.telefono}&text=${registro.mensaje}`;
+
+      //   await window.open(url, "_blank", "noopener,noreferrer");
+
+      //   // Actualizar el índice al siguiente registro
+      //   setCurrentIndex(currentIndex + 1);
+      // } else {
+      //   setCurrentIndex(0); // Reiniciar al primer registro si se llega al final
+      // }
 
       return toast.success("Mensaje enviado correctamente", {
         autoClose: 500,
@@ -149,8 +232,12 @@ const WhastappForm: React.FC<IDerivacion> = ({
     };
   }, [onClose]);
 
+  React.useEffect(() => {
+    setFoliosMensajeEnviados(dataWsp.value);
+  }, [dataWsp.value]);
+
   return (
-    <div className="useFormContainer useFormDerivacion centered-div w-[90vw] sm:w-[30vw] sm:h-[50vh] !h-[25vw] z-30 !translate-y-[-14vw] !translate-x-[-14vw]">
+    <div className="useFormContainer useFormDerivacion centered-div w-[90vw] sm:w-[30vw] sm:h-[50vh] !h-[30vw] z-30 !translate-y-[-14vw] !translate-x-[-14vw]">
       <div className="userFormBtnCloseContainer flex ">
         <div className="w-full mx-auto !text-center  ">
           <h1 className="userFormLabel mx-auto  w-full translate-x-[0.3rem] ">
@@ -173,7 +260,7 @@ const WhastappForm: React.FC<IDerivacion> = ({
             <div className="w-full items-center !h-[8rem] mt-8 translate-y-[0.5rem] rowForm bg-white rounded-xl"></div>
           ) : (
             <div className="w-[86%]">
-              <div className="w-full ml-8 !-mt-3 !mb-4 bg-white ">
+              <div className="w-full ml-8 !-mt-3 !mb-4 bg-white overflow-y-scroll h-[14vw]">
                 {foliosSinTelefono.value.length > 0 && (
                   <h1 className="bg-[#4dc659] text-xl pl-32">
                     Folios Sin Numero
@@ -184,18 +271,18 @@ const WhastappForm: React.FC<IDerivacion> = ({
                     <p className="text-2xl">
                       Folio:{" "}
                       <span className="font-bold">{sinNumero.folio}</span> Sin
-                      Numero Asignado
+                      Número Asignado
                     </p>{" "}
                     {/* <span>Sin Numero Asignado</span> */}
                   </div>
                 ))}
                 <h1 className="bg-[#4dc659] text-xl pl-32">
-                  Folios Con Numero
+                  Folios Con Número
                 </h1>
-                {dataWsp.value?.map((conNumero: any) => (
+                {foliosMensajeEnviados?.map((conNumero: any) => (
                   <div
                     key={conNumero.telefono}
-                    className="flex flex-col scroll"
+                    className="flex flex-col  !h-[1.5vw]"
                   >
                     <p className="text-2xl">
                       Folio:{" "}
@@ -217,25 +304,24 @@ const WhastappForm: React.FC<IDerivacion> = ({
                 <Textarea
                   {...register("descripcion")}
                   name="descripcion"
-                  value={
-                    dataWsp.value[0]?.mensaje ||
-                    "Sin numero asignado para enviar mensaje "
-                  }
-                  disabled={dataWsp.value.length === 0}
+                  value={"Enviar Mensaje"}
+                  disabled={true}
                   // type='text'
-                  className="rounded w-full  !h-[8vw] bg-white border-none text-xl"
+                  className="rounded w-full  bg-white border-none text-xl pt-12"
                 />
               </div>
-              <div className="flex justify-center  !rounded-full h-1/2 w-[40%] absolute translate-x-[52vw] sm:translate-x-[20.5vw] translate-y-7">
+              <div className="flex justify-center  !rounded-full h-[90%] w-[40%]  absolute translate-x-[47vw] sm:translate-x-[17vw] -translate-y-6">
                 {/* <FaWhatsapp /> */}
-                <button
-                  type="submit"
-                  disabled={dataWsp.value.length === 0}
-                  className="bg-[#4dc659] translate-y-[-5.5rem] mr-6 rounded-full w-10 h-10"
-                  onClick={() => redirectToWhastappWeb()}
-                >
-                  <IoSend className="text-white mx-auto" />
-                </button>
+                <Tooltip content="Enviar Mensaje">
+                  <button
+                    type="submit"
+                    disabled={dataWsp.value.length === 0}
+                    className="bg-[#4dc659] translate-y-[-5.5rem] mr-6 rounded-full w-full h-full"
+                    onClick={() => redirectToWhastappWeb()}
+                  >
+                    <IoSend className="text-white mx-auto text-4xl" />
+                  </button>
+                </Tooltip>
               </div>
             </div>
           )}

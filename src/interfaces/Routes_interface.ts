@@ -132,6 +132,10 @@ const MEmpresas = lazy(
   () => import("../presentation/views/mantenedores/MEmpresas")
 );
 
+const MInformeCristales = lazy(
+  () => import("../presentation/views/mantenedores/MInformeCristales")
+);
+
 export const PublicRoutes = {
   LOGIN: "login",
   RESETPASSWORD: "resetpassword/:token",
@@ -168,6 +172,7 @@ export const PrivateRoutes = {
   ALMACENES: "almacenes",
   MARCAS: "marcas",
   PROVEEDORES: "proveedores",
+  INFORMECRISTALES: "informecristales",
 
   //PROYECTOS
   MANDANTES: "mandantes",
@@ -339,6 +344,12 @@ export const privateRoutes = [
     path: PrivateRoutes.PROVEEDORES,
     component: MProveedores,
     requiredPermissions: ["view_" + PrivateRoutes.PROVEEDORES],
+  },
+  {
+    id: "46",
+    path: PrivateRoutes.INFORMECRISTALES,
+    component: MInformeCristales,
+    requiredPermissions: ["view_" + PrivateRoutes.INFORMECRISTALES],
   },
 
   //PROYECTOS

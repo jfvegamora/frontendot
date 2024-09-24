@@ -62,7 +62,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
     setisModalCopiar(false);
     setIsModalEdit(false);
     setIsEntityProfile(false);
-    setSelectedRows([]);
+    // setSelectedRows([]);
     setIsModalPermisOT(false);
     setIsTraspaso(false);
   }, []);

@@ -192,6 +192,13 @@ select::-ms-expand {
   gap: 3vw;
 
 }
+.containerInformeCristalesPrimaryKey{
+  display: grid;
+  width: 80%;
+  grid-template-columns: repeat(5, 5fr); /* 5 columnas iguales */
+  gap: 1vw;
+
+}
 
 
 .containerPrimaryKey{

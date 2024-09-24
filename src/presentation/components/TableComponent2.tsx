@@ -356,11 +356,11 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
                               !(permiso_usuario_btn_check && permiso_area_check)
                             }
                             // checked={clearAllCheck.value}
-                            // onChange={(e) => {
-                            //   clearAllCheck.value = !clearAllCheck.value;
-                            //   handleSelectedCheckedAll &&
-                            //     handleSelectedCheckedAll(e, indicesOT.value);
-                            // }}
+                            onChange={(e) => {
+                              // clearAllCheck.value = !clearAllCheck.value;
+                              handleSelectedCheckedAll &&
+                                handleSelectedCheckedAll(e, indicesOT.value);
+                            }}
                           />
                         ) : (
                           renderTextCell(column.cell as string)

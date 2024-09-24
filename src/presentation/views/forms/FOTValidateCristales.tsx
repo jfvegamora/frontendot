@@ -524,7 +524,9 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       ) {
         validateBodegaCristal1_oi(value, alreadyValidate);
         validation_cristal1_oi.value = value;
-        // focusFirstInput("a2_armazon", inputsRef["a2_armazon"]);
+        if (OT && OT[OTGrillaEnum.tipo_anteojo_id] == 3) {
+          focusFirstInput("a2_od", inputsRef["a2_od"]);
+        }
       } else {
         // if (value.length <= 11) {
         //   return;

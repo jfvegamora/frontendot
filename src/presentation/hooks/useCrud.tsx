@@ -42,7 +42,11 @@ const useCrud = (
     OTAreas?: any,
     idMenu?: any
   ) => Promise<any | undefined>;
-  ListEntity: (primaryKeys: any, query: string) => Promise<any | undefined>;
+  ListEntity: (
+    primaryKeys: any,
+    query: string,
+    jsonSearch?: boolean
+  ) => Promise<any | undefined>;
   firstInputRef: any;
   secondInputRef: any;
 } => {
@@ -218,17 +222,32 @@ const useCrud = (
 
   const ListEntity = async (
     primaryKeys: any,
-    query: any
+    query: any,
+    jsonSearch?: boolean
   ): Promise<any | undefined> => {
+    // const searchUrl =
+    //   baseUrl === "https://gestionprod.mtoopticos.cl/api/tipos/"
+    //     ? `${baseUrl}listado/?query=${query === undefined ? "01" : query}&${
+    //         primaryKeys || "_p1=OTMotivoGarantia"
+    //       }`
+    //     : `${baseUrl}listado/?query=${query === undefined ? "01" : query}${
+    //         primaryKeys === "" ? "&_limit=100" : `&${primaryKeys}`
+    //       }`;
+    // console.log(primaryKeys);
     const searchUrl =
-      baseUrl === "https://gestionprod.mtoopticos.cl/api/tipos/"
-        ? `${baseUrl}listado/?query=${query === undefined ? "01" : query}&${
-            primaryKeys || "_p1=OTMotivoGarantia"
+      jsonSearch === true
+        ? `${baseUrl}listado/?query=${query === undefined ? "01" : query}${
+            primaryKeys === ""
+              ? "&_limit=100"
+              : `&_pkToDelete=${encodeURIComponent(
+                  JSON.stringify(primaryKeys)
+                )}`
           }`
         : `${baseUrl}listado/?query=${query === undefined ? "01" : query}${
             primaryKeys === "" ? "&_limit=100" : `&${primaryKeys}`
           }`;
 
+    // console.log(searchUrl);
     try {
       const response = await axiosInstance.get(searchUrl);
       return response.data;

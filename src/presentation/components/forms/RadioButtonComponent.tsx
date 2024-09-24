@@ -66,7 +66,7 @@ const RadioButtonComponent: React.FC<IRadioButtonProps> = ({
         <div
           className={` ${
             horizontal ? "  w-full" : "w-full "
-          } py-0 flex inputStyles textOption `}
+          } py-0 flex inputStyles textOption mx-2 `}
           key={index}
         >
           <Controller

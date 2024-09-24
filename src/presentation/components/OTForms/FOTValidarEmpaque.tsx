@@ -18,7 +18,6 @@ interface IFOTValidarEmpaque {
 const FOTValidarEmpaque: React.FC<IFOTValidarEmpaque> = ({
   onClose,
   pkToDelete,
-  setSelectedRows,
 }) => {
   const schema = validationEmpaqueSchema();
   const dispatch = useAppDispatch();
@@ -68,7 +67,7 @@ const FOTValidarEmpaque: React.FC<IFOTValidarEmpaque> = ({
           // toast.success('OTs Procesadas Correctamente',{
           //     autoClose: 900
           //  });
-          setSelectedRows([]);
+          // setSelectedRows([]);
           toast.dismiss(toastLoading);
           onClose();
         });

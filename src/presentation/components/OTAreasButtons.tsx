@@ -38,7 +38,7 @@ const OTAreasButtons: React.FC<IOTAreaButtons> = React.memo(
         areaActualOT.value = area[1];
         dispatch(updateNextArea(area[4]));
         setBotonPresionado(area[1]);
-        setSelectedRows([]);
+        // setSelectedRows([]);
         areaActualRef.current = area[1];
 
         if (params) {

@@ -363,7 +363,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
     const { escritura_lectura } = usePermission(24 || 0);
-    const [formValues, setFormValues] = useState<any>();
+    // const [formValues, setFormValues] = useState<any>();
 
     const {
       editEntity,
@@ -381,15 +381,48 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
       handleSubmit,
       formState: { errors },
       setValue,
+      getValues,
     } = useForm({
       resolver: yupResolver(schema),
       defaultValues: {
+        estado: "Activo",
         permiso_confirmar_entrega: "Lectura",
         permiso_pre_facturar: "Lectura",
         permiso_vb: "Lectura",
         permiso_confirmar_pago: "Lectura",
+        permiso_ingreso: "Lectura",
+        permiso_control_produccion: "Lectura",
+        permiso_bodega_insumos: "Lectura",
+        permiso_biselado_1: "Lectura",
+        permiso_biselado_2: "Lectura",
+        permiso_montaje: "Lectura",
+        permiso_qa: "Lectura",
+        permiso_bodega_prod_term: "Lectura",
+        permiso_empaque: "Lectura",
+        permiso_compras: "Lectura",
+        permiso_calculo: "Lectura",
+        permiso_laboratorio: "Lectura",
+        permiso_resolucion: "Lectura",
+        permiso_editar_armazon: "Lectura",
+        permiso_editar_cristal_opcion_vta: "Lectura",
+        permiso_editar_estado_impresion: "Lectura",
+        permiso_editar_validar_parametrizacion: "Lectura",
+        permiso_editar_opcion_montaje: "Lectura",
+        permiso_editar_grupo_dioptria: "Lectura",
+        permiso_editar_receta: "Lectura",
+        permiso_editar_validar_cristales: "Lectura",
+        permiso_editar_validar_armazones: "Lectura",
+        permiso_editar_worktracking: "Lectura",
+        permiso_nguia: "Lectura",
+        permiso_nenvio: "Lectura",
+        permiso_nfirma: "Lectura",
+        permiso_nreporte_entrega: "Lectura",
+        permiso_noc: "Lectura",
+        permiso_facturar: "Lectura",
       },
     });
+
+    const formValues = getValues();
 
     const resetTextFields = React.useCallback(() => {
       setValue("nombre", "");
@@ -435,7 +468,6 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
         }
 
         if (response.mensaje.includes("Creado")) {
-          setFormValues({});
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
@@ -536,12 +568,12 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
 
     const handleChange = (e: any) => {
       console.log(e);
-      const { name, value } = e;
+      // const { name, value } = e;
 
-      setFormValues((prev: any) => ({
-        ...prev,
-        [name]: value,
-      }));
+      // setFormValues((prev: any) => ({
+      //   ...prev,
+      //   [name]: value,
+      // }));
     };
 
     useEffect(() => {
@@ -605,8 +637,6 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
         );
       }
     }, [data]);
-
-    console.log(errors);
 
     return (
       <div className="useFormContainer centered-div w-[90%]">
@@ -688,7 +718,10 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                     control={control}
                     label="Estado"
                     name="estado"
-                    data={data && data[EnumGrid.estado]}
+                    data={
+                      (formValues && formValues["estado"]) ||
+                      (data && data[EnumGrid.estado])
+                    }
                     options={["Activo", "Suspendido"]}
                     error={errors.estado}
                     horizontal={false}
@@ -725,7 +758,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Ingreso"
                             name="permiso_ingreso"
                             data={
-                              (formValues && formValues["Ingreso"]) ||
+                              (formValues && formValues["permiso_ingreso"]) ||
                               (data && data[EnumGrid.permiso_ingreso])
                             }
                             options={["Lectura", "Escritura"]}
@@ -748,7 +781,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             name="permiso_control_produccion"
                             data={
                               (formValues &&
-                                formValues["Control Producción"]) ||
+                                formValues["permiso_control_produccion"]) ||
                               (data &&
                                 data[EnumGrid.permiso_control_produccion])
                             }
@@ -771,7 +804,8 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Bodega Insumos"
                             name="permiso_bodega_insumos"
                             data={
-                              (formValues && formValues["Bodega Insumos"]) ||
+                              (formValues &&
+                                formValues["permiso_bodega_insumos"]) ||
                               (data && data[EnumGrid.permiso_bodega_insumos])
                             }
                             options={["Lectura", "Escritura"]}
@@ -793,7 +827,8 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Taller Biselado 1"
                             name="permiso_biselado_1"
                             data={
-                              (formValues && formValues["Taller Biselado 1"]) ||
+                              (formValues &&
+                                formValues["permiso_biselado_1"]) ||
                               (data && data[EnumGrid.permiso_biselado_1])
                             }
                             options={["Lectura", "Escritura"]}
@@ -815,7 +850,8 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Taller Biselado 2"
                             name="permiso_biselado_2"
                             data={
-                              (formValues && formValues["Taller Biselado 2"]) ||
+                              (formValues &&
+                                formValues["permiso_biselado_2"]) ||
                               (data && data[EnumGrid.permiso_biselado_2])
                             }
                             options={["Lectura", "Escritura"]}
@@ -837,7 +873,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Taller Montaje"
                             name="permiso_montaje"
                             data={
-                              (formValues && formValues["Taller Montaje"]) ||
+                              (formValues && formValues["permiso_montaje"]) ||
                               (data && data[EnumGrid.permiso_taller_montaje])
                             }
                             options={["Lectura", "Escritura"]}
@@ -859,7 +895,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Control Calidad"
                             name="permiso_qa"
                             data={
-                              (formValues && formValues["Control Calidad"]) ||
+                              (formValues && formValues["permiso_qa"]) ||
                               (data && data[EnumGrid.permiso_qa])
                             }
                             options={["Lectura", "Escritura"]}
@@ -885,7 +921,8 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Bod Prod Term."
                             name="permiso_bodega_prod_term"
                             data={
-                              (formValues && formValues["Bod Prod Term."]) ||
+                              (formValues &&
+                                formValues["permiso_bodega_prod_term"]) ||
                               (data &&
                                 data[EnumGrid.permiso_bodega_p_terminados])
                             }
@@ -908,7 +945,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Empaque"
                             name="permiso_empaque"
                             data={
-                              (formValues && formValues["Empaque"]) ||
+                              (formValues && formValues["permiso_empaque"]) ||
                               (data && data[EnumGrid.permiso_empaque])
                             }
                             options={["Lectura", "Escritura"]}
@@ -929,7 +966,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Compras"
                             name="permiso_compras"
                             data={
-                              (formValues && formValues["Compras"]) ||
+                              (formValues && formValues["permiso_compras"]) ||
                               (data && data[EnumGrid.permiso_compras])
                             }
                             options={["Lectura", "Escritura"]}
@@ -950,7 +987,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Cálculo"
                             name="permiso_calculo"
                             data={
-                              (formValues && formValues["Cálculo"]) ||
+                              (formValues && formValues["permiso_calculo"]) ||
                               (data && data[EnumGrid.permiso_calculo])
                             }
                             options={["Lectura", "Escritura"]}
@@ -971,7 +1008,8 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Laboratorio"
                             name="permiso_laboratorio"
                             data={
-                              (formValues && formValues["Laboratorio"]) ||
+                              (formValues &&
+                                formValues["permiso_laboratorio"]) ||
                               (data && data[EnumGrid.permiso_laboratorio])
                             }
                             options={["Lectura", "Escritura"]}
@@ -992,7 +1030,8 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Resolución"
                             name="permiso_resolucion"
                             data={
-                              (formValues && formValues["Control"]) ||
+                              (formValues &&
+                                formValues["permiso_resolucion"]) ||
                               (data && data[EnumGrid.permiso_resolucion])
                             }
                             options={["Lectura", "Escritura"]}
@@ -1022,7 +1061,8 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Editar Armazón"
                             name="permiso_editar_armazon"
                             data={
-                              (formValues && formValues["Editar Armazón"]) ||
+                              (formValues &&
+                                formValues["permiso_editar_armazon"]) ||
                               (data && data[EnumGrid.permiso_editar_armazon])
                             }
                             options={["Lectura", "Escritura"]}
@@ -1045,7 +1085,9 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             name="permiso_editar_cristal_opcion_vta"
                             data={
                               (formValues &&
-                                formValues["Opcion Vta. Cristal"]) ||
+                                formValues[
+                                  "permiso_editar_cristal_opcion_vta"
+                                ]) ||
                               (data &&
                                 data[
                                   EnumGrid.permiso_editar_cristal_opcion_vta
@@ -1070,7 +1112,10 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Estado Impresión"
                             name="permiso_editar_estado_impresion"
                             data={
-                              (formValues && formValues["Estado Impresión"]) ||
+                              (formValues &&
+                                formValues[
+                                  "permiso_editar_estado_impresion"
+                                ]) ||
                               (data &&
                                 data[EnumGrid.permiso_editar_estado_impresion])
                             }
@@ -1093,7 +1138,10 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Validar Param."
                             name="permiso_editar_validar_parametrizacion"
                             data={
-                              (formValues && formValues["Validar Param."]) ||
+                              (formValues &&
+                                formValues[
+                                  "permiso_editar_validar_parametrizacion"
+                                ]) ||
                               (data &&
                                 data[
                                   EnumGrid
@@ -1121,7 +1169,8 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Opción Montaje"
                             name="permiso_editar_opcion_montaje"
                             data={
-                              (formValues && formValues["Opción Montaje"]) ||
+                              (formValues &&
+                                formValues["permiso_editar_opcion_montaje"]) ||
                               (data &&
                                 data[EnumGrid.permiso_editar_opcion_montaje])
                             }
@@ -1148,7 +1197,8 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Grupo Dioptría"
                             name="permiso_editar_grupo_dioptria"
                             data={
-                              (formValues && formValues["Grupo Dioptría"]) ||
+                              (formValues &&
+                                formValues["permiso_editar_grupo_dioptria"]) ||
                               (data &&
                                 data[EnumGrid.permiso_editar_grupo_dioptria])
                             }
@@ -1171,7 +1221,8 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Editar Receta"
                             name="permiso_editar_receta"
                             data={
-                              (formValues && formValues["Editar Receta"]) ||
+                              (formValues &&
+                                formValues["permiso_editar_receta"]) ||
                               (data && data[EnumGrid.permiso_editar_receta])
                             }
                             options={["Lectura", "Escritura"]}
@@ -1193,7 +1244,10 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Validar Cristales"
                             name="permiso_editar_validar_cristales"
                             data={
-                              (formValues && formValues["Validar Cristales"]) ||
+                              (formValues &&
+                                formValues[
+                                  "permiso_editar_validar_cristales"
+                                ]) ||
                               (data &&
                                 data[EnumGrid.permiso_editar_validar_cristales])
                             }
@@ -1216,7 +1270,10 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Validar Armazones"
                             name="permiso_editar_validar_armazones"
                             data={
-                              (formValues && formValues["Validar Armazones"]) ||
+                              (formValues &&
+                                formValues[
+                                  "permiso_editar_validar_armazones"
+                                ]) ||
                               (data &&
                                 data[EnumGrid.permiso_editar_validar_armazones])
                             }
@@ -1240,7 +1297,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             name="permiso_editar_worktracking"
                             data={
                               (formValues &&
-                                formValues["Editar WorkTracking"]) ||
+                                formValues["permiso_editar_worktracking"]) ||
                               (data &&
                                 data[EnumGrid.permiso_editar_worktracking])
                             }
@@ -1271,7 +1328,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Guía Despacho"
                             name="permiso_nguia"
                             data={
-                              (formValues && formValues["Guía Despacho"]) ||
+                              (formValues && formValues["permiso_nguia"]) ||
                               (data && data[EnumGrid.permiso_nguia])
                             }
                             options={["Lectura", "Escritura"]}
@@ -1293,7 +1350,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="N° Envío"
                             name="permiso_nenvio"
                             data={
-                              (formValues && formValues["N° Envío"]) ||
+                              (formValues && formValues["permiso_nenvio"]) ||
                               (data && data[EnumGrid.permiso_nenvio])
                             }
                             options={["Lectura", "Escritura"]}
@@ -1315,7 +1372,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="N° Rep. Firma"
                             name="permiso_nfirma"
                             data={
-                              (formValues && formValues["N° Rep. Firma"]) ||
+                              (formValues && formValues["permiso_nfirma"]) ||
                               (data && data[EnumGrid.permiso_nfirma])
                             }
                             options={["Lectura", "Escritura"]}
@@ -1341,7 +1398,8 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="N° Rep. Entrega"
                             name="permiso_nreporte_entrega"
                             data={
-                              (formValues && formValues["N° Rep. Entrega"]) ||
+                              (formValues &&
+                                formValues["permiso_nreporte_entrega"]) ||
                               (data && data[EnumGrid.permiso_nreporte_entrega])
                             }
                             options={["Lectura", "Escritura"]}
@@ -1363,7 +1421,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="N° Orden Compra"
                             name="permiso_noc"
                             data={
-                              (formValues && formValues["N° Orden Compra"]) ||
+                              (formValues && formValues["permiso_noc"]) ||
                               (data && data[EnumGrid.permiso_noc])
                             }
                             options={["Lectura", "Escritura"]}
@@ -1449,7 +1507,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                             label="Facturar"
                             name="permiso_facturar"
                             data={
-                              (formValues && formValues["Facturar"]) ||
+                              (formValues && formValues["permiso_facturar"]) ||
                               (data && data[EnumGrid.permiso_facturar])
                             }
                             options={["Lectura", "Escritura"]}
@@ -1497,12 +1555,12 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
           >
             <div className="w-full flex !-mt-6">
               {isEditting && (
-                <div className="!w-[8rem] !flex mx-auto">
+                <div className="!w-[70vw] !flex mx-auto ml-[2vw]">
                   <Button
                     type="button"
                     tabIndex={1}
                     onClick={handlePermisos}
-                    className="absolute !w-[20%] left-50 userFormBtnSubmit userFormBtnCopiarPermisos"
+                    className="absolute !w-[30%] left-50 userFormBtnSubmit userFormBtnCopiarPermisos"
                   >
                     {" "}
                     COPIAR PERMISOS
@@ -1510,7 +1568,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
                 </div>
               )}
 
-              <div className="mx-auto w-[20%]">
+              <div className="mx-auto w-[20%] mr-20">
                 {escritura_lectura && (
                   <Button
                     type="submit"

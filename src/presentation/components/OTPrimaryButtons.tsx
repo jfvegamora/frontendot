@@ -431,7 +431,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         toast.dismiss(toastLoading);
         // disabledIndividualCheck.value = false;
         // clearAllCheck.value = false;
-        setSelectedRows([]);
+        // setSelectedRows([]);
         toast.error("Las OTs no pertenecen al mismo proyecto");
         return;
       }
@@ -463,13 +463,13 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             toast.dismiss(toastLoading);
             // disabledIndividualCheck.value = false;
             // clearAllCheck.value = false;
-            setSelectedRows([]);
+            // setSelectedRows([]);
           });
         });
       } catch (error) {
         toast.dismiss(toastLoading);
         // clearAllCheck.value = false;
-        setSelectedRows([]);
+        // setSelectedRows([]);
         // disabledIndividualCheck.value = false;
         return;
       }
@@ -717,9 +717,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       await Promise.all(request);
       dataWsp.value = datalocapwsp;
       foliosSinTelefono.value = foliosintelefonolocal;
-      console.log(foliosSinTelefono.value);
-      console.log(datalocapwsp);
-      console.log(dataWsp.value);
       toast.dismiss(toastLoading);
       setIsWhastApp((prev) => !prev);
     };
@@ -818,7 +815,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                 searchParams: paramsOT.value,
               })
             );
-            setSelectedRows([]);
+            // setSelectedRows([]);
             checkCount.value = 0;
             // clearAllCheck.value = false;
           })

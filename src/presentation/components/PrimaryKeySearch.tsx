@@ -18,6 +18,7 @@ import { paramsOT } from "../views/mantenedores/MOT";
 import { areaActualOT } from "./OTAreasButtons";
 import { signal } from "@preact/signals-react";
 import { filterToggle, switchAtrasadas } from "./FilterButton";
+import { RadioButtonComponent } from "./forms";
 // import { sesionExpirada } from "../../redux/slices/userSlice";
 
 // import SelectInputTiposComponent from "./forms/SelectInputTiposComponent";
@@ -85,6 +86,7 @@ interface PrimaryKeySearchProps {
   otHistorica?: boolean;
   classNameSearchButton?: string;
   idMenu?: any;
+  jsonSearch?: boolean;
 }
 
 export const resetFilters = signal(false);
@@ -100,6 +102,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     baseUrl,
     classNameSearchButton,
     idMenu,
+    jsonSearch,
   }) => {
     const OTAreaActual = useAppSelector(
       (store: AppStore) => store.OTAreas.areaActual
@@ -172,6 +175,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       case "/api/otreservaarmazones/":
         className = "containerCristalesPrimaryKey";
         break;
+      case "/api/informecristales/":
+        className = "containerInformeCristalesPrimaryKey";
+        break;
       default:
         // className = "flex mb-auto items-cente w-[80vw]  items-center ";
         className = "containerPrimaryKey";
@@ -225,6 +231,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
       }
 
       data && updateParams([searchParams]);
+
+      console.log(searchParams);
+      console.log(data);
       try {
         const response = otHistorica
           ? dispatch(
@@ -242,7 +251,9 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                 historica: false,
               })
             )
-          : await ListEntity(searchParams, "01");
+          : jsonSearch === true
+          ? await ListEntity(data, "01", jsonSearch)
+          : await ListEntity(searchParams, "01", jsonSearch);
 
         toast.dismiss(toastLoading);
         if (baseUrl !== "/api/othistorica/" && baseUrl !== "/api/ot/") {
@@ -514,6 +525,23 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                       }}
                     />
                   </Suspense>
+                </div>
+              ) : input.type === "checkbox" ? (
+                <div className={`${input.styles?.container}`}>
+                  <RadioButtonComponent
+                    control={control}
+                    label={input.label}
+                    name={input.name}
+                    options={input.options as any}
+                    horizontal={true}
+                    onChange={(e: any) => {
+                      handleInputChange(input.name, e.value);
+                    }}
+                    customWidth={` labelInput inputStyles ${input.styles?.styles}`}
+                    labelProps={
+                      "!translate-y-[-1.4vw] translate-x-[-1vw] !text-[1.2vw]"
+                    }
+                  />
                 </div>
               ) : (
                 // Otros tipos de entrada
