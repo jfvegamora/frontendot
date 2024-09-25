@@ -4,6 +4,19 @@
 import React from "react";
 import { filterToggle } from "../components/FilterButton";
 import FOTImpresa from "../views/forms/FOTImpresa";
+import Barcode from "react-barcode";
+import {
+  Document,
+  Image,
+  Page,
+  PDFDownloadLink,
+  View,
+  StyleSheet,
+  Text,
+} from "@react-pdf/renderer";
+import { IconButton, Tooltip } from "@material-tailwind/react";
+import { FaRegFileLines } from "react-icons/fa6";
+import JsBarcode from "jsbarcode";
 // import FOTValidateCristales from "../views/forms/FOTValidateCristales";
 // import FOTValidateArmazones from "../views/forms/FOTValidateArmazones";
 // import FOTValidateCristales from "../views/forms/FOTValidateCristales";
@@ -26,6 +39,60 @@ export const handleContainerClick = (
     }
   }
 };
+
+const generateBarcodeBase64 = (value: string) => {
+  const canvas = document.createElement("canvas");
+  JsBarcode(canvas, value, { format: "CODE128", width: 2, height: 40 });
+  return canvas.toDataURL("image/png");
+};
+
+const listArmazonesJunaeb = [
+  "4020000040017",
+  "4020000040024",
+  "4020000040031",
+  "4020000040048",
+  "4020000040055",
+  "4020000040062",
+  "4020000040079",
+  "4020000040086",
+  "4020000040093",
+  "4020000040109",
+  "4020000040116",
+  "4020000040123",
+  "4020000040130",
+  "4020000040147",
+  "4020000040154",
+  "4020000040161",
+  "4020000040178",
+  "4020000040185",
+  "4020000040192",
+  "4020000040208",
+  "4020000040215",
+  "4020000040222",
+  "4020000040239",
+  "4020000040246",
+  "4020000040253",
+  "4020000040260",
+  "4020000040277",
+  "4020000040284",
+  "4020000040291",
+  "4020000040307",
+  "4020000040314",
+  "4020000040321",
+  "4020000040338",
+  "4020000040345",
+  "4020000040352",
+  "4020000040369",
+  "4020000041182",
+  "4020000041199",
+  "4020000041359",
+  "4020000041366",
+  "4020000041373",
+  "4020000041588",
+  "4020000041595",
+  "4020000041601",
+  "4020000041618",
+];
 
 const LandingPage: React.FC = () => {
   // const navigate = useNavigate();
@@ -86,6 +153,84 @@ const LandingPage: React.FC = () => {
 
   // // },[])
 
+  const [barcodes, setBarcodes] = React.useState<string[]>([]);
+
+  React.useEffect(() => {
+    // Genera el código de barras para cada valor de la lista
+    const barcodeImages = listArmazonesJunaeb.map((item) =>
+      generateBarcodeBase64(item)
+    );
+    setBarcodes(barcodeImages);
+  }, []);
+
+  // const renderPDF = (barcodes: string[]) => {
+  //   const styles = StyleSheet.create({
+  //     page: { padding: 10 },
+  //     grid: { display: "flex", flexWrap: "wrap", flexDirection: "row" },
+  //     barcodeContainer: {
+  //       width: "50%", // Dos columnas
+  //       alignItems: "center",
+  //       marginBottom: 20,
+  //       display: "flex",
+  //     },
+  //     barcode: { width: 200, height: 50, fontSize: 20 },
+  //     cell: { display: "flex" },
+  //   });
+
+  //   return (
+  //     <Document>
+  //       <Page style={styles.page}>
+  //         <View style={styles.grid}>
+  //           {barcodes.map((barcode, index) => (
+  //             <View key={index} style={styles.barcodeContainer}>
+  //               <View style={styles.cell}>
+  //                 <Text>{listArmazonesJunaeb[index].slice(-5)}</Text>
+  //                 <Image src={barcode} style={styles.barcode} />
+  //               </View>
+  //             </View>
+  //           ))}
+  //         </View>
+  //       </Page>
+  //     </Document>
+  //   );
+  // };
+
+  const renderPDF = (barcodes: string[]) => {
+    const styles = StyleSheet.create({
+      page: { padding: 10 },
+      grid: { display: "flex", flexWrap: "wrap", flexDirection: "row" },
+      barcodeContainer: {
+        width: "50%", // Dos columnas
+        alignItems: "center",
+        marginBottom: 20,
+        flexDirection: "row", // Cambiado a row para alinear horizontalmente
+      },
+      barcode: { width: 200, height: 50 },
+      barcodeText: {
+        marginRight: 10, // Espacio entre el texto y el código de barras
+        fontSize: 20, // Aumentar el tamaño de la fuente
+        textAlign: "right", // Alinear texto a la derecha si es necesario
+      },
+    });
+
+    return (
+      <Document>
+        <Page style={styles.page}>
+          <View style={styles.grid}>
+            {barcodes.map((barcode, index) => (
+              <View key={index} style={styles.barcodeContainer}>
+                <Text style={styles.barcodeText}>
+                  {listArmazonesJunaeb[index].slice(-5)}
+                </Text>
+                <Image src={barcode} style={styles.barcode} />
+              </View>
+            ))}
+          </View>
+        </Page>
+      </Document>
+    );
+  };
+
   return (
     <div className="mantenedorContainer !h-[80rem]">
       <div className="mt-8 h-full w-fullpt-20">
@@ -127,7 +272,42 @@ const LandingPage: React.FC = () => {
       </div>  */}
 
         {/* <WhastappForm/> */}
-        <FOTImpresa masivo={true} />
+        <div className="hidden">
+          <FOTImpresa masivo={true} />
+          <Barcode
+            marginLeft={145}
+            marginTop={100}
+            height={25}
+            width={2.5}
+            textAlign="right"
+            value={"4020000040017"}
+          />
+
+          <>
+            <PDFDownloadLink
+              document={renderPDF(barcodes)}
+              fileName="etiqueta_despacho.pdf"
+            >
+              {() => (
+                <Tooltip content="Etiqueta Armazones">
+                  <IconButton
+                    type="button"
+                    variant="text"
+                    color="blue-gray"
+                    onClick={async () => {
+                      // console.log(!etiquetaData.length);
+                      // if (!etiquetaData.length) {
+                      //   await fetchEtiquetaDespacho(rowData[0].split("=")[1]);
+                      // }
+                    }}
+                  >
+                    <FaRegFileLines className="w-10 h-10" />
+                  </IconButton>
+                </Tooltip>
+              )}
+            </PDFDownloadLink>
+          </>
+        </div>
 
         {/* <FOTValidateCristales /> */}
         {/* <FOTValidateArmazones /> */}

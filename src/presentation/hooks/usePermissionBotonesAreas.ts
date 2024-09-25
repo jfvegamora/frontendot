@@ -8,4 +8,5 @@ export function usePermissionBotonesAreas() {
 
   console.log(OTAreaActual);
   console.log(OTAreas);
+  return true;
 }

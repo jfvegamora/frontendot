@@ -96,7 +96,7 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         labelArmazon: OT[OTGrillaEnum.a1_armazon_id],
         name: "a1_armazon",
         data: validationA1_armazon.value,
-        inputRefArmazon: inputsRef.a1_armazon,
+        inputsRefArmazon: inputsRef.a1_armazon,
       };
     },
     a2_armazon: () => {
@@ -130,14 +130,14 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           inputRef={inputsRefArmazon}
           validarBodega={true}
           onlyRead={isValidateArmazon1}
-          // onKeyDown={(event: any) => {
-          //   if ((event.ctrlKey || event.metaKey) && event.key === "v") {
-          //     event.preventDefault();
-          //   }
-          // }}
-          // onPaste={(event: any) => {
-          //   event.preventDefault();
-          // }}
+          onKeyDown={(event: any) => {
+            if ((event.ctrlKey || event.metaKey) && event.key === "v") {
+              event.preventDefault();
+            }
+          }}
+          onPaste={(event: any) => {
+            event.preventDefault();
+          }}
         />
       </div>
     );
@@ -171,8 +171,6 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
   const handleInputChange = (e: any) => {
     let { name, value } = e;
     let formatValue: any;
-    console.log(name);
-    console.log(value);
 
     if (value === "") {
       return;
@@ -195,12 +193,12 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           console.log(value);
           return;
         } else {
-          validationA1_armazon.value = "";
           errorSound.play();
+          validationA1_armazon.value = "";
           validateBodegaArmazon1("");
-          toast.error("Código Armazon 1 no corresponde.", {
-            autoClose: 500,
-          });
+          // toast.error("Código Armazon 1 no corresponde.", {
+          //   autoClose: 500,
+          // });
           resetField("a1_armazon");
           setFormValues({ [name]: "" } as any);
         }
@@ -219,12 +217,13 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         //   return;
         // } else {
         // }
-        validationA2_armazon.value = "";
         errorSound.play();
+        validationA2_armazon.value = "";
+        // errorSound.play();
         validateBodegaArmazon2("");
-        toast.error("Código Armazon 2 no corresponde.", {
-          autoClose: 500,
-        });
+        // toast.error("Código Armazon 2 no corresponde.", {
+        //   autoClose: 500,
+        // });
         resetField("a2_armazon");
         setFormValues({ [name]: "" } as any);
       }
@@ -610,6 +609,12 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     reiniciarValidationNivel3BodegaArmazones();
   }, []);
 
+  React.useEffect(() => {
+    if (inputsRef.a1_armazon?.current) {
+      focusFirstInput("a1_armazon", inputsRef["a1_armazon"]);
+    }
+  }, [inputsRef.a1_armazon, inputsRef.a2_armazon]);
+
   return (
     <div
       className={` bg-[#676f9d] w-[35vw] mx-auto  xl:left-[35rem]  absolute  ${
@@ -636,7 +641,7 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         </button>
       </div>
       <h1 className="h-8"></h1>
-      <form className="p-8 space-y-6">
+      <form className="p-8 space-y-6" onSubmit={(e) => e.preventDefault()}>
         {OT && (
           <div className="!w-[34vw]">
             <h1 className="text-center text-white text-2xl">

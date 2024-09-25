@@ -382,6 +382,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
       formState: { errors },
       setValue,
       getValues,
+      reset,
     } = useForm({
       resolver: yupResolver(schema),
       defaultValues: {
@@ -577,7 +578,41 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
     };
 
     useEffect(() => {
+      if (isEditting && data) {
+        reset();
+      }
+    }, [data, isEditting]);
+
+    useEffect(() => {
       if (data) {
+        console.log(data[EnumGrid.permiso_bodega_insumos]);
+        setValue("permiso_ingreso", data[EnumGrid.permiso_ingreso]);
+
+        setValue(
+          "permiso_control_produccion",
+          data[EnumGrid.permiso_control_produccion]
+        );
+        setValue(
+          "permiso_bodega_insumos",
+          data[EnumGrid.permiso_bodega_insumos]
+        );
+        setValue("permiso_biselado_1", data[EnumGrid.permiso_biselado_1]);
+        setValue("permiso_biselado_2", data[EnumGrid.permiso_biselado_2]);
+        setValue("permiso_montaje", data[EnumGrid.permiso_taller_montaje]);
+
+        setValue("permiso_qa", data[EnumGrid.permiso_qa]);
+        setValue(
+          "permiso_bodega_prod_term",
+          data[EnumGrid.permiso_bodega_p_terminados]
+        );
+        setValue("permiso_empaque", data[EnumGrid.permiso_empaque]);
+        setValue("permiso_compras", data[EnumGrid.permiso_compras]);
+
+        setValue("permiso_calculo", data[EnumGrid.permiso_calculo]);
+        setValue("permiso_laboratorio", data[EnumGrid.permiso_laboratorio]);
+        setValue("permiso_resolucion", data[EnumGrid.permiso_resolucion]);
+        // setValue("permiso_compras", data[EnumGrid.permiso_compras]);
+
         setValue(
           "permiso_editar_armazon",
           data[EnumGrid.permiso_editar_armazon]

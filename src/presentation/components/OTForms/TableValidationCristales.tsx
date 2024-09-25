@@ -19,7 +19,7 @@ const TableValidationCristales: React.FC<ITableValidationCristales> = ({
         {data.map((codigos: any) => (
           <tr key={codigos.codigo}>
             <td className="text-black">{codigos.codigo}</td>
-            <td className="text-black">ubicacion</td>
+            <td className="text-black">{codigos.ubicacion}</td>
           </tr>
         ))}
       </tbody>

@@ -12,7 +12,6 @@ import { usePermission } from "../hooks";
 import {
   BUTTON_MESSAGES,
   clearAllCheck,
-  clearIndividualCheck,
   disabledIndividualCheck,
 } from "../utils";
 import { AppStore, useAppSelector } from "../../redux/store";
@@ -169,8 +168,14 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           textAlign: alignment,
           color: isOT
             ? rowData && color2 && handleColorEstado(rowData[5])
+            : entidad === "Informe Cristales "
+            ? ""
             : rowData && handleColorEstado(rowData[1], "background  "),
         };
+
+        // console.log(entidad);
+        // console.log(rowData);
+        // console.log(text);
 
         return (
           // <Text variant="small" color="blue-gray" className={`gridText h-[2.7rem]  py-2  ${(backgroundAtrasadas && color || lowArmazonesStock && color2) ? '!text-white ' : 'text-black'} ${(type === 1 && color2) ? '': ( type === 1 ? ''  :'text-black')} `} style={ color2 ? cellStyl} >
@@ -199,12 +204,12 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
 
     let lowArmazonesStock = false;
 
-    React.useEffect(() => {
-      if (clearIndividualCheck.value === true) {
-        setSelectedRows([]);
-        clearIndividualCheck.value = false;
-      }
-    }, [clearIndividualCheck.value]);
+    // React.useEffect(() => {
+    //   if (clearIndividualCheck.value === true) {
+    //     setSelectedRows([]);
+    //     clearIndividualCheck.value = false;
+    //   }
+    // }, [clearIndividualCheck.value]);
 
     const renderCheckboxCell = (id: number, folio: number, estado?: any) => {
       return (
@@ -255,6 +260,33 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       );
     };
 
+    const handleCellInformeColor = (rowData: any, row: any) => {
+      console.log(rowData);
+      console.log(row);
+      // console.log(rowData);
+      // const colorCell = rowData
+      //   ?.map((stock: any) => parseInt(stock))
+      //   .filter((stock: any) => !isNaN(stock) && stock <= 20);
+
+      // const someColorCell = rowData?.some((stock: any) => {
+      //   const parsedStock = parseInt(stock);
+      //   if (!isNaN(parsedStock) && parsedStock <= 20) {
+      //     console.log(parsedStock);
+      //     return true;
+      //   } else {
+      //     return false;
+      //   }
+      // });
+
+      // console.log(row);
+      // console.log(someColorCell);
+      // console.log(colorCell);
+      // const parsedRow = parseInt(row);
+      // return parsedRow <= 20 ? "red" : "";
+
+      return "";
+    };
+
     return (
       <div className="gridCointainer">
         <table className="gridContainer">
@@ -277,7 +309,6 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                             type="checkbox"
                             checked={clearAllCheck.value}
                             onChange={(e) => {
-                              console.log(rowIds);
                               clearAllCheck.value = !clearAllCheck.value;
                               handleSelectedCheckedAll &&
                                 handleSelectedCheckedAll(e, rowIds);
@@ -362,6 +393,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                                   : "!bg-black"
                                 : lowArmazonesStock && color2
                                 ? handleColorEstado(rowData[1])
+                                : color2
+                                ? handleCellInformeColor(rowData, row)
                                 : "",
                             }}
                           >

@@ -1414,10 +1414,24 @@ export const table_head_informe_cristales = [
     alignment: "flex justify-center items-center",
   },
   {
+    cell: "ESF/CIL",
+    key: "esf/cil",
+    width: "w-[5rem]",
+    visible: true,
+  },
+  {
+    cell: "-0.00",
+    key: "-0.00",
+    width: "w-[5rem]",
+    visible: true,
+    color: true,
+  },
+  {
     cell: "-0.25",
     key: "-0.25",
     width: "w-[5rem]",
     visible: true,
+    color: true,
   },
   {
     cell: "-0.50",

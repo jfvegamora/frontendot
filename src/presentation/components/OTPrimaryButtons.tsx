@@ -957,8 +957,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       // if (OTPkToDelete.value.length === 0) {
       //   return toast.error("No hay OT seleccionada");
       // }
-
-      const isValidateFiltros = validateFiltros();
+      let validateSameProject = false;
+      const isValidateFiltros = validateFiltros(validateSameProject);
 
       if (isValidateFiltros) {
         return;
@@ -1089,8 +1089,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             structureCristalesBodega.value
           );
 
-          console.log(structureCristalesBodega.value);
-
           toast.dismiss(toastLoading);
           dataOTSignal.value = dataOT;
           setisFOTValidateBodegaCristales(true);
@@ -1109,7 +1107,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         );
 
         dataOTSignal.value = dataOT;
-        console.log(dataOTSignal.value);
 
         setISFOTValidateBodegaArmazones(true);
       } catch (error) {
@@ -1485,8 +1482,14 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                 className="text-xl"
                 color="orange"
                 // value={valueConfirmOT.value as any}
+                onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault(); // Evitar recarga
+                  }
+                }}
                 value={valueConfirmArmazon.value as any}
                 onChange={async (e: any) => {
+                  e.preventDefault();
                   if (e.target.value !== "") {
                     let validateValue = e.target.value;
                     if (validateValue.length >= 10) {

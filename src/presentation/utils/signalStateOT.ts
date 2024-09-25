@@ -808,7 +808,7 @@ export function validarValor(str: string) {
   return false;
 }
 
-export const validateFiltros = () => {
+export const validateFiltros = (validateSameProject?: boolean) => {
   const folios = OTPkToDelete?.value.map(({ folio }: any) => folio);
   const isValidateSameProject = OTPkToDelete.value.every(
     (ot: any) =>
@@ -819,14 +819,17 @@ export const validateFiltros = () => {
     return toast.error("No hay OT seleccionada.");
   }
 
-  if (!isValidateSameProject) {
-    toast.error(`Folio ${folios} deben pertenecer al mismo proyecto`);
-    return true;
-  }
-
   if (paramsOT.value.length === 0) {
     toast.error("Debe seleccionar filtros de Busqueda");
     return true;
+  }
+  if (validateSameProject === false) {
+    return false;
+  } else {
+    if (!isValidateSameProject) {
+      toast.error(`Folio ${folios} deben pertenecer al mismo proyecto`);
+      return true;
+    }
   }
 
   return false;

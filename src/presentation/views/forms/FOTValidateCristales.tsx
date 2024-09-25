@@ -176,11 +176,6 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       inputCristalProps[cristal]();
     const isAlReadyValidate =
       structureCristalesBodega.value[name].estado === "1" ? true : false;
-    console.log(structureCristalesBodega.value);
-
-    console.log(isAlReadyValidate);
-    console.log(checkedVariable);
-    console.log(CR1_OI_LAB.value);
 
     return (
       <div className="rowForm !h-[7vw] relative mb-4">
@@ -243,10 +238,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     );
   };
 
-  const onChangeCheckLab = (e: any, name: any) => {
-    console.log(e.target.checked);
-    console.log(name);
-    console.log(casoEjecutar);
+  const onChangeCheckLab = (_e: any, name: any) => {
     let destino;
     let estado: any;
 
@@ -294,12 +286,6 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       default:
         break;
     }
-    console.log(OT[OTGrillaEnum.tipo_anteojo_id] === "3");
-    console.log(OT[OTGrillaEnum.tipo_anteojo_id]);
-    console.log(CR1_OD_LAB.value);
-    console.log(CR1_OI_LAB.value);
-    console.log(CR2_OD_LAB.value);
-    console.log(CR2_OI_LAB.value);
 
     if (OT[OTGrillaEnum.tipo_anteojo_id] === 3) {
       console.log("render");
@@ -317,11 +303,6 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         return;
       }
     }
-
-    console.log("render");
-
-    console.log(cristalStock_a1od.value);
-    console.log(cristalStock_a1oi.value);
 
     let jsondata: any = [];
     let origen = OTAreas["areaActual"];
@@ -1446,7 +1427,6 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     return false;
   };
 
-  console.log(renderDerivationButton());
   return (
     <div
       className={`bg-[#676f9d]  mx-auto   absolute  ${
