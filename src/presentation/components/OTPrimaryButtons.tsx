@@ -118,19 +118,42 @@ export let structureCristalesBodega = signal<any>({
 
 enum aproximarEnum {
   codigo = 0,
-  ubicacion1 = 1,
-  estado = 2,
-  opcion_vta = 3,
-  cod_alt1 = 4,
-  cod_alt1_ubi = 5,
-  cod_alt2 = 6,
-  cod_alt2_ubi = 7,
-  cod_alt3 = 8,
-  cod_alt3_ubi = 9,
-  cod_fab1 = 10,
-  cod_fab2 = 11,
-  cod_fab3 = 12,
-  cod_fab4 = 13,
+
+  indice = 1,
+  diametro = 2,
+  esferico = 3,
+  cilindrico = 4,
+  ubicacion1 = 5,
+  estado = 6,
+  opcion_vta = 7,
+
+  aprox_esf_cod = 8,
+  aprox_esf_ubi = 9,
+  aprox_cil_cod = 10,
+  aprox_cil_ubi = 11,
+  aprox_esfcil_cod = 12,
+  aprox_esfcil_ubi = 13,
+
+  cod_fab1 = 14,
+  cod_fab2 = 15,
+  cod_fab3 = 16,
+  cod_fab4 = 17,
+
+  ind_alt1_cod = 18,
+  ind_alt1_ind = 19,
+  ind_alt1_ubi = 20,
+
+  ind_alt2_cod = 21,
+  ind_alt2_ind = 22,
+  ind_alt2_ubi = 23,
+
+  ind_alt3_cod = 24,
+  ind_alt3_ind = 25,
+  ind_alt3_ubi = 26,
+
+  ind_alt4_cod = 27,
+  ind_alt4_ind = 28,
+  ind_alt4_ubi = 29,
 }
 
 export const EnumAreas: any = {
@@ -258,7 +281,10 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
     // const [valueConfirmOT, setValueConfirmOT]         = useState<any>()
     const searchOTRef = useRef<any>();
 
-    const refFocusInput = React.useRef<any>(null);
+    const refFocusInput = {
+      validacion_armazones: React.useRef<any>(null),
+      validacion_cristales: React.useRef<any>(null),
+    };
 
     const permisos_usuario_areas =
       User.permisos_areas[EnumAreas[OTAreas["areaActual"]]];
@@ -477,7 +503,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
     React.useEffect(() => {
       if (!isFOTValidarBodega) {
-        focusFirstInput("ProcesarOT", refFocusInput);
+        // focusFirstInput("ProcesarOT", refFocusInput);
         reiniciarValidationNivel3();
         valueConfirmOT.value = "";
         // setValueConfirmOT('')
@@ -1035,6 +1061,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             }`
           );
 
+          console.log(dataAproximarCristales);
+
           const keys = ["a1_od", "a1_oi", "a2_od", "a2_oi"];
           structureCristalesBodega.value = {
             a1_od: { codigos: [], estado: "", opcion_vta: "" },
@@ -1049,12 +1077,16 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                 // Añadir el código principal y su ubicación
                 acc[keys[index]].codigos.push({
                   codigo: row[aproximarEnum.codigo],
+                  indice: row[aproximarEnum.indice],
+                  diametro: row[aproximarEnum.diametro],
+                  esferico: row[aproximarEnum.esferico],
+                  cilindrico: row[aproximarEnum.cilindrico],
                   ubicacion: row[aproximarEnum.ubicacion1],
                 });
 
                 for (
-                  let i = aproximarEnum.cod_alt1;
-                  i <= aproximarEnum.cod_alt3;
+                  let i = aproximarEnum.aprox_cil_cod;
+                  i <= aproximarEnum.aprox_esfcil_ubi;
                   i += 2
                 ) {
                   if (row[i]) {
@@ -1078,6 +1110,20 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   }
                 }
 
+                for (
+                  let i = aproximarEnum.ind_alt1_cod;
+                  i <= aproximarEnum.ind_alt4_ubi;
+                  i++
+                ) {
+                  if (row[i]) {
+                    acc[keys[index]].codigos.push({
+                      codigo: row[i],
+                      indice: row[i + 1],
+                      ubicacion: row[i + 2],
+                    });
+                  }
+                }
+
                 // Asignar estado y opción de venta
                 acc[keys[index]].estado = `${row[aproximarEnum.estado]}`;
                 acc[keys[index]].opcion_vta = `${
@@ -1089,6 +1135,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             structureCristalesBodega.value
           );
 
+          console.log(structureCristalesBodega.value);
           toast.dismiss(toastLoading);
           dataOTSignal.value = dataOT;
           setisFOTValidateBodegaCristales(true);
@@ -1475,10 +1522,10 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           permiso_usuario_btn_validarArmazones && (
             <div className="ml-2 w-[10vw]">
               <Input
-                ref={refFocusInput}
+                ref={refFocusInput.validacion_armazones}
                 type="number"
                 label="Validar Armazones"
-                name="ProcesarOT"
+                name="validacion_armazones"
                 className="text-xl"
                 color="orange"
                 // value={valueConfirmOT.value as any}
@@ -1525,10 +1572,10 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           permiso_usuario_btn_validarCristales && (
             <div className="ml-2 w-[10vw]">
               <Input
-                ref={refFocusInput}
+                ref={refFocusInput.validacion_cristales}
                 type="number"
                 label="Validar Cristales"
-                name="ProcesarOT"
+                name="validacion_cristales"
                 className="text-xl"
                 color="orange"
                 // value={valueConfirmOT.value as any}
@@ -1965,7 +2012,13 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         <Suspense>
           {isFOTValidateBodegaCristales && (
             <FOTValidateCristales
-              handleClose={() => setisFOTValidateBodegaCristales(false)}
+              handleClose={() => {
+                setisFOTValidateBodegaCristales(false);
+                focusFirstInput(
+                  "validacion_cristales",
+                  refFocusInput.validacion_cristales
+                );
+              }}
             />
           )}
         </Suspense>
@@ -1973,7 +2026,13 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         <Suspense>
           {isFOTValidateBodegaArmazones && dataOTSignal.value.length !== 0 && (
             <FOTValidateArmazones
-              handleClose={() => setISFOTValidateBodegaArmazones(false)}
+              handleClose={() => {
+                setISFOTValidateBodegaArmazones(false);
+                focusFirstInput(
+                  "validacion_armazones",
+                  refFocusInput.validacion_armazones
+                );
+              }}
             />
           )}
         </Suspense>

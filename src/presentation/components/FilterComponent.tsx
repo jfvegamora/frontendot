@@ -102,7 +102,9 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
     );
     const [cilindrico, setCilindrico] = useState();
     const [esferico, setEsferico] = useState();
-    const { control, handleSubmit, setValue } = useForm<IPrimaryKeyState>();
+    const { control, handleSubmit, setValue, reset, getValues } =
+      useForm<IPrimaryKeyState>();
+    const formValues = getValues();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
 
     const dispatch: any = useAppDispatch();
@@ -111,6 +113,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
     const handleRefresh = React.useCallback(() => {
       console.log("render");
       titleOTSearch.value = "";
+      reset();
       const mapping = primaryKeyInputs.reduce(
         (acc: any, filtroBusqueda: any) => {
           acc[filtroBusqueda.name] = "";
@@ -120,6 +123,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
         },
         {}
       );
+      console.log(formValues);
       resetFilters.value = true;
       filterTextValue.value = "";
       handleSearch(mapping);
@@ -372,7 +376,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
                                 {...field}
                                 type={input.type}
                                 // label={input.label}
-                                value={inputValues[input.name]}
+                                value={formValues && formValues[input.name]}
                                 onChange={(e) => {
                                   field.onChange(e);
                                   changeFilterOTSearchTitle(e, input?.label);
@@ -400,6 +404,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
                         input._p1 ? [input.tipos, input._p1] : input.tipos
                       }
                       inputName={input.name}
+                      data={formValues && formValues[input.name]}
                       isOT={true}
                       inputValues={inputValues}
                       setHandleSearch={handleSearch}
@@ -421,6 +426,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
                           : [input.selectUrl, "02"]
                       }
                       inputName={input.name}
+                      data={formValues && formValues[input.name]}
                       isOT={true}
                       inputValues={inputValues}
                       setHandleSearch={handleSearch}

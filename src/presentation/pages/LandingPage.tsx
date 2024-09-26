@@ -17,6 +17,8 @@ import {
 import { IconButton, Tooltip } from "@material-tailwind/react";
 import { FaRegFileLines } from "react-icons/fa6";
 import JsBarcode from "jsbarcode";
+import { AppStore, useAppSelector } from "../../redux/store";
+// import FOTValidateCristales from "../views/forms/FOTValidateCristales";
 // import FOTValidateCristales from "../views/forms/FOTValidateCristales";
 // import FOTValidateArmazones from "../views/forms/FOTValidateArmazones";
 // import FOTValidateCristales from "../views/forms/FOTValidateCristales";
@@ -155,6 +157,8 @@ const LandingPage: React.FC = () => {
 
   const [barcodes, setBarcodes] = React.useState<string[]>([]);
 
+  const user = useAppSelector((appStore: AppStore) => appStore.user);
+
   React.useEffect(() => {
     // Genera el código de barras para cada valor de la lista
     const barcodeImages = listArmazonesJunaeb.map((item) =>
@@ -270,7 +274,13 @@ const LandingPage: React.FC = () => {
       >Enviar Mensaje</button>
 
       </div>  */}
+        {user && (
+          <h1 className="text-4xl font-bold mx-auto  w-[50%] mt-20 font-body">
+            Bienvenido, {user.nombre}, al Sistema Gestión de OT.
+          </h1>
+        )}
 
+        {/* <FOTValidateCristales /> */}
         {/* <WhastappForm/> */}
         <div className="hidden">
           <FOTImpresa masivo={true} />
@@ -288,23 +298,13 @@ const LandingPage: React.FC = () => {
               document={renderPDF(barcodes)}
               fileName="etiqueta_despacho.pdf"
             >
-              {() => (
-                <Tooltip content="Etiqueta Armazones">
-                  <IconButton
-                    type="button"
-                    variant="text"
-                    color="blue-gray"
-                    onClick={async () => {
-                      // console.log(!etiquetaData.length);
-                      // if (!etiquetaData.length) {
-                      //   await fetchEtiquetaDespacho(rowData[0].split("=")[1]);
-                      // }
-                    }}
-                  >
-                    <FaRegFileLines className="w-10 h-10" />
-                  </IconButton>
-                </Tooltip>
-              )}
+              {/* {() => ( */}
+              <Tooltip content="Etiqueta Armazones">
+                <IconButton type="button" variant="text" color="blue-gray">
+                  <FaRegFileLines className="w-10 h-10" />
+                </IconButton>
+              </Tooltip>
+              {/* )} */}
             </PDFDownloadLink>
           </>
         </div>

@@ -26,6 +26,8 @@ import { signal } from "@preact/signals-react";
 
 import { Howl } from "howler";
 import soundError from "../../../assets/error-call-to-attention-129258.mp3";
+import soundSuccess from "../../../assets/zapsplat_public_places_supermarket_checkout_beep_002_44357 (1).mp3";
+
 import {
   dataOTSignal,
   resultValidarBodega,
@@ -81,6 +83,11 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
 
   let errorSound = new Howl({
     src: [soundError],
+    volume: 1,
+  });
+
+  let successSound = new Howl({
+    src: [soundSuccess],
     volume: 1,
   });
 
@@ -179,60 +186,64 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     if (value && value.length >= 12) {
       const regex = /^0+/;
       formatValue = value.replace(regex, "");
-    }
-    if (name === "a1_armazon") {
-      if (value.trim() === "") {
-        validateBodegaArmazon1("");
-      }
-      if (OT && OT[OTGrillaEnum.a1_armazon_id] === formatValue) {
-        validateBodegaArmazon1(value, alreadyValidate);
-        validationA1_armazon.value = value;
-        focusFirstInput("a2_armazon", inputsRef["a2_armazon"]);
-      } else {
-        if (value.lenght <= 11) {
-          console.log(value);
-          return;
-        } else {
-          errorSound.play();
-          validationA1_armazon.value = "";
+
+      if (name === "a1_armazon") {
+        if (value.trim() === "") {
           validateBodegaArmazon1("");
-          // toast.error("Código Armazon 1 no corresponde.", {
+        }
+        if (OT && OT[OTGrillaEnum.a1_armazon_id] === formatValue) {
+          validateBodegaArmazon1(value, alreadyValidate);
+          validationA1_armazon.value = value;
+          successSound.play();
+          focusFirstInput("a2_armazon", inputsRef["a2_armazon"]);
+        } else {
+          console.log(value);
+          if (value.lenght <= 11) {
+            console.log(value);
+            return;
+          } else {
+            errorSound.play();
+            validationA1_armazon.value = "";
+            validateBodegaArmazon1("");
+            // toast.error("Código Armazon 1 no corresponde.", {
+            //   autoClose: 500,
+            // });
+            resetField("a1_armazon");
+            setFormValues({ [name]: "" } as any);
+          }
+        }
+      }
+
+      if (name === "a2_armazon") {
+        if (value.trim() === "") {
+          validateBodegaArmazon2("");
+        }
+        if (OT && OT[OTGrillaEnum.a2_armazon_id] === formatValue) {
+          validateBodegaArmazon2(value, alreadyValidate);
+          successSound.play();
+          validationA2_armazon.value = value;
+        } else {
+          // if (value.lenght <= 11) {
+          //   return;
+          // } else {
+          // }
+          errorSound.play();
+          validationA2_armazon.value = "";
+          // errorSound.play();
+          validateBodegaArmazon2("");
+          // toast.error("Código Armazon 2 no corresponde.", {
           //   autoClose: 500,
           // });
-          resetField("a1_armazon");
+          resetField("a2_armazon");
           setFormValues({ [name]: "" } as any);
         }
       }
-    }
 
-    if (name === "a2_armazon") {
-      if (value.trim() === "") {
-        validateBodegaArmazon2("");
-      }
-      if (OT && OT[OTGrillaEnum.a2_armazon_id] === formatValue) {
-        validateBodegaArmazon2(value, alreadyValidate);
-        validationA2_armazon.value = value;
-      } else {
-        // if (value.lenght <= 11) {
-        //   return;
-        // } else {
-        // }
-        errorSound.play();
-        validationA2_armazon.value = "";
-        // errorSound.play();
-        validateBodegaArmazon2("");
-        // toast.error("Código Armazon 2 no corresponde.", {
-        //   autoClose: 500,
-        // });
-        resetField("a2_armazon");
-        setFormValues({ [name]: "" } as any);
-      }
+      setFormValues((prevFormValues: any) => ({
+        ...prevFormValues,
+        [name]: value,
+      }));
     }
-
-    setFormValues((prevFormValues: any) => ({
-      ...prevFormValues,
-      [name]: value,
-    }));
   };
 
   if (dataOTSignal.value === (0 as any)) {

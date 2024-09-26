@@ -12,13 +12,21 @@ const TableValidationCristales: React.FC<ITableValidationCristales> = ({
       <thead>
         <tr>
           <th>CODIGO</th>
+          <th>INDICE</th>
+          <th>DIAMETRO</th>
+          <th>ESF </th>
+          <th>CIL</th>
           <th>UBICACION</th>
         </tr>
       </thead>
       <tbody>
         {data.map((codigos: any) => (
           <tr key={codigos.codigo}>
-            <td className="text-black">{codigos.codigo}</td>
+            <td className="text-black text-center">{codigos.codigo}</td>
+            <td className="text-black text-right">{codigos.indice}</td>
+            <td className="text-black text-center">{codigos.diametro}</td>
+            <td className="text-black text-center">{codigos.esferico}</td>
+            <td className="text-black text-center">{codigos.cilindrico}</td>
             <td className="text-black">{codigos.ubicacion}</td>
           </tr>
         ))}

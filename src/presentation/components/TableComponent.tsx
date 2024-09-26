@@ -153,6 +153,14 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       [OTColores, isOT]
     );
 
+    const handleColorTextInformeCristales = (text: any) => {
+      if (/^-?\d+\.\d+$/.test(text)) {
+        return;
+      }
+      const parsedRow = parseInt(text);
+      return parsedRow <= 20 ? "white" : "black";
+    };
+
     const renderTextCell = useCallback(
       (
         text: string,
@@ -169,7 +177,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
           color: isOT
             ? rowData && color2 && handleColorEstado(rowData[5])
             : entidad === "Informe Cristales "
-            ? ""
+            ? text && handleColorTextInformeCristales(text)
             : rowData && handleColorEstado(rowData[1], "background  "),
         };
 
@@ -260,31 +268,12 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       );
     };
 
-    const handleCellInformeColor = (rowData: any, row: any) => {
-      console.log(rowData);
-      console.log(row);
-      // console.log(rowData);
-      // const colorCell = rowData
-      //   ?.map((stock: any) => parseInt(stock))
-      //   .filter((stock: any) => !isNaN(stock) && stock <= 20);
-
-      // const someColorCell = rowData?.some((stock: any) => {
-      //   const parsedStock = parseInt(stock);
-      //   if (!isNaN(parsedStock) && parsedStock <= 20) {
-      //     console.log(parsedStock);
-      //     return true;
-      //   } else {
-      //     return false;
-      //   }
-      // });
-
-      // console.log(row);
-      // console.log(someColorCell);
-      // console.log(colorCell);
-      // const parsedRow = parseInt(row);
-      // return parsedRow <= 20 ? "red" : "";
-
-      return "";
+    const handleCellInformeColor = (row: any) => {
+      if (/^-?\d+\.\d+$/.test(row)) {
+        return;
+      }
+      const parsedRow = parseInt(row);
+      return parsedRow <= 20 ? "red" : "";
     };
 
     return (
@@ -394,7 +383,7 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                                 : lowArmazonesStock && color2
                                 ? handleColorEstado(rowData[1])
                                 : color2
-                                ? handleCellInformeColor(rowData, row)
+                                ? handleCellInformeColor(row)
                                 : "",
                             }}
                           >

@@ -37,6 +37,8 @@ import {
 
 import { Howl } from "howler";
 import soundError from "../../../assets/error-call-to-attention-129258.mp3";
+import soundSuccess from "../../../assets/zapsplat_public_places_supermarket_checkout_beep_002_44357 (1).mp3";
+
 import {
   dataOTSignal,
   isValidateArmazon1,
@@ -116,6 +118,11 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     volume: 1,
   });
 
+  let successSound = new Howl({
+    src: [soundSuccess],
+    volume: 1,
+  });
+
   const inputsRef = {
     a1_od: React.useRef<any>(null),
     a1_oi: React.useRef<any>(null),
@@ -178,7 +185,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       structureCristalesBodega.value[name].estado === "1" ? true : false;
 
     return (
-      <div className="rowForm !h-[7vw] relative mb-4">
+      <div className="rowForm ">
         {/* <label className="labelInput  ml-4">
           {labelCristal}|{codigosAlternativos}
         </label> */}
@@ -191,7 +198,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           data={data}
           control={control}
           textAlign="text-left"
-          customWidth={"labelInput inputStyles w-[23vw]"}
+          customWidth={"labelInput mx-auto inputStyles w-[15vw]"}
           inputRef={inputsRefCristal}
           validarBodega={true}
           onlyRead={isAlReadyValidate}
@@ -450,8 +457,6 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
   const handleInputChange = (e: any) => {
     let { name, value } = e;
     let formatValue: any;
-    console.log(name);
-    console.log(value);
 
     if (value === "") {
       return;
@@ -475,6 +480,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       ) {
         console.log("render");
         validation_cristal1_od.value = value;
+        successSound.play();
         validateBodegaCristal1_od(formatValue, alreadyValidate);
         focusFirstInput("a1_oi", inputsRef["a1_oi"]);
       } else {
@@ -505,6 +511,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       ) {
         validateBodegaCristal1_oi(value, alreadyValidate);
         validation_cristal1_oi.value = value;
+        successSound.play();
         if (OT && OT[OTGrillaEnum.tipo_anteojo_id] == 3) {
           focusFirstInput("a2_od", inputsRef["a2_od"]);
         }
@@ -537,6 +544,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         value.length >= 11
       ) {
         validation_cristal2_od.value = value;
+        successSound.play();
         validateBodegaCristal2_od(value, alreadyValidate);
         focusFirstInput("a2_oi", inputsRef["a2_oi"]);
       } else {
@@ -566,6 +574,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         value.length >= 11
       ) {
         validation_cristal2_oi.value = value;
+        successSound.play();
         validateBodegaCristal2_oi(value, alreadyValidate);
         // focusFirstInput('a2_armazon', inputsRef["a2_armazon"])
       } else {
@@ -597,8 +606,9 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
 
   React.useEffect(() => {
     if (OT) {
-      console.log(casoEjecutar);
-
+      if (OT.length === 0) {
+        return;
+      }
       if (isValidateCR1OD.value === true && isValidateCR1OI.value === true) {
         validation_cristal1_od.value = " ";
         validation_cristal1_oi.value = " ";
@@ -623,8 +633,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
 
       let observaciones;
       let situacion;
-      console.log(OT);
-      console.log(OT[0][OTGrillaEnum.tipo_anteojo_id]);
+
       let data: any = {
         folio: OT[0][OTGrillaEnum.folio],
         tipo_anteojo: parseInt(OT[0][OTGrillaEnum.tipo_anteojo_id]),
@@ -654,6 +663,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         ],
         armazones: [],
       };
+
       if (casoEjecutar === "sinCristales") {
         toast.success("Cristales validados correctamente.");
         // data = [{ cristales: [], armazones: [] }];
@@ -709,7 +719,6 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         return handleClose();
       }
 
-      console.log(OT && OT[OTGrillaEnum.validar_parametrizacionm]);
       if (OT && OT[OTGrillaEnum.validar_parametrizacionm] === "0") {
         setIsCheckLab(true);
         return;
@@ -797,7 +806,6 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       }
     }
     if (OT && OT[OTGrillaEnum.tipo_anteojo_id] !== 3) {
-      console.log("render");
       validateBodegaCristal2_od("32", true);
       validateBodegaCristal2_oi("32", true);
       if (casoEjecutar === "sinCristales") {
@@ -1271,7 +1279,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         _p2
       )
         .then(() => {
-          handleClose();
+          // handleClose     ();
           // toast.dismiss(toastLoading);
           // toast.success("OT Procesada Correctamente.");
           dispatch(
@@ -1402,15 +1410,12 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     }
   };
 
-  // const onChangeCheckLab = async(e) => {
-  //   console.log(e)
-  // }
-
-  console.log(CR1_OD_LAB.value);
-  console.log(CR1_OI_LAB.value);
-
   const renderDerivationButton = () => {
     if (OT) {
+      if (OT[OTGrillaEnum.validado] === "10") {
+        return true;
+      }
+
       if (OT[OTGrillaEnum.tipo_anteojo_id] === 3) {
         if (
           isValidateArmazon1.value === true &&
@@ -1423,8 +1428,15 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           return true;
         }
       }
+
+      if (
+        OT[OTGrillaEnum.cr1_od]?.trim() === "" &&
+        OT[OTGrillaEnum.cr1_oi]?.trim() === ""
+      ) {
+        return true;
+      }
     }
-    return false;
+    return true;
   };
 
   return (
@@ -1437,7 +1449,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     >
       <div className="absolute right-0 userFormBtnCloseContainer">
         <h1
-          className={`text-center text-4xl text-white  mb-5 ${
+          className={`text-center text-4xl text-white  mb-10 ${
             OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3
               ? "translate-x-[-23vw]"
               : "translate-x-[-10vw]"
@@ -1459,10 +1471,10 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         </button>
       </div>
       <h1 className="h-8"></h1>
-      <form className="p-8 space-y-6 flex items-center">
+      <form className=" flex items-center">
         {OT && (
           <div className="!w-[34vw]">
-            <h1 className="text-center text-white text-4xl">
+            <h1 className="text-center text-white text-4xl mb-5 mt-5">
               Anteojo{" "}
               <span className="text-orange-300">
                 {OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3
@@ -1472,7 +1484,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
             </h1>
 
             {casoEjecutar !== "sinCristales" && renderInputCristal("a1_od")}
-            <div className="w-[75%] ml-4 bg-white -translate-y-[4vw] h-[8vw] overflow-y-scroll ">
+            <div className="w-[95%] ml-5 bg-white  h-[13vw] overflow-y-scroll mt-2 ">
               <TableValidationCristales
                 data={structureCristalesBodega.value["a1_od"].codigos}
               />
@@ -1482,7 +1494,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
               OT[OTGrillaEnum.cr1_oi] !== "" &&
               renderInputCristal("a1_oi")}
             {OT[OTGrillaEnum.cr1_oi] !== "" && (
-              <div className="w-[75%] ml-4 bg-white -translate-y-[4vw] h-[8vw] overflow-y-scroll">
+              <div className="w-[95%] ml-5 bg-white  h-[13vw] overflow-y-scroll mt-2">
                 <TableValidationCristales
                   data={structureCristalesBodega.value["a1_oi"].codigos}
                 />
@@ -1498,7 +1510,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         )} */}
 
         {OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3 && (
-          <div className="!w-[34vw]  !-mt-[0.05rem]">
+          <div className="!w-[34vw] mt-2">
             {/* <h1 className="text-center text-4xl text-white sbolut right-[10rem] top-8 absolute "> */}
             <h1 className="text-center text-white text-4xl">
               Anteojo <span className="text-orange-300">Cerca</span>
@@ -1507,7 +1519,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
             {casoEjecutar !== "sinCristales" &&
               OT[OTGrillaEnum.cr2_od] !== "" &&
               renderInputCristal("a2_od")}
-            <div className="w-[75%] ml-4 bg-white -translate-y-[4vw] h-[8vw] overflow-y-scroll ">
+            <div className="w-[75%] ml-2 bg-white mt-2  h-[13vw] overflow-y-scroll ">
               <TableValidationCristales
                 data={structureCristalesBodega.value["a2_od"].codigos}
               />
@@ -1516,7 +1528,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
             {casoEjecutar !== "sinCristales" &&
               OT[OTGrillaEnum.cr2_oi] !== "" &&
               renderInputCristal("a2_oi")}
-            <div className="w-[75%] ml-4 bg-white -translate-y-[4vw] h-[8vw] overflow-y-scroll">
+            <div className="w-[75%] ml-2 bg-white  h-[13vw] overflow-y-scroll">
               <TableValidationCristales
                 data={structureCristalesBodega.value["a2_oi"].codigos}
               />
@@ -1528,8 +1540,8 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         <div
           className={`mx-auto  w-[20%] ${
             OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3
-              ? "translate-y-[-2vw]"
-              : "translate-y-[-4vw]"
+              ? "translate-y-[2vw]"
+              : "translate-y-[2vw]"
           }`}
         >
           <Button

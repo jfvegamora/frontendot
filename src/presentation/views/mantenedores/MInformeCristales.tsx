@@ -212,7 +212,7 @@ const MCargos: React.FC = () => {
           pkToDelete={pkToDelete}
           data={entities}
           tableHead={table_head_informe_cristales}
-          showEditButton={true}
+          // showEditButton={true}
           showDeleteButton={false}
           idMenu={idMenu}
           leftEdit={true}
