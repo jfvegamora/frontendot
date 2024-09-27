@@ -468,6 +468,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       concatValue = concatValue + (value[name] || "");
       console.log(value);
       console.log(value[name] || "");
+      console.log(concatValue);
     }
   }, 2000);
 
