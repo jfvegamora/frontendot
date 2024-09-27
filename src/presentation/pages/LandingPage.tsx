@@ -275,8 +275,8 @@ const LandingPage: React.FC = () => {
 
       </div>  */}
         {user && (
-          <h1 className="text-base mx-auto  w-[50%] mt-20 font-body">
-            Bienvenido, {user.nombre}, al Sistema Gestión de OT.
+          <h1 className="text-base mx-auto  w-[25%] mt-20 font-body">
+            Bienvenido {user.nombre} al Sistema Gestión de OT.
           </h1>
         )}
 
