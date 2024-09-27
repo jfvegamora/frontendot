@@ -13,7 +13,7 @@ const TableValidationCristales: React.FC<ITableValidationCristales> = ({
         <tr>
           <th>CODIGO</th>
           <th>INDICE</th>
-          <th>DIAMETRO</th>
+          <th>DIAM</th>
           <th>ESF </th>
           <th>CIL</th>
           <th>UBICACION</th>

@@ -1396,32 +1396,32 @@ const FOT: React.FC<IFOTProps> = ({
       }
     };
 
-    const scrollThreshold = 200; // Ajusta este valor según tus necesidades
-    let scrollAccumulator = 0; // Variable para acumular el desplazamiento
+    // const scrollThreshold = 200; // Ajusta este valor según tus necesidades
+    // let scrollAccumulator = 0; // Variable para acumular el desplazamiento
 
-    const handleScroll = (event: WheelEvent) => {
-      const delta = event.deltaY; // Usar deltaY para scroll vertical
-      scrollAccumulator += delta;
+    // const handleScroll = (event: WheelEvent) => {
+    //   const delta = event.deltaY; // Usar deltaY para scroll vertical
+    //   scrollAccumulator += delta;
 
-      if (Math.abs(scrollAccumulator) >= scrollThreshold) {
-        if (scrollAccumulator > 0) {
-          // Desplazamiento hacia abajo
-          setSelectedTab((prevTab) => (prevTab + 1 + 6) % 6);
-        } else {
-          // Desplazamiento hacia arriba
-          setSelectedTab((prevTab) => (prevTab - 1 + 6) % 6);
-        }
+    //   if (Math.abs(scrollAccumulator) >= scrollThreshold) {
+    //     if (scrollAccumulator > 0) {
+    //       // Desplazamiento hacia abajo
+    //       setSelectedTab((prevTab) => (prevTab + 1 + 6) % 6);
+    //     } else {
+    //       // Desplazamiento hacia arriba
+    //       setSelectedTab((prevTab) => (prevTab - 1 + 6) % 6);
+    //     }
 
-        // Reinicia el acumulador de desplazamiento
-        scrollAccumulator = 0;
-      }
-    };
+    //     // Reinicia el acumulador de desplazamiento
+    //     scrollAccumulator = 0;
+    //   }
+    // };
     window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("wheel", handleScroll); // Para el scroll con el mouse
+    // window.addEventListener("wheel", handleScroll); // Para el scroll con el mouse
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("wheel", handleScroll); // Limpia el evento de scroll
+      // window.removeEventListener("wheel", handleScroll); // Limpia el evento de scroll
     };
   }, []);
 

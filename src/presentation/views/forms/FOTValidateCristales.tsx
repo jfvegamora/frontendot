@@ -52,6 +52,7 @@ import {
 } from "../../components/OTPrimaryButtons";
 import TextInputInteractive from "../../components/forms/TextInputInteractive";
 import TableValidationCristales from "../../components/OTForms/TableValidationCristales";
+import _ from "lodash";
 
 export const focusFirstInput = (
   strInputName: string,
@@ -461,6 +462,15 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     resolver: yupResolver(schema),
   });
 
+  let concatValue = "";
+  const debouncedSearch = _.debounce((value, name) => {
+    if (value[name]) {
+      concatValue = concatValue + (value[name] || "");
+      console.log(value);
+      console.log(value[name] || "");
+    }
+  }, 2000);
+
   const handleInputChange = async (e: any) => {
     let { name, value } = e;
     let formatValue: any;
@@ -468,9 +478,11 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     if (value === "") {
       return;
     }
-    const debouncedValue = useDebouce(value, 500);
 
     formatValue = value; // Asignar el valor final después del debounce
+    debouncedSearch(formValues, name);
+    console.log(concatValue);
+    // const debouncedValue = useDebouce(formatValue, 500);
     // if (debounceTimeout) {
     //   clearTimeout(debounceTimeout);
     // }
@@ -1565,7 +1577,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           </div>
         )}
       </form>
-      {renderDerivationButton() && (
+      {/* {renderDerivationButton() && (
         <div
           className={`mx-auto  w-[20%] ${
             OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3
@@ -1580,7 +1592,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
             Derivar
           </Button>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

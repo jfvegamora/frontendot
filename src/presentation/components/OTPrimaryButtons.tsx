@@ -1059,7 +1059,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             }`
           );
 
-          // console.log(dataAproximarCristales);
+          console.log(dataAproximarCristales);
 
           const keys = ["a1_od", "a1_oi", "a2_od", "a2_oi"];
           structureCristalesBodega.value = {
@@ -1082,55 +1082,82 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   ubicacion: row[aproximarEnum.cod_ubic],
                 });
 
-                for (
-                  let i = aproximarEnum.aprox_esf_cod;
-                  i <= aproximarEnum.aprox_esf_ubi;
-                  i += 2
-                ) {
-                  if (row[i]) {
-                    acc[keys[index]].codigos.push({
-                      codigo: row[i],
-                      indice: row[i + 1],
-                      diametro: row[i + 2],
-                      esferico: row[i + 3],
-                      cilindrico: row[i + 4],
-                      ubicacion: row[i + 5],
-                    });
-                  }
-                }
+                acc[keys[index]].codigos.push({
+                  codigo: row[aproximarEnum.aprox_esf_cod],
+                  indice: row[aproximarEnum.aprox_esf_indice],
+                  diametro: row[aproximarEnum.aprox_esf_diam],
+                  esferico: row[aproximarEnum.aprox_esf_esf],
+                  cilindrico: row[aproximarEnum.aprox_esf_cil],
+                  ubicacion: row[aproximarEnum.aprox_esf_ubi],
+                });
 
-                for (
-                  let i = aproximarEnum.aprox_cil_cod;
-                  i <= aproximarEnum.aprox_cil_ubi;
-                  i += 2
-                ) {
-                  if (row[i]) {
-                    acc[keys[index]].codigos.push({
-                      codigo: row[i],
-                      indice: row[i + 1],
-                      diametro: row[i + 2],
-                      esferico: row[i + 3],
-                      cilindrico: row[i + 4],
-                      ubicacion: row[i + 5],
-                    });
-                  }
-                }
-                for (
-                  let i = aproximarEnum.aprox_esfcil_cod;
-                  i <= aproximarEnum.aprox_esfcil_ubi;
-                  i += 2
-                ) {
-                  if (row[i]) {
-                    acc[keys[index]].codigos.push({
-                      codigo: row[i],
-                      indice: row[i + 1],
-                      diametro: row[i + 2],
-                      esferico: row[i + 3],
-                      cilindrico: row[i + 4],
-                      ubicacion: row[i + 5],
-                    });
-                  }
-                }
+                acc[keys[index]].codigos.push({
+                  codigo: row[aproximarEnum.aprox_cil_cod],
+                  indice: row[aproximarEnum.aprox_cil_indice],
+                  diametro: row[aproximarEnum.aprox_cil_diam],
+                  esferico: row[aproximarEnum.aprox_cil_esf],
+                  cilindrico: row[aproximarEnum.aprox_cil_cil],
+                  ubicacion: row[aproximarEnum.aprox_esf_ubi],
+                });
+
+                acc[keys[index]].codigos.push({
+                  codigo: row[aproximarEnum.aprox_esf_cod],
+                  indice: row[aproximarEnum.aprox_esfcil_indice],
+                  diametro: row[aproximarEnum.aprox_esfcil_diam],
+                  esferico: row[aproximarEnum.aprox_esfcil_esf],
+                  cilindrico: row[aproximarEnum.aprox_esfcil_diam],
+                  ubicacion: row[aproximarEnum.aprox_cil_ubi],
+                });
+
+                // for (
+                //   let i = aproximarEnum.aprox_esf_cod;
+                //   i <= aproximarEnum.aprox_esf_ubi;
+                //   i += 1
+                // ) {
+                //   if (row[i]) {
+                //     acc[keys[index]].codigos.push({
+                //       codigo: row[i],
+                //       indice: row[i + 1],
+                //       diametro: row[i + 2],
+                //       esferico: row[i + 3],
+                //       cilindrico: row[i + 4],
+                //       ubicacion: row[i + 5],
+                //     });
+                //   }
+                // }
+
+                // for (
+                //   let i = aproximarEnum.aprox_cil_cod;
+                //   i <= aproximarEnum.aprox_cil_ubi;
+                //   i += 3
+                // ) {
+                //   if (row[i]) {
+                //     acc[keys[index]].codigos.push({
+                //       codigo: row[i],
+                //       indice: row[i + 1],
+                //       diametro: row[i + 2],
+                //       esferico: row[i + 3],
+                //       cilindrico: row[i + 4],
+                //       ubicacion: row[i + 5],
+                //     });
+                //   }
+                // }
+                // for (
+                //   let i = aproximarEnum.aprox_esfcil_cod;
+                //   i <= aproximarEnum.aprox_esfcil_ubi;
+                //   i += 1
+                // ) {
+                //   if (row[i]) {
+                //     acc[keys[index]].codigos.push({
+                //       codigo: row[i],
+                //       indice: row[i + 1],
+                //       diametro: row[i + 2],
+                //       esferico: row[i + 3],
+                //       cilindrico: row[i + 4],
+                //       ubicacion: row[i + 5],
+                //     });
+                //   }
+                // }
 
                 for (
                   let i = aproximarEnum.cod_fab1;
@@ -1144,7 +1171,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                     });
                   }
                 }
-
                 // Asignar estado y opción de venta
                 acc[keys[index]].estado = `${row[aproximarEnum.cod_estado]}`;
                 acc[keys[index]].opcion_vta = `${
@@ -1156,7 +1182,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             structureCristalesBodega.value
           );
 
-          // console.log(structureCristalesBodega.value);
+          console.log(structureCristalesBodega.value);
           toast.dismiss(toastLoading);
           dataOTSignal.value = dataOT;
           setisFOTValidateBodegaCristales(true);
