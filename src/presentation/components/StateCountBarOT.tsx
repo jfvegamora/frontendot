@@ -29,13 +29,20 @@ const StateCountBarOT: React.FC<IStateCountBar> = React.memo(
   ({ checkCount, isMotHistorica }) => {
     const OTs: any = useAppSelector((store: AppStore) => store.OTS);
     const [OTPermissions, setOTPermissions] = React.useState("");
-    const { OTAreaActual, OTAreas } = useAppSelector((state: AppStore) => ({
-      OTAreaActual:
-        state.OTAreas.areaActual ||
-        JSON.parse(localStorage.getItem("OTAreas") || ""),
-      OTAreas:
-        state.OTAreas || JSON.parse(localStorage.getItem("areaActual") || ""),
-    }));
+
+    const OTAreaActual =
+      useAppSelector((state: AppStore) => state.OTAreas.areaActual) ||
+      JSON.parse(localStorage.getItem("areaActual") || "");
+    const OTAreas =
+      useAppSelector((state: AppStore) => state.OTAreas) ||
+      JSON.parse(localStorage.getItem("OTAreas") || "");
+    // const { OTAreaActual, OTAreas } = useAppSelector((state: AppStore) => ({
+    //   OTAreaActual:
+    //     state.OTAreas.areaActual ||
+    //     JSON.parse(localStorage.getItem("OTAreas") || ""),
+    //   OTAreas:
+    //     state.OTAreas || JSON.parse(localStorage.getItem("areaActual") || ""),
+    // }));
     const [stateCheckCount, setStateCheckCount] = React.useState(
       checkCount.value
     );

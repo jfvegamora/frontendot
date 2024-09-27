@@ -117,43 +117,41 @@ export let structureCristalesBodega = signal<any>({
 });
 
 enum aproximarEnum {
-  codigo = 0,
+  cod = 0,
 
-  indice = 1,
-  diametro = 2,
-  esferico = 3,
-  cilindrico = 4,
-  ubicacion1 = 5,
-  estado = 6,
-  opcion_vta = 7,
+  cod_indice = 1,
+  cod_diam = 2,
+  cod_esf = 3,
+  cod_cil = 4,
+  cod_ubic = 5,
+  cod_estado = 6,
+  cod_op_vta = 7,
 
   aprox_esf_cod = 8,
-  aprox_esf_ubi = 9,
-  aprox_cil_cod = 10,
-  aprox_cil_ubi = 11,
-  aprox_esfcil_cod = 12,
-  aprox_esfcil_ubi = 13,
+  aprox_esf_indice = 9,
+  aprox_esf_diam = 10,
+  aprox_esf_esf = 11,
+  aprox_esf_cil = 12,
+  aprox_esf_ubi = 13,
 
-  cod_fab1 = 14,
-  cod_fab2 = 15,
-  cod_fab3 = 16,
-  cod_fab4 = 17,
+  aprox_cil_cod = 14,
+  aprox_cil_indice = 15,
+  aprox_cil_diam = 16,
+  aprox_cil_esf = 17,
+  aprox_cil_cil = 18,
+  aprox_cil_ubi = 19,
 
-  ind_alt1_cod = 18,
-  ind_alt1_ind = 19,
-  ind_alt1_ubi = 20,
+  aprox_esfcil_cod = 20,
+  aprox_esfcil_indice = 21,
+  aprox_esfcil_diam = 22,
+  aprox_esfcil_esf = 23,
+  aprox_esfcil_cil = 24,
+  aprox_esfcil_ubi = 25,
 
-  ind_alt2_cod = 21,
-  ind_alt2_ind = 22,
-  ind_alt2_ubi = 23,
-
-  ind_alt3_cod = 24,
-  ind_alt3_ind = 25,
-  ind_alt3_ubi = 26,
-
-  ind_alt4_cod = 27,
-  ind_alt4_ind = 28,
-  ind_alt4_ubi = 29,
+  cod_fab1 = 26,
+  cod_fab2 = 27,
+  cod_fab3 = 28,
+  cod_fab4 = 29,
 }
 
 export const EnumAreas: any = {
@@ -1061,7 +1059,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             }`
           );
 
-          console.log(dataAproximarCristales);
+          // console.log(dataAproximarCristales);
 
           const keys = ["a1_od", "a1_oi", "a2_od", "a2_oi"];
           structureCristalesBodega.value = {
@@ -1073,26 +1071,63 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
           await dataAproximarCristales.reduce(
             (acc: any, row: any, index: any) => {
-              if (row[aproximarEnum.codigo] !== "CRISTAL") {
+              if (row[aproximarEnum.cod] !== "CRISTAL") {
                 // Añadir el código principal y su ubicación
                 acc[keys[index]].codigos.push({
-                  codigo: row[aproximarEnum.codigo],
-                  indice: row[aproximarEnum.indice],
-                  diametro: row[aproximarEnum.diametro],
-                  esferico: row[aproximarEnum.esferico],
-                  cilindrico: row[aproximarEnum.cilindrico],
-                  ubicacion: row[aproximarEnum.ubicacion1],
+                  codigo: row[aproximarEnum.cod],
+                  indice: row[aproximarEnum.cod_indice],
+                  diametro: row[aproximarEnum.cod_diam],
+                  esferico: row[aproximarEnum.cod_esf],
+                  cilindrico: row[aproximarEnum.cod_cil],
+                  ubicacion: row[aproximarEnum.cod_ubic],
                 });
 
                 for (
+                  let i = aproximarEnum.aprox_esf_cod;
+                  i <= aproximarEnum.aprox_esf_ubi;
+                  i += 2
+                ) {
+                  if (row[i]) {
+                    acc[keys[index]].codigos.push({
+                      codigo: row[i],
+                      indice: row[i + 1],
+                      diametro: row[i + 2],
+                      esferico: row[i + 3],
+                      cilindrico: row[i + 4],
+                      ubicacion: row[i + 5],
+                    });
+                  }
+                }
+
+                for (
                   let i = aproximarEnum.aprox_cil_cod;
+                  i <= aproximarEnum.aprox_cil_ubi;
+                  i += 2
+                ) {
+                  if (row[i]) {
+                    acc[keys[index]].codigos.push({
+                      codigo: row[i],
+                      indice: row[i + 1],
+                      diametro: row[i + 2],
+                      esferico: row[i + 3],
+                      cilindrico: row[i + 4],
+                      ubicacion: row[i + 5],
+                    });
+                  }
+                }
+                for (
+                  let i = aproximarEnum.aprox_esfcil_cod;
                   i <= aproximarEnum.aprox_esfcil_ubi;
                   i += 2
                 ) {
                   if (row[i]) {
                     acc[keys[index]].codigos.push({
                       codigo: row[i],
-                      ubicacion: row[i + 1],
+                      indice: row[i + 1],
+                      diametro: row[i + 2],
+                      esferico: row[i + 3],
+                      cilindrico: row[i + 4],
+                      ubicacion: row[i + 5],
                     });
                   }
                 }
@@ -1110,24 +1145,10 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   }
                 }
 
-                for (
-                  let i = aproximarEnum.ind_alt1_cod;
-                  i <= aproximarEnum.ind_alt4_ubi;
-                  i++
-                ) {
-                  if (row[i]) {
-                    acc[keys[index]].codigos.push({
-                      codigo: row[i],
-                      indice: row[i + 1],
-                      ubicacion: row[i + 2],
-                    });
-                  }
-                }
-
                 // Asignar estado y opción de venta
-                acc[keys[index]].estado = `${row[aproximarEnum.estado]}`;
+                acc[keys[index]].estado = `${row[aproximarEnum.cod_estado]}`;
                 acc[keys[index]].opcion_vta = `${
-                  row[aproximarEnum.opcion_vta]
+                  row[aproximarEnum.cod_op_vta]
                 }`;
               }
               return acc;
@@ -1135,7 +1156,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             structureCristalesBodega.value
           );
 
-          console.log(structureCristalesBodega.value);
+          // console.log(structureCristalesBodega.value);
           toast.dismiss(toastLoading);
           dataOTSignal.value = dataOT;
           setisFOTValidateBodegaCristales(true);

@@ -38,6 +38,7 @@ import {
 import { Howl } from "howler";
 import soundError from "../../../assets/error-call-to-attention-129258.mp3";
 import soundSuccess from "../../../assets/zapsplat_public_places_supermarket_checkout_beep_002_44357 (1).mp3";
+import { useDebouce } from "../../hooks/useDebounce";
 
 import {
   dataOTSignal,
@@ -85,6 +86,12 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
   const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
   const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id);
   const [OT, setOT] = React.useState<any>(dataOTSignal.value);
+
+  const [scanValue, setScanValue] = React.useState<any>();
+
+  React.useEffect(() => {
+    console.log(scanValue);
+  }, [scanValue]);
 
   const resetFields = () => {
     CR1_OD_LAB.value = false;
@@ -454,22 +461,44 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     resolver: yupResolver(schema),
   });
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = async (e: any) => {
     let { name, value } = e;
     let formatValue: any;
 
     if (value === "") {
       return;
     }
+    const debouncedValue = useDebouce(value, 500);
 
+    formatValue = value; // Asignar el valor final después del debounce
+    // if (debounceTimeout) {
+    //   clearTimeout(debounceTimeout);
+    // }
+
+    // Esperar 700 ms después del último input antes de ejecutar el código
     // if (value && value.length >= 12) {
     //   const regex = /^0+/;
     //   formatValue = value.replace(regex, "");
     // }
 
-    formatValue = value;
-
+    // formatValue = value;
+    console.log(formatValue);
     if (name === "a1_od") {
+      // setScanValue({ [name]: { codigo: value } });
+      // setScanValue((prev: any) => ({
+      //   ...prev,
+      //   [name]: {
+      //     codigo: (prev[name]?.codigo || "") + formatValue,
+      //   },
+      // }));
+
+      // setScanValue((prev: any) => ({
+      //   ...prev,
+      //   [name]: {
+      //     codigo: (prev[name]?.codigo || "") + formatValue,
+      //   },
+      // }));
+
       if (formatValue === "") {
         validateBodegaCristal1_od("");
       }

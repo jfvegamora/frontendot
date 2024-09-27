@@ -54,36 +54,36 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
   }) => {
     const { escritura_lectura, lectura } = usePermission(idMenu || 0);
     const [OTPermissions, setOTPermissions] = useState("");
-    // const OTAreas: any = useAppSelector(
-    //   (store: AppStore) =>
-    //     store.OTAreas || JSON.parse(localStorage.getItem("OTAreas") as any)
-    // );
-    // const OTAreaActual: any = React.useCallback(
-    //   useAppSelector(
-    //     (store: AppStore) =>
-    //       store.OTAreas["areaActual"] ||
-    //       JSON.parse(localStorage.getItem("areaActual") as string)
-    //   ),
-    //   [OTAreas]
-    // );
-    // const OTColores: any =
-    //   useAppSelector((store: AppStore) => store.OTS.derivacionColores) ||
-    //   JSON.parse(localStorage.getItem("OTColores") as string);
-    // const data: any = useAppSelector((store: AppStore) => store.OTS.data);
-
-    const { OTAreaActual, OTAreas, OTColores, data } = useAppSelector(
-      (state: AppStore) => ({
-        OTAreaActual:
-          state.OTAreas.areaActual ||
-          JSON.parse(localStorage.getItem("OTAreas") || ""),
-        OTAreas:
-          state.OTAreas || JSON.parse(localStorage.getItem("areaActual") || ""),
-        OTColores:
-          state.OTS.derivacionColores ||
-          JSON.parse(localStorage.getItem("OTColores") || ""),
-        data: state.OTS.data,
-      })
+    const OTAreas: any = useAppSelector(
+      (store: AppStore) =>
+        store.OTAreas || JSON.parse(localStorage.getItem("OTAreas") as any)
     );
+    const OTAreaActual: any = React.useCallback(
+      useAppSelector(
+        (store: AppStore) =>
+          store.OTAreas["areaActual"] ||
+          JSON.parse(localStorage.getItem("areaActual") as string)
+      ),
+      [OTAreas]
+    );
+    const OTColores: any =
+      useAppSelector((store: AppStore) => store.OTS.derivacionColores) ||
+      JSON.parse(localStorage.getItem("OTColores") as string);
+    const data: any = useAppSelector((store: AppStore) => store.OTS.data);
+
+    // const { OTAreaActual, OTAreas, OTColores, data } = useAppSelector(
+    //   (state: AppStore) => ({
+    //     OTAreaActual:
+    //       state.OTAreas?.areaActual ||
+    //       JSON.parse(localStorage.getItem("OTAreas") || ""),
+    //     OTAreas:
+    //       state.OTAreas || JSON.parse(localStorage.getItem("areaActual") || ""),
+    //     OTColores:
+    //       state.OTS.derivacionColores ||
+    //       JSON.parse(localStorage.getItem("OTColores") || ""),
+    //     data: state.OTS?.data || [],
+    //   })
+    // );
     const { permiso_usuario_btn_check } = usePermissionBotonesUser();
 
     const permissions = React.useCallback(
