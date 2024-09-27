@@ -535,7 +535,7 @@ export const table_head_OT_bitacora = [
     cell: "Fecha/Hora",
     key: "date",
     visible: true,
-    width: "w-[12rem]",
+    width: "w-[8rem]",
   },
   {
     cell: "USUARIO ID",
@@ -559,7 +559,7 @@ export const table_head_OT_bitacora = [
     key: "origen",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]",
+    width: "w-[7rem]",
   },
   {
     cell: "DESTINO_ID",
@@ -571,7 +571,7 @@ export const table_head_OT_bitacora = [
     key: "destino",
     visible: true,
     alignment: "text-center",
-    width: "w-[10rem]",
+    width: "w-[7rem]",
   },
   {
     cell: "ESTADO ID",
@@ -602,7 +602,7 @@ export const table_head_OT_bitacora = [
     key: "observaciones",
     visible: true,
     alignment: "text-left",
-    width: "w-[12rem]",
+    width: "w-[34rem]",
   },
   {
     cell: "",
