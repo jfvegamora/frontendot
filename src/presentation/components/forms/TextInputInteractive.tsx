@@ -42,6 +42,7 @@ type ITextInputProps = ComponentProps<"input"> & {
   handleFocusReservaArmazones?: any;
   onPaste?: any;
   onKeyDown?: any;
+  handleOnInput?: any;
 };
 
 const TextInputInteractive: React.FC<ITextInputProps> = ({
@@ -67,6 +68,7 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
   handleFocusReservaArmazones,
   onPaste,
   onKeyDown,
+  handleOnInput,
 }) => {
   const [_defaultValue, setDefaultValue] = useState<any>(data || " ");
   const [_render, setRender] = useState(false);
@@ -230,6 +232,7 @@ const TextInputInteractive: React.FC<ITextInputProps> = ({
               onFocus={handleFocus && handleFocus}
               readOnly={onlyRead}
               maxLength={maxLength}
+              onInput={(e) => handleOnInput(e)}
               onBlur={(e) => {
                 handleInputChange(e);
               }}

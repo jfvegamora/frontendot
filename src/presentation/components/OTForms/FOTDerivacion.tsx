@@ -82,7 +82,7 @@ const FOTDerivacion: React.FC<IDerivacion> = ({
     }
 
     if (isMasivo) {
-      let usuarioID = data[0]["usuario_id"];
+      // let usuarioID = data[0]["usuario_id"];
       const folios = data.map((dataOT: any) => dataOT.folio).join(",");
 
       const response: any = await handleActionOTButtons(
@@ -92,7 +92,7 @@ const FOTDerivacion: React.FC<IDerivacion> = ({
         OTAreas["areaActual"],
         jsonData.area_hasta.toString() as any,
         jsonData?.observaciones,
-        usuarioID,
+        UsuarioID,
         "Derivar"
       );
 

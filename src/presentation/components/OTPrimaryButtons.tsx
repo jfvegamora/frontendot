@@ -116,6 +116,8 @@ export let structureCristalesBodega = signal<any>({
   a2_oi: { codigos: [], estado: "", opcion_vta: "" },
 });
 
+export const codConcatAll = signal<any>("");
+
 enum aproximarEnum {
   cod = 0,
 
@@ -1059,8 +1061,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             }`
           );
 
-          console.log(dataAproximarCristales);
-
           const keys = ["a1_od", "a1_oi", "a2_od", "a2_oi"];
           structureCristalesBodega.value = {
             a1_od: { codigos: [], estado: "", opcion_vta: "" },
@@ -1071,7 +1071,10 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
           await dataAproximarCristales.reduce(
             (acc: any, row: any, index: any) => {
-              if (row[aproximarEnum.cod] !== "CRISTAL") {
+              if (
+                row[aproximarEnum.cod] !== "CRISTAL" &&
+                row[aproximarEnum.cod] !== ""
+              ) {
                 // Añadir el código principal y su ubicación
                 acc[keys[index]].codigos.push({
                   codigo: row[aproximarEnum.cod],
@@ -1105,59 +1108,9 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   indice: row[aproximarEnum.aprox_esfcil_indice],
                   diametro: row[aproximarEnum.aprox_esfcil_diam],
                   esferico: row[aproximarEnum.aprox_esfcil_esf],
-                  cilindrico: row[aproximarEnum.aprox_esfcil_diam],
-                  ubicacion: row[aproximarEnum.aprox_cil_ubi],
+                  cilindrico: row[aproximarEnum.aprox_esfcil_cil],
+                  ubicacion: row[aproximarEnum.aprox_esfcil_ubi],
                 });
-
-                // for (
-                //   let i = aproximarEnum.aprox_esf_cod;
-                //   i <= aproximarEnum.aprox_esf_ubi;
-                //   i += 1
-                // ) {
-                //   if (row[i]) {
-                //     acc[keys[index]].codigos.push({
-                //       codigo: row[i],
-                //       indice: row[i + 1],
-                //       diametro: row[i + 2],
-                //       esferico: row[i + 3],
-                //       cilindrico: row[i + 4],
-                //       ubicacion: row[i + 5],
-                //     });
-                //   }
-                // }
-
-                // for (
-                //   let i = aproximarEnum.aprox_cil_cod;
-                //   i <= aproximarEnum.aprox_cil_ubi;
-                //   i += 3
-                // ) {
-                //   if (row[i]) {
-                //     acc[keys[index]].codigos.push({
-                //       codigo: row[i],
-                //       indice: row[i + 1],
-                //       diametro: row[i + 2],
-                //       esferico: row[i + 3],
-                //       cilindrico: row[i + 4],
-                //       ubicacion: row[i + 5],
-                //     });
-                //   }
-                // }
-                // for (
-                //   let i = aproximarEnum.aprox_esfcil_cod;
-                //   i <= aproximarEnum.aprox_esfcil_ubi;
-                //   i += 1
-                // ) {
-                //   if (row[i]) {
-                //     acc[keys[index]].codigos.push({
-                //       codigo: row[i],
-                //       indice: row[i + 1],
-                //       diametro: row[i + 2],
-                //       esferico: row[i + 3],
-                //       cilindrico: row[i + 4],
-                //       ubicacion: row[i + 5],
-                //     });
-                //   }
-                // }
 
                 for (
                   let i = aproximarEnum.cod_fab1;
@@ -1167,7 +1120,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   if (row[i]) {
                     acc[keys[index]].codigos.push({
                       codigo: row[i],
-                      ubicacion: "",
+                      indice: row[aproximarEnum.cod_indice],
+                      diametro: row[aproximarEnum.cod_diam],
+                      esferico: row[aproximarEnum.cod_esf],
+                      cilindrico: row[aproximarEnum.cod_cil],
+                      ubicacion: row[aproximarEnum.cod_ubic],
                     });
                   }
                 }
@@ -1182,7 +1139,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             structureCristalesBodega.value
           );
 
-          console.log(structureCristalesBodega.value);
           toast.dismiss(toastLoading);
           dataOTSignal.value = dataOT;
           setisFOTValidateBodegaCristales(true);

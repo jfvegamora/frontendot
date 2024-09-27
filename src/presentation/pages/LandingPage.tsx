@@ -18,6 +18,7 @@ import { IconButton, Tooltip } from "@material-tailwind/react";
 import { FaRegFileLines } from "react-icons/fa6";
 import JsBarcode from "jsbarcode";
 import { AppStore, useAppSelector } from "../../redux/store";
+import FOTValidateCristales from "../views/forms/FOTValidateCristales";
 // import FOTValidateCristales from "../views/forms/FOTValidateCristales";
 // import FOTValidateCristales from "../views/forms/FOTValidateCristales";
 // import FOTValidateArmazones from "../views/forms/FOTValidateArmazones";
@@ -309,7 +310,7 @@ const LandingPage: React.FC = () => {
           </>
         </div>
 
-        {/* <FOTValidateCristales /> */}
+        <FOTValidateCristales />
         {/* <FOTValidateArmazones /> */}
       </div>
     </div>

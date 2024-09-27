@@ -993,6 +993,7 @@ export const updateOT = async (
         ? `area="${_destino}", estado="${_estado}",ubicacion=""`
         : `area="${_destino}", estado="${_estado}"`;
 
+    console.log(user);
     const query = {
       query: "04",
       _p1: `${p1 === "" || p1 === undefined ? strP1 : `${strP1}, ${p1}`}`,
@@ -1032,7 +1033,7 @@ export const updateOT = async (
     };
 
     try {
-      // console.log(query);
+      console.log(query);
       const response = await axios.post(`${URLBackend}/api/ot/editar/`, query);
       if (response.status === 200) {
       } else {

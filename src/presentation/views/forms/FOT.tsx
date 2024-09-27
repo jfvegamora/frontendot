@@ -1128,6 +1128,15 @@ const FOT: React.FC<IFOTProps> = ({
         setValue("a2_oi_esf", a2_oi_esf.value);
         setValue("a2_oi_cil", a2_oi_cil.value);
         setValue("a2_oi_eje", a2_oi_eje.value);
+
+        if (
+          parseFloat(a2_od_esf.value) < 0 ||
+          parseFloat(a2_oi_esf.value) < 0
+        ) {
+          setValue("cristal2_diametro", 70);
+        } else {
+          setValue("cristal2_diametro", 65);
+        }
       }
 
       validation_A2_OD_ESF(a2_od_esf.value);
