@@ -310,7 +310,7 @@ const LandingPage: React.FC = () => {
           </>
         </div>
 
-        <FOTValidateCristales />
+        {/* <FOTValidateCristales /> */}
         {/* <FOTValidateArmazones /> */}
       </div>
     </div>
