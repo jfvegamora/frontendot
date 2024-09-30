@@ -2,24 +2,38 @@ import React, { useCallback } from "react";
 import { SelectInputComponent, TextInputComponent } from "..";
 import { EnumGrid } from "../../views/mantenedores/MOTHistorica";
 import {
-  validation_Cristal1_color,
-  validation_Cristal1_diametro,
-  validation_Cristal1_diseño,
-  validation_Cristal1_indice,
-  validation_Cristal1_marca,
-  validation_Cristal1_material,
   validation_Cristal1_od,
+  validation_Cristal1_od_color,
+  validation_Cristal1_od_diametro,
+  validation_Cristal1_od_diseño,
+  validation_Cristal1_od_indice,
+  validation_Cristal1_od_marca,
+  validation_Cristal1_od_material,
+  validation_Cristal1_od_tratamiento,
   validation_Cristal1_oi,
-  validation_Cristal1_tratamiento,
-  validation_Cristal2_color,
-  validation_Cristal2_diametro,
-  validation_Cristal2_diseño,
-  validation_Cristal2_indice,
-  validation_cristal2_marca,
-  validation_Cristal2_material,
+  validation_Cristal1_oi_color,
+  validation_Cristal1_oi_diametro,
+  validation_Cristal1_oi_diseño,
+  validation_Cristal1_oi_indice,
+  validation_Cristal1_oi_marca,
+  validation_Cristal1_oi_material,
+  validation_Cristal1_oi_tratamiento,
   validation_Cristal2_od,
+  validation_Cristal2_od_color,
+  validation_Cristal2_od_diametro,
+  validation_Cristal2_od_diseño,
+  validation_Cristal2_od_indice,
+  validation_cristal2_od_marca,
+  validation_Cristal2_od_material,
+  validation_Cristal2_od_tratamiento,
   validation_Cristal2_oi,
-  validation_Cristal2_tratamiento,
+  validation_Cristal2_oi_color,
+  validation_Cristal2_oi_diametro,
+  validation_Cristal2_oi_diseño,
+  validation_Cristal2_oi_indice,
+  validation_cristal2_oi_marca,
+  validation_Cristal2_oi_material,
+  validation_Cristal2_oi_tratamiento,
   validationOTlevel2,
   validationOTlevel3,
 } from "../../utils/validationOT";
@@ -99,15 +113,17 @@ const FOTCristales: React.FC<ICristales> = ({
   const handleInputChange = async (e: any) => {
     const { name, value } = e;
 
-    if (name === "cristal1_tratamiento_adicional_id") {
+    console.log(name);
+
+    if (name === "cristal1_tratamiento_adicional_od_id") {
       if (
-        (formValues && formValues["cristal1_marca_id"] !== "1") ||
-        (formValues && formValues["cristal1_indice_id"] !== "1") ||
-        (formValues && formValues["cristal1_material_id"] !== "1") ||
-        (formValues && formValues["cristal1_color_id"] !== "1") ||
-        (formValues && formValues["cristal1_tratamiento_id"] !== "1") ||
-        (formValues && formValues["cristal1_diseno_id"] !== "1") ||
-        (formValues && formValues["cristal1_diametro"] !== "65")
+        (formValues && formValues["cristal1_marca_od_id"] !== "1") ||
+        (formValues && formValues["cristal1_indice_od_id"] !== "1") ||
+        (formValues && formValues["cristal1_material_od_id"] !== "1") ||
+        (formValues && formValues["cristal1_color_od_id"] !== "1") ||
+        (formValues && formValues["cristal1_tratamiento_od_id"] !== "1") ||
+        (formValues && formValues["cristal1_diseno_od_id"] !== "1") ||
+        (formValues && formValues["cristal1_od_diametro"] !== "65")
       ) {
         toast.warning(
           "Tratamiento Adicional no compatible con opciones de Cristal, reiniciando opciones."
@@ -197,6 +213,7 @@ const FOTCristales: React.FC<ICristales> = ({
       return {
         name: "cristal1_od",
         label: "Código Cristal OD",
+        className: "",
         data: A1_CR_OD.value,
       };
     },
@@ -204,6 +221,7 @@ const FOTCristales: React.FC<ICristales> = ({
       return {
         name: "cristal1_oI",
         label: "Código Cristal OI",
+        className: "ml-5",
         data: A1_CR_OI.value,
       };
     },
@@ -211,6 +229,7 @@ const FOTCristales: React.FC<ICristales> = ({
       return {
         name: "cristal2_od",
         label: "Código cristal OD",
+        className: "",
         data: A2_CR_OD.value,
       };
     },
@@ -219,6 +238,7 @@ const FOTCristales: React.FC<ICristales> = ({
       return {
         name: "cristal2_oi",
         label: "Código cristal OI",
+        className: "ml-5",
         data: A2_CR_OI.value,
       };
     },
@@ -226,10 +246,10 @@ const FOTCristales: React.FC<ICristales> = ({
 
   const renderInputCristal = useCallback(
     (cristal: string) => {
-      const { label, name, data } = CodigosCristales[cristal]();
+      const { label, name, data, className } = CodigosCristales[cristal]();
 
       return (
-        <div className="!w-[48%] !pr-[1rem] ml-1 !translate-y-4">
+        <div className={`!w-[48%] !pr-[1rem]  !translate-y-4 ${className}`}>
           <TextInputInteractive
             type="text"
             label={label}
@@ -306,41 +326,69 @@ const FOTCristales: React.FC<ICristales> = ({
     }
 
     const {
-      cristal1_marca_id,
-      cristal1_indice_id,
-      cristal1_material_id,
-      cristal1_color_id,
-      cristal1_tratamiento_id,
-      cristal1_diseno_id,
-      cristal1_diametro,
+      cristal1_marca_od_id,
+      cristal1_marca_oi_id,
+      cristal1_indice_od_id,
+      cristal1_indice_oi_id,
+      cristal1_material_od_id,
+      cristal1_material_oi_id,
+      cristal1_color_od_id,
+      cristal1_color_oi_id,
+      cristal1_tratamiento_od_id,
+      cristal1_tratamiento_oi_id,
+      cristal1_diseno_od_id,
+      cristal1_diseno_oi_id,
+      cristal1_od_diametro,
+      cristal1_oi_diametro,
     } = formValues;
 
-    validation_Cristal1_marca(cristal1_marca_id);
-    validation_Cristal1_indice(cristal1_indice_id);
-    validation_Cristal1_material(cristal1_material_id);
-    validation_Cristal1_color(cristal1_color_id);
-    validation_Cristal1_tratamiento(cristal1_tratamiento_id);
-    validation_Cristal1_diseño(cristal1_diseno_id);
-    validation_Cristal1_diametro(cristal1_diametro);
+    validation_Cristal1_od_marca(cristal1_marca_od_id);
+    validation_Cristal1_oi_marca(cristal1_marca_oi_id);
+    validation_Cristal1_od_indice(cristal1_indice_od_id);
+    validation_Cristal1_oi_indice(cristal1_indice_oi_id);
+    validation_Cristal1_od_material(cristal1_material_od_id);
+    validation_Cristal1_oi_material(cristal1_material_oi_id);
+    validation_Cristal1_od_color(cristal1_color_od_id);
+    validation_Cristal1_oi_color(cristal1_color_oi_id);
+    validation_Cristal1_od_tratamiento(cristal1_tratamiento_od_id);
+    validation_Cristal1_oi_tratamiento(cristal1_tratamiento_oi_id);
+    validation_Cristal1_od_diseño(cristal1_diseno_od_id);
+    validation_Cristal1_oi_diseño(cristal1_diseno_oi_id);
+    validation_Cristal1_od_diametro(cristal1_od_diametro);
+    validation_Cristal1_oi_diametro(cristal1_oi_diametro);
 
     if (tipo_de_anteojo.value === "3") {
       const {
-        cristal2_marca_id,
-        cristal2_indice_id,
-        cristal2_material_id,
-        cristal2_color_id,
-        cristal2_tratamiento_id,
-        cristal2_diseno_id,
-        cristal2_diametro,
+        cristal2_marca_od_id,
+        cristal2_marca_oi_id,
+        cristal2_indice_od_id,
+        cristal2_indice_oi_id,
+        cristal2_material_od_id,
+        cristal2_material_oi_id,
+        cristal2_color_od_id,
+        cristal2_color_oi_id,
+        cristal2_tratamiento_od_id,
+        cristal2_tratamiento_oi_id,
+        cristal2_diseno_od_id,
+        cristal2_diseno_oi_id,
+        cristal2_od_diametro,
+        cristal2_oi_diametro,
       } = formValues;
 
-      validation_cristal2_marca(cristal2_marca_id);
-      validation_Cristal2_indice(cristal2_indice_id);
-      validation_Cristal2_material(cristal2_material_id);
-      validation_Cristal2_color(cristal2_color_id);
-      validation_Cristal2_tratamiento(cristal2_tratamiento_id);
-      validation_Cristal2_diseño(cristal2_diseno_id);
-      validation_Cristal2_diametro(cristal2_diametro);
+      validation_cristal2_od_marca(cristal2_marca_od_id);
+      validation_cristal2_oi_marca(cristal2_marca_oi_id);
+      validation_Cristal2_od_indice(cristal2_indice_od_id);
+      validation_Cristal2_oi_indice(cristal2_indice_oi_id);
+      validation_Cristal2_od_material(cristal2_material_od_id);
+      validation_Cristal2_oi_material(cristal2_material_oi_id);
+      validation_Cristal2_od_color(cristal2_color_od_id);
+      validation_Cristal2_oi_color(cristal2_color_oi_id);
+      validation_Cristal2_od_tratamiento(cristal2_tratamiento_od_id);
+      validation_Cristal2_oi_tratamiento(cristal2_tratamiento_oi_id);
+      validation_Cristal2_od_diseño(cristal2_diseno_od_id);
+      validation_Cristal2_oi_diseño(cristal2_diseno_oi_id);
+      validation_Cristal2_od_diametro(cristal2_od_diametro);
+      validation_Cristal2_oi_diametro(cristal2_oi_diametro);
     }
   }, []);
 
@@ -389,26 +437,40 @@ const FOTCristales: React.FC<ICristales> = ({
     console.log("render");
     if (CR1_OD_LAB.value === true && CR1_OI_LAB.value === true) {
       // validatePestañaCristales()
-      validation_Cristal1_marca("32");
-      validation_Cristal1_diseño("32");
-      validation_Cristal1_indice("32");
-      validation_Cristal1_material("32");
-      validation_Cristal1_tratamiento("32");
-      validation_Cristal1_color("32");
-      validation_Cristal1_diametro("32");
+      validation_Cristal1_od_marca("32");
+      validation_Cristal1_oi_marca("32");
+      validation_Cristal1_od_diseño("32");
+      validation_Cristal1_oi_diseño("32");
+      validation_Cristal1_od_indice("32");
+      validation_Cristal1_oi_indice("32");
+      validation_Cristal1_od_material("32");
+      validation_Cristal1_oi_material("32");
+      validation_Cristal1_od_tratamiento("32");
+      validation_Cristal1_oi_tratamiento("32");
+      validation_Cristal1_od_color("32");
+      validation_Cristal1_oi_color("32");
+      validation_Cristal1_od_diametro("32");
+      validation_Cristal1_oi_diametro("32");
       validation_Cristal1_od("32");
       validation_Cristal1_oi("32");
     }
 
     if (CR2_OD_LAB.value === true && CR2_OI_LAB.value === true) {
       if (tipo_de_anteojo.value === "3") {
-        validation_cristal2_marca("32");
-        validation_Cristal2_diseño("32");
-        validation_Cristal2_indice("32");
-        validation_Cristal2_material("32");
-        validation_Cristal2_tratamiento("32");
-        validation_Cristal2_color("32");
-        validation_Cristal2_diametro("32");
+        validation_cristal2_od_marca("32");
+        validation_cristal2_oi_marca("32");
+        validation_Cristal2_od_diseño("32");
+        validation_Cristal2_oi_diseño("32");
+        validation_Cristal2_od_indice("32");
+        validation_Cristal2_oi_indice("32");
+        validation_Cristal2_od_material("32");
+        validation_Cristal2_oi_material("32");
+        validation_Cristal2_od_tratamiento("32");
+        validation_Cristal2_oi_tratamiento("32");
+        validation_Cristal2_od_color("32");
+        validation_Cristal2_oi_color("32");
+        validation_Cristal2_od_diametro("32");
+        validation_Cristal2_oi_diametro("32");
         validation_Cristal2_od("32");
         validation_Cristal2_oi("32");
       }
@@ -431,23 +493,42 @@ const FOTCristales: React.FC<ICristales> = ({
   const handleResetSelect = useCallback((anteojo: string) => {
     console.log("render");
     if (anteojo === "CR1") {
-      setValue("cristal1_marca_id", "1");
-      setValue("cristal1_indice_id", "1");
-      setValue("cristal1_material_id", "1");
-      setValue("cristal1_color_id", "1");
-      setValue("cristal1_tratamiento_id", "1");
-      setValue("cristal1_diseno_id", "1");
-      setValue("cristal1_diametro", "65");
+      setValue("cristal1_marca_od_id", "1");
+      setValue("cristal1_marca_oi_id", "1");
+      setValue("cristal1_indice_od_id", "1");
+      setValue("cristal1_indice_oi_id", "1");
+      setValue("cristal1_material_od_id", "1");
+      setValue("cristal1_material_oi_id", "1");
+      setValue("cristal1_color_od_id", "1");
+      setValue("cristal1_color_oi_id", "1");
+      setValue("cristal1_tratamiento_od_id", "1");
+      setValue("cristal1_tratamiento_oi_id", "1");
+      setValue("cristal1_diseno_od_id", "1");
+      setValue("cristal1_diseno_oi_id", "1");
+      setValue("cristal1_od_diametro", "65");
+      setValue("cristal1_oi_diametro", "65");
     } else {
-      setValue("cristal2_marca_id", "1");
-      setValue("cristal2_indice_id", "1");
-      setValue("cristal2_material_id", "1");
-      setValue("cristal2_color_id", "1");
-      setValue("cristal2_tratamiento_id", "1");
-      setValue("cristal2_diseno_id", "1");
-      setValue("cristal2_diametro", "65");
+      setValue("cristal2_marca_od_id", "1");
+      setValue("cristal2_marca_oi_id", "1");
+      setValue("cristal2_indice_od_id", "1");
+      setValue("cristal2_indice_oi_id", "1");
+      setValue("cristal2_material_od_id", "1");
+      setValue("cristal2_material_oi_id", "1");
+      setValue("cristal2_color_od_id", "1");
+      setValue("cristal2_color_oi_id", "1");
+      setValue("cristal2_tratamiento_od_id", "1");
+      setValue("cristal2_tratamiento_oi_id", "1");
+      setValue("cristal2_diseno_od_id", "1");
+      setValue("cristal2_diseno_oi_id", "1");
+      setValue("cristal2_od_diametro", "65");
+      setValue("cristal2_oi_diametro", "65");
     }
   }, []);
+
+  console.log(formValues);
+
+  console.log(permiso_areas_grupo_dioptria);
+  console.log(permiso_usuario_grupo_dioptria);
 
   return (
     <form onKeyDown={handleKeyDown}>
@@ -457,8 +538,12 @@ const FOTCristales: React.FC<ICristales> = ({
             tipo_de_anteojo.value !== "3" ? "translate-x-[20vw]" : ""
           }    w-[48vw] relative !mt-[2.5rem] !h-[80vh] `}
         >
-          <div className=" flex items-center radioComponent   h-[75vh] w-[97%] !ml-[1rem]">
-            <div className="mx-auto !mt-6 w-[50vw] !h-full ">
+          <div
+            className={` ${
+              tipo_de_anteojo.value === 3 ? "w-[52vw]" : "w-[48vw]"
+            } flex items-center radioComponent   h-[75vh]  !ml-[1rem] overflow-hidden`}
+          >
+            <div className="mx-auto !mt-6 w-[45vw] !h-full ">
               <h1
                 className={`absolute z-10 top-[-6%] text-3xl font-bold ${
                   tipo_de_anteojo.value !== "3"
@@ -500,201 +585,376 @@ const FOTCristales: React.FC<ICristales> = ({
                 </div>
 
                 <div className="w-full flex mt-6 rowForm justify-center ">
-                  <div className=" w-[22vw] my-2 labelInput   ">
-                    <SelectInputComponent
-                      label="Marca"
-                      name="cristal1_marca_id"
-                      showRefresh={true}
-                      isOT={true}
-                      handleSelectChange={handleInputChange}
-                      data={
-                        formValues && formValues["cristal1_marca_id"]
-                          ? formValues["cristal1_marca_id"]
-                          : data && data[EnumGrid.cristal1_marca_id]
-                      }
-                      control={control}
-                      entidad={["/api/marcas/", "02", "2"]}
-                      // error={errors.establecimiento}
+                  <div className="w-[50%] flex mx-4">
+                    <div className=" w-[30vw]  my-2 labelInput   ">
+                      <SelectInputComponent
+                        label="Marca"
+                        name="cristal1_marca_od_id"
+                        showRefresh={true}
+                        isOT={true}
+                        handleSelectChange={handleInputChange}
+                        data={
+                          formValues && formValues["cristal1_marca_od_id"]
+                            ? formValues["cristal1_marca_od_id"]
+                            : data && data[EnumGrid.cristal1_od_marca_id]
+                        }
+                        control={control}
+                        entidad={["/api/marcas/", "02", "2"]}
+                        // error={errors.establecimiento}
 
-                      readOnly={
-                        !(
-                          !isEditting ||
-                          (permiso_areas_grupo_dioptria &&
-                            permiso_usuario_grupo_dioptria)
-                        ) || inputOnlyReadBodegaProcesado.value
-                      }
-                      inputRef={inputsRef.firstInputRef}
-                      customWidth={"labelInput inputStyles"}
-                      labelProps={" bg-wite"}
-                    />
+                        readOnly={
+                          !(
+                            !isEditting ||
+                            (permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria)
+                          ) || inputOnlyReadBodegaProcesado.value
+                        }
+                        inputRef={inputsRef.firstInputRef}
+                        customWidth={"labelInput inputStyles"}
+                        labelProps={" bg-wite"}
+                      />
+                    </div>
+                    <div className=" w-[30vw] my-2 ">
+                      <SelectInputTiposComponent
+                        label="Diseño"
+                        name="cristal1_diseno_od_id"
+                        showRefresh={true}
+                        isOT={true}
+                        handleSelectChange={handleInputChange}
+                        data={
+                          formValues && formValues["cristal1_diseno_od_id"]
+                            ? formValues["cristal1_diseno_od_id"]
+                            : data && data[EnumGrid.cristal1_od_diseno_id]
+                        }
+                        entidad={"CristalesDisenos"}
+                        control={control}
+                        readOnly={
+                          !(
+                            !isEditting ||
+                            (permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria)
+                          ) || disabledCristalDiseño.value
+                        }
+                        customWidth={"labelInput inputStyles"}
+                      />
+                    </div>
                   </div>
-                  <div className=" w-[22vw] my-2 ">
-                    <SelectInputTiposComponent
-                      label="Diseño"
-                      name="cristal1_diseno_id"
-                      showRefresh={true}
-                      isOT={true}
-                      handleSelectChange={handleInputChange}
-                      data={
-                        formValues && formValues["cristal1_diseno_id"]
-                          ? formValues["cristal1_diseno_id"]
-                          : data && data[EnumGrid.cristal1_diseno_id]
-                      }
-                      entidad={"CristalesDisenos"}
-                      control={control}
-                      readOnly={
-                        !(
-                          !isEditting ||
-                          (permiso_areas_grupo_dioptria &&
-                            permiso_usuario_grupo_dioptria)
-                        ) || disabledCristalDiseño.value
-                      }
-                      customWidth={"labelInput inputStyles"}
-                    />
+
+                  <div className="w-[50%] flex">
+                    <div className=" w-[30vw] my-2 labelInput    ">
+                      <SelectInputComponent
+                        label="Marca"
+                        name="cristal1_marca_oi_id"
+                        showRefresh={true}
+                        isOT={true}
+                        handleSelectChange={handleInputChange}
+                        data={
+                          formValues && formValues["cristal1_marca_oi_id"]
+                            ? formValues["cristal1_marca_oi_id"]
+                            : data && data[EnumGrid.cristal1_oi_marca_id]
+                        }
+                        control={control}
+                        entidad={["/api/marcas/", "02", "2"]}
+                        // error={errors.establecimiento}
+
+                        readOnly={
+                          !(
+                            !isEditting ||
+                            (permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria)
+                          ) || inputOnlyReadBodegaProcesado.value
+                        }
+                        inputRef={inputsRef.firstInputRef}
+                        customWidth={"labelInput inputStyles"}
+                        labelProps={" bg-wite"}
+                      />
+                    </div>
+
+                    <div className=" w-[30vw]  my-2  ">
+                      <SelectInputTiposComponent
+                        label="Diseño"
+                        name="cristal1_diseno_oi_id"
+                        showRefresh={true}
+                        isOT={true}
+                        handleSelectChange={handleInputChange}
+                        data={
+                          formValues && formValues["cristal1_diseno_oi_id"]
+                            ? formValues["cristal1_diseno_oi_id"]
+                            : data && data[EnumGrid.cristal1_oi_diseno_id]
+                        }
+                        entidad={"CristalesDisenos"}
+                        control={control}
+                        readOnly={
+                          !(
+                            !isEditting ||
+                            (permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria)
+                          ) || disabledCristalDiseño.value
+                        }
+                        customWidth={"labelInput inputStyles"}
+                      />
+                    </div>
                   </div>
                 </div>
 
                 <div className="w-full flex justify-center rowForm  ">
-                  <div className=" w-[22vw] my-2">
-                    <SelectInputTiposComponent
-                      label="Índice"
-                      name="cristal1_indice_id"
-                      showRefresh={true}
-                      isOT={true}
-                      handleSelectChange={handleInputChange}
-                      data={
-                        formValues && formValues["cristal1_indice_id"]
-                          ? formValues["cristal1_indice_id"]
-                          : data && data[EnumGrid.cristal1_indice_id]
-                      }
-                      control={control}
-                      entidad={"CristalesIndices"}
-                      readOnly={
-                        !(
-                          !isEditting ||
-                          (permiso_areas_grupo_dioptria &&
-                            permiso_usuario_grupo_dioptria)
-                        ) || inputOnlyReadBodegaProcesado.value
-                      }
-                      customWidth={"labelInput inputStyles"}
-                      labelProps={" bg-wite"}
-                    />
+                  <div className="w-[50%] flex mx-4">
+                    <div className=" w-[11vw] my-2  labelInput">
+                      <SelectInputTiposComponent
+                        label="Índice"
+                        name="cristal1_indice_od_id"
+                        showRefresh={true}
+                        isOT={true}
+                        handleSelectChange={handleInputChange}
+                        data={
+                          formValues && formValues["cristal1_indice_od_id"]
+                            ? formValues["cristal1_indice_od_id"]
+                            : data && data[EnumGrid.cristal1_od_indice_id]
+                        }
+                        control={control}
+                        entidad={"CristalesIndices"}
+                        readOnly={
+                          !(
+                            !isEditting ||
+                            (permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria)
+                          ) || inputOnlyReadBodegaProcesado.value
+                        }
+                        customWidth={"labelInput inputStyles"}
+                        labelProps={" bg-wite"}
+                      />
+                    </div>
+                    <div className="w-[30vw] my-2 ">
+                      <SelectInputTiposComponent
+                        label="Material"
+                        name="cristal1_material_od_id"
+                        showRefresh={true}
+                        isOT={true}
+                        handleSelectChange={handleInputChange}
+                        data={
+                          formValues
+                            ? data && data[EnumGrid.cristal1_od_material_id]
+                            : formValues &&
+                              formValues["cristal1_material_od_id"]
+                        }
+                        control={control}
+                        entidad={"CristalesMateriales"}
+                        customWidth={"labelInput inputStyles"}
+                        labelProps={" bg-wite"}
+                        readOnly={
+                          !(
+                            !isEditting ||
+                            (permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria)
+                          ) || inputOnlyReadBodegaProcesado.value
+                        }
+                      />
+                    </div>
                   </div>
 
-                  <div className="w-[22vw] my-2 ">
-                    <SelectInputTiposComponent
-                      label="Material"
-                      name="cristal1_material_id"
-                      showRefresh={true}
-                      isOT={true}
-                      handleSelectChange={handleInputChange}
-                      data={
-                        isEditting
-                          ? data && data[EnumGrid.cristal1_material_id]
-                          : formValues && formValues["cristal1_material_id"]
-                      }
-                      control={control}
-                      entidad={"CristalesMateriales"}
-                      customWidth={"labelInput inputStyles"}
-                      labelProps={" bg-wite"}
-                      readOnly={
-                        !(
-                          !isEditting ||
-                          (permiso_areas_grupo_dioptria &&
-                            permiso_usuario_grupo_dioptria)
-                        ) || inputOnlyReadBodegaProcesado.value
-                      }
-                    />
+                  <div className="w-[50%] flex ">
+                    <div className=" w-[11vw] my-2">
+                      <SelectInputTiposComponent
+                        label="Índice"
+                        name="cristal1_indice_oi_id"
+                        showRefresh={true}
+                        isOT={true}
+                        handleSelectChange={handleInputChange}
+                        data={
+                          formValues && formValues["cristal1_indice_oi_id"]
+                            ? formValues["cristal1_indice_oi_id"]
+                            : data && data[EnumGrid.cristal1_oi_indice_id]
+                        }
+                        control={control}
+                        entidad={"CristalesIndices"}
+                        readOnly={
+                          !(
+                            !isEditting ||
+                            (permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria)
+                          ) || inputOnlyReadBodegaProcesado.value
+                        }
+                        customWidth={"labelInput inputStyles"}
+                        labelProps={" bg-wite"}
+                      />
+                    </div>
+
+                    <div className="w-[22vw] my-2 ">
+                      <SelectInputTiposComponent
+                        label="Material"
+                        name="cristal1_material_oi_id"
+                        showRefresh={true}
+                        isOT={true}
+                        handleSelectChange={handleInputChange}
+                        data={
+                          isEditting
+                            ? data && data[EnumGrid.cristal1_oi_material_id]
+                            : formValues &&
+                              formValues["cristal1_material_oi_id"]
+                        }
+                        control={control}
+                        entidad={"CristalesMateriales"}
+                        customWidth={"labelInput inputStyles"}
+                        labelProps={" bg-wite"}
+                        readOnly={
+                          !(
+                            !isEditting ||
+                            (permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria)
+                          ) || inputOnlyReadBodegaProcesado.value
+                        }
+                      />
+                    </div>
                   </div>
                 </div>
 
                 <div className="w-full flex mt-6 rowForm justify-center">
-                  <div className=" w-[22vw] my-2 ">
-                    <SelectInputTiposComponent
-                      label="Color"
-                      name="cristal1_color_id"
-                      showRefresh={true}
-                      isOT={true}
-                      handleSelectChange={handleInputChange}
-                      data={
-                        formValues && formValues["cristal1_color_id"]
-                          ? formValues["cristal1_color_id"]
-                          : data && data[EnumGrid.cristal1_color_id]
-                      }
-                      control={control}
-                      entidad={"CristalesColores"}
-                      customWidth={"labelInput inputStyles"}
-                      labelProps={" bg-wite"}
-                      readOnly={
-                        !(
-                          !isEditting ||
-                          (permiso_areas_grupo_dioptria &&
-                            permiso_usuario_grupo_dioptria)
-                        ) || inputOnlyReadBodegaProcesado.value
-                      }
-                    />
+                  <div className="w-[50%] flex mx-4">
+                    <div className=" w-[22vw] my-2 ">
+                      <SelectInputTiposComponent
+                        label="Color"
+                        name="cristal1_color_od_id"
+                        showRefresh={true}
+                        isOT={true}
+                        handleSelectChange={handleInputChange}
+                        data={
+                          formValues && formValues["cristal1_color_od_id"]
+                            ? formValues["cristal1_color_od_id"]
+                            : data && data[EnumGrid.cristal1_od_color_id]
+                        }
+                        control={control}
+                        entidad={"CristalesColores"}
+                        customWidth={"labelInput inputStyles"}
+                        labelProps={" bg-wite"}
+                        readOnly={
+                          !(
+                            !isEditting ||
+                            (permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria)
+                          ) || inputOnlyReadBodegaProcesado.value
+                        }
+                      />
+                    </div>
+
+                    <div className=" w-[22vw] my-2">
+                      <SelectInputTiposComponent
+                        label="Tratamiento"
+                        name="cristal1_tratamiento_od_id"
+                        showRefresh={true}
+                        isOT={true}
+                        handleSelectChange={handleInputChange}
+                        data={
+                          formValues && formValues["cristal1_tratamiento_od_id"]
+                            ? formValues["cristal1_tratamiento_od_id"]
+                            : data && data[EnumGrid.cristal1_od_tratamiento_id]
+                        }
+                        control={control}
+                        entidad={"CristalesTratamientos"}
+                        customWidth={"labelInput inputStyles"}
+                        labelProps={" bg-wite"}
+                        readOnly={
+                          !(
+                            !isEditting ||
+                            (permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria)
+                          ) || inputOnlyReadBodegaProcesado.value
+                        }
+                      />
+                    </div>
                   </div>
 
-                  <div className=" w-[22vw] my-2">
-                    <SelectInputTiposComponent
-                      label="Tratamiento"
-                      name="cristal1_tratamiento_id"
-                      showRefresh={true}
-                      isOT={true}
-                      handleSelectChange={handleInputChange}
-                      data={
-                        formValues && formValues["cristal1_tratamiento_id"]
-                          ? formValues["cristal1_tratamiento_id"]
-                          : data && data[EnumGrid.cristal1_tratamiento_id]
-                      }
-                      control={control}
-                      entidad={"CristalesTratamientos"}
-                      customWidth={"labelInput inputStyles"}
-                      labelProps={" bg-wite"}
-                      readOnly={
-                        !(
-                          !isEditting ||
-                          (permiso_areas_grupo_dioptria &&
-                            permiso_usuario_grupo_dioptria)
-                        ) || inputOnlyReadBodegaProcesado.value
-                      }
-                    />
+                  <div className="w-[50%] flex">
+                    <div className=" w-[22vw] my-2 ">
+                      <SelectInputTiposComponent
+                        label="Color"
+                        name="cristal1_color_oi_id"
+                        showRefresh={true}
+                        isOT={true}
+                        handleSelectChange={handleInputChange}
+                        data={
+                          formValues && formValues["cristal1_color_oi_id"]
+                            ? formValues["cristal1_color_oi_id"]
+                            : data && data[EnumGrid.cristal1_oi_color_id]
+                        }
+                        control={control}
+                        entidad={"CristalesColores"}
+                        customWidth={"labelInput inputStyles"}
+                        labelProps={" bg-wite"}
+                        readOnly={
+                          !(
+                            !isEditting ||
+                            (permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria)
+                          ) || inputOnlyReadBodegaProcesado.value
+                        }
+                      />
+                    </div>
+
+                    <div className=" w-[22vw] my-2">
+                      <SelectInputTiposComponent
+                        label="Tratamiento"
+                        name="cristal1_tratamiento_oi_id"
+                        showRefresh={true}
+                        isOT={true}
+                        handleSelectChange={handleInputChange}
+                        data={
+                          formValues && formValues["cristal1_tratamiento_oi_id"]
+                            ? formValues["cristal1_tratamiento_oi_id"]
+                            : data && data[EnumGrid.cristal1_oi_tratamiento_id]
+                        }
+                        control={control}
+                        entidad={"CristalesTratamientos"}
+                        customWidth={"labelInput inputStyles"}
+                        labelProps={" bg-wite"}
+                        readOnly={
+                          !(
+                            !isEditting ||
+                            (permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria)
+                          ) || inputOnlyReadBodegaProcesado.value
+                        }
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div className="w-full  flex mt-6 rowForm centertDIV  relative">
-                  {/* {permiso_area_verificar_cristal && (
-                                    <div className="w-[40%] absolute -left-0">
-                                            <OTTextInputComponent
-                                                type="text"
-                                                label="Validar Cristal OD"
-                                                name="validar_cristal1_od"
-                                                handleChange={handleInputChange}
-                                                otData={ validar_cristal1_od.value ? validar_cristal1_od.value :  formValues && formValues["validar_cristal1_od"]}
-                                                control={control}
-                                                // isOT={true}
-                                                onlyRead={!(permiso_usuario_verificar_cristal)}
-                                                // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
-                                                textAlign="text-center"
-                                                className='!text-xl custom-input !w-[12rem]'
-                                            />
-
-                                    </div>
-
-                                    )} */}
-
+                <div className="w-full  flex mt-6 rowForm  justify-around  relative">
                   <div className="w-[20%] mr-2 ">
                     <TextInputComponent
                       control={control}
                       type="number"
                       label="Diámetro"
-                      name="cristal1_diametro"
+                      name="cristal1_od_diametro"
                       handleChange={handleInputChange}
                       isOT={true}
                       data={
                         isEditting
-                          ? data && data[EnumGrid.cristal1_diametro]
-                          : formValues["cristal1_diametro"]
+                          ? data && data[EnumGrid.cristal1_od_diametro]
+                          : formValues["cristal1_od_diametro"]
+                      }
+                      onlyRead={
+                        !(
+                          !isEditting ||
+                          (permiso_areas_grupo_dioptria &&
+                            permiso_usuario_grupo_dioptria)
+                        ) || inputOnlyReadBodegaProcesado.value
+                      } // error={errors.fecha_nacimiento}
+                      textAlign="text-center"
+                      customWidth={"labelInput inputStyles"}
+                    />
+                  </div>
+                  <div className="w-[20%] mr-2 ">
+                    <TextInputComponent
+                      control={control}
+                      type="number"
+                      label="Diámetro"
+                      name="cristal1_oi_diametro"
+                      handleChange={handleInputChange}
+                      isOT={true}
+                      data={
+                        isEditting
+                          ? data && data[EnumGrid.cristal1_oi_diametro]
+                          : formValues["cristal1_oi_diametro"]
                       }
                       onlyRead={
                         !(
@@ -728,7 +988,7 @@ const FOTCristales: React.FC<ICristales> = ({
                                     )} */}
                 </div>
 
-                <div className="w-full flex mt-6 rowForm ml-3">
+                <div className="w-full flex mt-6 rowForm ">
                   {/* <div className="!w-[47%] !pr-[1rem] !translate-y-4">
                                         <TextInputInteractive
                                             type="text"
@@ -769,17 +1029,17 @@ const FOTCristales: React.FC<ICristales> = ({
                   {renderInputCristal("A1_CR_OI")}
                 </div>
 
-                <div className="w-full flex mt-6 rowForm translate-y-10 ml-3">
+                <div className="w-full flex mt-6 rowForm translate-y-10 ">
                   <div className="!w-[50%] !pr-[1rem]">
                     {renderGrupo1("A1_GRUPO_OD")}
                   </div>
-                  <div className="!w-[50%] !pr-[1rem] !ml-[-1rem]">
+                  <div className="!w-[50%] !pr-[1rem] ml-4">
                     {renderGrupo1("A1_GRUPO_OI")}
                   </div>
                 </div>
 
-                <div className="w-full flex mt-6 rowForm ml-2 ">
-                  <div className="w-full !pr-[2rem] translate-y-20 translate-x-4">
+                <div className="w-full flex mt-6 rowForm   ">
+                  <div className="w-full translate-y-20 translate-x-4">
                     <SelectInputComponent
                       label="Tratamiento adicional"
                       name="cristal1_tratamiento_adicional_id"
@@ -822,7 +1082,7 @@ const FOTCristales: React.FC<ICristales> = ({
         </div>
 
         {tipo_de_anteojo.value === "3" && (
-          <div className=" w-[48vw] relative !mt-[2.5rem] !h-[80vh] ">
+          <div className=" w-[48vw] relative !mt-[2.5rem] !h-[80vh] ml-8 ">
             <div className=" flex items-center ml-2  radioComponent  h-[75vh] !mr-[1rem]">
               <div className="mx-auto !mt-6 !h-full w-[50vw]">
                 {/* <h1 className='absolute z-10 top-[-6%] left-[35%] text-3xl font-bold w-[30%] text-center !text-[#f8b179]'>ANTEOJO 2</h1> */}
@@ -862,215 +1122,407 @@ const FOTCristales: React.FC<ICristales> = ({
                     }
                   </div>
                   <div className=" flex -mt-1 rowForm  justify-center">
-                    <div className=" w-[22vw] my-2 labelInput">
-                      <SelectInputComponent
-                        label="Marca"
-                        name="cristal2_marca_id"
-                        showRefresh={true}
-                        isOT={true}
-                        handleSelectChange={handleInputChange}
-                        data={
-                          formValues && formValues["cristal2_marca_id"]
-                            ? formValues["cristal2_marca_id"]
-                            : data && data[EnumGrid.cristal2_marca_id]
-                        }
-                        control={control}
-                        entidad={["/api/marcas/", "02", "2"]}
-                        readOnly={
-                          !(
-                            (!isEditting && tipo_de_anteojo.value === "3") ||
-                            (isEditting &&
-                              permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria &&
-                              tipo_de_anteojo.value === "3")
-                          ) || inputOnlyReadBodegaProcesado.value
-                        }
-                        isFOTcristales={true}
-                        customWidth={"labelInput inputStyles"}
-                        labelProps={" bg-wite"}
-                      />
+                    <div className="w-[50%] flex mx-4">
+                      <div className=" w-[30vw] my-2 labelInput">
+                        <SelectInputComponent
+                          label="Marca"
+                          name="cristal2_marca_od_id"
+                          showRefresh={true}
+                          isOT={true}
+                          handleSelectChange={handleInputChange}
+                          data={
+                            formValues && formValues["cristal2_marca_od_id"]
+                              ? formValues["cristal2_marca_od_id"]
+                              : data && data[EnumGrid.cristal2_od_marca_id]
+                          }
+                          control={control}
+                          entidad={["/api/marcas/", "02", "2"]}
+                          readOnly={
+                            !(
+                              (!isEditting && tipo_de_anteojo.value === "3") ||
+                              (isEditting &&
+                                permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria &&
+                                tipo_de_anteojo.value === "3")
+                            ) || inputOnlyReadBodegaProcesado.value
+                          }
+                          isFOTcristales={true}
+                          customWidth={"labelInput inputStyles"}
+                          labelProps={" bg-wite"}
+                        />
+                      </div>
+                      <div className="w-[30vw] my-2">
+                        <SelectInputTiposComponent
+                          label="Diseño"
+                          name="cristal2_diseno_od_id"
+                          showRefresh={true}
+                          isOT={true}
+                          handleSelectChange={handleInputChange}
+                          data={
+                            formValues && formValues["cristal2_diseno_od_id"]
+                              ? formValues["cristal2_diseno_od_id"]
+                              : data && data[EnumGrid.cristal2_od_diseno_id]
+                          }
+                          control={control}
+                          entidad={"CristalesDisenos"}
+                          FOTcristales={true}
+                          readOnly={
+                            !(
+                              (!isEditting && tipo_de_anteojo.value === "3") ||
+                              (isEditting &&
+                                permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria &&
+                                tipo_de_anteojo.value === "3")
+                            ) || disabledCristalDiseño.value
+                          }
+                          customWidth={"labelInput inputStyles"}
+                          labelProps={" bg-wite"}
+                        />
+                      </div>
                     </div>
-                    <div className="w-[22vw] my-2">
-                      <SelectInputTiposComponent
-                        label="Diseño"
-                        name="cristal2_diseno_id"
-                        showRefresh={true}
-                        isOT={true}
-                        handleSelectChange={handleInputChange}
-                        data={
-                          formValues && formValues["cristal2_diseno_id"]
-                            ? formValues["cristal2_diseno_id"]
-                            : data && data[EnumGrid.cristal2_diseno_id]
-                        }
-                        control={control}
-                        entidad={"CristalesDisenos"}
-                        FOTcristales={true}
-                        readOnly={
-                          !(
-                            (!isEditting && tipo_de_anteojo.value === "3") ||
-                            (isEditting &&
-                              permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria &&
-                              tipo_de_anteojo.value === "3")
-                          ) || disabledCristalDiseño.value
-                        }
-                        customWidth={"labelInput inputStyles"}
-                        labelProps={" bg-wite"}
-                      />
+                    <div className="w-[50%] flex">
+                      <div className=" w-[30vw] my-2 labelInput">
+                        <SelectInputComponent
+                          label="Marca"
+                          name="cristal2_marca_oi_id"
+                          showRefresh={true}
+                          isOT={true}
+                          handleSelectChange={handleInputChange}
+                          data={
+                            formValues && formValues["cristal2_marca_oi_id"]
+                              ? formValues["cristal2_marca_oi_id"]
+                              : data && data[EnumGrid.cristal2_oi_marca_id]
+                          }
+                          control={control}
+                          entidad={["/api/marcas/", "02", "2"]}
+                          readOnly={
+                            !(
+                              (!isEditting && tipo_de_anteojo.value === "3") ||
+                              (isEditting &&
+                                permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria &&
+                                tipo_de_anteojo.value === "3")
+                            ) || inputOnlyReadBodegaProcesado.value
+                          }
+                          isFOTcristales={true}
+                          customWidth={"labelInput inputStyles"}
+                          labelProps={" bg-wite"}
+                        />
+                      </div>
+                      <div className="w-[30vw] my-2">
+                        <SelectInputTiposComponent
+                          label="Diseño"
+                          name="cristal2_diseno_oi_id"
+                          showRefresh={true}
+                          isOT={true}
+                          handleSelectChange={handleInputChange}
+                          data={
+                            formValues && formValues["cristal2_diseno_oi_id"]
+                              ? formValues["cristal2_diseno_oi_id"]
+                              : data && data[EnumGrid.cristal2_oi_diseno_id]
+                          }
+                          control={control}
+                          entidad={"CristalesDisenos"}
+                          FOTcristales={true}
+                          readOnly={
+                            !(
+                              (!isEditting && tipo_de_anteojo.value === "3") ||
+                              (isEditting &&
+                                permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria &&
+                                tipo_de_anteojo.value === "3")
+                            ) || disabledCristalDiseño.value
+                          }
+                          customWidth={"labelInput inputStyles"}
+                          labelProps={" bg-wite"}
+                        />
+                      </div>
                     </div>
                   </div>
 
                   <div className="w-full justify-center flex mt-6 rowForm">
-                    <div className=" w-[22vw] my-2">
-                      <SelectInputTiposComponent
-                        label="Índice"
-                        name="cristal2_indice_id"
-                        showRefresh={true}
-                        isOT={true}
-                        handleSelectChange={handleInputChange}
-                        data={
-                          formValues && formValues["cristal2_indice_id"]
-                            ? formValues["cristal2_indice_id"]
-                            : data && data[EnumGrid.cristal2_indice_id]
-                        }
-                        control={control}
-                        entidad={"CristalesIndices"}
-                        FOTcristales={true}
-                        customWidth={"labelInput inputStyles"}
-                        labelProps={" bg-wite"}
-                        readOnly={
-                          !(
-                            (!isEditting && tipo_de_anteojo.value === "3") ||
-                            (isEditting &&
-                              permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria &&
-                              tipo_de_anteojo.value === "3")
-                          ) || inputOnlyReadBodegaProcesado.value
-                        }
-                      />
-                    </div>
+                    <div className="flex w-[50%] mx-4">
+                      <div className=" w-[11vw] my-2">
+                        <SelectInputTiposComponent
+                          label="Índice"
+                          name="cristal2_indice_od_id"
+                          showRefresh={true}
+                          isOT={true}
+                          handleSelectChange={handleInputChange}
+                          data={
+                            formValues && formValues["cristal2_indice_od_id"]
+                              ? formValues["cristal2_indice_od_id"]
+                              : data && data[EnumGrid.cristal2_od_indice_id]
+                          }
+                          control={control}
+                          entidad={"CristalesIndices"}
+                          FOTcristales={true}
+                          customWidth={"labelInput inputStyles"}
+                          labelProps={" bg-wite"}
+                          readOnly={
+                            !(
+                              (!isEditting && tipo_de_anteojo.value === "3") ||
+                              (isEditting &&
+                                permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria &&
+                                tipo_de_anteojo.value === "3")
+                            ) || inputOnlyReadBodegaProcesado.value
+                          }
+                        />
+                      </div>
 
-                    <div className="w-[22vw] my-2">
-                      <SelectInputTiposComponent
-                        label="Material"
-                        name="cristal2_material_id"
-                        showRefresh={true}
-                        isOT={true}
-                        handleSelectChange={handleInputChange}
-                        data={
-                          formValues && formValues["cristal2_material_id"]
-                            ? formValues["cristal2_material_id"]
-                            : data && data[EnumGrid.cristal2_material_id]
-                        }
-                        control={control}
-                        FOTcristales={true}
-                        entidad={"CristalesMateriales"}
-                        customWidth={"labelInput inputStyles"}
-                        labelProps={" bg-wite"}
-                        readOnly={
-                          !(
-                            (!isEditting && tipo_de_anteojo.value === "3") ||
-                            (isEditting &&
-                              permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria &&
-                              tipo_de_anteojo.value === "3")
-                          ) || inputOnlyReadBodegaProcesado.value
-                        }
-                      />
+                      <div className="w-[30vw] my-2">
+                        <SelectInputTiposComponent
+                          label="Material"
+                          name="cristal2_material_od_id"
+                          showRefresh={true}
+                          isOT={true}
+                          handleSelectChange={handleInputChange}
+                          data={
+                            formValues && formValues["cristal2_material_od_id"]
+                              ? formValues["cristal2_material_od_id"]
+                              : data && data[EnumGrid.cristal2_od_material_id]
+                          }
+                          control={control}
+                          FOTcristales={true}
+                          entidad={"CristalesMateriales"}
+                          customWidth={"labelInput inputStyles"}
+                          labelProps={" bg-wite"}
+                          readOnly={
+                            !(
+                              (!isEditting && tipo_de_anteojo.value === "3") ||
+                              (isEditting &&
+                                permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria &&
+                                tipo_de_anteojo.value === "3")
+                            ) || inputOnlyReadBodegaProcesado.value
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div className="flex w-[50%]">
+                      <div className=" w-[11vw] my-2">
+                        <SelectInputTiposComponent
+                          label="Índice"
+                          name="cristal2_indice_oi_id"
+                          showRefresh={true}
+                          isOT={true}
+                          handleSelectChange={handleInputChange}
+                          data={
+                            formValues && formValues["cristal2_indice_oi_id"]
+                              ? formValues["cristal2_indice_oi_id"]
+                              : data && data[EnumGrid.cristal2_oi_indice_id]
+                          }
+                          control={control}
+                          entidad={"CristalesIndices"}
+                          FOTcristales={true}
+                          customWidth={"labelInput inputStyles"}
+                          labelProps={" bg-wite"}
+                          readOnly={
+                            !(
+                              (!isEditting && tipo_de_anteojo.value === "3") ||
+                              (isEditting &&
+                                permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria &&
+                                tipo_de_anteojo.value === "3")
+                            ) || inputOnlyReadBodegaProcesado.value
+                          }
+                        />
+                      </div>
+
+                      <div className="w-[30vw] my-2">
+                        <SelectInputTiposComponent
+                          label="Material"
+                          name="cristal2_material_oi_id"
+                          showRefresh={true}
+                          isOT={true}
+                          handleSelectChange={handleInputChange}
+                          data={
+                            formValues && formValues["cristal2_material_oi_id"]
+                              ? formValues["cristal2_material_oi_id"]
+                              : data && data[EnumGrid.cristal2_oi_material_id]
+                          }
+                          control={control}
+                          FOTcristales={true}
+                          entidad={"CristalesMateriales"}
+                          customWidth={"labelInput inputStyles"}
+                          labelProps={" bg-wite"}
+                          readOnly={
+                            !(
+                              (!isEditting && tipo_de_anteojo.value === "3") ||
+                              (isEditting &&
+                                permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria &&
+                                tipo_de_anteojo.value === "3")
+                            ) || inputOnlyReadBodegaProcesado.value
+                          }
+                        />
+                      </div>
                     </div>
                   </div>
 
                   <div className="w-full justify-center flex mt-6 rowForm">
-                    <div className="w-[22vw] my-2">
-                      <SelectInputTiposComponent
-                        label="Color"
-                        name="cristal2_color_id"
-                        showRefresh={true}
-                        isOT={true}
-                        handleSelectChange={handleInputChange}
-                        data={
-                          formValues && formValues["cristal2_color_id"]
-                            ? formValues["cristal2_color_id"]
-                            : data && data[EnumGrid.cristal2_color_id]
-                        }
-                        control={control}
-                        FOTcristales={true}
-                        entidad={"CristalesColores"}
-                        customWidth={"labelInput inputStyles"}
-                        labelProps={" bg-wite"}
-                        readOnly={
-                          !(
-                            (!isEditting && tipo_de_anteojo.value === "3") ||
-                            (isEditting &&
-                              permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria &&
-                              tipo_de_anteojo.value === "3")
-                          ) || inputOnlyReadBodegaProcesado.value
-                        }
-                      />
-                    </div>
+                    <div className="w-[50%] flex mx-4">
+                      <div className="w-[22vw] my-2">
+                        <SelectInputTiposComponent
+                          label="Color"
+                          name="cristal2_color_od_id"
+                          showRefresh={true}
+                          isOT={true}
+                          handleSelectChange={handleInputChange}
+                          data={
+                            formValues && formValues["cristal2_color_od_id"]
+                              ? formValues["cristal2_color_od_id"]
+                              : data && data[EnumGrid.cristal2_od_color_id]
+                          }
+                          control={control}
+                          FOTcristales={true}
+                          entidad={"CristalesColores"}
+                          customWidth={"labelInput inputStyles"}
+                          labelProps={" bg-wite"}
+                          readOnly={
+                            !(
+                              (!isEditting && tipo_de_anteojo.value === "3") ||
+                              (isEditting &&
+                                permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria &&
+                                tipo_de_anteojo.value === "3")
+                            ) || inputOnlyReadBodegaProcesado.value
+                          }
+                        />
+                      </div>
 
-                    <div className="w-[22vw] my-2">
-                      <SelectInputTiposComponent
-                        label="Tratamiento"
-                        name="cristal2_tratamiento_id"
-                        showRefresh={true}
-                        isOT={true}
-                        handleSelectChange={handleInputChange}
-                        data={
-                          formValues && formValues["cristal2_tratamiento_id"]
-                            ? formValues["cristal2_tratamiento_id"]
-                            : data && data[EnumGrid.cristal2_tratamiento_id]
-                        }
-                        control={control}
-                        entidad={"CristalesTratamientos"}
-                        FOTcristales={true}
-                        customWidth={"labelInput inputStyles"}
-                        labelProps={" bg-wite"}
-                        readOnly={
-                          !(
-                            (!isEditting && tipo_de_anteojo.value === "3") ||
-                            (isEditting &&
-                              permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria &&
-                              tipo_de_anteojo.value === "3")
-                          ) || inputOnlyReadBodegaProcesado.value
-                        }
-                      />
+                      <div className="w-[22vw] my-2">
+                        <SelectInputTiposComponent
+                          label="Tratamiento"
+                          name="cristal2_tratamiento_od_id"
+                          showRefresh={true}
+                          isOT={true}
+                          handleSelectChange={handleInputChange}
+                          data={
+                            formValues &&
+                            formValues["cristal2_tratamiento_od_id"]
+                              ? formValues["cristal2_tratamiento_od_id"]
+                              : data &&
+                                data[EnumGrid.cristal2_od_tratamiento_id]
+                          }
+                          control={control}
+                          entidad={"CristalesTratamientos"}
+                          FOTcristales={true}
+                          customWidth={"labelInput inputStyles"}
+                          labelProps={" bg-wite"}
+                          readOnly={
+                            !(
+                              (!isEditting && tipo_de_anteojo.value === "3") ||
+                              (isEditting &&
+                                permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria &&
+                                tipo_de_anteojo.value === "3")
+                            ) || inputOnlyReadBodegaProcesado.value
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div className="w-[50%] flex">
+                      <div className="w-[22vw] my-2">
+                        <SelectInputTiposComponent
+                          label="Color"
+                          name="cristal2_color_oi_id"
+                          showRefresh={true}
+                          isOT={true}
+                          handleSelectChange={handleInputChange}
+                          data={
+                            formValues && formValues["cristal2_color_oi_id"]
+                              ? formValues["cristal2_color_oi_id"]
+                              : data && data[EnumGrid.cristal2_oi_color_id]
+                          }
+                          control={control}
+                          FOTcristales={true}
+                          entidad={"CristalesColores"}
+                          customWidth={"labelInput inputStyles"}
+                          labelProps={" bg-wite"}
+                          readOnly={
+                            !(
+                              (!isEditting && tipo_de_anteojo.value === "3") ||
+                              (isEditting &&
+                                permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria &&
+                                tipo_de_anteojo.value === "3")
+                            ) || inputOnlyReadBodegaProcesado.value
+                          }
+                        />
+                      </div>
+
+                      <div className="w-[22vw] my-2">
+                        <SelectInputTiposComponent
+                          label="Tratamiento"
+                          name="cristal2_tratamiento_oi_id"
+                          showRefresh={true}
+                          isOT={true}
+                          handleSelectChange={handleInputChange}
+                          data={
+                            formValues &&
+                            formValues["cristal2_tratamiento_oi_id"]
+                              ? formValues["cristal2_tratamiento_oi_id"]
+                              : data &&
+                                data[EnumGrid.cristal2_oi_tratamiento_id]
+                          }
+                          control={control}
+                          entidad={"CristalesTratamientos"}
+                          FOTcristales={true}
+                          customWidth={"labelInput inputStyles"}
+                          labelProps={" bg-wite"}
+                          readOnly={
+                            !(
+                              (!isEditting && tipo_de_anteojo.value === "3") ||
+                              (isEditting &&
+                                permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria &&
+                                tipo_de_anteojo.value === "3")
+                            ) || inputOnlyReadBodegaProcesado.value
+                          }
+                        />
+                      </div>
                     </div>
                   </div>
 
-                  <div className="w-full flex mt-6 rowForm centertDIV relative">
-                    {/* {permiso_area_verificar_cristal && (tipo_de_anteojo.value === '3' as any) && (
-                                         <div className="w-[40%] absolute -left-0">
-                                                 <OTTextInputComponent
-                                                     type="text"
-                                                     label="Validar Cristal OD"
-                                                     name="validar_cristal2_od"
-                                                     handleChange={handleInputChange}
-                                                     otData={validar_cristal2_od.value ? validar_cristal2_od.value : formValues && formValues["validar_cristal2_od"]}
-                                                     control={control}
-                                                     // isOT={true}
-                                                     onlyRead={!(permiso_usuario_verificar_cristal)}
-                                                     // onlyRead={!(isEditting && (permiso_areas_cristales && permiso_usuario_cristales))}
-                                                     textAlign="text-center"
-                                                     className='!text-xl custom-input !w-[12rem]'
-                                                 />
-     
-                                         </div>
-     
-                                         )} */}
-
+                  <div className="w-full flex mt-6 rowForm justify-around relative">
                     <div className="w-[20%] mr-2 ">
                       <TextInputComponent
                         type="number"
                         label="Diámetro"
-                        name="cristal2_diametro"
+                        name="cristal2_od_diametro"
                         handleChange={handleInputChange}
                         data={
                           formValues && formValues["cristal2_diametro"]
                             ? formValues["cristal2_diametro"]
-                            : data && data[EnumGrid.cristal2_diametro]
+                            : data && data[EnumGrid.cristal2_od_diametro]
+                        }
+                        control={control}
+                        isOT={true}
+                        onlyRead={
+                          !(
+                            (!isEditting && tipo_de_anteojo.value === "3") ||
+                            (isEditting &&
+                              permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria &&
+                              tipo_de_anteojo.value === "3")
+                          ) || inputOnlyReadBodegaProcesado.value
+                        }
+                        textAlign="text-center"
+                        customWidth={"labelInput inputStyles"}
+                      />
+                    </div>
+                    <div className="w-[20%] mr-2 ">
+                      <TextInputComponent
+                        type="number"
+                        label="Diámetro"
+                        name="cristal2_oi_diametro"
+                        handleChange={handleInputChange}
+                        data={
+                          formValues && formValues["cristal2_diametro"]
+                            ? formValues["cristal2_diametro"]
+                            : data && data[EnumGrid.cristal2_oi_diametro]
                         }
                         control={control}
                         isOT={true}
@@ -1163,13 +1615,13 @@ const FOTCristales: React.FC<ICristales> = ({
                     <div className="!w-[50%] !pr-[1rem]">
                       {renderGrupo1("A2_GRUPO_OD")}
                     </div>
-                    <div className="!w-[50%] !pr-[1rem] !ml-[-1rem]">
+                    <div className="!w-[50%] !pr-[1rem] ml-4">
                       {renderGrupo1("A2_GRUPO_OI")}
                     </div>
                   </div>
 
                   <div className="w-full flex mt-6 rowForm ">
-                    <div className="w-full !pr-[2rem] translate-y-20 translate-x-4">
+                    <div className="w-full  translate-y-20 translate-x-4">
                       <SelectInputComponent
                         label="Tratamiento adicional"
                         name="cristal2_tratamiento_adicional_id"

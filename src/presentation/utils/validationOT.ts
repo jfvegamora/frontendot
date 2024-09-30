@@ -240,86 +240,144 @@ export const validationOTlevel2 = (name: string, value: any) => {
       validation_A2_armazon(value);
       break;
 
-    case "cristal1_marca_id":
-      validation_Cristal1_marca(value);
+    case "cristal1_marca_od_id":
+      validation_Cristal1_od_marca(value);
       break;
-    case "cristal1_diseno_id":
-      validation_Cristal1_diseño(value);
+    case "cristal1_diseno_od_id":
+      validation_Cristal1_od_diseño(value);
       break;
-    case "cristal1_indice_id":
-      validation_Cristal1_indice(value);
+    case "cristal1_indice_od_id":
+      validation_Cristal1_od_indice(value);
       break;
-    case "cristal1_material_id":
-      validation_Cristal1_material(value);
+    case "cristal1_material_od_id":
+      validation_Cristal1_od_material(value);
       break;
-    case "cristal1_tratamiento_id":
-      validation_Cristal1_tratamiento(value);
+    case "cristal1_tratamiento_od_id":
+      validation_Cristal1_od_tratamiento(value);
       break;
-    case "cristal1_color_id":
-      validation_Cristal1_color(value);
+    case "cristal1_color_od_id":
+      validation_Cristal1_od_color(value);
       break;
-    case "cristal1_diametro":
-      validation_Cristal1_diametro(value);
+    case "cristal1_od_diametro":
+      validation_Cristal1_od_diametro(value);
       break;
     case "cristal1_od":
       validation_Cristal1_od(value);
       break;
+
+    case "cristal1_marca_oi_id":
+      validation_Cristal1_oi_marca(value);
+      break;
+    case "cristal1_diseno_oi_id":
+      validation_Cristal1_oi_diseño(value);
+      break;
+    case "cristal1_indice_oi_id":
+      validation_Cristal1_oi_indice(value);
+      break;
+    case "cristal1_material_oi_id":
+      validation_Cristal1_oi_material(value);
+      break;
+    case "cristal1_tratamiento_oi_id":
+      validation_Cristal1_oi_tratamiento(value);
+      break;
+    case "cristal1_color_oi_id":
+      validation_Cristal1_oi_color(value);
+      break;
+    case "cristal1_oi_diametro":
+      validation_Cristal1_oi_diametro(value);
+      break;
+
     case "cristal1_oi":
       validation_Cristal1_oi(value);
       break;
 
-    case "cristal2_marca_id":
-      validation_cristal2_marca(value);
+    case "cristal2_marca_od_id":
+      validation_cristal2_od_marca(value);
       break;
-    case "cristal2_diseno_id":
-      validation_Cristal2_diseño(value);
+    case "cristal2_diseno_od_id":
+      validation_Cristal2_od_diseño(value);
       break;
-    case "cristal2_indice_id":
-      validation_Cristal2_indice(value);
+    case "cristal2_indice_od_id":
+      validation_Cristal2_od_indice(value);
       break;
-    case "cristal2_material_id":
-      validation_Cristal2_material(value);
+    case "cristal2_material_od_id":
+      validation_Cristal2_od_material(value);
       break;
-    case "cristal2_tratamiento_id":
-      validation_Cristal2_tratamiento(value);
+    case "cristal2_tratamiento_od_id":
+      validation_Cristal2_od_tratamiento(value);
       break;
-    case "cristal2_color_id":
-      validation_Cristal2_color(value);
+    case "cristal2_color_od_id":
+      validation_Cristal2_od_color(value);
       break;
-    case "cristal2_diametro":
-      validation_Cristal2_diametro(value);
+    case "cristal2_od_diametro":
+      validation_Cristal2_od_diametro(value);
       break;
     case "cristal2_od":
       validation_Cristal2_od(value);
       break;
+
+    case "cristal2_marca_oi_id":
+      validation_cristal2_oi_marca(value);
+      break;
+    case "cristal2_diseno_oi_id":
+      validation_Cristal2_oi_diseño(value);
+      break;
+    case "cristal2_indice_oi_id":
+      validation_Cristal2_oi_indice(value);
+      break;
+    case "cristal2_material_oi_id":
+      validation_Cristal2_oi_material(value);
+      break;
+    case "cristal2_tratamiento_oi_id":
+      validation_Cristal2_oi_tratamiento(value);
+      break;
+    case "cristal2_color_oi_id":
+      validation_Cristal2_oi_color(value);
+      break;
+    case "cristal2_oi_diametro":
+      validation_Cristal2_oi_diametro(value);
+      break;
     case "cristal2_oi":
       validation_Cristal2_oi(value);
       break;
-
     default:
       break;
   }
 };
 
 export const validatePestañaCristales = () => {
-  validation_Cristal1_marca("32");
-  validation_Cristal1_diseño("32");
-  validation_Cristal1_indice("32");
-  validation_Cristal1_material("32");
-  validation_Cristal1_tratamiento("32");
-  validation_Cristal1_color("32");
-  validation_Cristal1_diametro("32");
+  validation_Cristal1_od_marca("32");
+  validation_Cristal1_oi_marca("32");
+  validation_Cristal1_od_diseño("32");
+  validation_Cristal1_oi_diseño("32");
+  validation_Cristal1_od_indice("32");
+  validation_Cristal1_oi_indice("32");
+  validation_Cristal1_od_material("32");
+  validation_Cristal1_oi_material("32");
+  validation_Cristal1_od_tratamiento("32");
+  validation_Cristal1_oi_tratamiento("32");
+  validation_Cristal1_od_color("32");
+  validation_Cristal1_oi_color("32");
+  validation_Cristal1_od_diametro("32");
+  validation_Cristal1_oi_diametro("32");
   validation_Cristal1_od("32");
   validation_Cristal1_oi("32");
 
   if (tipo_de_anteojo.value === "3") {
-    validation_cristal2_marca("32");
-    validation_Cristal2_diseño("32");
-    validation_Cristal2_indice("32");
-    validation_Cristal2_material("32");
-    validation_Cristal2_tratamiento("32");
-    validation_Cristal2_color("32");
-    validation_Cristal2_diametro("32");
+    validation_cristal2_od_marca("32");
+    validation_cristal2_oi_marca("32");
+    validation_Cristal2_od_diseño("32");
+    validation_Cristal2_oi_diseño("32");
+    validation_Cristal2_od_indice("32");
+    validation_Cristal2_oi_indice("32");
+    validation_Cristal2_od_material("32");
+    validation_Cristal2_oi_material("32");
+    validation_Cristal2_od_tratamiento("32");
+    validation_Cristal2_oi_tratamiento("32");
+    validation_Cristal2_od_color("32");
+    validation_Cristal2_oi_color("32");
+    validation_Cristal2_od_diametro("32");
+    validation_Cristal2_oi_diametro("32");
     validation_Cristal2_od("32");
     validation_Cristal2_oi("32");
   }
@@ -804,7 +862,25 @@ export const validation_Cristal2_od = (value: string | any) => {
     }
   }
 };
-export const validation_Cristal2_diametro = (value: string | any) => {
+export const validation_Cristal2_od_diametro = (value: string | any) => {
+  if (value !== "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal2_diametro"
+    );
+    if (item) {
+      item.valor = 1;
+    }
+  }
+  if (value == "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal2_diametro"
+    );
+    if (item) {
+      item.valor = 0;
+    }
+  }
+};
+export const validation_Cristal2_oi_diametro = (value: string | any) => {
   if (value !== "") {
     const item = validationNivel1.value.find(
       (item) => item.campo === "cristal2_diametro"
@@ -823,7 +899,25 @@ export const validation_Cristal2_diametro = (value: string | any) => {
   }
 };
 
-export const validation_Cristal2_color = (value: string | any) => {
+export const validation_Cristal2_od_color = (value: string | any) => {
+  if (value !== "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal2_color_id"
+    );
+    if (item) {
+      item.valor = 1;
+    }
+  }
+  if (value == "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal2_color_id"
+    );
+    if (item) {
+      item.valor = 0;
+    }
+  }
+};
+export const validation_Cristal2_oi_color = (value: string | any) => {
   if (value !== "") {
     const item = validationNivel1.value.find(
       (item) => item.campo === "cristal2_color_id"
@@ -842,7 +936,25 @@ export const validation_Cristal2_color = (value: string | any) => {
   }
 };
 
-export const validation_Cristal2_tratamiento = (value: string | any) => {
+export const validation_Cristal2_od_tratamiento = (value: string | any) => {
+  if (value !== "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal2_tratamiento_id"
+    );
+    if (item) {
+      item.valor = 1;
+    }
+  }
+  if (value == "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal2_tratamiento_id"
+    );
+    if (item) {
+      item.valor = 0;
+    }
+  }
+};
+export const validation_Cristal2_oi_tratamiento = (value: string | any) => {
   if (value !== "") {
     const item = validationNivel1.value.find(
       (item) => item.campo === "cristal2_tratamiento_id"
@@ -861,7 +973,25 @@ export const validation_Cristal2_tratamiento = (value: string | any) => {
   }
 };
 
-export const validation_Cristal2_material = (value: string | any) => {
+export const validation_Cristal2_od_material = (value: string | any) => {
+  if (value !== "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal2_material_id"
+    );
+    if (item) {
+      item.valor = 1;
+    }
+  }
+  if (value == "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal2_material_id"
+    );
+    if (item) {
+      item.valor = 0;
+    }
+  }
+};
+export const validation_Cristal2_oi_material = (value: string | any) => {
   if (value !== "") {
     const item = validationNivel1.value.find(
       (item) => item.campo === "cristal2_material_id"
@@ -880,7 +1010,25 @@ export const validation_Cristal2_material = (value: string | any) => {
   }
 };
 
-export const validation_Cristal2_indice = (value: string | any) => {
+export const validation_Cristal2_od_indice = (value: string | any) => {
+  if (value !== "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal2_indice_id"
+    );
+    if (item) {
+      item.valor = 1;
+    }
+  }
+  if (value == "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal2_indice_id"
+    );
+    if (item) {
+      item.valor = 0;
+    }
+  }
+};
+export const validation_Cristal2_oi_indice = (value: string | any) => {
   if (value !== "") {
     const item = validationNivel1.value.find(
       (item) => item.campo === "cristal2_indice_id"
@@ -899,7 +1047,7 @@ export const validation_Cristal2_indice = (value: string | any) => {
   }
 };
 
-export const validation_Cristal2_diseño = (value: string | any) => {
+export const validation_Cristal2_od_diseño = (value: string | any) => {
   if (value !== "") {
     const item = validationNivel1.value.find(
       (item) => item.campo === "cristal2_diseno_id"
@@ -917,7 +1065,43 @@ export const validation_Cristal2_diseño = (value: string | any) => {
     }
   }
 };
-export const validation_cristal2_marca = (value: string | any) => {
+export const validation_Cristal2_oi_diseño = (value: string | any) => {
+  if (value !== "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal2_diseno_id"
+    );
+    if (item) {
+      item.valor = 1;
+    }
+  }
+  if (value == "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal2_diseno_id"
+    );
+    if (item) {
+      item.valor = 0;
+    }
+  }
+};
+export const validation_cristal2_od_marca = (value: string | any) => {
+  if (value !== "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal2_marca_id"
+    );
+    if (item) {
+      item.valor = 1;
+    }
+  }
+  if (value == "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal2_marca_id"
+    );
+    if (item) {
+      item.valor = 0;
+    }
+  }
+};
+export const validation_cristal2_oi_marca = (value: string | any) => {
   if (value !== "") {
     const item = validationNivel1.value.find(
       (item) => item.campo === "cristal2_marca_id"
@@ -1012,7 +1196,25 @@ export const validation_Cristal1_od = (value: string | any) => {
   }
 };
 
-export const validation_Cristal1_diametro = (value: string | any) => {
+export const validation_Cristal1_od_diametro = (value: string | any) => {
+  if (value !== "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal1_diametro"
+    );
+    if (item) {
+      item.valor = 1;
+    }
+  }
+  if (value == "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal1_diametro"
+    );
+    if (item) {
+      item.valor = 0;
+    }
+  }
+};
+export const validation_Cristal1_oi_diametro = (value: string | any) => {
   if (value !== "") {
     const item = validationNivel1.value.find(
       (item) => item.campo === "cristal1_diametro"
@@ -1031,7 +1233,7 @@ export const validation_Cristal1_diametro = (value: string | any) => {
   }
 };
 
-export const validation_Cristal1_marca = (value: string | any) => {
+export const validation_Cristal1_od_marca = (value: string | any) => {
   if (value !== "") {
     const item = validationNivel1.value.find(
       (item) => item.campo === "cristal1_marca_id"
@@ -1049,7 +1251,43 @@ export const validation_Cristal1_marca = (value: string | any) => {
     }
   }
 };
-export const validation_Cristal1_color = (value: string | any) => {
+export const validation_Cristal1_oi_marca = (value: string | any) => {
+  if (value !== "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal1_marca_id"
+    );
+    if (item) {
+      item.valor = 1;
+    }
+  }
+  if (value == "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal1_marca_id"
+    );
+    if (item) {
+      item.valor = 0;
+    }
+  }
+};
+export const validation_Cristal1_od_color = (value: string | any) => {
+  if (value !== "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal1_color_id"
+    );
+    if (item) {
+      item.valor = 1;
+    }
+  }
+  if (value == "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal1_color_id"
+    );
+    if (item) {
+      item.valor = 0;
+    }
+  }
+};
+export const validation_Cristal1_oi_color = (value: string | any) => {
   if (value !== "") {
     const item = validationNivel1.value.find(
       (item) => item.campo === "cristal1_color_id"
@@ -1068,7 +1306,25 @@ export const validation_Cristal1_color = (value: string | any) => {
   }
 };
 
-export const validation_Cristal1_material = (value: string | any) => {
+export const validation_Cristal1_od_material = (value: string | any) => {
+  if (value !== "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal1_material_id"
+    );
+    if (item) {
+      item.valor = 1;
+    }
+  }
+  if (value == "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal1_material_id"
+    );
+    if (item) {
+      item.valor = 0;
+    }
+  }
+};
+export const validation_Cristal1_oi_material = (value: string | any) => {
   if (value !== "") {
     const item = validationNivel1.value.find(
       (item) => item.campo === "cristal1_material_id"
@@ -1087,7 +1343,25 @@ export const validation_Cristal1_material = (value: string | any) => {
   }
 };
 
-export const validation_Cristal1_tratamiento = (value: string | any) => {
+export const validation_Cristal1_od_tratamiento = (value: string | any) => {
+  if (value !== "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal1_tratamiento_id"
+    );
+    if (item) {
+      item.valor = 1;
+    }
+  }
+  if (value == "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal1_tratamiento_id"
+    );
+    if (item) {
+      item.valor = 0;
+    }
+  }
+};
+export const validation_Cristal1_oi_tratamiento = (value: string | any) => {
   if (value !== "") {
     const item = validationNivel1.value.find(
       (item) => item.campo === "cristal1_tratamiento_id"
@@ -1106,7 +1380,25 @@ export const validation_Cristal1_tratamiento = (value: string | any) => {
   }
 };
 
-export const validation_Cristal1_indice = (value: string | any) => {
+export const validation_Cristal1_od_indice = (value: string | any) => {
+  if (value !== "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal1_indice_id"
+    );
+    if (item) {
+      item.valor = 1;
+    }
+  }
+  if (value == "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal1_indice_id"
+    );
+    if (item) {
+      item.valor = 0;
+    }
+  }
+};
+export const validation_Cristal1_oi_indice = (value: string | any) => {
   if (value !== "") {
     const item = validationNivel1.value.find(
       (item) => item.campo === "cristal1_indice_id"
@@ -1125,7 +1417,25 @@ export const validation_Cristal1_indice = (value: string | any) => {
   }
 };
 
-export const validation_Cristal1_diseño = (value: string | any) => {
+export const validation_Cristal1_od_diseño = (value: string | any) => {
+  if (value !== "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal1_diseno_id"
+    );
+    if (item) {
+      item.valor = 1;
+    }
+  }
+  if (value == "") {
+    const item = validationNivel1.value.find(
+      (item) => item.campo === "cristal1_diseno_id"
+    );
+    if (item) {
+      item.valor = 0;
+    }
+  }
+};
+export const validation_Cristal1_oi_diseño = (value: string | any) => {
   if (value !== "") {
     const item = validationNivel1.value.find(
       (item) => item.campo === "cristal1_diseno_id"

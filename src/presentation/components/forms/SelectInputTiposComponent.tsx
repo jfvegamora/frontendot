@@ -124,7 +124,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
         defaultValue={strSelectedName}
         render={({ field }) => (
           <div
-            className={`custom-select inputStyles border-[0.5px] h-[2.8vw]  rounded-lg  relative ${
+            className={`custom-select inputStyles border-[0.5px] h-[2.8vw]  rounded-lg  ${
               error ? "border-red-500" : "border-[#f8b179]"
             }  `}
           >
@@ -136,9 +136,7 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
               <label
                 htmlFor={label}
                 className={`  ${
-                  labelProps
-                    ? labelProps
-                    : "  !translate-y-[-1.2vh] !text-[1vw] !font-[1vw]"
+                  labelProps ? labelProps : "  !translate-y-[-1.2vh] "
                 }  !translate-y-[-0.8vw] translate-x-3`}
               >
                 {label}
@@ -194,15 +192,15 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
                   }
                 }
               }}
-              className={`pt-3 inputStyles "${
-                customWidth ? customWidth : ""
-              }  custom-input py-2  cursor-pointer z-0"  ${
+              className={` pt-3 inputStyles ${
+                customWidth ? customWidth : " custom-input   cursor-pointer "
+              } ${
                 readOnly
                   ? "custom-onlyread"
                   : isOptional
                   ? "custom-optional-with-color"
                   : "custom-required"
-              } `}
+              }`}
             >
               {!onlyFirstOption && (
                 <option value={undefined} className="text-sm"></option>

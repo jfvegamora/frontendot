@@ -27,7 +27,7 @@ import { paramsOT } from "../../views/mantenedores/MOT";
 import { toast } from "react-toastify";
 import { OTAreasEnum, OTGrillaEnum } from "../../Enums";
 import { signal } from "@preact/signals-react";
-import { Checkbox } from "@material-tailwind/react";
+import { Button, Checkbox } from "@material-tailwind/react";
 import {
   CR1_OD_LAB,
   CR1_OI_LAB,
@@ -40,7 +40,6 @@ import { Howl } from "howler";
 import soundSuccess from "../../../assets/zapsplat_public_places_supermarket_checkout_beep_002_44357 (1).mp3";
 
 import {
-  codConcatAll,
   dataOTSignal,
   isValidateArmazon1,
   isValidateArmazon2,
@@ -88,7 +87,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
   const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id);
   const [OT, setOT] = React.useState<any>(dataOTSignal.value);
 
-  const [concatValue, setConcatValue] = React.useState("");
+  const [_concatValue, setConcatValue] = React.useState("");
 
   // const [inputValue, setInputValue] = React.useState("");
   // const [delayedValue, setDelayedValue] = React.useState("");
@@ -486,25 +485,25 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       return;
     }
 
-    console.log(value);
+    // console.log(value);
     formatValue = value; // Asignar el valor final después del debounce
     setConcatValue((prev) => prev + value);
-    console.log(concatValue);
+    // console.log(concatValue);
 
     // setTimeout(() => {
     //   codConcatAll.value += formatValue;
     // }, 2000);
 
-    const delay = (ms: number) =>
-      new Promise((resolve) => setTimeout(resolve, ms));
+    // const delay = (ms: number) =>
+    // new Promise((resolve) => setTimeout(resolve, ms));
 
     // Esperar 2 segundos antes de concatenar el valor
-    await delay(2000);
-    codConcatAll.value += formatValue;
+    // await delay(2000);
+    // codConcatAll.value += formatValue;
+    //
+    // console.log(formatValue);
 
-    console.log(formatValue);
-
-    console.log(codConcatAll.value);
+    // console.log(codConcatAll.value);
     if (name === "a1_od") {
       // setScanValue({ [name]: { codigo: value } });
       // setScanValue((prev: any) => ({
@@ -1355,112 +1354,112 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     }
   };
 
-  // const handleDerivacionValidarCristales = async () => {
-  //   const toastLoading = toast.loading("Cargando...");
-  //   console.log(OT && OT[OTGrillaEnum.folio]);
-  //   try {
-  //     let jsondata: any = [];
-  //     let origen = OTAreas["areaActual"];
-  //     let cristalOri = cristales;
-  //     let armazonOri = armazones;
-  //     let user = UsuarioID;
-  //     let validarBodega = false;
-  //     let isMasivo = true;
-  //     let cristalStock = "1";
-  //     let estadoValidacionCristal = "1";
+  const handleDerivacionValidarCristales = async () => {
+    const toastLoading = toast.loading("Cargando...");
+    console.log(OT && OT[OTGrillaEnum.folio]);
+    try {
+      let jsondata: any = [];
+      let origen = OTAreas["areaActual"];
+      let cristalOri = cristales;
+      let armazonOri = armazones;
+      let user = UsuarioID;
+      let validarBodega = false;
+      let isMasivo = true;
+      let cristalStock = "1";
+      let estadoValidacionCristal = "1";
 
-  //     let _p2 = "1";
+      let _p2 = "1";
 
-  //     let destino = "10";
-  //     let estado = "40";
+      let destino = "10";
+      let estado = "40";
 
-  //     let observaciones;
-  //     let situacion;
-  //     let data = {
-  //       folio: OT[OTGrillaEnum.folio],
-  //       tipo_anteojo: parseInt(OT[OTGrillaEnum.tipo_anteojo_id]),
-  //       proyecto_codigo: OT[OTGrillaEnum.proyecto_titulo],
-  //       punto_venta: OT[OTGrillaEnum.punto_venta],
-  //       cristales: [
-  //         {
-  //           codigo:
-  //             validation_cristal1_od.value !== ""
-  //               ? validation_cristal1_od.value
-  //               : "",
-  //           opcion_vta: cristalStock,
-  //           estado: estadoValidacionCristal,
-  //         },
-  //         {
-  //           codigo:
-  //             validation_cristal1_oi.value !== ""
-  //               ? validation_cristal1_oi.value
-  //               : "",
-  //           opcion_vta: cristalStock,
-  //           estado: estadoValidacionCristal,
-  //         },
-  //         {
-  //           codigo:
-  //             validation_cristal2_od.value !== ""
-  //               ? validation_cristal2_od.value
-  //               : "",
-  //           opcion_vta: cristalStock,
-  //           estado: estadoValidacionCristal,
-  //         },
-  //         {
-  //           codigo:
-  //             validation_cristal2_oi.value !== ""
-  //               ? validation_cristal2_oi.value
-  //               : "",
-  //           opcion_vta: cristalStock,
-  //           estado: estadoValidacionCristal,
-  //         },
-  //       ],
-  //       armazones: [],
-  //     };
+      let observaciones;
+      let situacion;
+      let data = {
+        folio: OT[OTGrillaEnum.folio],
+        tipo_anteojo: parseInt(OT[OTGrillaEnum.tipo_anteojo_id]),
+        proyecto_codigo: OT[OTGrillaEnum.proyecto_titulo],
+        punto_venta: OT[OTGrillaEnum.punto_venta],
+        cristales: [
+          {
+            codigo:
+              validation_cristal1_od.value !== ""
+                ? validation_cristal1_od.value
+                : "",
+            opcion_vta: cristalStock,
+            estado: estadoValidacionCristal,
+          },
+          {
+            codigo:
+              validation_cristal1_oi.value !== ""
+                ? validation_cristal1_oi.value
+                : "",
+            opcion_vta: cristalStock,
+            estado: estadoValidacionCristal,
+          },
+          {
+            codigo:
+              validation_cristal2_od.value !== ""
+                ? validation_cristal2_od.value
+                : "",
+            opcion_vta: cristalStock,
+            estado: estadoValidacionCristal,
+          },
+          {
+            codigo:
+              validation_cristal2_oi.value !== ""
+                ? validation_cristal2_oi.value
+                : "",
+            opcion_vta: cristalStock,
+            estado: estadoValidacionCristal,
+          },
+        ],
+        armazones: [],
+      };
 
-  //     updateOT(
-  //       jsondata,
-  //       origen,
-  //       destino,
-  //       estado,
-  //       [],
-  //       data,
-  //       cristalOri,
-  //       armazonOri,
-  //       user,
-  //       observaciones,
-  //       isMasivo,
-  //       situacion,
-  //       validarBodega,
-  //       "",
-  //       false,
-  //       "",
-  //       _p2
-  //     )
-  //       .then(() => {
-  //         handleClose();
-  //         toast.dismiss(toastLoading);
-  //         toast.success("OT Procesada Correctamente.");
-  //         dispatch(
-  //           fetchOT({
-  //             OTAreas: OTAreas["areaActual"],
-  //             searchParams: paramsOT.value,
-  //           })
-  //         );
-  //         valueConfirmOT.value = "";
-  //         resetFields();
-  //       })
-  //       .catch((e) => {
-  //         console.log(e);
-  //         console.log("error");
-  //         resetFields();
-  //         toast.dismiss(toastLoading);
-  //       });
-  //   } catch (error) {
-  //     console.log(error);
-  //     return error;
-  //   }
-  // };
+      updateOT(
+        jsondata,
+        origen,
+        destino,
+        estado,
+        [],
+        data,
+        cristalOri,
+        armazonOri,
+        user,
+        observaciones,
+        isMasivo,
+        situacion,
+        validarBodega,
+        "",
+        false,
+        "",
+        _p2
+      )
+        .then(() => {
+          handleClose();
+          toast.dismiss(toastLoading);
+          toast.success("OT Procesada Correctamente.");
+          dispatch(
+            fetchOT({
+              OTAreas: OTAreas["areaActual"],
+              searchParams: paramsOT.value,
+            })
+          );
+          valueConfirmOT.value = "";
+          resetFields();
+        })
+        .catch((e) => {
+          console.log(e);
+          console.log("error");
+          resetFields();
+          toast.dismiss(toastLoading);
+        });
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  };
 
   // const renderDerivationButton = () => {
   //   if (OT) {
@@ -1588,7 +1587,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           </div>
         )}
       </form>
-      {/* {renderDerivationButton() && (
+      {
         <div
           className={`mx-auto  w-[20%] ${
             OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3
@@ -1603,7 +1602,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
             Derivar
           </Button>
         </div>
-      )} */}
+      }
     </div>
   );
 };

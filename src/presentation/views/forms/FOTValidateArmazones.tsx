@@ -60,8 +60,6 @@ interface IFOTValidarBodega {
 }
 
 const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
-  console.log(dataOTSignal.value);
-
   const [formValues, setFormValues] = React.useState();
   const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
   const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id);
@@ -137,14 +135,14 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           inputRef={inputsRefArmazon}
           validarBodega={true}
           onlyRead={isValidateArmazon1}
-          onKeyDown={(event: any) => {
-            if ((event.ctrlKey || event.metaKey) && event.key === "v") {
-              event.preventDefault();
-            }
-          }}
-          onPaste={(event: any) => {
-            event.preventDefault();
-          }}
+          // onKeyDown={(event: any) => {
+          //   if ((event.ctrlKey || event.metaKey) && event.key === "v") {
+          //     event.preventDefault();
+          //   }
+          // }}
+          // onPaste={(event: any) => {
+          //   event.preventDefault();
+          // }}
         />
       </div>
     );
@@ -353,6 +351,7 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
   }, [dataOTSignal.value]);
 
   React.useEffect(() => {
+    console.log(isValidateArmazon1);
     if (isValidateArmazon1) {
       handleClose();
       toast.success("Armazones validados correctamente.");

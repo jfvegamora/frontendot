@@ -102,24 +102,31 @@ import {
   validation_A2_OI_EJE,
   validation_A2_OI_ESF,
   validation_A2_armazon,
-  validation_Cristal1_color,
-  validation_Cristal1_diametro,
-  validation_Cristal1_diseño,
-  validation_Cristal1_indice,
-  validation_Cristal1_marca,
-  validation_Cristal1_material,
   validation_Cristal1_od,
+  validation_Cristal1_od_color,
+  validation_Cristal1_od_diametro,
+  validation_Cristal1_od_diseño,
+  validation_Cristal1_od_indice,
+  validation_Cristal1_od_marca,
+  validation_Cristal1_od_material,
+  validation_Cristal1_od_tratamiento,
   validation_Cristal1_oi,
-  validation_Cristal1_tratamiento,
-  validation_Cristal2_color,
-  validation_Cristal2_diametro,
-  validation_Cristal2_diseño,
-  validation_Cristal2_indice,
-  validation_Cristal2_material,
+  validation_Cristal1_oi_color,
+  validation_Cristal1_oi_diametro,
+  validation_Cristal1_oi_diseño,
+  validation_Cristal1_oi_indice,
+  validation_Cristal1_oi_marca,
+  validation_Cristal1_oi_material,
+  validation_Cristal1_oi_tratamiento,
   validation_Cristal2_od,
+  validation_Cristal2_od_color,
+  validation_Cristal2_od_diametro,
+  validation_Cristal2_od_diseño,
+  validation_Cristal2_od_indice,
+  validation_Cristal2_od_material,
+  validation_Cristal2_od_tratamiento,
   validation_Cristal2_oi,
-  validation_Cristal2_tratamiento,
-  validation_cristal2_marca,
+  validation_cristal2_od_marca,
 } from "../../utils/validationOT";
 // import { inputName } from '../../components/OTForms/Otprueba';
 // import { verificaCampos } from '../../utils/OTReceta_utils';
@@ -141,14 +148,18 @@ import { usePermission } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import { paramsOT } from "../mantenedores/MOT";
 import {
-  changeCodigoCristal_A1,
-  changeCodigoCristal_A2,
+  changeCodigoCristal_od_A1,
+  changeCodigoCristal_od_A2,
+  changeCodigoCristal_oi_A1,
+  changeCodigoCristal_oi_A2,
   CR1_OD_LAB,
   CR1_OI_LAB,
   CR2_OD_LAB,
   CR2_OI_LAB,
-  getGrupoCristales_A1,
-  getGrupoCristales_A2,
+  getGrupoCristales_od_A1,
+  getGrupoCristales_od_A2,
+  getGrupoCristales_oi_A1,
+  getGrupoCristales_oi_A2,
   handleValidationCheckLab,
   isToggleMontajeValidation,
 } from "../../utils/FOTCristales_utils";
@@ -262,8 +273,10 @@ const FOT: React.FC<IFOTProps> = ({
     isMotivo: false,
   });
 
-  const [errorGrupoDioptriaA1, setErrorGrupoDioptriaA1] = useState("");
-  const [errorGrupoDioptriaA2, setErrorGrupoDioptriaA2] = useState("");
+  const [errorGrupoDioptria_od_A1, setErrorGrupoDioptria_od_A1] = useState("");
+  const [errorGrupoDioptria_oi_A1, setErrorGrupoDioptria_oi_A1] = useState("");
+  const [errorGrupoDioptria_od_A2, setErrorGrupoDioptria_od_A2] = useState("");
+  const [errorGrupoDioptria_oi_A2, setErrorGrupoDioptria_oi_A2] = useState("");
   const [submitAction, setSubmitAction] = useState("");
   const [_toggle, setToggle] = useState();
   const [OTPermissions, setOTPermissions] = useState("");
@@ -999,42 +1012,84 @@ const FOT: React.FC<IFOTProps> = ({
     }));
 
     if (key === "cristal1_tratamiento_adicional_id") {
-      setValue("cristal1_marca_id", "1");
-      setValue("cristal1_indice_id", "1");
-      setValue("cristal1_material_id", "1");
-      setValue("cristal1_color_id", "1");
-      setValue("cristal1_tratamiento_id", "1");
-      setValue("cristal1_diseno_id", "1");
-      setValue("cristal1_diametro", "65");
+      setValue("cristal1_marca_od_id", "1");
+      setValue("cristal1_indice_od_id", "1");
+      setValue("cristal1_material_od_id", "1");
+      setValue("cristal1_color_od_id", "1");
+      setValue("cristal1_tratamiento_od_id", "1");
+      setValue("cristal1_diseno_od_id", "1");
+      setValue("cristal1_od_diametro", "65");
 
       const formValores = getValues();
 
-      await getGrupoCristales_A1(
+      await getGrupoCristales_od_A1(
         formValores,
         data,
-        setErrorGrupoDioptriaA1,
+        setErrorGrupoDioptria_od_A1,
         setChangeboolean,
         isEditting,
-        setErrorGrupoDioptriaA2
+        setErrorGrupoDioptria_od_A2,
+        setValue
+      );
+    }
+    if (key === "cristal1_tratamiento_adicional_id") {
+      setValue("cristal1_marca_oi_id", "1");
+      setValue("cristal1_indice_oi_id", "1");
+      setValue("cristal1_material_oi_id", "1");
+      setValue("cristal1_color_oi_id", "1");
+      setValue("cristal1_tratamiento_oi_id", "1");
+      setValue("cristal1_diseno_oi_id", "1");
+      setValue("cristal1_oi_diametro", "65");
+
+      const formValores = getValues();
+
+      await getGrupoCristales_oi_A1(
+        formValores,
+        data,
+        setErrorGrupoDioptria_oi_A1,
+        setChangeboolean,
+        isEditting,
+        setErrorGrupoDioptria_oi_A2,
+        setValue
       );
     }
 
     if (key === "cristal2_tratamiento_adicional_id") {
-      setValue("cristal2_marca_id", "1");
-      setValue("cristal2_indice_id", "1");
-      setValue("cristal2_material_id", "1");
-      setValue("cristal2_color_id", "1");
-      setValue("cristal2_tratamiento_id", "1");
-      setValue("cristal2_diseno_id", "1");
-      setValue("cristal2_diametro", "65");
+      setValue("cristal2_marca_od_id", "1");
+      setValue("cristal2_indice_od_id", "1");
+      setValue("cristal2_material_od_id", "1");
+      setValue("cristal2_color_od_id", "1");
+      setValue("cristal2_tratamiento_od_id", "1");
+      setValue("cristal2_diseno_od_id", "1");
+      setValue("cristal2_od_diametro", "65");
 
       const formValores = getValues();
       console.log("render");
-      await getGrupoCristales_A2(
+      await getGrupoCristales_od_A2(
         formValores,
         data,
-        setErrorGrupoDioptriaA2,
-        setChangeboolean
+        setErrorGrupoDioptria_od_A2,
+        setChangeboolean,
+        setValue
+      );
+    }
+    if (key === "cristal2_tratamiento_adicional_id") {
+      setValue("cristal2_marca_oi_id", "1");
+      setValue("cristal2_indice_oi_id", "1");
+      setValue("cristal2_material_oi_id", "1");
+      setValue("cristal2_color_oi_id", "1");
+      setValue("cristal2_tratamiento_oi_id", "1");
+      setValue("cristal2_diseno_oi_id", "1");
+      setValue("cristal2_oi_diametro", "65");
+
+      const formValores = getValues();
+      console.log("render");
+      await getGrupoCristales_oi_A2(
+        formValores,
+        data,
+        setErrorGrupoDioptria_oi_A2,
+        setChangeboolean,
+        setValue
       );
     }
 
@@ -1148,29 +1203,56 @@ const FOT: React.FC<IFOTProps> = ({
       validation_A2_OI_EJE(a2_oi_eje.value);
     }
     // ? CODIGO CRISTALES Y GRUPO ANTEOJO 1:
-    if (changeCodigoCristal_A1[key]) {
+    if (changeCodigoCristal_od_A1[key]) {
       const formValue = getValues();
-      getGrupoCristales_A1(
+      getGrupoCristales_od_A1(
         formValue,
         data,
-        setErrorGrupoDioptriaA1,
+        setErrorGrupoDioptria_od_A1,
         setChangeboolean,
         isEditting,
-        setErrorGrupoDioptriaA2
+        setErrorGrupoDioptria_od_A2,
+        setValue
+      );
+    }
+
+    if (changeCodigoCristal_oi_A1[key]) {
+      const formValue = getValues();
+      getGrupoCristales_oi_A1(
+        formValue,
+        data,
+        setErrorGrupoDioptria_oi_A1,
+        setChangeboolean,
+        isEditting,
+        setErrorGrupoDioptria_oi_A2,
+        setValue
       );
     }
 
     console.log(formValuesCompleto);
     //? CODIGO CRISTALES Y GRUPO  ANTEOJO 2:
-    if (changeCodigoCristal_A2[key]) {
+    if (changeCodigoCristal_od_A2[key]) {
       const formValue = getValues();
-      console.log(formValuesCompleto);
       if (tipo_de_anteojo.value === "3") {
-        getGrupoCristales_A2(
+        getGrupoCristales_od_A2(
           formValue,
           data,
-          setErrorGrupoDioptriaA2,
-          setChangeboolean
+          setErrorGrupoDioptria_od_A2,
+          setChangeboolean,
+          setValue
+        );
+      }
+    }
+    //? CODIGO CRISTALES Y GRUPO  ANTEOJO 2:
+    if (changeCodigoCristal_oi_A2[key]) {
+      const formValue = getValues();
+      if (tipo_de_anteojo.value === "3") {
+        getGrupoCristales_oi_A2(
+          formValue,
+          data,
+          setErrorGrupoDioptria_oi_A2,
+          setChangeboolean,
+          setValue
         );
       }
     }
@@ -1191,20 +1273,37 @@ const FOT: React.FC<IFOTProps> = ({
 
   React.useEffect(() => {
     if (!isEditting) {
-      setValue("cristal1_marca_id", "1");
-      setValue("cristal1_indice_id", "1");
-      setValue("cristal1_material_id", "1");
-      setValue("cristal1_color_id", "1");
-      setValue("cristal1_tratamiento_id", "1");
-      setValue("cristal1_diseno_id", "1");
-      setValue("cristal1_diametro", "65");
-      setValue("cristal2_marca_id", "1");
-      setValue("cristal2_indice_id", "1");
-      setValue("cristal2_material_id", "1");
-      setValue("cristal2_color_id", "1");
-      setValue("cristal2_tratamiento_id", "1");
-      setValue("cristal2_diseno_id", "1");
-      setValue("cristal2_diametro", "65");
+      setValue("cristal1_marca_od_id", "1");
+      setValue("cristal1_indice_od_id", "1");
+      setValue("cristal1_material_od_id", "1");
+      setValue("cristal1_color_od_id", "1");
+      setValue("cristal1_tratamiento_od_id", "1");
+      setValue("cristal1_diseno_od_id", "1");
+      setValue("cristal1_od_diametro", "65");
+
+      setValue("cristal1_marca_oi_id", "1");
+      setValue("cristal1_indice_oi_id", "1");
+      setValue("cristal1_material_oi_id", "1");
+      setValue("cristal1_color_oi_id", "1");
+      setValue("cristal1_tratamiento_oi_id", "1");
+      setValue("cristal1_diseno_oi_id", "1");
+      setValue("cristal1_oi_diametro", "65");
+
+      setValue("cristal2_marca_od_id", "1");
+      setValue("cristal2_indice_od_id", "1");
+      setValue("cristal2_material_od_id", "1");
+      setValue("cristal2_color_od_id", "1");
+      setValue("cristal2_tratamiento_od_id", "1");
+      setValue("cristal2_diseno_od_id", "1");
+      setValue("cristal2_od_diametro", "65");
+
+      setValue("cristal2_marca_oi_id", "1");
+      setValue("cristal2_indice_oi_id", "1");
+      setValue("cristal2_material_oi_id", "1");
+      setValue("cristal2_color_oi_id", "1");
+      setValue("cristal2_tratamiento_oi_id", "1");
+      setValue("cristal2_diseno_oi_id", "1");
+      setValue("cristal2_oi_diametro", "65");
     }
   }, [setValue, isEditting]);
 
@@ -1287,16 +1386,42 @@ const FOT: React.FC<IFOTProps> = ({
 
       validation_A1_armazon(data && data[EnumGrid.a1_armazon_id]);
 
-      validation_Cristal1_marca(data && data[EnumGrid.cristal1_marca_id]);
-      validation_Cristal1_diseño(data && data[EnumGrid.cristal1_diseno_id]);
-      validation_Cristal1_indice(data && data[EnumGrid.cristal1_indice_id]);
-      validation_Cristal1_material(data && data[EnumGrid.cristal1_material_id]);
-      validation_Cristal1_tratamiento(
-        data && data[EnumGrid.cristal1_tratamiento_id]
+      validation_Cristal1_od_marca(data && data[EnumGrid.cristal1_od_marca_id]);
+      validation_Cristal1_od_diseño(
+        data && data[EnumGrid.cristal1_od_diseno_id]
       );
-      validation_Cristal1_color(data && data[EnumGrid.cristal1_color_id]);
-      validation_Cristal1_diametro(data && data[EnumGrid.cristal1_diametro]);
+      validation_Cristal1_od_indice(
+        data && data[EnumGrid.cristal1_od_indice_id]
+      );
+      validation_Cristal1_od_material(
+        data && data[EnumGrid.cristal1_od_material_id]
+      );
+      validation_Cristal1_od_tratamiento(
+        data && data[EnumGrid.cristal1_od_tratamiento_id]
+      );
+      validation_Cristal1_od_color(data && data[EnumGrid.cristal1_od_color_id]);
+      validation_Cristal1_od_diametro(
+        data && data[EnumGrid.cristal1_od_diametro]
+      );
       validation_Cristal1_od(data && data[EnumGrid.cristal1_od]);
+
+      validation_Cristal1_oi_marca(data && data[EnumGrid.cristal1_oi_marca_id]);
+      validation_Cristal1_oi_diseño(
+        data && data[EnumGrid.cristal1_oi_marca_id]
+      );
+      validation_Cristal1_oi_indice(
+        data && data[EnumGrid.cristal1_oi_marca_id]
+      );
+      validation_Cristal1_oi_material(
+        data && data[EnumGrid.cristal1_oi_marca_id]
+      );
+      validation_Cristal1_oi_tratamiento(
+        data && data[EnumGrid.cristal1_oi_marca_id]
+      );
+      validation_Cristal1_oi_color(data && data[EnumGrid.cristal1_oi_marca_id]);
+      validation_Cristal1_oi_diametro(
+        data && data[EnumGrid.cristal1_oi_marca_id]
+      );
       validation_Cristal1_oi(data && data[EnumGrid.cristal1_oi]);
 
       combinaciones_validas_od(
@@ -1308,18 +1433,51 @@ const FOT: React.FC<IFOTProps> = ({
       tipo_anteojo_title.value = data && data[EnumGrid.tipo_anteojo];
       validation_A2_armazon("32");
       if (data && data[EnumGrid.tipo_anteojo_id] === 3) {
-        validation_cristal2_marca(data && data[EnumGrid.cristal2_marca_id]);
-        validation_Cristal2_diseño(data && data[EnumGrid.cristal2_diseno_id]);
-        validation_Cristal2_indice(data && data[EnumGrid.cristal2_indice_id]);
-        validation_Cristal2_material(
-          data && data[EnumGrid.cristal2_material_id]
+        validation_cristal2_od_marca(
+          data && data[EnumGrid.cristal2_od_marca_id]
         );
-        validation_Cristal2_tratamiento(
-          data && data[EnumGrid.cristal2_tratamiento_id]
+        validation_Cristal2_od_diseño(
+          data && data[EnumGrid.cristal2_od_diseno_id]
         );
-        validation_Cristal2_color(data && data[EnumGrid.cristal2_color_id]);
-        validation_Cristal2_diametro(data && data[EnumGrid.cristal2_diametro]);
+        validation_Cristal2_od_indice(
+          data && data[EnumGrid.cristal2_od_indice_id]
+        );
+        validation_Cristal2_od_material(
+          data && data[EnumGrid.cristal2_od_material_id]
+        );
+        validation_Cristal2_od_tratamiento(
+          data && data[EnumGrid.cristal2_od_tratamiento_id]
+        );
+        validation_Cristal2_od_color(
+          data && data[EnumGrid.cristal2_od_color_id]
+        );
+        validation_Cristal2_od_diametro(
+          data && data[EnumGrid.cristal2_od_diametro]
+        );
         validation_Cristal2_od(data && data[EnumGrid.cristal2_od]);
+
+        validation_cristal2_od_marca(
+          data && data[EnumGrid.cristal2_oi_marca_id]
+        );
+        validation_Cristal2_od_diseño(
+          data && data[EnumGrid.cristal2_oi_diseno_id]
+        );
+        validation_Cristal2_od_indice(
+          data && data[EnumGrid.cristal2_oi_indice_id]
+        );
+        validation_Cristal2_od_material(
+          data && data[EnumGrid.cristal2_oi_material_id]
+        );
+        validation_Cristal2_od_tratamiento(
+          data && data[EnumGrid.cristal2_oi_tratamiento_id]
+        );
+        validation_Cristal2_od_color(
+          data && data[EnumGrid.cristal2_oi_color_id]
+        );
+        validation_Cristal2_od_diametro(
+          data && data[EnumGrid.cristal2_oi_diametro]
+        );
+
         validation_Cristal2_oi(data && data[EnumGrid.cristal2_oi]);
         tipo_anteojo_title_cristal2.value = "Cerca";
         tipo_anteojo_title.value = "Lejos";
@@ -1368,29 +1526,54 @@ const FOT: React.FC<IFOTProps> = ({
   }, [closeModal]);
 
   useEffect(() => {
-    if (errorGrupoDioptriaA1) {
-      toast.error(errorGrupoDioptriaA1);
+    if (errorGrupoDioptria_od_A1) {
+      toast.error(errorGrupoDioptria_od_A1);
       A1_CR_OD.value = " ";
-      A1_CR_OI.value = " ";
+      // A1_CR_OI.value = " ";
       A1_GRUPO_OD.value = "";
-      A1_GRUPO_OI.value = "";
+      // A1_GRUPO_OI.value = "";
       validation_Cristal1_od("");
-      validation_Cristal1_oi("");
-      setErrorGrupoDioptriaA1("");
+      // validation_Cristal1_oi("");
+      setErrorGrupoDioptria_od_A1("");
     }
-  }, [errorGrupoDioptriaA1]);
+  }, [errorGrupoDioptria_od_A1]);
 
   useEffect(() => {
-    if (errorGrupoDioptriaA2 !== "") {
-      toast.error(errorGrupoDioptriaA2);
+    if (errorGrupoDioptria_oi_A1) {
+      toast.error(errorGrupoDioptria_oi_A1);
+      // A1_CR_OD.value = " ";
+      A1_CR_OI.value = " ";
+      // A1_GRUPO_OD.value = "";
+      A1_GRUPO_OI.value = "";
+      // validation_Cristal1_od("");
+      validation_Cristal1_oi("");
+      setErrorGrupoDioptria_oi_A1("");
+    }
+  }, [errorGrupoDioptria_oi_A1]);
+
+  useEffect(() => {
+    if (errorGrupoDioptria_od_A2 !== "") {
+      toast.error(errorGrupoDioptria_od_A2);
       A2_CR_OD.value = " ";
-      A2_CR_OI.value = " ";
+      // A2_CR_OI.value = " ";
       A2_GRUPO_OD.value = " ";
-      A2_GRUPO_OI.value = " ";
+      // A2_GRUPO_OI.value = " ";
       validation_Cristal2_od("");
+      // validation_Cristal2_oi("");
+    }
+  }, [errorGrupoDioptria_od_A2]);
+
+  useEffect(() => {
+    if (errorGrupoDioptria_oi_A2 !== "") {
+      toast.error(errorGrupoDioptria_oi_A2);
+      // A2_CR_OD.value = " ";
+      A2_CR_OI.value = " ";
+      // A2_GRUPO_OD.value = " ";
+      A2_GRUPO_OI.value = " ";
+      // validation_Cristal2_od("");
       validation_Cristal2_oi("");
     }
-  }, [errorGrupoDioptriaA2]);
+  }, [errorGrupoDioptria_oi_A2]);
 
   useEffect(() => {
     const fechaHoraActual = new Date();

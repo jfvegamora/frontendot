@@ -1104,7 +1104,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                 });
 
                 acc[keys[index]].codigos.push({
-                  codigo: row[aproximarEnum.aprox_esf_cod],
+                  codigo: row[aproximarEnum.aprox_esfcil_cod],
                   indice: row[aproximarEnum.aprox_esfcil_indice],
                   diametro: row[aproximarEnum.aprox_esfcil_diam],
                   esferico: row[aproximarEnum.aprox_esfcil_esf],
@@ -1159,7 +1159,9 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         dataOTSignal.value = dataOT;
 
         setISFOTValidateBodegaArmazones(true);
+        console.log("render");
       } catch (error) {
+        console.log("render");
         setISFOTValidateBodegaArmazones(false);
         console.log(error);
         return error;
