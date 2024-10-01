@@ -48,8 +48,7 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
       });
   }, [pageSize, onDelete, query]);
 
-  const openModal = useCallback((prop?: any) => {
-    console.log(prop);
+  const openModal = useCallback((_prop?: any) => {
     setisModalInsert(true);
   }, []);
 
@@ -86,7 +85,6 @@ export const useEntityUtils = (entityApiBaseUrl: string, query: string) => {
   const handleSelectedAll = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, row?: any) => {
       const selectedRowsLimited = event.target.checked ? row.slice(0, 500) : [];
-      console.log(selectedRows);
       setSelectedRows(selectedRowsLimited);
     },
     [entities]

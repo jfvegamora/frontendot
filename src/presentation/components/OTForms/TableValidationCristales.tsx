@@ -5,8 +5,6 @@ interface ITableValidationCristales {
 const TableValidationCristales: React.FC<ITableValidationCristales> = ({
   data,
 }) => {
-  console.log(data);
-
   return (
     <table className="w-full h-full">
       <thead>

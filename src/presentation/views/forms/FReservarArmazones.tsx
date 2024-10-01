@@ -344,6 +344,7 @@ const FReservarArmazones = () => {
             clearInputsArmazones(armazon);
           }
 
+          // console.log(result);
           switch (armazon) {
             case "Armazon1":
               codArmazon1.value = result.data[0][0];

@@ -1219,49 +1219,49 @@ export const updateOT = async (
     `cristales1_od_marca=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal1_od_marca_id"] !== undefined
+      _formValues["cristales"]["cristal1_marca_od_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal1_od_marca_id"])
+          parseInt(_formValues["cristales"]["cristal1_marca_od_id"])
         : data && data[EnumGrid.cristal1_od_marca_id]
     }`,
     `cristales1_od_diseno=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal1_od_diseno_id"] !== undefined
+      _formValues["cristales"]["cristal1_diseno_od_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal1_od_diseno_id"])
+          parseInt(_formValues["cristales"]["cristal1_diseno_od_id"])
         : data && data[EnumGrid.cristal1_od_diseno_id]
     }`,
     `cristales1_od_indice=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal1_od_indice_id"] !== undefined
+      _formValues["cristales"]["cristal1_indice_od_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal1_od_indice_id"])
+          parseInt(_formValues["cristales"]["cristal1_indice_od_id"])
         : data && data[EnumGrid.cristal1_od_indice_id]
     }`,
     `cristales1_od_material=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal1_od_material_id"] !== undefined
+      _formValues["cristales"]["cristal1_material_od_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal1_od_material_id"])
+          parseInt(_formValues["cristales"]["cristal1_od_material_od_id"])
         : data && data[EnumGrid.cristal1_od_material_id]
     }`,
     `cristales1_od_tratamiento=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal1_od_tratamiento_id"] !== undefined
+      _formValues["cristales"]["cristal1_tratamiento_od_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal1_od_tratamiento_id"])
+          parseInt(_formValues["cristales"]["cristal1_tratamiento_od_id"])
         : data && data[EnumGrid.cristal1_od_tratamiento_id]
     }`,
     `cristales1_od_color=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal1_od_color_id"] !== undefined
+      _formValues["cristales"]["cristal1_color_od_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal1_od_color_id"])
+          parseInt(_formValues["cristales"]["cristal1_color_od_id"])
         : data && data[EnumGrid.cristal1_od_color_id]
     }`,
     `cristales1_od_diametro=${
@@ -1278,49 +1278,49 @@ export const updateOT = async (
     `cristales1_oi_marca=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal1_oi_marca_id"] !== undefined
+      _formValues["cristales"]["cristal1_marca_oi_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal1_oi_marca_id"])
+          parseInt(_formValues["cristales"]["cristal1_marca_oi_id"])
         : data && data[EnumGrid.cristal1_oi_marca_id]
     }`,
     `cristales1_oi_diseno=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal1_oi_diseno_id"] !== undefined
+      _formValues["cristales"]["cristal1_diseno_oi_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal1_oi_diseno_id"])
+          parseInt(_formValues["cristales"]["cristal1_diseno_oi_id"])
         : data && data[EnumGrid.cristal1_oi_diseno_id]
     }`,
     `cristales1_oi_indice=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal1_oi_indice_id"] !== undefined
+      _formValues["cristales"]["cristal1_indice_oi_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal1_oi_indice_id"])
+          parseInt(_formValues["cristales"]["cristal1_indice_oi_id"])
         : data && data[EnumGrid.cristal1_oi_indice_id]
     }`,
     `cristales1_oi_material=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal1_oi_material_id"] !== undefined
+      _formValues["cristales"]["cristal1_material_oi_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal1_oi_material_id"])
+          parseInt(_formValues["cristales"]["cristal1_material_oi_id"])
         : data && data[EnumGrid.cristal1_oi_material_id]
     }`,
     `cristales1_oi_tratamiento=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal1_oi_tratamiento_id"] !== undefined
+      _formValues["cristales"]["cristal1_tratamiento_oi_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal1_oi_tratamiento_id"])
+          parseInt(_formValues["cristales"]["cristal1_tratamiento_oi_id"])
         : data && data[EnumGrid.cristal1_oi_tratamiento_id]
     }`,
     `cristales1_oi_color=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal1_oi_color_id"] !== undefined
+      _formValues["cristales"]["cristal1_color_oi_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal1_oi_color_id"])
+          parseInt(_formValues["cristales"]["cristal1_color_oi_id"])
         : data && data[EnumGrid.cristal1_oi_color_id]
     }`,
     `cristales1_oi_diametro=${
@@ -1350,25 +1350,25 @@ export const updateOT = async (
     `cristales2_od_marca=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal2_od_marca_id"] !== undefined
+      _formValues["cristales"]["cristal2_marca_od_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal2_od_marca_id"])
+          parseInt(_formValues["cristales"]["cristal2_marca_od_id"])
         : data && data[EnumGrid.cristal2_od_marca_id]
     }`,
     `cristales2_od_diseno=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal2_od_diseno_id"] !== undefined
+      _formValues["cristales"]["cristal2_diseno_od_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal2_od_diseno_id"])
+          parseInt(_formValues["cristales"]["cristal2_diseno_od_id"])
         : data && data[EnumGrid.cristal2_od_diseno_id]
     }`,
     `cristales2_od_indice=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal2_od_indice_id"] !== undefined
+      _formValues["cristales"]["cristal2_indice_od_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal2_od_indice_id"])
+          parseInt(_formValues["cristales"]["cristal2_indice_od_id"])
         : data && data[EnumGrid.cristal2_od_indice_id]
     }`,
     `cristales2_od_material=${
@@ -1376,23 +1376,23 @@ export const updateOT = async (
       _formValues["cristales"] &&
       _formValues["cristales"]["cristal2_material_od_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal2_od_material_id"])
+          parseInt(_formValues["cristales"]["cristal2_material_od_id"])
         : data && data[EnumGrid.cristal2_od_material_id]
     }`,
     `cristales2_od_tratamiento=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal2_od_tratamiento_id"] !== undefined
+      _formValues["cristales"]["cristal2_tratamiento_od_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal2_od_tratamiento_id"])
+          parseInt(_formValues["cristales"]["cristal2_tratamiento_od_id"])
         : data && data[EnumGrid.cristal2_od_tratamiento_id]
     }`,
     `cristales2_od_color=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal2_od_color_id"] !== undefined
+      _formValues["cristales"]["cristal2_color_od_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal2_od_color_id"])
+          parseInt(_formValues["cristales"]["cristal2_color_od_id"])
         : data && data[EnumGrid.cristal2_od_color_id]
     }`,
     `cristales2_od_diametro="${
@@ -1413,25 +1413,25 @@ export const updateOT = async (
     `cristales2_oi_marca=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal2_oi_marca_id"] !== undefined
+      _formValues["cristales"]["cristal2_marca_oi_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal2_oi_marca_id"])
+          parseInt(_formValues["cristales"]["cristal2_marca_oi_id"])
         : data && data[EnumGrid.cristal2_oi_marca_id]
     }`,
     `cristales2_oi_diseno=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal2_oi_diseno_id"] !== undefined
+      _formValues["cristales"]["cristal2_diseno_oi_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal2_oi_diseno_id"])
+          parseInt(_formValues["cristales"]["cristal2_diseno_oi_id"])
         : data && data[EnumGrid.cristal2_oi_diseno_id]
     }`,
     `cristales2_oi_indice=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal2_oi_indice_id"] !== undefined
+      _formValues["cristales"]["cristal2_indice_oi_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal2_oi_indice_id"])
+          parseInt(_formValues["cristales"]["cristal2_indice_oi_id"])
         : data && data[EnumGrid.cristal2_oi_indice_id]
     }`,
     `cristales2_oi_material=${
@@ -1439,23 +1439,23 @@ export const updateOT = async (
       _formValues["cristales"] &&
       _formValues["cristales"]["cristal2_material_oi_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal2_oi_material_id"])
+          parseInt(_formValues["cristales"]["cristal2_material_oi_id"])
         : data && data[EnumGrid.cristal2_oi_material_id]
     }`,
     `cristales2_oi_tratamiento=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal2_oi_tratamiento_id"] !== undefined
+      _formValues["cristales"]["cristal2_tratamiento_oi_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal2_oi_tratamiento_id"])
+          parseInt(_formValues["cristales"]["cristal2_tratamiento_oi_id"])
         : data && data[EnumGrid.cristal2_oi_tratamiento_id]
     }`,
     `cristales2_oi_color=${
       _formValues &&
       _formValues["cristales"] &&
-      _formValues["cristales"]["cristal2_oi_color_id"] !== undefined
+      _formValues["cristales"]["cristal2_color_oi_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal2_oi_color_id"])
+          parseInt(_formValues["cristales"]["cristal2_color_oi_id"])
         : data && data[EnumGrid.cristal2_oi_color_id]
     }`,
     `cristales2_oi_diametro="${
@@ -1622,6 +1622,17 @@ export const updateOT = async (
 
   _p1 = _p1.replace(/'/g, "!");
 
+  console.log(_p1);
+  console.log(
+    _formValues &&
+      _formValues["cristales"] &&
+      _formValues["cristales"]["cristal1_marca_od_id"] !== undefined
+      ? _formValues["cristales"] &&
+          parseInt(_formValues["cristales"]["cristal1_od_marca_id"])
+      : data && data[EnumGrid.cristal1_od_marca_id]
+  );
+
+  console.log(_formValues);
   const query = {
     query: "04",
     _p1,

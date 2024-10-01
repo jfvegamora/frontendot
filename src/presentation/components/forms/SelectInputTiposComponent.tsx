@@ -79,7 +79,6 @@ const SelectInputTiposComponent: React.FC<ISelectInputProps> = React.memo(
     const dispatch = useAppDispatch();
 
     const fetchData = async () => {
-      console.log("render");
       try {
         if (true) {
           const { data } = await axios(

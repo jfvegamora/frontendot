@@ -18,6 +18,7 @@ import { paramsOT } from "../views/mantenedores/MOT";
 import { areaActualOT } from "./OTAreasButtons";
 import { signal } from "@preact/signals-react";
 import { filterToggle, switchAtrasadas } from "./FilterButton";
+import { clearAllCheck } from "../utils";
 // import { sesionExpirada } from "../../redux/slices/userSlice";
 
 // import SelectInputTiposComponent from "./forms/SelectInputTiposComponent";
@@ -83,6 +84,7 @@ interface PrimaryKeySearchProps {
   updateParams: any;
   otHistorica?: boolean;
   classNameSearchButton?: string;
+  setSelectedRows?: any;
 }
 
 export const resetFilters = signal(false);
@@ -96,6 +98,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
     otHistorica,
     baseUrl,
     classNameSearchButton,
+    setSelectedRows,
   }) => {
     const OTAreaActual = useAppSelector(
       (store: AppStore) => store.OTAreas.areaActual
@@ -144,9 +147,6 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
 
     const handleSelectChange = React.useCallback(
       (name: string, value: string) => {
-        console.log(name);
-        console.log(value);
-
         setInputValues((prev) => ({ ...prev, [name]: value }));
         updateParams({ updatedParams });
       },
@@ -243,7 +243,8 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
             autoClose: 1500,
           });
         }
-
+        setSelectedRows([]);
+        clearAllCheck.value = false;
         toast.success("Busqueda Realizada", { autoClose: 1500 });
       } catch (error) {
         toast.dismiss(toastLoading);

@@ -68,7 +68,6 @@ export const setEstadoImpresion = async (
   const loadingToast = toast.loading("Cargando...");
   let estado_impresion = 1;
   try {
-    console.log(pkToDelete);
     const data_JSON = pkToDelete.map((ot: any) => {
       return { folio: `${ot.folio}` };
     });
@@ -83,7 +82,6 @@ export const setEstadoImpresion = async (
       },
     });
     toast.dismiss(loadingToast);
-    console.log(result);
 
     if (masivo) {
       // clearAllCheck.value = false;
@@ -318,8 +316,6 @@ const OTGrillaButtons: React.FC<AreaButtonsProps> = React.memo(
     };
 
     const { permiso_usaurio_btn_impresion } = usePermissionBotonesUser();
-
-    console.log(OTAreas["areaActual"]);
 
     return (
       <div className="flex items-center">

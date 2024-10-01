@@ -4,7 +4,7 @@ import { Stack, Text } from "@chakra-ui/react";
 import { signal } from "@preact/signals-react";
 
 import { usePermission } from "../hooks";
-import { disabledIndividualCheck } from "../utils";
+import { clearAllCheck, disabledIndividualCheck } from "../utils";
 import { AppStore, useAppSelector } from "../../redux/store";
 
 import { OTGrillaEnum, PermisosBotones } from "../Enums";
@@ -355,9 +355,9 @@ const TableComponent2: React.FC<ITableComponentProps> = React.memo(
                             disabled={
                               !(permiso_usuario_btn_check && permiso_area_check)
                             }
-                            // checked={clearAllCheck.value}
+                            checked={clearAllCheck.value}
                             onChange={(e) => {
-                              // clearAllCheck.value = !clearAllCheck.value;
+                              clearAllCheck.value = !clearAllCheck.value;
                               handleSelectedCheckedAll &&
                                 handleSelectedCheckedAll(e, indicesOT.value);
                             }}

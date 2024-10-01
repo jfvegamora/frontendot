@@ -701,6 +701,7 @@ const MOT: React.FC = () => {
               strQuery={strQuery}
               setEntities={setEntities}
               primaryKeyInputs={primaryKeyInputs}
+              setSelectedRows={setSelectedRows}
             />
           </FilterButton>
         )}

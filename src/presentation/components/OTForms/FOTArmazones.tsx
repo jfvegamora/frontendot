@@ -144,71 +144,91 @@ const FOTArmazones: React.FC<IArmazones> = ({
   // const [render, setRender] = useState(false)
 
   const {
-    cristal1_marca_id,
-    cristal1_diseno_id,
-    cristal1_indice_id,
-    cristal1_material_id,
-    cristal1_color_id,
-    cristal1_tratamiento_id,
-
-    cristal2_marca_id,
-    cristal2_diseno_id,
-    cristal2_indice_id,
-    cristal2_color_id,
-    cristal2_tratamiento_id,
+    cristal1_marca_od_id,
+    cristal1_diseno_od_id,
+    cristal1_indice_od_id,
+    cristal1_material_od_id,
+    cristal1_color_od_id,
+    cristal1_tratamiento_od_id,
+    cristal1_od_diametro,
+    cristal1_marca_oi_id,
+    cristal1_diseno_oi_id,
+    cristal1_indice_oi_id,
+    cristal1_material_oi_id,
+    cristal1_color_oi_id,
+    cristal1_tratamiento_oi_id,
+    cristal1_oi_diametro,
+    cristal2_marca_od_id,
+    cristal2_diseno_od_id,
+    cristal2_indice_od_id,
+    cristal2_material_od_id,
+    cristal2_color_od_id,
+    cristal2_tratamiento_od_id,
+    cristal2_od_diametro,
+    cristal2_marca_oi_id,
+    cristal2_diseno_oi_id,
+    cristal2_indice_oi_id,
+    cristal2_material_oi_id,
+    cristal2_color_oi_id,
+    cristal2_tratamiento_oi_id,
+    cristal2_oi_diametro,
   } = (formValuesCompleto && formValuesCompleto["cristales"]) || {};
 
   const _pkToDelete1_od = {
-    marca: cristal1_marca_id || data?.[EnumGrid.cristal1_marca_id],
-    diseno: cristal1_diseno_id || data?.[EnumGrid.cristal1_diseno_id],
-    indice: cristal1_indice_id || data?.[EnumGrid.cristal1_indice_id],
-    material: cristal1_material_id || data?.[EnumGrid.cristal1_material_id],
-    color: cristal1_color_id || data?.[EnumGrid.cristal1_color_id],
+    marca: cristal1_marca_od_id || data?.[EnumGrid.cristal1_od_marca_id],
+    diseno: cristal1_diseno_od_id || data?.[EnumGrid.cristal1_od_diseno_id],
+    indice: cristal1_indice_od_id || data?.[EnumGrid.cristal1_od_indice_id],
+    material:
+      cristal1_material_od_id || data?.[EnumGrid.cristal1_od_material_id],
+    color: cristal1_color_od_id || data?.[EnumGrid.cristal1_od_color_id],
     tratamiento:
-      cristal1_tratamiento_id || data?.[EnumGrid.cristal1_tratamiento_id],
-    diametro: A1_Diametro.value,
+      cristal1_tratamiento_od_id || data?.[EnumGrid.cristal1_od_tratamiento_id],
+    diametro: cristal1_od_diametro || data?.[EnumGrid.cristal1_od_diametro],
     esferico: dioptrias_receta.value.a1_od.esf ?? 0,
     cilindrico: dioptrias_receta.value.a1_od.cil ?? 0,
     punto_venta: punto_venta.value,
   };
 
   const _pkToDelete1_oi = {
-    marca: cristal1_marca_id || data?.[EnumGrid.cristal1_marca_id],
-    diseno: cristal1_diseno_id || data?.[EnumGrid.cristal1_diseno_id],
-    indice: cristal1_indice_id || data?.[EnumGrid.cristal1_indice_id],
-    material: cristal1_material_id || data?.[EnumGrid.cristal1_material_id],
-    color: cristal1_color_id || data?.[EnumGrid.cristal1_color_id],
+    marca: cristal1_marca_oi_id || data?.[EnumGrid.cristal1_oi_marca_id],
+    diseno: cristal1_diseno_oi_id || data?.[EnumGrid.cristal1_oi_diseno_id],
+    indice: cristal1_indice_oi_id || data?.[EnumGrid.cristal1_oi_indice_id],
+    material:
+      cristal1_material_oi_id || data?.[EnumGrid.cristal1_oi_material_id],
+    color: cristal1_color_oi_id || data?.[EnumGrid.cristal1_oi_color_id],
     tratamiento:
-      cristal1_tratamiento_id || data?.[EnumGrid.cristal1_tratamiento_id],
-    diametro: A1_Diametro.value,
+      cristal1_tratamiento_oi_id || data?.[EnumGrid.cristal1_oi_tratamiento_id],
+    diametro: cristal1_oi_diametro || data?.[EnumGrid.cristal1_oi_diametro],
     esferico: dioptrias_receta.value.a1_oi.esf ?? 0,
     cilindrico: dioptrias_receta.value.a1_oi.cil ?? 0,
     punto_venta: punto_venta.value,
   };
 
   const _pkToDelete2_od = {
-    marca: cristal2_marca_id || data?.[EnumGrid.cristal2_marca_id],
-    diseno: cristal2_diseno_id || data?.[EnumGrid.cristal2_diseno_id],
-    indice: cristal2_indice_id || data?.[EnumGrid.cristal2_indice_id],
-    material: cristal1_material_id || data?.[EnumGrid.cristal2_material_id],
-    color: cristal2_color_id || data?.[EnumGrid.cristal2_color_id],
+    marca: cristal2_marca_od_id || data?.[EnumGrid.cristal2_od_marca_id],
+    diseno: cristal2_diseno_od_id || data?.[EnumGrid.cristal2_od_diseno_id],
+    indice: cristal2_indice_od_id || data?.[EnumGrid.cristal2_od_indice_id],
+    material:
+      cristal2_material_od_id || data?.[EnumGrid.cristal2_od_material_id],
+    color: cristal2_color_od_id || data?.[EnumGrid.cristal2_od_color_id],
     tratamiento:
-      cristal2_tratamiento_id || data?.[EnumGrid.cristal2_tratamiento_id],
-    diametro: A2_Diametro.value,
+      cristal2_tratamiento_od_id || data?.[EnumGrid.cristal2_od_tratamiento_id],
+    diametro: cristal2_od_diametro || data?.[EnumGrid.cristal2_od_diametro],
     esferico: a2_od_esf.value ?? 0,
     cilindrico: a2_od_cil.value ?? 0,
     punto_venta: punto_venta.value,
   };
 
   const _pkToDelete2_oi = {
-    marca: cristal2_marca_id || data?.[EnumGrid.cristal2_marca_id],
-    diseno: cristal2_diseno_id || data?.[EnumGrid.cristal2_diseno_id],
-    indice: cristal2_indice_id || data?.[EnumGrid.cristal2_indice_id],
-    material: cristal1_material_id || data?.[EnumGrid.cristal2_material_id],
-    color: cristal2_color_id || data?.[EnumGrid.cristal2_color_id],
+    marca: cristal2_marca_oi_id || data?.[EnumGrid.cristal2_oi_marca_id],
+    diseno: cristal2_diseno_oi_id || data?.[EnumGrid.cristal2_oi_diseno_id],
+    indice: cristal2_indice_oi_id || data?.[EnumGrid.cristal2_oi_indice_id],
+    material:
+      cristal2_material_oi_id || data?.[EnumGrid.cristal2_oi_material_id],
+    color: cristal2_color_oi_id || data?.[EnumGrid.cristal2_oi_color_id],
     tratamiento:
-      cristal2_tratamiento_id || data?.[EnumGrid.cristal2_tratamiento_id],
-    diametro: A2_Diametro.value,
+      cristal2_tratamiento_oi_id || data?.[EnumGrid.cristal2_oi_tratamiento_id],
+    diametro: cristal2_oi_diametro || data?.[EnumGrid.cristal2_oi_diametro],
     esferico: a2_oi_esf.value ?? 0,
     cilindrico: a2_oi_cil.value ?? 0,
     punto_venta: punto_venta.value,
@@ -220,8 +240,6 @@ const FOTArmazones: React.FC<IArmazones> = ({
   // }
 
   //TODO! =========================== ENVIAR DP EN _P4 PARA VALIDAR ARMAZONES ===========================================================================
-
-  console.log(validar_parametrizacion.value);
 
   const fetchArmazones1 = async (inputName: string, codArmazon: string) => {
     let dp = 0;

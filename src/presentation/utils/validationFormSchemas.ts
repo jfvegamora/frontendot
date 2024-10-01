@@ -34,6 +34,7 @@ export const validationBodegaSchema = () =>
     a2_od: yup.string().required(`${msg}`),
     a2_oi: yup.string().required(`${msg}`),
     a2_armazon: yup.string().required(`${msg}`),
+    observaciones: yup.string().required(`${msg}`),
   });
 
 export const validationEmpaqueSchema = () =>
@@ -742,4 +743,9 @@ export const validationLoginSchema = () =>
   yup.object().shape({
     _p1: yup.string().required(`${msg}`), //NickName
     _p3: yup.string().required(`${msg}`), //Password
+  });
+
+export const validationBodegaCridstales = () =>
+  yup.object().shape({
+    observaciones: yup.string().required(`${msg}`),
   });

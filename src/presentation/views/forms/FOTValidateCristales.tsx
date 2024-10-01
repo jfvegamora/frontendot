@@ -52,6 +52,8 @@ import {
 import TextInputInteractive from "../../components/forms/TextInputInteractive";
 import TableValidationCristales from "../../components/OTForms/TableValidationCristales";
 import _ from "lodash";
+// import { EnumGrid } from "../mantenedores/MOTHistorica";
+import { TextInputComponent } from "../../components";
 
 export const focusFirstInput = (
   strInputName: string,
@@ -83,10 +85,11 @@ interface IFOTValidarBodega {
 const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
   const [formValues, setFormValues] = React.useState();
   const [isCheckLab, setIsCheckLab] = React.useState(false);
+
   const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
   const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id);
-  const [OT, setOT] = React.useState<any>(dataOTSignal.value);
 
+  const [OT, setOT] = React.useState<any>(dataOTSignal.value);
   const [_concatValue, setConcatValue] = React.useState("");
 
   // const [inputValue, setInputValue] = React.useState("");
@@ -466,7 +469,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     },
   ].filter((codigo: any) => codigo.codigo !== "");
 
-  const { control, resetField } = useForm({
+  const { control, resetField, getValues } = useForm({
     resolver: yupResolver(schema),
   });
 
@@ -1355,8 +1358,14 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
   };
 
   const handleDerivacionValidarCristales = async () => {
+    const formValues = getValues();
+    // if (formValues && formValues["observaciones"] === "") {
+    //   return toast.error("Debe ingresar Observaciones.");
+    // }
     const toastLoading = toast.loading("Cargando...");
     console.log(OT && OT[OTGrillaEnum.folio]);
+    console.log(formValues);
+
     try {
       let jsondata: any = [];
       let origen = OTAreas["areaActual"];
@@ -1373,8 +1382,8 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       let destino = "10";
       let estado = "40";
 
-      let observaciones;
-      let situacion;
+      let observaciones = formValues["observaciones"];
+      let situacion = "1";
       let data = {
         folio: OT[OTGrillaEnum.folio],
         tipo_anteojo: parseInt(OT[OTGrillaEnum.tipo_anteojo_id]),
@@ -1494,8 +1503,8 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     <div
       className={`bg-[#676f9d]  mx-auto   absolute  ${
         OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3
-          ? "top-[.8vw] !left-[18vw] w-[65vw] h-[43vw]"
-          : "top-[1vw] !left-[30vw] w-[35vw] h-[43vw]"
+          ? "top-[.8vw] !left-[18vw] w-[65vw] h-[46vw]"
+          : "top-[1vw] !left-[30vw] w-[35vw] h-[46vw]"
       } right-auto rounded-xl shadow-md overflow-hidden lg:left-[18rem]  z-40`}
     >
       <div className="absolute right-0 userFormBtnCloseContainer">
@@ -1589,18 +1598,29 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       </form>
       {
         <div
-          className={`mx-auto  w-[20%] ${
+          className={`mx-auto  w-[85%] ${
             OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3
               ? "translate-y-[2vw]"
-              : "translate-y-[2vw]"
+              : "translate-y-[-3.5w]"
           }`}
         >
-          <Button
-            className="w-[12rem] text-[1.3rem] mx-auto otActionButtonForm bg-red-700 hover:bg-red-400"
-            onClick={() => handleDerivacionValidarCristales()}
-          >
-            Derivar
-          </Button>
+          <div className="rowForm w-full">
+            <TextInputComponent
+              type="text"
+              label="Observaciones"
+              name="observaciones"
+              control={control}
+              customWidth={"labelInput inputStyles"}
+            />
+          </div>
+          <div className="w-full">
+            <Button
+              className="w-[50%] text-[1.3rem] mt-4 translate-x-[8vw] otActionButtonForm bg-red-700 hover:bg-red-400"
+              onClick={() => handleDerivacionValidarCristales()}
+            >
+              Derivar
+            </Button>
+          </div>
         </div>
       }
     </div>

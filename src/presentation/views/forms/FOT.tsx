@@ -13,13 +13,11 @@ import {
   A1_CR_OD,
   A1_CR_OI,
   A1_DP,
-  A1_Diametro,
   A1_GRUPO_OD,
   A1_GRUPO_OI,
   A2_CR_OD,
   A2_CR_OI,
   A2_DP,
-  A2_Diametro,
   A2_GRUPO_OD,
   A2_GRUPO_OI,
   MODAL,
@@ -634,31 +632,41 @@ const FOT: React.FC<IFOTProps> = ({
       A2_DP.value.trim() || 0
     },"${A2_GRUPO_OD.value.trim()}","${A2_GRUPO_OI.value.trim()}" ,"${
       a1_armazon.value.trim() ?? 0
-    }","${a2_armazon.value.trim() ?? 0}","${a3_armazon.value.trim() ?? 0}",${
-      jsonData.cristal1_marca_id || 0
-    },${jsonData.cristal1_diseno_id || 0},${jsonData.cristal1_indice_id || 0},${
-      jsonData.cristal1_material_id || 0
-    },${jsonData.cristal1_tratamiento_id || 0},${
-      jsonData.cristal1_color_id || 0
-    },${
-      typeof A1_Diametro.value === "string" && A1_Diametro.value.trim() !== ""
-        ? A1_Diametro.value
-        : 0
-    },"${A1_CR_OD.value.trim() ?? ""}","${A1_CR_OI.value.trim() ?? ""}",${
+    }","${a2_armazon.value.trim() ?? 0}","${
+      a3_armazon.value.trim() ?? 0
+    }",${1},${jsonData.cristal1_marca_od_id || 0},${
+      jsonData.cristal1_diseno_od_id || 0
+    },${jsonData.cristal1_indice_od_id || 0},${
+      jsonData.cristal1_material_od_id || 0
+    },${jsonData.cristal1_color_od_id || 0},${
+      jsonData.cristal1_tratamiento_od_id || 0
+    },${jsonData.cristal1_od_diametro || 0},"${
+      A1_CR_OD.value.trim() ?? ""
+    }",${1},${jsonData.cristal1_marca_oi_id || 0},${
+      jsonData.cristal1_diseno_oi_id || 0
+    },${jsonData.cristal1_indice_oi_id || 0},${
+      jsonData.cristal1_material_oi_id || 0
+    },${jsonData.cristal1_color_oi_id || 0},${
+      jsonData.cristal1_tratamiento_oi_id || 0
+    },${jsonData.cristal1_oi_diametro || 0},"${A1_CR_OI.value.trim() ?? ""}",${
       jsonData.cristal1_tratamiento_adicional_id || 0
-    },${jsonData.cristal2_marca_id || 0},${jsonData.cristal2_diseno_id || 0},${
-      jsonData.cristal2_indice_id || 0
-    },${jsonData.cristal2_material_id || 0},${
-      jsonData.cristal2_tratamiento_id || 0
-    },${jsonData.cristal2_color_id || 0},${
-      typeof A2_Diametro.value === "string" && A2_Diametro.value.trim() !== ""
-        ? A2_Diametro.value
-        : 0
-    },"${typeof A2_CR_OD.value === "string" ? A2_CR_OD.value.trim() : ""}","${
-      typeof A2_CR_OI.value === "string" ? A2_CR_OI.value.trim() : " "
-    }",${jsonData.cristal2_tratamiento_adicional_id || 0},${
-      jsonData.motivo_garantia_id || 0
-    },${jsonData.folio_asociado || 0},${
+    },${1},${jsonData.cristal2_marca_od_id || 0},${
+      jsonData.cristal2_diseno_od_id || 0
+    },${jsonData.cristal2_indice_od_id || 0},${
+      jsonData.cristal2_material_od_id || 0
+    },${jsonData.cristal2_color_od_id || 0},${
+      jsonData.cristal2_tratamiento_od_id || 0
+    },${jsonData.cristal2_od_diametro || 0},"${
+      A2_CR_OD.value.trim() ?? ""
+    }",${1},${jsonData.cristal2_marca_oi_id || 0},${
+      jsonData.cristal2_diseno_oi_id || 0
+    },${jsonData.cristal2_indice_oi_id || 0},${
+      jsonData.cristal2_material_oi_id || 0
+    },${jsonData.cristal2_color_oi_id || 0},${
+      jsonData.cristal2_tratamiento_oi_id || 0
+    },${jsonData.cristal2_oi_diametro || 0},"${A2_CR_OI.value.trim() ?? ""}",${
+      jsonData.cristal2_tratamiento_adicional_id || 0
+    },${jsonData.motivo_garantia_id || 0},${jsonData.folio_asociado || 0},${
       isEditting
         ? 0
         : jsonData.resolucion_garantia_id === "Aceptada"
@@ -957,7 +965,7 @@ const FOT: React.FC<IFOTProps> = ({
         OTAreaActual,
         OTAreas["areaSiguiente"],
         estado,
-        formValues,
+        formValuesCompleto,
         data,
         OTSlice.cristales,
         OTSlice.armazones,
@@ -1064,7 +1072,6 @@ const FOT: React.FC<IFOTProps> = ({
       setValue("cristal2_od_diametro", "65");
 
       const formValores = getValues();
-      console.log("render");
       await getGrupoCristales_od_A2(
         formValores,
         data,
@@ -1083,7 +1090,6 @@ const FOT: React.FC<IFOTProps> = ({
       setValue("cristal2_oi_diametro", "65");
 
       const formValores = getValues();
-      console.log("render");
       await getGrupoCristales_oi_A2(
         formValores,
         data,
@@ -1229,7 +1235,6 @@ const FOT: React.FC<IFOTProps> = ({
       );
     }
 
-    console.log(formValuesCompleto);
     //? CODIGO CRISTALES Y GRUPO  ANTEOJO 2:
     if (changeCodigoCristal_od_A2[key]) {
       const formValue = getValues();

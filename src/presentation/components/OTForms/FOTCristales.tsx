@@ -113,8 +113,6 @@ const FOTCristales: React.FC<ICristales> = ({
   const handleInputChange = async (e: any) => {
     const { name, value } = e;
 
-    console.log(name);
-
     if (name === "cristal1_tratamiento_adicional_od_id") {
       if (
         (formValues && formValues["cristal1_marca_od_id"] !== "1") ||
@@ -524,12 +522,6 @@ const FOTCristales: React.FC<ICristales> = ({
       setValue("cristal2_oi_diametro", "65");
     }
   }, []);
-
-  console.log(formValues);
-
-  console.log(permiso_areas_grupo_dioptria);
-  console.log(permiso_usuario_grupo_dioptria);
-
   return (
     <form onKeyDown={handleKeyDown}>
       <div className="flex frameOTForm h-[85vh] ">
@@ -732,7 +724,7 @@ const FOTCristales: React.FC<ICristales> = ({
                         isOT={true}
                         handleSelectChange={handleInputChange}
                         data={
-                          formValues
+                          isEditting
                             ? data && data[EnumGrid.cristal1_od_material_id]
                             : formValues &&
                               formValues["cristal1_material_od_id"]

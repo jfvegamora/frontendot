@@ -33,7 +33,6 @@ const OTAreasButtons: React.FC<IOTAreaButtons> = React.memo(
       (area: any) => {
         dispatch(clearData());
         setAreaActual(area[1]);
-        console.log(area[1]);
         dispatch(updateActualArea(area[1]));
         areaActualOT.value = area[1];
         dispatch(updateNextArea(area[4]));

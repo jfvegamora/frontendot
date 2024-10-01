@@ -71,8 +71,6 @@ const ExportToCsv: React.FC<Props> = ({
     }
   };
 
-  console.log("renders");
-
   const exportExcel = async (
     primaryKey: string,
     nombreExcel?: string,

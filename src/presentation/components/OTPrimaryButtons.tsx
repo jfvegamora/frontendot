@@ -474,24 +474,25 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       });
 
       try {
-        setEstadoImpresion(
-          OTPkToDelete.value,
-          OTAreas["areaActual"],
-          true,
-          User
-        ).then(() => {
-          dispatch(
-            fetchOT({
-              OTAreas: OTAreas["areaActual"],
-              searchParams: paramsOT.value,
-            })
-          ).then(() => {
-            toast.dismiss(toastLoading);
-            // disabledIndividualCheck.value = false;
-            // clearAllCheck.value = false;
-            // setSelectedRows([]);
-          });
-        });
+        // setEstadoImpresion(
+        //   OTPkToDelete.value,
+        //   OTAreas["areaActual"],
+        //   true,
+        //   User
+        // ).then(() => {
+        //   dispatch(
+        //     fetchOT({
+        //       OTAreas: OTAreas["areaActual"],
+        //       searchParams: paramsOT.value,
+        //     })
+        //   ).then(() => {
+        //     toast.dismiss(toastLoading);
+        //     // disabledIndividualCheck.value = false;
+        //     // clearAllCheck.value = false;
+        //     // setSelectedRows([]);
+        //   });
+        // });
+        toast.dismiss(toastLoading);
       } catch (error) {
         toast.dismiss(toastLoading);
         // clearAllCheck.value = false;
@@ -1139,8 +1140,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             structureCristalesBodega.value
           );
 
-          toast.dismiss(toastLoading);
           dataOTSignal.value = dataOT;
+          toast.dismiss(toastLoading);
           setisFOTValidateBodegaCristales(true);
         } catch (error) {
           console.log(error);
