@@ -743,14 +743,14 @@ export const table_head_OT_bitacora_consulta = [
     cell: "Fecha/Hora",
     key: "date",
     visible: true,
-    width: "w-[12rem]",
+    width: "w-[8rem]",
   },
   {
     cell: "Usuario",
     key: "usuario",
     visible: true,
     alignment: "text-left",
-    width: "w-[14rem]",
+    width: "w-[8rem]",
   },
   {
     cell: "Origen",
@@ -771,7 +771,7 @@ export const table_head_OT_bitacora_consulta = [
     key: "folio",
     visible: true,
     alignment: "text-center",
-    width: "w-[8rem]",
+    width: "w-[6rem]",
   },
   {
     cell: "Estado",
@@ -792,7 +792,7 @@ export const table_head_OT_bitacora_consulta = [
     key: "observaciones",
     visible: true,
     alignment: "text-left",
-    width: "w-[12rem]",
+    width: "w-[30rem]",
   },
 ];
 
@@ -1614,7 +1614,7 @@ export const table_head_kardex = [
     cell: "Fecha/Hora",
     key: "fecha",
     visible: true,
-    width: "w-[12rem]",
+    width: "w-[8rem]",
   },
   {
     cell: "Código Insumo",
@@ -1637,7 +1637,7 @@ export const table_head_kardex = [
     cell: "Almacén",
     key: "almacen",
     visible: true,
-    width: "w-[12rem]",
+    width: "w-[14rem]",
   },
   {
     cell: "E/S",
@@ -2980,7 +2980,7 @@ export const table_head_reserva_armazones = [
     cell: "Fecha/Hora",
     key: "fecha_hora",
     visible: true,
-    width: "w-[12rem]",
+    width: "w-[8rem]",
     alignment: "text-left",
   },
 ];
