@@ -90,7 +90,7 @@ const FOTPendiente: React.FC<IPendiente> = ({
     }
 
     if (isMasivo) {
-      let usuarioID = data[0]["usuario_id"];
+      // let usuarioID = data[0]["usuario_id"];
       const folios = data.map((dataOT: any) => dataOT.folio).join(",");
 
       const response: any = await handleActionOTButtons(
@@ -100,7 +100,7 @@ const FOTPendiente: React.FC<IPendiente> = ({
         OTAreas["areaActual"],
         OTAreas["areaActual"],
         jsonData?.observaciones,
-        usuarioID,
+        UsuarioID,
         "Pausada"
       );
       if (response?.status === 200) {

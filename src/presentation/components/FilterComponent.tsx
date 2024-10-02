@@ -109,6 +109,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
       useForm<IPrimaryKeyState>();
     const formValues = getValues();
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
+    const User = useAppSelector((store: AppStore) => store.user);
 
     const dispatch: any = useAppDispatch();
     const { ListEntity } = useCrud(baseUrl);
@@ -563,9 +564,10 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
         if (title === "Ot" || title === "Othistorica") {
           title = "Sistema Gestión de OT";
         }
-        document.title = title;
+
+        document.title = User.nombre + " | " + title;
       } else {
-        document.title = titleOTSearch.value;
+        document.title = User.nombre + " | " + titleOTSearch.value;
       }
     }, [titleOTSearch.value, switchAtrasadas.value]);
 

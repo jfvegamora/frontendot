@@ -31,6 +31,9 @@ export const BUTTON_MESSAGES = {
   derivar: "Derivar",
   pausar: "Pausar",
   stand_by: "Stand-by",
+  marcadoOK: "Marcado",
+  bloqueoOK: "Bloqueo",
+  biseladoOK: "Biselado",
 };
 
 export const TITLES = {

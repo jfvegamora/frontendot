@@ -8,6 +8,7 @@ import { PiMicrosoftExcelLogoFill } from "react-icons/pi";
 import { EnumGrid as EnumClientes } from "../views/mantenedores/MClientes";
 import {
   BUTTON_MESSAGES,
+  clearAllCheck,
   reiniciarValidationNivel3,
   updateOT,
   validateFiltros,
@@ -29,7 +30,7 @@ import { SocialIcon } from "react-social-icons";
 import { handleActionOTButtons } from "../utils/FOTPendiente_utils";
 import { URLBackend } from "../utils/config";
 import FOTValidateCristales from "../views/forms/FOTValidateCristales";
-import { OTGrillaEnum, PermisosBotones } from "../Enums";
+import { OTAreasEnum, OTGrillaEnum, PermisosBotones } from "../Enums";
 import FOTReporteEntrega from "../views/forms/FOTRepeorteEntrega";
 import FOTOrdenCompra from "../views/forms/FOTOrdenCompra";
 import FOTFactura from "../views/forms/FOTFactura";
@@ -325,7 +326,12 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
     //   }
     // })
 
-    const handleIngresoMasivo = async () => {
+    const handleChangeStateOT = async (
+      estado: string,
+      situacion: string,
+      tipo_evento: string,
+      area: any
+    ) => {
       const toastLoading = toast.loading("Cargando....");
       try {
         const filterFoliosValidateState = await OTPkToDelete.value
@@ -344,23 +350,25 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           );
         }
 
-        let estado = "20";
+        // let estado = "20";
         // let masivo          = true;
         // let validarBodega   = false;
-        let situacion = "0";
+        // let situacion = "0";
         let observaciones = "";
+
+        // console.log(OTPkToDelete.value);
 
         const response: any = await handleActionOTButtons(
           filterFoliosJSON,
           estado,
           situacion,
           OTAreas["areaActual"],
-          OTAreas["areaActual"],
+          area,
           observaciones,
           User.id,
-          "Ingresar"
+          tipo_evento
         );
-        console.log(response);
+        // console.log(response);
         if (response?.status === 200) {
           dispatch(
             fetchOT({
@@ -368,44 +376,18 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               searchParams: paramsOT.value,
             })
           );
-          // setSelectedRows([]);
+          setSelectedRows([]);
           checkCount.value = 0;
-          // clearAllCheck.value = false;
+          clearAllCheck.value = false;
           toast.dismiss(toastLoading);
         }
 
-        //   await OTPkToDelete.value.map(async(OT:any)=>{
-        //     await updateOT(
-        //       [],
-        //       OTAreas["areaActual"],
-        //       OTAreas["areaActual"],
-        //       estado,
-        //       [],
-        //       OT,
-        //       [],
-        //       [],
-        //       User.id,
-        //       "",
-        //       masivo,
-        //       '',
-        //       validarBodega,
-        //       'Ingresar'
-        //     ).then(() => {
-        //       dispatch(fetchOT({OTAreas:OTAreas["areaActual"], searchParams: paramsOT.value}))
-        //       clearAllCheck.value = false;
-        //       // disabledIndividualCheck.value = true;
-        //       clearIndividualCheck.value = true;
-
-        //   })
-        // })
-        // toast.success('Estado cambiado correctamente.',{
-        //   autoClose: 500
-        // })
         toast.dismiss(toastLoading);
       } catch (error: any) {
         toast.dismiss(toastLoading);
         toast.error(error);
         console.log(error);
+        return error;
       }
     };
 
@@ -456,8 +438,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       if (!todosIguales) {
         toast.dismiss(toastLoading);
         // disabledIndividualCheck.value = false;
-        // clearAllCheck.value = false;
-        // setSelectedRows([]);
+        clearAllCheck.value = false;
+        setSelectedRows([]);
         toast.error("Las OTs no pertenecen al mismo proyecto");
         return;
       }
@@ -494,6 +476,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         // });
         toast.dismiss(toastLoading);
       } catch (error) {
+        clearAllCheck.value = false;
+        setSelectedRows([]);
         toast.dismiss(toastLoading);
         // clearAllCheck.value = false;
         // setSelectedRows([]);
@@ -529,8 +513,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                 searchParams: paramsOT.value,
               })
             );
-
-            // clearAllCheck.value = false;
+            setSelectedRows([]);
+            clearAllCheck.value = false;
             isFinishImpression.value = false;
             // const loadingToast = toast.load ing('Cargando...')
             // OTPkToDelete.value.map((ot:any)=>{
@@ -633,7 +617,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         return resultIndex;
       } else {
         const { data: dataOT } = await axios(
-          `${URLBackend}/api/ot/listado/?query=02&_p1=${folio}`,
+          `${URLBackend}/api/ot/listado/?query=01&_p1=${folio}`,
           {
             headers: {
               Authorization: User.token,
@@ -644,6 +628,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         if (dataOT) {
           setDataOT(dataOT);
           setIsShowErrorOTModal(true);
+          valueSearchOT.value = "";
         }
 
         console.log("render");
@@ -842,9 +827,9 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                 searchParams: paramsOT.value,
               })
             );
-            // setSelectedRows([]);
+            setSelectedRows([]);
             checkCount.value = 0;
-            // clearAllCheck.value = false;
+            clearAllCheck.value = false;
           })
           .catch(() => {
             toast.error("Error al Ejecutar el proceso.");
@@ -992,6 +977,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       }
 
       setIsFOTUbicacion((prev) => !prev);
+      // setSelectedRows([]);
+      // clearAllCheck.value = false;
     };
 
     const handleProcesarBodegaCristales = async (
@@ -1312,10 +1299,133 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   if (OTPkToDelete.value.length === 0) {
                     return toast.error("No hay OT seleccionada.");
                   }
-                  handleIngresoMasivo();
+                  let estado =
+                    OTAreas["areaActual"] ===
+                      OTAreasEnum["Taller Biselado 1"] ||
+                    OTAreas["areaActual"] === OTAreasEnum["Taller Biselado 2"]
+                      ? "82"
+                      : "20";
+                  handleChangeStateOT(
+                    estado,
+                    "0",
+                    "Ingresar",
+                    OTAreas["areaActual"]
+                  );
                 }}
               >
                 Ingresar
+              </Button>
+            </Tooltip>
+          )}
+
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.marcadoOK] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_pausar && (
+            <Tooltip content={BUTTON_MESSAGES.marcadoOK}>
+              <Button
+                type="submit"
+                className="otActionButton mx-4 bg-orange-500"
+                onClick={() => {
+                  // if (OTPkToDelete.value.length === 0) {
+                  //   return toast.error("No hay OT seleccionada.");
+                  // }
+                  const isValidateFiltros = validateFiltros();
+
+                  if (isValidateFiltros) {
+                    return;
+                  }
+                  if (
+                    OTPkToDelete.value.some((OT: any) => OT.estado_id === 15)
+                  ) {
+                    return toast.error(
+                      `Folio ${folios} se encuentra en Stand-By.`
+                    );
+                  }
+                  handleChangeStateOT(
+                    "84",
+                    "0",
+                    "Marcad OK",
+                    OTAreas["areaActual"]
+                  );
+                }}
+              >
+                Marcado
+              </Button>
+            </Tooltip>
+          )}
+
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.bloqueoOK] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_pausar && (
+            <Tooltip content={BUTTON_MESSAGES.bloqueoOK}>
+              <Button
+                type="submit"
+                // className="otActionButton mx-4 bg-gradient-to-r from-orange-700 to-yellow-500 "
+                className="otActionButton mx-4 bg-brown-400 "
+                onClick={() => {
+                  // if (OTPkToDelete.value.length === 0) {
+                  //   return toast.error("No hay OT seleccionada.");
+                  // }
+                  const isValidateFiltros = validateFiltros();
+
+                  if (isValidateFiltros) {
+                    return;
+                  }
+                  if (
+                    OTPkToDelete.value.some((OT: any) => OT.estado_id === 15)
+                  ) {
+                    return toast.error(
+                      `Folio ${folios} se encuentra en Stand-By.`
+                    );
+                  }
+                  handleChangeStateOT(
+                    "86",
+                    "0",
+                    "En Marcado",
+                    OTAreas["areaActual"]
+                  );
+                }}
+              >
+                Bloqueado
+              </Button>
+            </Tooltip>
+          )}
+        {areaPermissions &&
+          areaPermissions[PermisosBotones.biseladoOK] === "1" &&
+          permisos_usuario_areas !== "0" &&
+          permiso_usuario_btn_pausar && (
+            <Tooltip content={BUTTON_MESSAGES.biseladoOK}>
+              <Button
+                type="submit"
+                className="otActionButton mx-4 bg-teal-700"
+                // className="otActionButton mx-4 bg-gradient-to-r from-orange-700 to-brown-500"
+                onClick={() => {
+                  // if (OTPkToDelete.value.length === 0) {
+                  //   return toast.error("No hay OT seleccionada.");
+                  // }
+                  const isValidateFiltros = validateFiltros();
+
+                  if (isValidateFiltros) {
+                    return;
+                  }
+                  if (
+                    OTPkToDelete.value.some((OT: any) => OT.estado_id === 15)
+                  ) {
+                    return toast.error(
+                      `Folio ${folios} se encuentra en Stand-By.`
+                    );
+                  }
+                  handleChangeStateOT(
+                    "20",
+                    "0",
+                    "En Marcado",
+                    OTAreas["areaSiguiente"]
+                  );
+                }}
+              >
+                Biselado
               </Button>
             </Tooltip>
           )}
@@ -1359,6 +1469,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   }
 
                   setIsFOTEmpaque((prev) => !prev);
+                  // setSelectedRows([]);
+                  // clearAllCheck.value = false;
                 }}
               >
                 N° Envío
@@ -1390,6 +1502,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   toast.error("No hay OT seleccionada");
                 } else {
                   setIsFOTGuiaDespeacho((prev) => !prev);
+                  // setSelectedRows([]);
+                  // clearAllCheck.value = false;
                 }
                 // setIsFOTGuiaDespeacho((prev) => !prev);
               }}
@@ -1420,6 +1534,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                     );
                   }
                   setIsFOTReporeFirma((prev) => !prev);
+                  // setSelectedRows([]);
+                  // clearAllCheck.value = false;
                 }}
               >
                 Rep. Firma
@@ -1429,6 +1545,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
         {areaPermissions &&
           areaPermissions[PermisosBotones.procesar] === "1" &&
+          // OTAreas["areaActual"] !== OTAreasEnum["Taller Biselado 1"] &&
+          // OTAreas["areaActual"] !== OTAreasEnum["Taller Biselado 2"] &&
           // ((permisos_usuario_areas === "1" && OTAreas["areaActual"] !== 50) ||
           //   (permisos_usuario_areas === "2" &&
           //     permiso_usuario_btn_procesar &&
@@ -1478,6 +1596,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                     );
                   }
                   setisFOTPendiente(true);
+                  setSelectedRows([]);
+                  clearAllCheck.value = false;
                 }}
               >
                 Pausar
@@ -1514,6 +1634,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   }
 
                   setisFOTDerivacion(true);
+                  setSelectedRows([]);
+                  clearAllCheck.value = false;
                 }}
               >
                 Derivar
@@ -1946,7 +2068,10 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         <Suspense>
           {isShowErrorOTModal && (
             <ErrorOTModal
-              onClose={() => setIsShowErrorOTModal(false)}
+              onClose={() => {
+                focusFirstInput("searchOT", searchOTRef);
+                setIsShowErrorOTModal(false);
+              }}
               data={dataOT && dataOT}
               valueConfirmOT={valueSearchOT}
             />
@@ -2010,7 +2135,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             <FOTValidarEmpaque
               setSelectedRows={setSelectedRows}
               pkToDelete={OTPkToDelete.value}
-              onClose={() => setIsFOTValidarEmpaque(false)}
+              onClose={() => {
+                setIsFOTValidarEmpaque(false);
+                setSelectedRows([]);
+                clearAllCheck.value = false;
+              }}
             />
           )}
         </Suspense>
@@ -2047,7 +2176,10 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           {isFOTUbicacion && (
             <FOTUbicacion
               pkToDelete={OTPkToDelete.value}
-              closeModal={() => setIsFOTUbicacion(false)}
+              closeModal={() => {
+                setIsFOTUbicacion(false);
+                setSelectedRows([]);
+              }}
             />
           )}
         </Suspense>

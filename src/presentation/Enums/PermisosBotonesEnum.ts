@@ -26,4 +26,7 @@ export enum PermisosBotones {
   vistoBueno = 24,
   numeroFactura = 25,
   confirmaPago = 26,
+  marcadoOK = 27,
+  bloqueoOK = 28,
+  biseladoOK = 29,
 }

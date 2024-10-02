@@ -7,7 +7,7 @@ import { signal } from "@preact/signals-react";
 // import { PrimaryKeySearch } from "../../components";
 
 import { useEntityUtils, usePermission } from "../../hooks";
-import { TITLES, table_head_OT_diaria2 } from "../../utils";
+import { TITLES, clearAllCheck, table_head_OT_diaria2 } from "../../utils";
 // import FOT from "../forms/FOT";
 // import OTAreasButtons from "../../components/OTAreasButtons";
 import { AppStore, useAppDispatch, useAppSelector } from "../../../redux/store";
@@ -273,6 +273,16 @@ const MOT: React.FC = () => {
       dispatch(fetchDioptriaParametros(token));
     }
   }, []);
+
+  useEffect(() => {
+    setPkToDelete([]);
+    clearAllCheck.value = false;
+    setSelectedRows([]);
+  }, [areaActualOT, paramsOT.value]);
+
+  // useEffect(() => {
+  //   console.log("render");
+  // }, [fetchOT]);
 
   const primaryKeyInputs = React.useMemo(
     () => [

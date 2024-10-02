@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { EnumGrid } from "../../presentation/views/mantenedores/MOTHistorica";
-import { validarImpresion } from "../../presentation/utils";
+import { clearAllCheck, validarImpresion } from "../../presentation/utils";
 import { OTGrillaEnum } from "../../presentation/Enums";
 import { URLBackend } from "../../presentation/utils/config";
 // import { OTGrillaEnum } from "../../presentation/Enums";
@@ -70,6 +70,8 @@ export const fetchOT = createAsyncThunk("ot/fetchOT", async (params: any) => {
     while (retryCount < maxRetries) {
       try {
         const { data } = await axios(OTUrl, {});
+        clearAllCheck.value = false;
+
         return data;
       } catch (error) {
         if (retryCount >= maxRetries - 1) {
