@@ -1596,8 +1596,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                     );
                   }
                   setisFOTPendiente(true);
-                  setSelectedRows([]);
-                  clearAllCheck.value = false;
                 }}
               >
                 Pausar
@@ -1634,8 +1632,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   }
 
                   setisFOTDerivacion(true);
-                  setSelectedRows([]);
-                  clearAllCheck.value = false;
+                  // setSelectedRows([]);
+                  // clearAllCheck.value = false;
                 }}
               >
                 Derivar
@@ -2002,7 +2000,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               otArchivo={isMOTArchivo}
               pktoDelete={OTPkToDelete.value || pktoDelete}
               setSelectedRows={setSelectedRows}
-              closeModal={() => setIsFOTFactura(false)}
+              closeModal={() => {
+                setIsFOTFactura(false);
+                setSelectedRows([]);
+                clearAllCheck.value = false;
+              }}
             />
           )}
         </Suspense>
@@ -2012,7 +2014,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             <FOTGuiaDespacho
               pktoDelete={OTPkToDelete.value || pktoDelete}
               setSelectedRows={setSelectedRows}
-              closeModal={() => setIsFOTGuiaDespeacho(false)}
+              closeModal={() => {
+                setSelectedRows([]);
+                clearAllCheck.value = false;
+                setIsFOTGuiaDespeacho(false);
+              }}
               otArchivo={isMOTArchivo}
             />
           )}
@@ -2024,7 +2030,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               otArchivo={true}
               pktoDelete={OTPkToDelete.value || pktoDelete}
               setSelectedRows={setSelectedRows}
-              closeModal={() => setIsFOTOrdenCompra(false)}
+              closeModal={() => {
+                setSelectedRows([]);
+                clearAllCheck.value = false;
+                setIsFOTOrdenCompra(false);
+              }}
             />
           )}
         </Suspense>
@@ -2035,7 +2045,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               otArchivo={true}
               pktoDelete={OTPkToDelete.value || pktoDelete}
               setSelectedRows={setSelectedRows}
-              closeModal={() => setIsFOTReporteEntrega(false)}
+              closeModal={() => {
+                setSelectedRows([]);
+                clearAllCheck.value = false;
+                setIsFOTReporteEntrega(false);
+              }}
             />
           )}
         </Suspense>
@@ -2060,7 +2074,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           {isFOTValidarBodega && (
             <FOTValidarBodega
               pkToDelete={OTPkToDelete.value}
-              handleClose={() => setIsFOTValidarBodega(false)}
+              handleClose={() => {
+                clearAllCheck.value = false;
+                setSelectedRows([]);
+                setIsFOTValidarBodega(false);
+              }}
             />
           )}
         </Suspense>
@@ -2081,7 +2099,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         <Suspense>
           {isFOTEmpaque && (
             <FOTEmpaque
-              closeModal={() => setIsFOTEmpaque(false)}
+              closeModal={() => {
+                setSelectedRows([]);
+                clearAllCheck.value = false;
+                setIsFOTEmpaque(false);
+              }}
               setSelectedRows={setSelectedRows}
               pktoDelete={OTPkToDelete.value}
               params={params}
@@ -2092,7 +2114,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         <Suspense>
           {isFOTGuia && (
             <FOTGuiaDespacho
-              closeModal={() => setIsFOTGuia(false)}
+              closeModal={() => {
+                setSelectedRows([]);
+                clearAllCheck.value = false;
+                setIsFOTGuia(false);
+              }}
               setSelectedRows={setSelectedRows}
               pktoDelete={OTPkToDelete.value}
               params={params}
@@ -2103,7 +2129,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         <Suspense>
           {isFOTReporteFirma && (
             <FOTReporteFirma
-              closeModal={() => setIsFOTReporeFirma(false)}
+              closeModal={() => {
+                setSelectedRows([]);
+                clearAllCheck.value = false;
+                setIsFOTReporeFirma(false);
+              }}
               setSelectedRows={setSelectedRows}
               pkToDelete={OTPkToDelete.value}
             />
@@ -2114,7 +2144,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           {isFOTPendiente && (
             <FOTPendiente
               data={OTPkToDelete.value}
-              onClose={() => setisFOTPendiente(false)}
+              onClose={() => {
+                setSelectedRows([]);
+                clearAllCheck.value = false;
+                setisFOTPendiente(false);
+              }}
               isMasivo={true}
             />
           )}
@@ -2124,7 +2158,11 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           {isFOTDerivacion && (
             <FOTDerivacion
               data={OTPkToDelete.value}
-              onClose={() => setisFOTDerivacion(false)}
+              onClose={() => {
+                setSelectedRows([]);
+                clearAllCheck.value = false;
+                setisFOTDerivacion(false);
+              }}
               isMasivo={true}
             />
           )}
@@ -2153,6 +2191,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   "validacion_cristales",
                   refFocusInput.validacion_cristales
                 );
+                setSelectedRows([]);
+                clearAllCheck.value = false;
               }}
             />
           )}
@@ -2167,6 +2207,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                   "validacion_armazones",
                   refFocusInput.validacion_armazones
                 );
+                setSelectedRows([]);
+                clearAllCheck.value = false;
               }}
             />
           )}
@@ -2177,8 +2219,9 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             <FOTUbicacion
               pkToDelete={OTPkToDelete.value}
               closeModal={() => {
-                setIsFOTUbicacion(false);
                 setSelectedRows([]);
+                clearAllCheck.value = false;
+                setIsFOTUbicacion(false);
               }}
             />
           )}
