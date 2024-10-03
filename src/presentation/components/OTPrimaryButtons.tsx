@@ -195,7 +195,10 @@ export const validationStateOT = (
 };
 
 const focusFirstInput = (strInputName: string, ref: React.RefObject<any>) => {
+  console.log(ref.current);
+
   if (ref.current) {
+    console.log(ref.current);
     const firstInput = ref.current.querySelector(`input[name=${strInputName}]`);
     if (firstInput) {
       (firstInput as HTMLInputElement).focus();
@@ -376,6 +379,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               searchParams: paramsOT.value,
             })
           );
+          focusFirstInput("searchOT", searchOTRef);
           setSelectedRows([]);
           checkCount.value = 0;
           clearAllCheck.value = false;
@@ -403,6 +407,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       }
       // disabledIndividualCheck.value = true;
       const toastLoading = toast.loading("Imprimiendo OTs.");
+      console.log(OTPkToDelete);
       const primerProyectoCodigo = OTPkToDelete.value[0].proyecto_codigo;
       const todosIguales = OTPkToDelete.value
         .slice(1)
@@ -474,6 +479,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         //     // setSelectedRows([]);
         //   });
         // });
+        focusFirstInput("searchOT", searchOTRef);
         toast.dismiss(toastLoading);
       } catch (error) {
         clearAllCheck.value = false;
@@ -497,7 +503,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
     React.useEffect(() => {
       if (isFinishImpression.value === true) {
-        if (OTPkToDelete.value.length > 1) {
+        console.log(OTPkToDelete.value.length);
+        if (OTPkToDelete.value.length > 0) {
           let masivo = true;
           setEstadoImpresion(
             OTPkToDelete.value,
@@ -516,6 +523,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             setSelectedRows([]);
             clearAllCheck.value = false;
             isFinishImpression.value = false;
+            focusFirstInput("searchOT", searchOTRef);
             // const loadingToast = toast.load ing('Cargando...')
             // OTPkToDelete.value.map((ot:any)=>{
             //   try {
@@ -753,8 +761,6 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
       let observaciones = "";
       let situacion = "0";
 
-      console.log(estado);
-
       const validateEstado = OTPkToDelete.value.every(
         (ot: any) => ot["estado_validacion"] === "2"
       );
@@ -830,6 +836,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             setSelectedRows([]);
             checkCount.value = 0;
             clearAllCheck.value = false;
+            focusFirstInput("searchOT", searchOTRef);
           })
           .catch(() => {
             toast.error("Error al Ejecutar el proceso.");
@@ -924,13 +931,15 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               "Procesada"
             ).then(() => {
               // dispatch(fetchOT({OTAreas:OTAreas["areaActual"],searchParams: paramsOT.value}))
-              // setSelectedRows([]);
+              setSelectedRows([]);
               // checkCount.value = 0;
-              // clearAllCheck.value = false;
+              clearAllCheck.value = false;
             });
           });
 
           await Promise.all(updatePromises);
+
+          focusFirstInput("searchOT", searchOTRef);
 
           dispatch(
             fetchOT({
@@ -1171,6 +1180,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               onChange={async (e: any) => {
                 if (e.target.value !== "") {
                   let searchValue = e.target.value;
+                  1;
 
                   if (searchValue.length >= 10) {
                     console.log(searchValue);
@@ -1922,7 +1932,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               className="otActionButton mt-3 mx-5"
               onClick={() => {
                 if (OTPkToDelete.value.length < 1) {
-                  return toast.error("No hay OT Seleccionada");
+                  return toast.error("No hay OT seleccionada");
                 } else {
                   // setIsFOTReporteEntrega((prev) => !prev);
                 }
@@ -1940,7 +1950,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               className="otActionButton mt-3 mx-5"
               onClick={() => {
                 if (OTPkToDelete.value.length < 1) {
-                  return toast.error("No hay OT Seleccionada");
+                  return toast.error("No hay OT seleccionada");
                 } else {
                   // setIsFOTReporteEntrega((prev) => !prev);
                 }
@@ -1984,7 +1994,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               className="otActionButton mt-3 mx-5"
               onClick={() => {
                 if (OTPkToDelete.value.length < 1) {
-                  return toast.error("No hay OT Seleccionada");
+                  return toast.error("No hay OT seleccionada");
                 } else {
                   // setIsFOTReporteEntrega((prev) => !prev);
                 }
@@ -2001,6 +2011,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               pktoDelete={OTPkToDelete.value || pktoDelete}
               setSelectedRows={setSelectedRows}
               closeModal={() => {
+                focusFirstInput("searchOT", searchOTRef);
                 setIsFOTFactura(false);
                 setSelectedRows([]);
                 clearAllCheck.value = false;
@@ -2015,6 +2026,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               pktoDelete={OTPkToDelete.value || pktoDelete}
               setSelectedRows={setSelectedRows}
               closeModal={() => {
+                focusFirstInput("searchOT", searchOTRef);
                 setSelectedRows([]);
                 clearAllCheck.value = false;
                 setIsFOTGuiaDespeacho(false);
@@ -2031,6 +2043,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               pktoDelete={OTPkToDelete.value || pktoDelete}
               setSelectedRows={setSelectedRows}
               closeModal={() => {
+                focusFirstInput("searchOT", searchOTRef);
                 setSelectedRows([]);
                 clearAllCheck.value = false;
                 setIsFOTOrdenCompra(false);
@@ -2046,6 +2059,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               pktoDelete={OTPkToDelete.value || pktoDelete}
               setSelectedRows={setSelectedRows}
               closeModal={() => {
+                focusFirstInput("searchOT", searchOTRef);
                 setSelectedRows([]);
                 clearAllCheck.value = false;
                 setIsFOTReporteEntrega(false);
@@ -2055,7 +2069,14 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         </Suspense>
 
         <Suspense>
-          {isWhastApp && <FOTWhastApp onClose={() => setIsWhastApp(false)} />}
+          {isWhastApp && (
+            <FOTWhastApp
+              onClose={() => {
+                setIsWhastApp(false);
+                focusFirstInput("searchOT", searchOTRef);
+              }}
+            />
+          )}
         </Suspense>
 
         <Suspense>
@@ -2075,6 +2096,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             <FOTValidarBodega
               pkToDelete={OTPkToDelete.value}
               handleClose={() => {
+                focusFirstInput("searchOT", searchOTRef);
                 clearAllCheck.value = false;
                 setSelectedRows([]);
                 setIsFOTValidarBodega(false);
@@ -2100,6 +2122,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           {isFOTEmpaque && (
             <FOTEmpaque
               closeModal={() => {
+                focusFirstInput("searchOT", searchOTRef);
                 setSelectedRows([]);
                 clearAllCheck.value = false;
                 setIsFOTEmpaque(false);
@@ -2115,6 +2138,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           {isFOTGuia && (
             <FOTGuiaDespacho
               closeModal={() => {
+                focusFirstInput("searchOT", searchOTRef);
                 setSelectedRows([]);
                 clearAllCheck.value = false;
                 setIsFOTGuia(false);
@@ -2130,6 +2154,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           {isFOTReporteFirma && (
             <FOTReporteFirma
               closeModal={() => {
+                focusFirstInput("searchOT", searchOTRef);
                 setSelectedRows([]);
                 clearAllCheck.value = false;
                 setIsFOTReporeFirma(false);
@@ -2145,6 +2170,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             <FOTPendiente
               data={OTPkToDelete.value}
               onClose={() => {
+                focusFirstInput("searchOT", searchOTRef);
                 setSelectedRows([]);
                 clearAllCheck.value = false;
                 setisFOTPendiente(false);
@@ -2159,6 +2185,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             <FOTDerivacion
               data={OTPkToDelete.value}
               onClose={() => {
+                focusFirstInput("searchOT", searchOTRef);
                 setSelectedRows([]);
                 clearAllCheck.value = false;
                 setisFOTDerivacion(false);
@@ -2174,6 +2201,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               setSelectedRows={setSelectedRows}
               pkToDelete={OTPkToDelete.value}
               onClose={() => {
+                focusFirstInput("searchOT", searchOTRef);
                 setIsFOTValidarEmpaque(false);
                 setSelectedRows([]);
                 clearAllCheck.value = false;
@@ -2219,6 +2247,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             <FOTUbicacion
               pkToDelete={OTPkToDelete.value}
               closeModal={() => {
+                focusFirstInput("searchOT", searchOTRef);
                 setSelectedRows([]);
                 clearAllCheck.value = false;
                 setIsFOTUbicacion(false);

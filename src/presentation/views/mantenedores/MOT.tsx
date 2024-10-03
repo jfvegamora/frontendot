@@ -83,7 +83,7 @@ const MOT: React.FC = () => {
   const [params, setParams] = useState([]);
   const params2 = React.useRef([]);
 
-  const [pkToDelete, setPkToDelete] = useState<any>([]);
+  const [_pkToDelete, setPkToDelete] = useState<any>([]);
 
   const token: any =
     useAppSelector((store: AppStore) => store.user.token) ?? "";
@@ -243,9 +243,9 @@ const MOT: React.FC = () => {
     );
   }, [selectedRows]);
 
-  useEffect(() => {
-    OTPkToDelete.value = pkToDelete;
-  }, [pkToDelete]);
+  // useEffect(() => {
+  //   OTPkToDelete.value = pkToDelete;
+  // }, [pkToDelete]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -336,6 +336,37 @@ const MOT: React.FC = () => {
         },
       },
       {
+        name: "_JSONArmazon",
+        label: "Armazon",
+        type: "text",
+        styles: {
+          with: "!w-[15vw] labelInput inputStyles",
+          container: "",
+          labelProps: "labelInput",
+        },
+      },
+      {
+        name: "_JSONCristal",
+        label: "Cristal",
+        type: "text",
+        styles: {
+          with: "!w-[15vw] labelInput inputStyles",
+          container: "",
+          labelProps: "labelInput",
+        },
+      },
+      {
+        name: "_punto_venta",
+        label: "Punto Venta",
+        type: "select",
+        selectUrl: "/api/puntosventa/",
+        styles: {
+          styles: "!w-[17vw] labelInput inputStyles",
+          container: "",
+          labelProps: "labelInput",
+        },
+      },
+      {
         name: "_usuario",
         label: "Digitador/a",
         type: "select",
@@ -383,34 +414,11 @@ const MOT: React.FC = () => {
       },
 
       {
-        name: "_punto_venta",
-        label: "Punto Venta",
-        type: "select",
-        selectUrl: "/api/puntosventa/",
-        styles: {
-          styles: "!w-[17vw] labelInput inputStyles",
-          container: "",
-          labelProps: "labelInput",
-        },
-      },
-
-      {
         name: "_ubicacion",
         label: "Ubicación",
         type: "text",
         styles: {
           with: "!w-[15vw] labelInput inputStyles",
-          container: "",
-          labelProps: "labelInput",
-        },
-      },
-
-      {
-        name: "atrasadas",
-        label: "Atrasadas",
-        type: "switch",
-        styles: {
-          with: "labelInput inputStyles",
           container: "",
           labelProps: "labelInput",
         },

@@ -256,15 +256,13 @@ const OTSlice = createSlice({
           acc[por_vencer] ??= 0; // Si acc[por_vencer] es undefined o null, lo inicializa a 0
           acc[por_vencer]++;
         }
-
-        if (sinUbicacion === "") {
+        if (sinUbicacion === "" || sinUbicacion === "0") {
           acc["Sin Ubicacion"] ??= 0;
           acc["Sin Ubicacion"]++;
         }
         // Manejar el caso de estado_ot
         acc[estado_ot] ??= 0; // Si acc[estado_ot] es undefined o null, lo inicializa a 0
         acc[estado_ot]++;
-
         return acc;
       }, initialAcc);
 

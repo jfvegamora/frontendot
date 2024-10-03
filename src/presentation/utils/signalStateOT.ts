@@ -994,7 +994,7 @@ export const updateOT = async (
     console.log(_estado);
     const strP1 =
       tipo_evento === "Derivar"
-        ? `area="${_destino}", estado="${_estado}",ubicacion=""`
+        ? `area="${_destino}", estado="${_estado}",ubicacion="0"`
         : `area="${_destino}", estado="${_estado}"`;
 
     console.log(user);
@@ -1060,6 +1060,10 @@ export const updateOT = async (
   let _p3 = "";
 
   const toastLoading = toast.loading("Cargando...");
+
+  console.log(_formValues);
+  console.log(_formValues["cristal1_material_od_id"]);
+  console.log(parseInt(_formValues["cristal1_material_od_id"]));
 
   const fields = [
     `motivo=${motivo}`,
@@ -1245,7 +1249,7 @@ export const updateOT = async (
       _formValues["cristales"] &&
       _formValues["cristales"]["cristal1_material_od_id"] !== undefined
         ? _formValues["cristales"] &&
-          parseInt(_formValues["cristales"]["cristal1_od_material_od_id"])
+          parseInt(_formValues["cristales"]["cristal1_material_od_id"])
         : data && data[EnumGrid.cristal1_od_material_id]
     }`,
     `cristales1_od_tratamiento=${

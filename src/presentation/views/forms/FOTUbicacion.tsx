@@ -47,9 +47,9 @@ const FOTUbicacion: React.FC<IFOTUbicacion> = ({ closeModal, pkToDelete }) => {
   });
 
   const onSubmit = async (jsonData: any) => {
-    const validation_Ubicacion_Previa = pkToDelete.some(
-      (OT: any) => OT.ot_ubicacion !== ""
-    );
+    const validation_Ubicacion_Previa = pkToDelete.some((OT: any) => {
+      return OT.ot_ubicacion !== "" && OT.ot_ubicacion !== "0";
+    });
 
     if (validation_Ubicacion_Previa) {
       const result = await showModal(

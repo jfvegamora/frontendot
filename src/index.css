@@ -79,6 +79,7 @@ body {
 
 .inputStyles{
   height: 2.7rem !important;
+  /* font-size: 2rem !important; */
 }
 
 .labelInputDiv{
@@ -172,9 +173,10 @@ select::-ms-expand {
 .containerOTPrimaryKey{
   display: grid;
   width: 80%;
-  grid-template-columns: repeat(6, 1fr); /* 5 columnas iguales */
-  gap: 3vw; /* Espacio entre elementos */
-  /* background-color: rgba(255, 0, 0, 0.385); */
+  grid-template-columns: repeat(5, 1fr); /* 5 columnas iguales */
+  /* gap: 2vw; */
+  row-gap: 1vw;
+  column-gap: 3.5vw;
 }
 
 .containerOTArchivoPrimaryKey{

@@ -175,6 +175,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       }
     }, [resetFilters.value]);
 
+    console.log(isOT);
+
     const renderInput = () => (
       <Controller
         name={name}
@@ -254,7 +256,9 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 customWidth ? customWidth : " custom-input   cursor-pointer "
               } ${
                 readOnly
-                  ? "custom-onlyread"
+                  ? entidad === "/api/otbitacoraconsulta/"
+                    ? ""
+                    : "custom-onlyread"
                   : isOptional
                   ? "custom-optional-with-color"
                   : "custom-required"

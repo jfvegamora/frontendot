@@ -3,13 +3,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useState, useEffect } from "react";
-import { useEntityUtils } from "../../hooks";
+import { useEntityUtils, usePermission } from "../../hooks";
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
 import { table_head_OT_bitacora_consulta } from "../../utils";
+import StateCountBar from "../../components/StateCountBar";
+import { AppStore, useAppSelector } from "../../../redux/store";
 // import { ProyectosDocumEnum } from "../../Enums";
 
 const strEntidad = "Bitácora de OT ";
@@ -33,6 +35,7 @@ export enum EnumGrid {
 
 const MOTBitacora: React.FC = () => {
   const [params, setParams] = useState([]);
+  const userID = useAppSelector((store: AppStore) => store.user.id);
   // const { escritura_lectura} = usePermission(idMenu || 0 );
 
   const updateParams = (newParams: Record<string, never>) => {
@@ -61,6 +64,8 @@ const MOTBitacora: React.FC = () => {
 
   const [pkToDelete, setPkToDelete] = useState<string[]>([]);
   const strParamsToDelete = "_pkToDelete"; // _p3/_p1/_pkToDelete
+
+  const { escritura_lectura } = usePermission(idMenu);
 
   useEffect(() => {
     const newPkToDelete = selectedRows.map(
@@ -117,6 +122,8 @@ const MOTBitacora: React.FC = () => {
                   container: "!w-[18vw]  text-[1vw]  ",
                   labelProps: "labelInput",
                 },
+                data: escritura_lectura ? "" : userID,
+                disabled: !escritura_lectura,
               },
               {
                 name: "_p2",
@@ -183,7 +190,7 @@ const MOTBitacora: React.FC = () => {
         </div>
       </div>
 
-      <div className="width100 scroll">
+      <div className="width100 overflow-y-auto h-[27vw]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -203,6 +210,7 @@ const MOTBitacora: React.FC = () => {
           leftEdit={true}
         />
       </div>
+      <StateCountBar entities={entities} entidad={strEntidad} />
 
       {/* <Suspense>
           {isModalInsert && (

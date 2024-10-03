@@ -433,7 +433,7 @@ const FOTOptica: React.FC<IOptica> = ({
               }
               control={control}
               onlyRead={true}
-              customWidth={"!h-[3vw] labelInput"}
+              customWidth={"labelInput inputStyles"}
               textAlign="text-center"
             />
           </div>

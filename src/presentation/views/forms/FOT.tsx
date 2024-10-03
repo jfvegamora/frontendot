@@ -1020,13 +1020,13 @@ const FOT: React.FC<IFOTProps> = ({
     }));
 
     if (key === "cristal1_tratamiento_adicional_id") {
-      setValue("cristal1_marca_od_id", "1");
-      setValue("cristal1_indice_od_id", "1");
+      // setValue("cristal1_marca_od_id", "1");
+      // setValue("cristal1_indice_od_id", "1");
       setValue("cristal1_material_od_id", "1");
-      setValue("cristal1_color_od_id", "1");
-      setValue("cristal1_tratamiento_od_id", "1");
-      setValue("cristal1_diseno_od_id", "1");
-      setValue("cristal1_od_diametro", "65");
+      // setValue("cristal1_color_od_id", "1");
+      // setValue("cristal1_tratamiento_od_id", "1");
+      // setValue("cristal1_diseno_od_id", "1");
+      // setValue("cristal1_od_diametro", "65");
 
       const formValores = getValues();
 
@@ -1041,13 +1041,13 @@ const FOT: React.FC<IFOTProps> = ({
       );
     }
     if (key === "cristal1_tratamiento_adicional_id") {
-      setValue("cristal1_marca_oi_id", "1");
-      setValue("cristal1_indice_oi_id", "1");
+      // setValue("cristal1_marca_oi_id", "1");
+      // setValue("cristal1_indice_oi_id", "1");
       setValue("cristal1_material_oi_id", "1");
-      setValue("cristal1_color_oi_id", "1");
-      setValue("cristal1_tratamiento_oi_id", "1");
-      setValue("cristal1_diseno_oi_id", "1");
-      setValue("cristal1_oi_diametro", "65");
+      // setValue("cristal1_color_oi_id", "1");
+      // setValue("cristal1_tratamiento_oi_id", "1");
+      // setValue("cristal1_diseno_oi_id", "1");
+      // setValue("cristal1_oi_diametro", "65");
 
       const formValores = getValues();
 
@@ -1063,13 +1063,13 @@ const FOT: React.FC<IFOTProps> = ({
     }
 
     if (key === "cristal2_tratamiento_adicional_id") {
-      setValue("cristal2_marca_od_id", "1");
-      setValue("cristal2_indice_od_id", "1");
+      // setValue("cristal2_marca_od_id", "1");
+      // setValue("cristal2_indice_od_id", "1");
       setValue("cristal2_material_od_id", "1");
-      setValue("cristal2_color_od_id", "1");
-      setValue("cristal2_tratamiento_od_id", "1");
-      setValue("cristal2_diseno_od_id", "1");
-      setValue("cristal2_od_diametro", "65");
+      // setValue("cristal2_color_od_id", "1");
+      // setValue("cristal2_tratamiento_od_id", "1");
+      // setValue("cristal2_diseno_od_id", "1");
+      // setValue("cristal2_od_diametro", "65");
 
       const formValores = getValues();
       await getGrupoCristales_od_A2(
@@ -1081,13 +1081,13 @@ const FOT: React.FC<IFOTProps> = ({
       );
     }
     if (key === "cristal2_tratamiento_adicional_id") {
-      setValue("cristal2_marca_oi_id", "1");
-      setValue("cristal2_indice_oi_id", "1");
+      // setValue("cristal2_marca_oi_id", "1");
+      // setValue("cristal2_indice_oi_id", "1");
       setValue("cristal2_material_oi_id", "1");
-      setValue("cristal2_color_oi_id", "1");
-      setValue("cristal2_tratamiento_oi_id", "1");
-      setValue("cristal2_diseno_oi_id", "1");
-      setValue("cristal2_oi_diametro", "65");
+      // setValue("cristal2_color_oi_id", "1");
+      // setValue("cristal2_tratamiento_oi_id", "1");
+      // setValue("cristal2_diseno_oi_id", "1");
+      // setValue("cristal2_oi_diametro", "65");
 
       const formValores = getValues();
       await getGrupoCristales_oi_A2(

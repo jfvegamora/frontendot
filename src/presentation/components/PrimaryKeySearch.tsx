@@ -79,6 +79,8 @@ interface PrimaryKeySearchProps {
     values?: any;
     tipos?: string;
     _p1?: string;
+    data?: any;
+    disabled?: boolean;
   }[];
   baseUrl: string;
   updateParams: any;
@@ -458,11 +460,16 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             : [input.selectUrl, "02"]
                         }
                         inputName={input.name}
+                        data={input.data}
                         inputValues={inputValues}
                         setHandleSearch={handleSearch}
                         handleSelectChange={handleSelectChange}
                         customWidth={` h-[2.8vw] ${input.styles?.styles}`}
                         labelProps={input.styles?.labelProps}
+                        readOnly={input.disabled}
+                        // readOnly={true}
+                        // isOptional={true}
+                        // onlyFirstOption={true}
                         // className={` ${input.styles?.with}`}
                       />
                     </Suspense>

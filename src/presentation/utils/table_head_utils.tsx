@@ -743,14 +743,14 @@ export const table_head_OT_bitacora_consulta = [
     cell: "Fecha/Hora",
     key: "date",
     visible: true,
-    width: "w-[8rem]",
+    width: "w-[15rem]",
   },
   {
     cell: "Usuario",
     key: "usuario",
     visible: true,
     alignment: "text-left",
-    width: "w-[8rem]",
+    width: "w-[15rem]",
   },
   {
     cell: "Origen",
@@ -793,6 +793,13 @@ export const table_head_OT_bitacora_consulta = [
     visible: true,
     alignment: "text-left",
     width: "w-[30rem]",
+  },
+  {
+    cell: "",
+    key: "observaciones2",
+    visible: true,
+    alignment: "text-left",
+    width: "w-[2rem]",
   },
 ];
 
