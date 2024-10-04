@@ -11,6 +11,7 @@ import {
 import { useEntityUtils, usePermission } from "../../hooks";
 import FPuntosVenta from "../forms/FPuntosVenta";
 import { TITLES, table_head_puntos_venta } from "../../utils";
+import StateCountBar from "../../components/StateCountBar";
 
 export enum EnumGrid {
   id = 1,
@@ -146,7 +147,7 @@ const MPuntosVenta: React.FC = () => {
         </div>
       </div>
 
-      <div className="width90 scroll">
+      <div className="width90 overflow-y-auto h-[30vw]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -164,6 +165,8 @@ const MPuntosVenta: React.FC = () => {
           leftEdit={true}
         />
       </div>
+
+      <StateCountBar entities={entities} idMenu={idMenu} />
 
       {isModalInsert && (
         <FPuntosVenta

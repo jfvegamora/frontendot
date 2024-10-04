@@ -58,6 +58,7 @@ interface ISelectInputProps {
   labelProps?: any;
   formValues?: any;
   labelContainer?: any;
+  idMenu?: any;
 }
 
 const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
@@ -86,6 +87,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     formValues,
     labelProps,
     labelContainer,
+    idMenu,
   }) => {
     const dispatch = useAppDispatch();
     const [value, setValue] = useState("");
@@ -175,8 +177,6 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
       }
     }, [resetFilters.value]);
 
-    console.log(isOT);
-
     const renderInput = () => (
       <Controller
         name={name}
@@ -256,7 +256,7 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
                 customWidth ? customWidth : " custom-input   cursor-pointer "
               } ${
                 readOnly
-                  ? entidad === "/api/otbitacoraconsulta/"
+                  ? idMenu === 44
                     ? ""
                     : "custom-onlyread"
                   : isOptional

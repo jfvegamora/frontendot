@@ -11,6 +11,7 @@ import {
 import { useEntityUtils, usePermission } from "../../hooks";
 import FOftalmologos from "../forms/FOftalmologos";
 import { TITLES, table_head_oftalmologos } from "../../utils";
+import StateCountBar from "../../components/StateCountBar";
 
 export enum EnumGrid {
   id = 1,
@@ -29,7 +30,7 @@ const idMenu = 21;
 
 const MOftalmologos: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -56,12 +57,14 @@ const MOftalmologos: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
-  
-  useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.id]}`);
-    const combinedPks = newPkToDelete.join(',');
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_p1"; // _p3/_p1/_pkToDelete
+
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map(
+      (row: number) => `${entities[row][EnumGrid.id]}`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
@@ -75,23 +78,30 @@ const MOftalmologos: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "RUT", type: "text", 
-                styles:{
+              {
+                name: "_p1",
+                label: "RUT",
+                type: "text",
+                styles: {
                   with: "labelInput inputStyles w-full",
-                  container:"!w-[10vw]  text-[1vw] ", 
-                  labelProps: "labelInput"
-                }, },
-              { name: "_p3", label: "Nombre", type: "text", 
-                styles:{
+                  container: "!w-[10vw]  text-[1vw] ",
+                  labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_p3",
+                label: "Nombre",
+                type: "text",
+                styles: {
                   with: "labelInput inputStyles w-full",
-                  container:"!w-[20vw]  text-[1vw] -translate-x-[2vw]", 
-                  labelProps: "labelInput"
-                }, },
+                  container: "!w-[20vw]  text-[1vw] -translate-x-[2vw]",
+                  labelProps: "labelInput",
+                },
+              },
             ]}
             classNameSearchButton=" translate-x-[10vw]"
           />
         </div>
-
 
         <div className="w-[20%]">
           <PrimaryButtonsComponent
@@ -109,13 +119,11 @@ const MOftalmologos: React.FC = () => {
             showRefreshButton={true}
             idMenu={idMenu}
             classname={"translate-x-[17vw]"}
-
           />
         </div>
-
       </div>
 
-      <div className="width80 scroll">
+      <div className="width80 overflow-y-auto h-[30vw]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -133,7 +141,9 @@ const MOftalmologos: React.FC = () => {
           leftEdit={true}
         />
       </div>
- 
+
+      <StateCountBar entities={entities} idMenu={idMenu} />
+
       {isModalInsert && (
         <FOftalmologos
           label={`${TITLES.ingreso} ${strEntidad}`}

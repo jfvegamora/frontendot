@@ -89,6 +89,7 @@ const MOTBitacora: React.FC = () => {
         <div className="w-[85%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
+            idMenu={idMenu}
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
@@ -210,7 +211,7 @@ const MOTBitacora: React.FC = () => {
           leftEdit={true}
         />
       </div>
-      <StateCountBar entities={entities} entidad={strEntidad} />
+      <StateCountBar entities={entities} idMenu={idMenu} />
 
       {/* <Suspense>
           {isModalInsert && (

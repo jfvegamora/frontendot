@@ -11,6 +11,7 @@ import {
 } from "../../components";
 import { TITLES, table_head_proyectos_docum } from "../../utils";
 import { ProyectosDocumEnum } from "../../Enums";
+import StateCountBar from "../../components/StateCountBar";
 
 const strEntidad = "Documentación del Proyecto ";
 const strEntidadExcel = "Documentacion_del_Proyecto";
@@ -154,7 +155,7 @@ const MProyectosDocum: React.FC = () => {
         </div>
       </div>
 
-      <div className="width100 scroll">
+      <div className="width100 overflow-y-auto h-[30vw]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -174,6 +175,7 @@ const MProyectosDocum: React.FC = () => {
           leftEdit={true}
         />
       </div>
+      <StateCountBar entities={entities} idMenu={idMenu} />
 
       <Suspense>
         {isModalInsert && (

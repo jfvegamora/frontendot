@@ -197,6 +197,8 @@ const FOTCristales = lazy(
 const FOTOptica = lazy(() => import("../../components/OTForms/FOTOptica"));
 const FOTReceta = lazy(() => import("../../components/OTForms/FOTReceta"));
 
+const FOTErrorModal = lazy(() => import("../../components/ErrorOTModal"));
+
 interface IFOTProps {
   closeModal: () => void;
   data?: any[];
@@ -208,6 +210,7 @@ interface IFOTProps {
   isMOT?: boolean;
   onlyRead?: boolean;
   permisos_ot_historica?: any;
+  idMenu?: any;
 }
 
 export const tipo_anteojo = signal(false);
@@ -218,6 +221,8 @@ export const keepForm = signal(false);
 export const isNotFetching = signal(false);
 export const disabledCristalDiseño = signal(false);
 export const isLoadingOT = signal(false);
+export const isShowErrorModal = signal(false);
+export const dataErrorModal = signal({});
 
 const FOT: React.FC<IFOTProps> = ({
   closeModal,
@@ -412,6 +417,7 @@ const FOT: React.FC<IFOTProps> = ({
     disabledCristalDiseño.value = false;
     isLoadingOT.value = false;
     keepForm.value = false;
+    isShowErrorModal.value = false;
     codigoProyecto.value = "";
   };
 
@@ -1030,7 +1036,7 @@ const FOT: React.FC<IFOTProps> = ({
 
       const formValores = getValues();
 
-      await getGrupoCristales_od_A1(
+      const getGrupoCristalesData = await getGrupoCristales_od_A1(
         formValores,
         data,
         setErrorGrupoDioptria_od_A1,
@@ -1039,6 +1045,8 @@ const FOT: React.FC<IFOTProps> = ({
         setErrorGrupoDioptria_od_A2,
         setValue
       );
+
+      console.log(getGrupoCristalesData);
     }
     if (key === "cristal1_tratamiento_adicional_id") {
       // setValue("cristal1_marca_oi_id", "1");
@@ -1211,7 +1219,7 @@ const FOT: React.FC<IFOTProps> = ({
     // ? CODIGO CRISTALES Y GRUPO ANTEOJO 1:
     if (changeCodigoCristal_od_A1[key]) {
       const formValue = getValues();
-      getGrupoCristales_od_A1(
+      const getGrupoCristalesData = getGrupoCristales_od_A1(
         formValue,
         data,
         setErrorGrupoDioptria_od_A1,
@@ -1220,6 +1228,7 @@ const FOT: React.FC<IFOTProps> = ({
         setErrorGrupoDioptria_od_A2,
         setValue
       );
+      console.log(getGrupoCristalesData);
     }
 
     if (changeCodigoCristal_oi_A1[key]) {
@@ -2019,6 +2028,16 @@ const FOT: React.FC<IFOTProps> = ({
           <Suspense>
             {isFOTEmpaque && (
               <FOTEmpaque closeModal={() => setIsFOTEmpaque(false)} />
+            )}
+          </Suspense>
+
+          <Suspense>
+            {isShowErrorModal.value === true && selectedTab === 3 && (
+              <FOTErrorModal
+                onClose={() => (isShowErrorModal.value = false)}
+                caseUso={"Cristales"}
+                data={dataErrorModal.value}
+              />
             )}
           </Suspense>
 

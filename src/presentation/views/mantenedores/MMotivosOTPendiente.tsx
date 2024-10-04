@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 
-
 import React, { useState, useEffect } from "react";
 import { useEntityUtils, usePermission } from "../../hooks";
 import {
@@ -10,10 +9,9 @@ import {
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { TITLES , table_head_motivos_ot } from "../../utils";
+import { TITLES, table_head_motivos_ot } from "../../utils";
 import FMotivosOTPendiente from "../forms/FMotivosOTPendiente";
-
-
+import StateCountBar from "../../components/StateCountBar";
 
 const strEntidad = "Motivos de OT Pendiente ";
 const strEntidadExcel = "Motivos_de_OT_Pendiente";
@@ -25,18 +23,17 @@ export enum EnumGrid {
   ID = 1,
   descripcion = 2,
   area_id = 3,
-  area = 4
+  area = 4,
 }
-
 
 const MMotivosOTPendiente: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
-  
+  const { escritura_lectura } = usePermission(idMenu || 0);
+
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
-  
+
   const {
     //Entities State
     entities,
@@ -50,20 +47,22 @@ const MMotivosOTPendiente: React.FC = () => {
     isModalInsert,
     isModalEdit,
     toggleEditModal,
-    
+
     //Check/Buttons Methods
     handleDeleteSelected,
     handleSelect,
     handleSelectedAll,
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
-  
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
-  
-  useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.ID]}`);
-    const combinedPks = newPkToDelete.join(',');
+
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_p1"; // _p3/_p1/_pkToDelete
+
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map(
+      (row: number) => `${entities[row][EnumGrid.ID]}`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
@@ -76,15 +75,20 @@ const MMotivosOTPendiente: React.FC = () => {
             baseUrl={strBaseUrl}
             updateParams={updateParams}
             setEntities={setEntities}
-            primaryKeyInputs={[{ name: "_p1", label: "Descripción", type: "text",
-              styles:{
-                with: "!h-[2.5vw] !text-[1vw] w-full",
-                container:"w-[35vw] !text-[2vw] translate-y-[-0.2vw]", 
-                labelProps: "!translate-y-[0.1vw] !text-[1.2vw] !font-[2vw] !z-30"
-              }
-             }]}
-             classNameSearchButton=" translate-x-[2vw]"
-
+            primaryKeyInputs={[
+              {
+                name: "_p1",
+                label: "Descripción",
+                type: "text",
+                styles: {
+                  with: "!h-[2.5vw] !text-[1vw] w-full",
+                  container: "w-[35vw] !text-[2vw] translate-y-[-0.2vw]",
+                  labelProps:
+                    "!translate-y-[0.1vw] !text-[1.2vw] !font-[2vw] !z-30",
+                },
+              },
+            ]}
+            classNameSearchButton=" translate-x-[2vw]"
           />
         </div>
 
@@ -105,7 +109,7 @@ const MMotivosOTPendiente: React.FC = () => {
         />
       </div>
 
-      <div className="width50 scroll">
+      <div className="width50 overflow-y-auto h-[30vw]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -123,6 +127,8 @@ const MMotivosOTPendiente: React.FC = () => {
           leftEdit={true}
         />
       </div>
+
+      <StateCountBar entities={entities} idMenu={idMenu} />
 
       {isModalInsert && (
         <FMotivosOTPendiente
@@ -148,8 +154,6 @@ const MMotivosOTPendiente: React.FC = () => {
           escritura_lectura={escritura_lectura}
         />
       )}
-
-    
     </div>
   );
 };

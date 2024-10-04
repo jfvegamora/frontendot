@@ -65,6 +65,8 @@ const MCristales: React.FC = () => {
 
   // console.log(filterToggle.value)
 
+  console.log(entity);
+
   return (
     <div className="mantenedorContainer" onClick={handleContainerClick}>
       <FilterButton>

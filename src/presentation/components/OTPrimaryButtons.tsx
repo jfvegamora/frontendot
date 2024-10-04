@@ -2113,7 +2113,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
                 setIsShowErrorOTModal(false);
               }}
               data={dataOT && dataOT}
-              valueConfirmOT={valueSearchOT}
+              // data={valueSearchOT.value}
+              caseUso={"SearchOT"}
             />
           )}
         </Suspense>

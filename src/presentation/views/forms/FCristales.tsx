@@ -44,10 +44,12 @@ interface OutputData {
   query: string;
   _p1: string;
   _p2?: string;
-  _pkToDelete?: any
+  _pkToDelete?: any;
 }
 
-export function transformInsertQuery(jsonData: InputData): OutputData | null | void {
+export function transformInsertQuery(
+  jsonData: InputData
+): OutputData | null | void {
   const _p1 = ` 
   "${jsonData.codigo}",
     ${jsonData.marca}, 
@@ -61,29 +63,27 @@ export function transformInsertQuery(jsonData: InputData): OutputData | null | v
     ${jsonData.cilindrico}, 
     ${jsonData.stock_minimo}`;
 
-  console.log(jsonData)
+  console.log(jsonData);
   const pkToDelete = [
-    { "codigo_fab": jsonData.codigo_fab_1 },
-    { "codigo_fab": jsonData.codigo_fab_2 },
-    { "codigo_fab": jsonData.codigo_fab_3 },
-    { "codigo_fab": jsonData.codigo_fab_4 }
+    { codigo_fab: jsonData.codigo_fab_1 },
+    { codigo_fab: jsonData.codigo_fab_2 },
+    { codigo_fab: jsonData.codigo_fab_3 },
+    { codigo_fab: jsonData.codigo_fab_4 },
   ]
-    .filter((registro) => registro.codigo_fab !== '')
+    .filter((registro) => registro.codigo_fab !== "")
     .map((registro) => {
       return {
         codigo: jsonData.codigo,
-        codigo_fab: registro.codigo_fab
-      }
-    })
+        codigo_fab: registro.codigo_fab,
+      };
+    });
 
-  console.log(pkToDelete)
-
+  console.log(pkToDelete);
 
   const query: OutputData = {
     query: "03",
     _p1: _p1,
-    _pkToDelete: encodeURIComponent(JSON.stringify(pkToDelete))
-
+    _pkToDelete: encodeURIComponent(JSON.stringify(pkToDelete)),
   };
 
   return query;
@@ -116,31 +116,29 @@ export function transformUpdateQuery(
   const _p1 = filteredFields.join(",");
 
   const pkToDelete = [
-    { "codigo_fab": jsonData.codigo_fab_1 },
-    { "codigo_fab": jsonData.codigo_fab_2 },
-    { "codigo_fab": jsonData.codigo_fab_3 },
-    { "codigo_fab": jsonData.codigo_fab_4 }
+    { codigo_fab: jsonData.codigo_fab_1 },
+    { codigo_fab: jsonData.codigo_fab_2 },
+    { codigo_fab: jsonData.codigo_fab_3 },
+    { codigo_fab: jsonData.codigo_fab_4 },
   ]
-    .filter((registro) => registro.codigo_fab !== '')
+    .filter((registro) => registro.codigo_fab !== "")
     .map((registro) => {
       return {
         codigo: jsonData.codigo,
-        codigo_fab: registro.codigo_fab
-      }
+        codigo_fab: registro.codigo_fab,
+      };
     });
-
 
   console.log("primaryKey", primaryKey);
   const query = {
     query: "04",
     _p1,
     _p2: primaryKey,
-    _pkToDelete: encodeURIComponent(JSON.stringify(pkToDelete))
+    _pkToDelete: encodeURIComponent(JSON.stringify(pkToDelete)),
   };
 
-  console.log(query)
-  return query
-
+  console.log(query);
+  return query;
 }
 
 interface IUserFormPrps {
@@ -155,7 +153,15 @@ interface IUserFormPrps {
 }
 
 const FCristales: React.FC<IUserFormPrps> = React.memo(
-  ({ closeModal, setEntities, params, label, data, isEditting, escritura_lectura }) => {
+  ({
+    closeModal,
+    setEntities,
+    params,
+    label,
+    data,
+    isEditting,
+    escritura_lectura,
+  }) => {
     const schema = validationCristalesSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
@@ -219,7 +225,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
         if (response.code === "ERR_BAD_RESPONSE" || response.stack) {
           const errorMessage = isEditting
             ? strEntidad.concat(": " + response.message)
-            : strEntidad.concat(": " + response.message)
+            : strEntidad.concat(": " + response.message);
           show({
             message: errorMessage ? errorMessage : response.code,
             type: "error",
@@ -228,13 +234,13 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
           return;
         }
 
-        if (response.mensaje.includes('Creado')) {
+        if (response.mensaje.includes("Creado")) {
           toastSuccess(isEditting);
         }
         if (!blnKeep && !isEditting) {
           const result = await showModal(
             MODAL.keep,
-            '',
+            "",
             MODAL.keepYes,
             MODAL.kepNo
           );
@@ -251,13 +257,13 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
         }
 
         if (isEditting) {
-          updateNewEntity();
-          closeModal();
+          await updateNewEntity();
           toastSuccess(isEditting);
+          closeModal();
         }
 
+        await updateNewEntity();
         resetTextFields();
-        updateNewEntity();
       },
       [closeModal, blnKeep, updateNewEntity, showModal]
     );
@@ -278,7 +284,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
 
     const handleSaveChange = React.useCallback(
       async (data: InputData, isEditting: boolean) => {
-        const toastLoading = toast.loading('Cargando...');
+        const toastLoading = toast.loading("Cargando...");
         try {
           const transformedData = isEditting
             ? transformUpdateQuery(data, intId.toString())
@@ -288,9 +294,9 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
             ? await editEntity(transformedData)
             : await createdEntity(transformedData);
           handleApiResponse(response, isEditting);
-          toast.dismiss(toastLoading)
+          toast.dismiss(toastLoading);
         } catch (error: any) {
-          toast.dismiss(toastLoading)
+          toast.dismiss(toastLoading);
           show({
             message: error,
             type: "error",
@@ -307,7 +313,6 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
       isEditting ? focusSecondInput("marca") : focusFirstInput("codigo");
     }, []);
 
-    console.log(data && typeof data[CristalesEnum.stock_reservado])
     return (
       <div className="useFormContainer centered-div w-[45rem]">
         <div className="userFormBtnCloseContainer">
@@ -319,7 +324,8 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
 
         <form
           onSubmit={handleSubmit((data) => handleSaveChange(data, isEditting))}
-          className="userFormulario">
+          className="userFormulario"
+        >
           <div className="userFormularioContainer">
             <div className="input-container items-center rowForm w-[50%]">
               <div className="labelInputDiv">
@@ -596,11 +602,15 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
               </div>
             </div>
           </div>
-          
+
           <div className="w-full !mt-5 !mb-5">
-              <div className="w-[30%] mx-auto">
+            <div className="w-[30%] mx-auto">
               {escritura_lectura && (
-                <Button type="submit" tabIndex={1} className="userFormBtnSubmit">
+                <Button
+                  type="submit"
+                  tabIndex={1}
+                  className="userFormBtnSubmit"
+                >
                   {`${TITLES.guardar}`}
                 </Button>
               )}

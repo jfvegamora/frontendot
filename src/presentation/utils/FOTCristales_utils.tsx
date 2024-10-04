@@ -30,7 +30,12 @@ import {
 } from "./validationOT";
 import axios from "axios";
 import { signal } from "@preact/signals-react";
-import { isLoadingOT, isNotFetching } from "../views/forms/FOT";
+import {
+  dataErrorModal,
+  isLoadingOT,
+  isNotFetching,
+  isShowErrorModal,
+} from "../views/forms/FOT";
 import { URLBackend } from "./config";
 import { EnumGrid } from "../views/mantenedores/MOTHistorica";
 
@@ -278,7 +283,14 @@ export const getGrupoCristales_od_A1 = async (
         );
       }
 
-      console.log(cristalesDATA);
+      if (
+        (cristalesDATA && cristalesDATA["STOCK_OD"] < 1) ||
+        (cristalesDATA && cristalesDATA["STOCK_OI"] < 1)
+      ) {
+        console.log("render");
+        isShowErrorModal.value = true;
+        dataErrorModal.value = cristalesDATA;
+      }
 
       if (cristalesDATA && cristalesDATA["ERROR"] !== "") {
         if (cristalesDATA["ERROR"].includes("CROD")) {
@@ -379,6 +391,7 @@ export const getGrupoCristales_od_A1 = async (
 
         // console.log(key)
         isLoadingOT.value = false;
+        return cristalesDATA;
       }
     } catch (error) {
       // console.log(error)
@@ -528,6 +541,15 @@ export const getGrupoCristales_oi_A1 = async (
           setChangeboolean,
           setValue
         );
+      }
+
+      if (
+        (cristalesDATA && cristalesDATA["STOCK_OD"] < 1) ||
+        (cristalesDATA && cristalesDATA["STOCK_OI"] < 1)
+      ) {
+        console.log("render");
+        isShowErrorModal.value = true;
+        dataErrorModal.value = cristalesDATA;
       }
 
       if (cristalesDATA && cristalesDATA["ERROR"] !== "") {
@@ -703,6 +725,15 @@ export const getGrupoCristales_od_A2 = async (
 
       const cristalesDATA = JSON.parse(cristalesDataOI[0][0]);
 
+      if (
+        (cristalesDATA && cristalesDATA["STOCK_OD"] < 1) ||
+        (cristalesDATA && cristalesDATA["STOCK_OI"] < 1)
+      ) {
+        console.log("render");
+        isShowErrorModal.value = true;
+        dataErrorModal.value = cristalesDATA;
+      }
+
       if (cristalesDATA && cristalesDATA["ERROR"] !== "") {
         if (cristalesDATA["MSG"].includes("STOCK")) {
           A2_CR_OD.value = cristalesDATA["CR_OD"].trim() || " ";
@@ -864,6 +895,15 @@ export const getGrupoCristales_oi_A2 = async (
       );
 
       const cristalesDATA = JSON.parse(cristalesDataOI[0][0]);
+
+      if (
+        (cristalesDATA && cristalesDATA["STOCK_OD"] < 1) ||
+        (cristalesDATA && cristalesDATA["STOCK_OI"] < 1)
+      ) {
+        console.log("render");
+        isShowErrorModal.value = true;
+        dataErrorModal.value = cristalesDATA;
+      }
 
       if (cristalesDATA && cristalesDATA["ERROR"] !== "") {
         if (cristalesDATA["MSG"].includes("STOCK")) {

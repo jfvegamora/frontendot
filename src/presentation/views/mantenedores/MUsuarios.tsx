@@ -12,6 +12,7 @@ import { useEntityUtils, usePermission } from "../../hooks";
 import FUsuarios from "../forms/FUsuarios2";
 import FUsuariosOT from "../forms/FUsuariosOT";
 import { TITLES, table_head_usuarios } from "../../utils";
+import StateCountBar from "../../components/StateCountBar";
 
 export enum EnumGrid {
   id = 1,
@@ -199,7 +200,7 @@ const MUsuarios: React.FC = () => {
         </div>
       </div>
 
-      <div className="width80 scroll">
+      <div className="width80 overflow-y-auto h-[30vw]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -220,6 +221,8 @@ const MUsuarios: React.FC = () => {
           // setTotalRowIndex={setTotalRowIndex}
         />
       </div>
+
+      <StateCountBar entities={entities} idMenu={idMenu} />
 
       {isModalInsert && (
         <FUsuarios

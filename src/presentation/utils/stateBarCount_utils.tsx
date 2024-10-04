@@ -41,6 +41,24 @@ export const renderBitacoraStateCountBar = (state: any) => {
   );
 };
 
+export const renderStateCountBar = (state: any) => {
+  const render = state && Object.entries(state);
+  let registro_count = render && render[0];
+  return (
+    <div>
+      <Tooltip content="Total">
+        <span>Total: </span>
+      </Tooltip>
+      <span>{registro_count && registro_count[1]}</span>
+    </div>
+  );
+};
+
 export const handleStateCountBar = (entities: any) => {
-  console.log(entities);
+  const reduceEntities = entities.reduce((acc: any, _registro: any) => {
+    acc["Total"] = (acc["Total"] ?? 0) + 1;
+    return acc;
+  }, {});
+
+  return [reduceEntities];
 };

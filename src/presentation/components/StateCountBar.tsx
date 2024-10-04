@@ -3,21 +3,22 @@ import {
   handleStateCountBar,
   hanldeBitacoraStateCountBar,
   renderBitacoraStateCountBar,
+  renderStateCountBar,
 } from "../utils/stateBarCount_utils";
 
 export interface IStateCountBar {
   entities?: any;
-  entidad?: string;
+  idMenu?: any;
 }
 
 const StateCountBar: React.FC<IStateCountBar> = React.memo(
-  ({ entities, entidad }) => {
+  ({ entities, idMenu }) => {
     const [totalCountBar, setTotalCountBar] = React.useState([]);
 
     React.useEffect(() => {
       let result: any = [];
-      switch (entidad) {
-        case "Bitácora de OT ":
+      switch (idMenu) {
+        case 44:
           result = hanldeBitacoraStateCountBar(entities);
           setTotalCountBar(result);
           break;
@@ -37,7 +38,9 @@ const StateCountBar: React.FC<IStateCountBar> = React.memo(
             totalCountBar?.map((registro, index) => {
               return (
                 <div className={`h-[5vh] flex mr-4 mt-1 ml-4 `} key={index}>
-                  {renderBitacoraStateCountBar(registro)}
+                  {idMenu === 44
+                    ? renderBitacoraStateCountBar(registro)
+                    : renderStateCountBar(registro)}
                 </div>
               );
             })}

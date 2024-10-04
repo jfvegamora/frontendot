@@ -109,9 +109,12 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     const OTAreaActual = useAppSelector(
       (store: AppStore) => store.OTAreas.areaActual
     );
-    const [cilindrico, setCilindrico] = useState();
-    const [esferico, setEsferico] = useState();
-    const { control, handleSubmit, setValue } = useForm<IPrimaryKeyState>();
+    const [_cilindrico, setCilindrico] = useState();
+    const [_esferico, setEsferico] = useState();
+    const { control, handleSubmit, setValue, reset, getValues } =
+      useForm<IPrimaryKeyState>();
+    const formValues = getValues();
+
     const [inputValues, setInputValues] = useState<IPrimaryKeyState>({});
     const [cristalDescritpion, setCristalDescription] = useState(
       description || ""
@@ -125,6 +128,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
 
     const handleRefresh = React.useCallback(() => {
       titleSearch.value = "";
+      reset();
       const mapping = primaryKeyInputs.reduce(
         (acc: any, filtroBusqueda: any) => {
           acc[filtroBusqueda.name] = "";
@@ -190,14 +194,6 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     const handleSearch = async (data: any) => {
       const toastLoading = toast.loading("Buscando...");
 
-      if (baseUrl === "/api/othistorica/" || baseUrl === "/api/ot/") {
-        const filtersOT = Object.entries(data)
-          .filter((campos) => campos[1] !== "" && campos[1] !== undefined)
-          .map((campos: any) => `${campos[0]}=${campos[1]}`)
-          .join("&");
-        paramsOT.value = filtersOT;
-      }
-
       if ("_pCilindrico" in data || "_pEsferico" in data) {
         data = {
           ...data,
@@ -227,12 +223,11 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
         .filter((param) => param !== "")
         .join("&");
 
+      data && updateParams([searchParams]);
       if (idMenu === 7 && searchParams === "") {
         toast.dismiss(toastLoading);
         return toast.error("Ingrese al menos un filtro de busqueda.");
       }
-
-      data && updateParams([searchParams]);
 
       console.log(searchParams);
       console.log(data);
@@ -322,7 +317,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                               } !h-12 !mt-3 !mr-[0.8rem]`}
                               {...field}
                               label={input.label}
-                              value={esferico}
+                              value={formValues && formValues[input.name]}
+                              // value={esferico}
                               onChange={(e) => {
                                 field.onChange(e);
                                 handleInputChange("_pEsferico", e.target.value);
@@ -354,7 +350,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                               } !h-12 !mt-3`}
                               {...field}
                               label="Cilíndrico"
-                              value={cilindrico}
+                              // value={cilindrico}
+                              value={formValues && formValues[input.name]}
                               onChange={(e) => {
                                 field.onChange(e);
                                 handleInputChange(
@@ -405,7 +402,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                                 {...field}
                                 type={input.type}
                                 // label={input.label}
-                                value={inputValues[input.name]}
+                                value={formValues && formValues[input.name]}
                                 onChange={(e) => {
                                   field.onChange(e);
                                   changeFilterSearchTitle(e, input?.label);
@@ -435,6 +432,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                         entidad={
                           input._p1 ? [input.tipos, input._p1] : input.tipos
                         }
+                        data={formValues && formValues[input.name]}
                         inputName={input.name}
                         inputValues={inputValues}
                         setHandleSearch={handleSearch}
@@ -460,7 +458,10 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                             : [input.selectUrl, "02"]
                         }
                         inputName={input.name}
-                        data={input.data}
+                        data={
+                          (formValues && formValues[input.name]) || input.data
+                        }
+                        idMenu={idMenu}
                         inputValues={inputValues}
                         setHandleSearch={handleSearch}
                         handleSelectChange={handleSelectChange}
@@ -539,6 +540,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                     control={control}
                     label={input.label}
                     name={input.name}
+                    data={formValues && formValues[input.name]}
                     options={input.options as any}
                     horizontal={true}
                     onChange={(e: any) => {
@@ -579,7 +581,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                           {...field}
                           type={input.type}
                           // label={input.label}
-                          value={inputValues[input.name]}
+                          value={formValues && formValues[input.name]}
                           onChange={(e) => {
                             field.onChange(e);
                             changeFilterSearchTitle(e, input?.label);
@@ -597,7 +599,7 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
           ))}
         </div>
       ));
-    }, []);
+    }, [inputValues, formValues]);
 
     React.useEffect(() => {
       filterSearchTitle.value = {};

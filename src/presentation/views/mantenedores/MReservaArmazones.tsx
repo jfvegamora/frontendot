@@ -12,6 +12,7 @@ import {
 import { table_head_reserva_armazones, TITLES } from "../../utils";
 import { ReservaArmazonesEnum } from "../../Enums";
 import FReservarArmazonesWeb from "../forms/FReservarArmazonesWeb";
+import StateCountBar from "../../components/StateCountBar";
 
 const strEntidad = "Reserva de Armazones ";
 const strEntidadExcel = "Reserva_Armazones";
@@ -21,7 +22,7 @@ const idMenu = 42;
 
 const MReservaArmazones: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -31,14 +32,14 @@ const MReservaArmazones: React.FC = () => {
     //entities state
     entities,
     setEntities,
-      entity,
+    entity,
     //modal methods
-      isModalInsert,
-      isModalEdit,
+    isModalInsert,
+    isModalEdit,
     toggleEditModal,
     toggleModalCopiar,
     openModal,
-      closeModal,
+    closeModal,
     //Check methods
     handleSelect,
     selectedRows,
@@ -166,7 +167,6 @@ const MReservaArmazones: React.FC = () => {
                   labelProps: "labelInput",
                 },
               },
-
             ]}
             classNameSearchButton=" translate-x-[24vw] translate-y-[2.1vw]  z-30"
           />
@@ -194,7 +194,7 @@ const MReservaArmazones: React.FC = () => {
         </div>
       </div>
 
-      <div className="width100 scroll">
+      <div className="width100 overflow-y-auto h-[30vw]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -214,37 +214,36 @@ const MReservaArmazones: React.FC = () => {
           leftEdit={true}
         />
       </div>
+      <StateCountBar entities={entities} idMenu={idMenu} />
 
       <Suspense>
-          {isModalInsert && (
-            <FReservarArmazonesWeb
-              label={`${TITLES.ingreso} ${strEntidad}`}
-              closeModal={closeModal}
-              selectedRows={selectedRows}
-              setEntities={setEntities}
-              params={params}
-              isEditting={false}
-              escritura_lectura={escritura_lectura}
-              />
-          )}
-    
-          {isModalEdit && (
-            <FReservarArmazonesWeb
-              label={`${TITLES.edicion} ${strEntidad}`}
-              selectedRows={selectedRows}
-              setEntities={setEntities}
-              params={params}
-              data={entity}
-              closeModal={closeModal}
-              isEditting={true}
-              escritura_lectura={escritura_lectura}
-              />
-          )}
-        </Suspense>
+        {isModalInsert && (
+          <FReservarArmazonesWeb
+            label={`${TITLES.ingreso} ${strEntidad}`}
+            closeModal={closeModal}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            isEditting={false}
+            escritura_lectura={escritura_lectura}
+          />
+        )}
 
+        {isModalEdit && (
+          <FReservarArmazonesWeb
+            label={`${TITLES.edicion} ${strEntidad}`}
+            selectedRows={selectedRows}
+            setEntities={setEntities}
+            params={params}
+            data={entity}
+            closeModal={closeModal}
+            isEditting={true}
+            escritura_lectura={escritura_lectura}
+          />
+        )}
+      </Suspense>
     </div>
   );
-
 };
 
 export default MReservaArmazones;

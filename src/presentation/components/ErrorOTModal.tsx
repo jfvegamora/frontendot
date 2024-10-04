@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-// import { SubmitHandler, useForm } from 'react-hook-form';
-// import { SEXO, TIPO_CLIENTE } from '../../utils';
-// import { Button } from '@material-tailwind/react';
 import { valueSearchOT } from "./OTPrimaryButtons";
-import { EnumGrid } from "../views/mantenedores/MOTHistorica";
+import {
+  renderDataModalErrorOT,
+  renderTitleOTErrorModal,
+} from "../utils/errorOTModal_utils";
 
 interface IDerivacion {
   data?: any;
@@ -11,16 +11,12 @@ interface IDerivacion {
   formValues?: any;
   closeModal?: any;
   valueConfirmOT?: any;
+  caseUso?: any;
 }
 
-const ErrorOTModal: React.FC<IDerivacion> = ({
-  data,
-  onClose,
-  valueConfirmOT,
-  // formValues,
-  // closeModal,
-  // formValues
-}) => {
+const ErrorOTModal: React.FC<IDerivacion> = ({ data, onClose, caseUso }) => {
+  const [backgroundColor, setBackgroundColor] = React.useState("");
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -36,37 +32,58 @@ const ErrorOTModal: React.FC<IDerivacion> = ({
     };
   }, [onClose]);
 
-  // console.log(data)
-  // console.log(data.length)
+  React.useEffect(() => {
+    switch (caseUso) {
+      case "Cristales":
+        setBackgroundColor("!bg-yellow-600");
+        break;
+      case "SearchOT":
+        setBackgroundColor("!bg-red-500");
+        break;
+      default:
+        break;
+    }
+  }, []);
+
+  if (backgroundColor === "") {
+    return null;
+  }
 
   return (
-    <div className="useFormContainer useFormDerivacion centered-div use40rem z-30 !bg-red-500">
+    <div
+      className={`useFormContainer useFormDerivacion centered-div  use40rem z-30 ${backgroundColor}`}
+    >
       <div className="userFormBtnCloseContainer flex ">
-        <div className="w-[50%] mx-auto !text-center  ">
-          <h1 className="userFormLabel mx-auto  w-full ml-4 ">
-            OT NO ENCONTRADA
+        <div className="w-[80%] mx-auto !text-center mt-2 ">
+          <h1
+            className={` mx-auto   w-full ml-4 !text-5xl ${
+              caseUso === "Cristales" ? "!text-[#424769]" : "!text-white"
+            }`}
+          >
+            ADVERTENCIA
+          </h1>
+          <h1
+            className={` mx-auto   w-full ml-4 !text-3xl ${
+              caseUso === "Cristales" ? "!text-[#424769]" : "!text-white"
+            }`}
+          >
+            {renderTitleOTErrorModal(caseUso)}
           </h1>
         </div>
+
         <div className="mr-8">
-          <button onClick={onClose} className="userFormBtnClose">
+          <button
+            onClick={onClose}
+            className={`userFormBtnClose translate-y-[-2rem] ${
+              caseUso === "Cristales" ? "!text-[#424769]" : ""
+            } `}
+          >
             X
           </button>
         </div>
       </div>
-
-      <div className="h-[20rem] text-center">
-        {data && data.length > 0 ? (
-          <div>
-            <h1>AREA ACTUAL : {data && data[0][EnumGrid.area]}</h1>
-            <h1>FOLIO : {data && data[0][EnumGrid.folio]}</h1>
-            <h1>ESTADO : {data && data[0][EnumGrid.estado]}</h1>
-          </div>
-        ) : (
-          <div>
-            <h1>OT NO EXISTE </h1>
-            <h1>FOLIO : {valueConfirmOT || ""}</h1>
-          </div>
-        )}
+      <div className="h-[20rem] text-center w-[100%] mx-auto text-3xl">
+        {renderDataModalErrorOT(caseUso, data)}
       </div>
     </div>
   );

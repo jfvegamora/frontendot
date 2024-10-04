@@ -11,6 +11,7 @@ import {
 import { useEntityUtils, usePermission } from "../../hooks";
 import FEmpresas from "../forms/FEmpresas";
 import { TITLES, table_head_empresas } from "../../utils";
+import StateCountBar from "../../components/StateCountBar";
 
 export enum EnumGrid {
   id = 1,
@@ -30,10 +31,9 @@ const strBaseUrl = "/api/empresas/";
 const strQuery = "01";
 const idMenu = 27;
 
-
 const MEmpresas: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -60,12 +60,14 @@ const MEmpresas: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
-  
-  useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.id]}`);
-    const combinedPks = newPkToDelete.join(',');
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_p1"; // _p3/_p1/_pkToDelete
+
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map(
+      (row: number) => `${entities[row][EnumGrid.id]}`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
@@ -79,23 +81,30 @@ const MEmpresas: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p1", label: "RUT", type: "text", 
-                styles:{
+              {
+                name: "_p1",
+                label: "RUT",
+                type: "text",
+                styles: {
                   with: "labelInput inputStyles w-full",
-                  container:"!w-[10vw]  text-[1vw] ", 
-                  labelProps: "labelInput"
-                }, },
-              { name: "_p3", label: "Nombre", type: "text", 
-                styles:{
+                  container: "!w-[10vw]  text-[1vw] ",
+                  labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_p3",
+                label: "Nombre",
+                type: "text",
+                styles: {
                   with: "labelInput inputStyles w-full",
-                  container:"!w-[20vw]  text-[1vw] -translate-x-[2vw]", 
-                  labelProps: "labelInput"
-                }, },
+                  container: "!w-[20vw]  text-[1vw] -translate-x-[2vw]",
+                  labelProps: "labelInput",
+                },
+              },
             ]}
             classNameSearchButton=" translate-x-[12vw]"
           />
         </div>
-
 
         <div className="w-[15%]">
           <PrimaryButtonsComponent
@@ -113,12 +122,8 @@ const MEmpresas: React.FC = () => {
             showRefreshButton={true}
             idMenu={idMenu}
             classname={"translate-x-[18vw]"}
-
           />
-
-
         </div>
-
       </div>
 
       <div className="width90 scroll">
@@ -138,8 +143,8 @@ const MEmpresas: React.FC = () => {
           leftEdit={true}
         />
       </div>
+      <StateCountBar entities={entities} idMenu={idMenu} />
 
-   
       {isModalInsert && (
         <FEmpresas
           label={`${TITLES.ingreso} ${strEntidad}`}

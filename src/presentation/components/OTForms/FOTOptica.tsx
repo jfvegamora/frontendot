@@ -254,6 +254,17 @@ const FOTOptica: React.FC<IOptica> = ({
     };
   }, []); //
 
+  console.log(
+    isEditting &&
+      permiso_usuario_workTracking &&
+      permisos_usuario_areas &&
+      permiso_area_worktraking
+  );
+
+  console.log(permiso_usuario_workTracking);
+  console.log(permisos_usuario_areas);
+  console.log(permiso_area_worktraking);
+
   return (
     <form action="" onKeyDown={handleKeyDown} className="  h-[85vh] ">
       <div className="frameOTForm !h-[85vh]">

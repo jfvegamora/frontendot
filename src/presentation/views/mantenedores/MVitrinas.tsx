@@ -11,6 +11,7 @@ import {
 import { useEntityUtils, usePermission } from "../../hooks";
 import FVitrinas from "../forms/FVitrinas";
 import { TITLES, table_head_vitrinas } from "../../utils";
+import StateCountBar from "../../components/StateCountBar";
 
 export enum EnumGrid {
   id = 1,
@@ -122,7 +123,7 @@ const MVitrinas: React.FC = () => {
         </div>
       </div>
 
-      <div className="width70 scroll">
+      <div className="width70 overflow-y-auto h-[30vw]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -140,6 +141,7 @@ const MVitrinas: React.FC = () => {
           leftEdit={true}
         />
       </div>
+      <StateCountBar entities={entities} idMenu={idMenu} />
 
       {isModalInsert && (
         <FVitrinas

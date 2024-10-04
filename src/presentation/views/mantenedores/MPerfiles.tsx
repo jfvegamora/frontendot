@@ -11,6 +11,7 @@ import {
 import { useEntityUtils, usePermission } from "../../hooks";
 import { TITLES, table_head_perfiles } from "../../utils";
 import FPerfiles from "../forms/FPerfiles";
+import StateCountBar from "../../components/StateCountBar";
 
 export enum EnumGrid {
   id = 0,
@@ -126,7 +127,7 @@ const MPerfiles: React.FC = () => {
         </div>
       </div>
 
-      <div className="width70 scroll">
+      <div className="width70 overflow-y-auto h-[30vw]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -144,6 +145,8 @@ const MPerfiles: React.FC = () => {
           leftEdit={true}
         />
       </div>
+
+      <StateCountBar entities={entities} idMenu={idMenu} />
 
       {isModalInsert && (
         <FPerfiles

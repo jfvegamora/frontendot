@@ -331,12 +331,12 @@ const MOT: React.FC = () => {
         label: "Atención Hasta",
         type: "date",
         styles: {
-          styles: "labelInput inputStyles",
+          styles: "labelInput !w-[15vw]  inputStyles",
           container: "",
         },
       },
       {
-        name: "_JSONArmazon",
+        name: "_cod_armazon",
         label: "Armazon",
         type: "text",
         styles: {
@@ -346,7 +346,7 @@ const MOT: React.FC = () => {
         },
       },
       {
-        name: "_JSONCristal",
+        name: "_cod_cristal",
         label: "Cristal",
         type: "text",
         styles: {
@@ -372,11 +372,30 @@ const MOT: React.FC = () => {
         type: "select",
         selectUrl: "/api/usuarios/",
         styles: {
-          styles: "inputStyles labelInput",
+          styles: "!w-[17vw] inputStyles labelInput",
           container: "",
         },
       },
-
+      {
+        name: "atrasadas",
+        label: "Atrasadas",
+        type: "switch",
+        styles: {
+          with: "labelInput inputStyles !w-[8vw]",
+          container: " ",
+          labelProps: "labelInput",
+        },
+      },
+      {
+        name: "_proyecto",
+        label: "Proyecto",
+        type: "select",
+        selectUrl: "/api/proyectos/",
+        styles: {
+          styles: "!w-[17vw] labelInput inputStyles",
+          container: "",
+        },
+      },
       {
         name: "_estado",
         label: "Estado",
@@ -390,6 +409,17 @@ const MOT: React.FC = () => {
         },
       },
       {
+        name: "_ubicacion",
+        label: "Ubicación",
+        type: "text",
+        styles: {
+          with: "!w-[15vw] labelInput inputStyles",
+          container: "",
+          labelProps: "labelInput",
+        },
+      },
+
+      {
         name: "_motivo",
         label: "Motivo",
         type: "select",
@@ -397,28 +427,6 @@ const MOT: React.FC = () => {
         tipos: "OTMotivo",
         styles: {
           styles: "!w-[17vw] labelInput inputStyles",
-          container: "",
-          labelProps: "labelInput",
-        },
-      },
-
-      {
-        name: "_proyecto",
-        label: "Proyecto",
-        type: "select",
-        selectUrl: "/api/proyectos/",
-        styles: {
-          styles: "!w-[17vw] labelInput inputStyles",
-          container: "",
-        },
-      },
-
-      {
-        name: "_ubicacion",
-        label: "Ubicación",
-        type: "text",
-        styles: {
-          with: "!w-[15vw] labelInput inputStyles",
           container: "",
           labelProps: "labelInput",
         },
@@ -756,6 +764,7 @@ const MOT: React.FC = () => {
             params={params}
             isEditting={false}
             isMOT={false}
+            idMenu={idMenu}
           />
         )}
 
@@ -770,6 +779,7 @@ const MOT: React.FC = () => {
             isEditting={true}
             onlyRead={lectura}
             isMOT={false}
+            idMenu={idMenu}
           />
         )}
       </Suspense>

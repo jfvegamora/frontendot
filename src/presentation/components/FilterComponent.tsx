@@ -118,6 +118,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
       console.log("render");
       titleOTSearch.value = "";
       reset();
+      console.log(formValues);
       const mapping = primaryKeyInputs.reduce(
         (acc: any, filtroBusqueda: any) => {
           acc[filtroBusqueda.name] = "";
@@ -215,6 +216,7 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
         .join("&");
 
       data && updateParams([searchParams]);
+
       try {
         const response = otHistorica
           ? dispatch(
@@ -488,8 +490,6 @@ const FilterComponent: React.FC<PrimaryKeySearchProps> = React.memo(
                           switchAtrasadas.value = false;
                           titleOTSearch.value = "Sistema Gestión OT";
                           document.title = "Sistema Gestión OT";
-                          console.log("render");
-                          console.log(OTAreaActual);
                           dispatch(
                             fetchOT({
                               OTAreas: OTAreaActual,

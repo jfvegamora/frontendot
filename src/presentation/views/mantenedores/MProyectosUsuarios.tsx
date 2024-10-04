@@ -12,6 +12,7 @@ import { useEntityUtils, usePermission } from "../../hooks";
 import { TITLES, table_head_proyectos_usuarios } from "../../utils";
 import FProyectosUsuarios from "../forms/FProyectosUsuarios";
 import FProyectosUsuariosCopiar from "../forms/FProyectosUsuariosCopiar";
+import StateCountBar from "../../components/StateCountBar";
 
 export enum EnumGrid {
   codigo_proyecto = 1,
@@ -146,7 +147,7 @@ const MProyectosUsuarios: React.FC = () => {
         </div>
       </div>
 
-      <div className="width90 scroll">
+      <div className="width90 overflow-y-auto h-[30vw]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -164,6 +165,8 @@ const MProyectosUsuarios: React.FC = () => {
           leftEdit={true}
         />
       </div>
+
+      <StateCountBar entities={entities} idMenu={idMenu} />
 
       {isModalInsert && (
         <FProyectosUsuarios

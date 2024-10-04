@@ -12,6 +12,7 @@ import {
 import { TITLES, table_head_proyectos_grupos } from "../../utils";
 import FProyectosGrupos from "../forms/FProyectosGrupos";
 import FProyectosCristalesCopiar from "../forms/FProyectosCristalesCopiar";
+import StateCountBar from "../../components/StateCountBar";
 
 const strEntidad = "Parametrización de Cristales ";
 const strEntidadExcel = "Parametrizacion_de_Cristales";
@@ -166,7 +167,9 @@ const MProyectosCristales: React.FC = () => {
         </div>
       </div>
 
-      <div className="width100 scroll">
+      <StateCountBar entities={entities} idMenu={idMenu} />
+
+      <div className="width100 overflow-y-auto h-[30vw]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

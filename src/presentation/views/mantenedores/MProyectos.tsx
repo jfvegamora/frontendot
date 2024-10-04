@@ -11,6 +11,7 @@ import {
 import { useEntityUtils, usePermission } from "../../hooks";
 import { TITLES, table_head_proyectos } from "../../utils";
 import FProyectos from "../forms/FProyectos";
+import StateCountBar from "../../components/StateCountBar";
 
 export enum EnumGrid {
   CODIGO = 1,
@@ -120,8 +121,6 @@ const MProyectos: React.FC = () => {
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
 
-  console.log(escritura_lectura);
-  console.log(table_head_proyectos);
   const newTableHead = useMemo(() => {
     console.log("render");
     return table_head_proyectos.map((column: any) => {
@@ -151,8 +150,6 @@ const MProyectos: React.FC = () => {
       return column;
     });
   }, [escritura_lectura]);
-
-  console.log(newTableHead);
 
   return (
     <div className="mantenedorContainer">
@@ -233,7 +230,7 @@ const MProyectos: React.FC = () => {
         </div>
       </div>
 
-      <div className="width100 scroll">
+      <div className="width100 overflow-y-auto h-[30vw]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -251,6 +248,8 @@ const MProyectos: React.FC = () => {
           leftEdit={true}
         />
       </div>
+
+      <StateCountBar entities={entities} idMenu={idMenu} />
 
       {isModalInsert && (
         <FProyectos

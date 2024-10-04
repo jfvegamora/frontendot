@@ -11,6 +11,7 @@ import {
 import { useEntityUtils, usePermission } from "../../hooks";
 import FMandantes from "../forms/FMandantes";
 import { TITLES, table_head_mandantes } from "../../utils";
+import StateCountBar from "../../components/StateCountBar";
 
 export enum EnumGrid {
   codigo = 1,
@@ -32,7 +33,7 @@ const idMenu = 14;
 
 const MMandantes: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura} = usePermission(idMenu || 0 );
+  const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -59,12 +60,14 @@ const MMandantes: React.FC = () => {
     resetEntities,
   } = useEntityUtils(strBaseUrl, strQuery);
 
-  const [pkToDelete, setPkToDelete] = useState<string[]>([])
-  const strParamsToDelete = '_p1' // _p3/_p1/_pkToDelete
-  
-  useEffect(() => {    
-    const newPkToDelete = selectedRows.map((row: number) => `${entities[row][EnumGrid.codigo]}`);
-    const combinedPks = newPkToDelete.join(',');
+  const [pkToDelete, setPkToDelete] = useState<string[]>([]);
+  const strParamsToDelete = "_p1"; // _p3/_p1/_pkToDelete
+
+  useEffect(() => {
+    const newPkToDelete = selectedRows.map(
+      (row: number) => `${entities[row][EnumGrid.codigo]}`
+    );
+    const combinedPks = newPkToDelete.join(",");
 
     setPkToDelete([`${strParamsToDelete}=${combinedPks}`]);
   }, [selectedRows]);
@@ -78,45 +81,53 @@ const MMandantes: React.FC = () => {
             updateParams={updateParams}
             setEntities={setEntities}
             primaryKeyInputs={[
-              { name: "_p2", label: "Código", type: "number", 
-                styles:{
+              {
+                name: "_p2",
+                label: "Código",
+                type: "number",
+                styles: {
                   with: "labelInput inputStyles w-full",
-                  container:"w-[15vw] !text-[2vw] ", 
-                  labelProps: "labelInput"
-                }, },
-              { name: "_p1", label: "Nombre", type: "text", 
-                styles:{
+                  container: "w-[15vw] !text-[2vw] ",
+                  labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_p1",
+                label: "Nombre",
+                type: "text",
+                styles: {
                   with: "labelInput inputStyles w-full",
-                  container:"w-[35vw] !text-[2vw]", 
-                  labelProps: "labelInput"
-                }, },
+                  container: "w-[35vw] !text-[2vw]",
+                  labelProps: "labelInput",
+                },
+              },
             ]}
             classNameSearchButton=" translate-x-[7vw]"
           />
         </div>
 
-          <div className="w-[20%]">
-            <PrimaryButtonsComponent
-              handleAddPerson={openModal}
-              handleDeleteSelected={handleDeleteSelected}
-              handleRefresh={resetEntities}
-              params={params}
-              pkToDelete={pkToDelete}
-              strEntidad={strEntidadExcel}
-              strBaseUrl={strBaseUrl}
-              showAddButton={true}
-              showExportButton={true}
-              showDeleteButton={true}
-              showForwardButton={false}
-              showRefreshButton={true}
-              comilla={false}
-              idMenu={idMenu}
-              classname={"translate-x-[12vw]"}
-            />
-          </div>
+        <div className="w-[20%]">
+          <PrimaryButtonsComponent
+            handleAddPerson={openModal}
+            handleDeleteSelected={handleDeleteSelected}
+            handleRefresh={resetEntities}
+            params={params}
+            pkToDelete={pkToDelete}
+            strEntidad={strEntidadExcel}
+            strBaseUrl={strBaseUrl}
+            showAddButton={true}
+            showExportButton={true}
+            showDeleteButton={true}
+            showForwardButton={false}
+            showRefreshButton={true}
+            comilla={false}
+            idMenu={idMenu}
+            classname={"translate-x-[12vw]"}
+          />
+        </div>
       </div>
 
-      <div className="width100 scroll">
+      <div className="width100 overflow-y-auto h-[30vw]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -135,7 +146,8 @@ const MMandantes: React.FC = () => {
         />
       </div>
 
-      
+      <StateCountBar entities={entities} idMenu={idMenu} />
+
       {isModalInsert && (
         <FMandantes
           label={`${TITLES.ingreso} ${strEntidad}`}
