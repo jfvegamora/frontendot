@@ -433,6 +433,18 @@ const MOT: React.FC = () => {
       },
 
       {
+        name: "_establecimiento",
+        label: "Establecimiento",
+        type: "select",
+        selectUrl: "/api/establecimientos/",
+        styles: {
+          styles: "!w-[17vw] labelInput inputStyles",
+          container: "",
+          labelProps: "labelInput",
+        },
+      },
+      
+      {
         name: "_p2",
         label: "Tipo Doc",
         type: "select",
@@ -465,17 +477,6 @@ const MOT: React.FC = () => {
         },
       },
 
-      {
-        name: "_establecimiento",
-        label: "Establecimiento",
-        type: "select",
-        selectUrl: "/api/establecimientos/",
-        styles: {
-          styles: "!w-[17vw] labelInput inputStyles",
-          container: "",
-          labelProps: "labelInput",
-        },
-      },
       {
         name: "_comuna",
         label: "Comuna",
