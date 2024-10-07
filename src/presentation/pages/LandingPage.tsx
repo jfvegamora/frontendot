@@ -281,7 +281,7 @@ const LandingPage: React.FC = () => {
             Bienvenido {user.nombre} al Sistema Gestión de OT.
           </h1>
         )} */}
-        <div className="!h-[40vw] overflow-y-scroll">
+        <div className="!h-[40vw] overflow-y-scroll ">
           <TablePizarra />
         </div>
 

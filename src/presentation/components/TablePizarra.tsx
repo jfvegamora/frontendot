@@ -19,18 +19,30 @@ const dataOnClick = signal({
   paramsOT: "",
 });
 
+const enumPizarra = {
+  "Reporte Atencion": 0,
+  "Total de Trabajos": 1,
+  "Fecha de Entrega": 2,
+  "Area ID": 3,
+  Area: 4,
+  "Estado ID": 5,
+};
+
 export const reduceDataPizarra = (data: any) => {
   return data.reduce((acc: any, registro: any) => {
-    let area = registro[0];
-    let estado = registro[1];
-    let reporteAtencion = registro[2];
-    let conteoOT = registro[3];
-    let areaID = registro[4];
+    console.log(registro);
+    let area = registro[enumPizarra["Area"]];
+    let estado = registro[enumPizarra["Estado ID"]];
+    let reporteAtencion = registro[enumPizarra["Reporte Atencion"]];
+    let conteoOT = registro[enumPizarra["Total de Trabajos"]];
+    let areaID = registro[enumPizarra["Area ID"]];
+    let fechaEntrega = registro[enumPizarra["Fecha de Entrega"]];
 
     if (!acc[reporteAtencion]) {
       acc[reporteAtencion] = {
         totalOT: 0,
         reporteAtencion,
+        fechaEntrega,
       };
     }
 
@@ -50,7 +62,7 @@ export const reduceDataPizarra = (data: any) => {
     acc[reporteAtencion][area][estado] = conteoOT;
 
     acc[reporteAtencion].totalOT += conteoOT;
-
+    console.log(acc);
     return acc;
   }, {});
 };
@@ -94,14 +106,15 @@ export const switchDataPizarra = (
   data: any,
   reporteAtencion: string
 ) => {
+  console.log(data);
   return (
     data &&
     Object.entries(data).map(([key, value], index) => {
       // let procesadas = [];
       return (
         <div key={index} className="items-center w-full  !flex !justify-around">
-          {key === "total" ? (
-            <Tooltip content="Total">
+          {key === "fechaEntrega" ? (
+            <Tooltip content="fechaEntrega">
               <div className="rounded-full border border-black w-[70%]">{`${value}`}</div>
             </Tooltip>
           ) : key === "10" ? (
@@ -272,29 +285,67 @@ export const renderAreaReduce = (area: string, data: any) => {
 };
 
 export const renderTbodyPizarraData = (data: any) => {
+  console.log(data);
+
+  const ordersArray = Object.entries(data).map(([key, value]: any) => ({
+    key,
+    ...value,
+  }));
+
+  const ObjectEntries = ordersArray.sort(
+    (a: any, b: any) =>
+      (new Date(a.fechaEntrega) as any) - (new Date(b.fechaEntrega) as any)
+  );
+  const finalArray = ObjectEntries.map(({ key, ...rest }) => [key, rest]);
+
+  console.log(ObjectEntries);
+  console.log(finalArray);
+
+  console.log(Object.entries(data));
+
   return (
     data &&
-    Object.entries(data).map((registro: any) => (
-      <tr className="!text-black" key={registro[0]}>
-        <td className="text-black">{registro[0]}</td>
-        {/* <td className="text-black">{registro[1]}</td> */}
+    finalArray.map((registro: any) => {
+      // ObjectEntries?.map((registro: any) => {
+      console.log(registro);
+      console.log(registro[1]);
+      return (
+        <tr className="!text-black" key={registro[0]}>
+          <td className="text-black">{registro[0]}</td>
+          {/* <td className="text-black">{registro[1]}</td> */}
 
-        {renderAreaReduce("totalOT", registro[1])}
-        {renderAreaReduce("Resolución", registro[1])}
-        {renderAreaReduce("Compras", registro[1])}
-        {renderAreaReduce("Cálculo", registro[1])}
-        {renderAreaReduce("Lab.", registro[1])}
-        {renderAreaReduce("Ingreso", registro[1])}
-        {renderAreaReduce("Control Prod.", registro[1])}
-        {renderAreaReduce("Bodega Insumos", registro[1])}
-        {renderAreaReduce("Taller Biselado 1", registro[1])}
-        {renderAreaReduce("Taller Biselado 2", registro[1])}
-        {renderAreaReduce("Taller Montaje", registro[1])}
-        {renderAreaReduce("Control Calidad", registro[1])}
-        {renderAreaReduce("Bod. Prod. Terminados", registro[1])}
-        {renderAreaReduce("Empaque", registro[1])}
-      </tr>
-    ))
+          {renderAreaReduce("totalOT", registro[1])}
+          {/* {renderAreaReduce("Resolución", registro[1])}
+          {renderAreaReduce("Compras", registro[1])}
+          {renderAreaReduce("Cálculo", registro[1])}
+          {renderAreaReduce("Lab.", registro[1])}
+          {renderAreaReduce("Ingreso", registro[1])}
+          {renderAreaReduce("Control Prod.", registro[1])}
+          {renderAreaReduce("Bodega Insumos", registro[1])}
+          {renderAreaReduce("Taller Biselado 1", registro[1])}
+          {renderAreaReduce("Taller Biselado 2", registro[1])}
+          {renderAreaReduce("Taller Montaje", registro[1])}
+          {renderAreaReduce("Control Calidad", registro[1])}
+          {renderAreaReduce("Bod. Prod. Terminados", registro[1])}
+          {renderAreaReduce("Empaque", registro[1])} */}
+
+          <td className="text-black">{registro[1]["fechaEntrega"]}</td>
+          {renderAreaReduce("Ingreso", registro[1])}
+          {renderAreaReduce("Control Prod.", registro[1])}
+          {renderAreaReduce("Bodega Insumos", registro[1])}
+          {renderAreaReduce("Taller Biselado 1", registro[1])}
+          {renderAreaReduce("Taller Biselado 2", registro[1])}
+          {renderAreaReduce("Taller Montaje", registro[1])}
+          {renderAreaReduce("Control Calidad", registro[1])}
+          {renderAreaReduce("Bod. Prod. Terminados", registro[1])}
+          {renderAreaReduce("Empaque", registro[1])}
+          {renderAreaReduce("Resolución", registro[1])}
+          {renderAreaReduce("Compras", registro[1])}
+          {renderAreaReduce("Cálculo", registro[1])}
+          {renderAreaReduce("Lab.", registro[1])}
+        </tr>
+      );
+    })
   );
 };
 
@@ -308,7 +359,9 @@ const TablePizarra: React.FC = () => {
         // "https://gestionprod.mtoopticos.cl/api/proyectopizarra/listado/?query=01"
         `${URLBackend}/api/proyectopizarra/listado/?query=01`
       );
+      console.log(data);
       const reduceData = reduceDataPizarra(data);
+      console.log(reduceData);
       setDataTable(reduceData);
     } catch (error) {
       console.log(error);
