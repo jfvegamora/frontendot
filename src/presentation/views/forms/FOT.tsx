@@ -231,6 +231,7 @@ const FOT: React.FC<IFOTProps> = ({
   isMOT,
   onlyRead,
   permisos_ot_historica,
+  idMenu,
 }) => {
   //Estados locales
   const { control, handleSubmit, setValue, register, getValues } = useForm<any>(
@@ -2157,6 +2158,7 @@ const FOT: React.FC<IFOTProps> = ({
                   data?.[EnumGrid.area_id] === 110 &&
                   permiso_usuario_btn_anular
                 : permiso_usuario_btn_anular &&
+                  idMenu !== 200 &&
                   OTPermissions[PermisosBotones.anular] === "1") && (
                 // sumatoriaNivel1 === validationNivel1.value.length && (
                 // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) &&

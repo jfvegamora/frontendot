@@ -17,7 +17,8 @@ import {
 import { IconButton, Tooltip } from "@material-tailwind/react";
 import { FaRegFileLines } from "react-icons/fa6";
 import JsBarcode from "jsbarcode";
-import { AppStore, useAppSelector } from "../../redux/store";
+// import { AppStore, useAppSelector } from "../../redux/store";
+import TablePizarra from "../components/TablePizarra";
 // import FOTValidateCristales from "../views/forms/FOTValidateCristales";
 // import FOTValidateCristales from "../views/forms/FOTValidateCristales";
 // import FOTValidateCristales from "../views/forms/FOTValidateCristales";
@@ -158,7 +159,7 @@ const LandingPage: React.FC = () => {
 
   const [barcodes, setBarcodes] = React.useState<string[]>([]);
 
-  const user = useAppSelector((appStore: AppStore) => appStore.user);
+  // const user = useAppSelector((appStore: AppStore) => appStore.user);
 
   React.useEffect(() => {
     // Genera el código de barras para cada valor de la lista
@@ -238,7 +239,7 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="mantenedorContainer !h-[80rem]">
-      <div className="mt-8 h-full w-fullpt-20">
+      <div className="mt-8 h-full w-fullpt-20 overflow-x-scroll">
         {/* <button onClick={()=>handleAdd()}>Agregar</button> */}
         {/* <button onClick={()=>handleGet()}>GET DATOS</button> */}
         {/* <Link to={"google.com"}>Link</Link> */}
@@ -275,11 +276,14 @@ const LandingPage: React.FC = () => {
       >Enviar Mensaje</button>
 
       </div>  */}
-        {user && (
+        {/* {user && (
           <h1 className="text-base mx-auto  w-[25%] mt-20 font-body">
             Bienvenido {user.nombre} al Sistema Gestión de OT.
           </h1>
-        )}
+        )} */}
+        <div className="!h-[40vw] overflow-y-scroll">
+          <TablePizarra />
+        </div>
 
         {/* <FOTValidateCristales /> */}
         {/* <WhastappForm/> */}

@@ -1,9 +1,10 @@
 export enum OTAreasEnum {
-  "Control" = 10,
-  "Adquisiciones" = 20,
+  "Resolucion" = 10,
+  "Compras " = 20,
   "Cálculo" = 30,
   "Laboratorio" = 40,
-  "Ventas" = 50,
+  "Ingreso" = 50,
+  "Control de Producción" = 55,
   "Bodega Insumos" = 60,
   "Taller Biselado 1" = 70,
   "Taller Biselado 2" = 75,

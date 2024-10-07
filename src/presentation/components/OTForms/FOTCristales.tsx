@@ -747,7 +747,7 @@ const FOTCristales: React.FC<ICristales> = ({
                   </div>
 
                   <div className="w-[50%] flex ">
-                    <div className=" w-full my-2">
+                    <div className=" w-full my-2 labelInput">
                       <SelectInputTiposComponent
                         label="Índice"
                         name="cristal1_indice_oi_id"

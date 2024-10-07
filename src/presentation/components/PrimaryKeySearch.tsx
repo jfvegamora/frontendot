@@ -109,8 +109,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
     const OTAreaActual = useAppSelector(
       (store: AppStore) => store.OTAreas.areaActual
     );
-    const [_cilindrico, setCilindrico] = useState();
-    const [_esferico, setEsferico] = useState();
+    const [cilindrico, setCilindrico] = useState();
+    const [esferico, setEsferico] = useState();
     const { control, handleSubmit, setValue, reset, getValues } =
       useForm<IPrimaryKeyState>();
     const formValues = getValues();
@@ -317,8 +317,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                               } !h-12 !mt-3 !mr-[0.8rem]`}
                               {...field}
                               label={input.label}
-                              value={formValues && formValues[input.name]}
-                              // value={esferico}
+                              // value={formValues && formValues[input.name]}
+                              value={esferico}
                               onChange={(e) => {
                                 field.onChange(e);
                                 handleInputChange("_pEsferico", e.target.value);
@@ -350,8 +350,8 @@ const PrimaryKeySearch: React.FC<PrimaryKeySearchProps> = React.memo(
                               } !h-12 !mt-3`}
                               {...field}
                               label="Cilíndrico"
-                              // value={cilindrico}
-                              value={formValues && formValues[input.name]}
+                              value={cilindrico}
+                              // value={formValues && formValues[input.name]}
                               onChange={(e) => {
                                 field.onChange(e);
                                 handleInputChange(
