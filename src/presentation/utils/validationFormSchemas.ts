@@ -169,26 +169,13 @@ export const validationReservaArmazonesSchema = (esRequeridoDP: boolean) =>
     // dp: yup.string().when("proyecto", (schema: any): any => {
     //   return esRequeridoDP === true ? schema.required(msg) : schema;
     // }),
-    dp_1: yup.string().test("is-required", `${msg}`, function (value) {
+    dp1: yup.string().test("is-required", `${msg}`, function (value) {
       if (esRequeridoDP) {
         return !!value;
       }
       return true;
     }),
-    // dp_2: yup.string().test({
-    //   test: function (value) {
-    //     const tipo_anteojo = this.resolve(yup.ref("tipo_anteojo"));
-    //     if (
-    //       (tipo_anteojo === "4" && !value) ||
-    //       (tipo_anteojo === "3" && !value) ||
-    //       (tipo_anteojo === "5" && !value)
-    //     ) {
-    //       return this.createError({ message: `${msg}` });
-    //     }
-    //     return true;
-    //   },
-    // }),
-    dp_2: yup.string(),
+    dp2: yup.string(),
     Armazon1: yup.string().required(`${msg}`),
     Armazon3: yup.string(),
     Armazon2: yup.string(),

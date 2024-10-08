@@ -26,8 +26,8 @@ export interface InputData {
   proyecto: string | undefined;
   punto_venta: string | undefined;
   rut_beneficiario: string | undefined;
-  dp_1: string | undefined;
-  dp_2: string | undefined;
+  dp1: string | undefined;
+  dp2: string | undefined;
   tipo_anteojo: string | undefined;
   Armazon1: string | undefined;
   Armazon3: string | undefined;
@@ -119,8 +119,8 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
         `proyecto="${jsonData.proyecto}"`,
         `punto_venta=${jsonData.punto_venta}`,
         `tipo_anteojo=${jsonData.tipo_anteojo}`,
-        ` dp1=${jsonData.dp_1}`,
-        ` dp2=${jsonData.dp_2}`,
+        ` dp1=${jsonData.dp1}`,
+        ` dp2=${jsonData.dp2 || 0}`,
         ` armazon_1="${jsonData.Armazon1}"`,
         ` armazon_2="${jsonData.Armazon2}"`,
         ` armazon_3="${jsonData.Armazon3}"`,
@@ -356,10 +356,10 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
                   <TextInputComponent
                     type="number"
                     label="DP1"
-                    name="dp_1"
+                    name="dp1"
                     data={data && data[ReservaArmazonesEnum.dp1]}
                     control={control}
-                    error={errors.dp_1}
+                    error={errors.dp1}
                     textAlign="text-right"
                     customWidth={"labelInput inputStyles"}
                   />
@@ -370,10 +370,10 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
                   <TextInputComponent
                     type="number"
                     label="DP2"
-                    name="dp_2"
+                    name="dp2"
                     data={data && data[ReservaArmazonesEnum.dp2]}
                     control={control}
-                    error={errors.dp_2}
+                    error={errors.dp2}
                     textAlign="text-right"
                     customWidth={"labelInput inputStyles"}
                   />
