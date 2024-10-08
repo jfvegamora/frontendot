@@ -26,7 +26,8 @@ export interface InputData {
   proyecto: string | undefined;
   punto_venta: string | undefined;
   rut_beneficiario: string | undefined;
-  dp: string | undefined;
+  dp1: string | undefined;
+  dp2: string | undefined;
   tipo_anteojo: string | undefined;
   Armazon1: string | undefined;
   Armazon3: string | undefined;
@@ -118,7 +119,8 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
         `proyecto="${jsonData.proyecto}"`,
         `punto_venta=${jsonData.punto_venta}`,
         `tipo_anteojo=${jsonData.tipo_anteojo}`,
-        ` dp=${jsonData.dp}`,
+        ` dp1=${jsonData.dp1}`,
+        ` dp2=${jsonData.dp2}`,
         ` armazon_1="${jsonData.Armazon1}"`,
         ` armazon_2="${jsonData.Armazon2}"`,
         ` armazon_3="${jsonData.Armazon3}"`,
@@ -353,11 +355,25 @@ const FReservarArmazonesWeb: React.FC<IUserFormPrps> = React.memo(
                 <div className="labelInputDiv">
                   <TextInputComponent
                     type="number"
-                    label="DP"
-                    name="dp"
-                    data={data && data[ReservaArmazonesEnum.dp]}
+                    label="DP1"
+                    name="dp1"
+                    data={data && data[ReservaArmazonesEnum.dp1]}
                     control={control}
-                    error={errors.dp}
+                    error={errors.dp1}
+                    textAlign="text-right"
+                    customWidth={"labelInput inputStyles"}
+                  />
+                </div>
+              </div>
+              <div className="input-container items-center rowForm w-[30%]">
+                <div className="labelInputDiv">
+                  <TextInputComponent
+                    type="number"
+                    label="DP2"
+                    name="dp2"
+                    data={data && data[ReservaArmazonesEnum.dp2]}
+                    control={control}
+                    error={errors.dp2}
                     textAlign="text-right"
                     customWidth={"labelInput inputStyles"}
                   />

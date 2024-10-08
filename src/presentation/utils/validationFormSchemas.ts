@@ -168,12 +168,13 @@ export const validationReservaArmazonesSchema = (esRequeridoDP: boolean) =>
     // dp: yup.string().when("proyecto", (schema: any): any => {
     //   return esRequeridoDP === true ? schema.required(msg) : schema;
     // }),
-    dp: yup.string().test("is-required", `${msg}`, function (value) {
+    dp1: yup.string().test("is-required", `${msg}`, function (value) {
       if (esRequeridoDP) {
         return !!value;
       }
       return true;
     }),
+    dp2: yup.string(),
     tipo_anteojo: yup.string().required(`${msg}`),
     Armazon1: yup.string().required(`${msg}`),
     Armazon3: yup.string(),
