@@ -98,7 +98,8 @@ const SelectInputComponent: React.FC<ISelectInputProps> = React.memo(
     const { ListEntity } = useCrud(strUrl);
     const cleanFilters = {};
     const { refreshData } = useEntityUtils(strUrl, entidad[1]);
-    const token = useAppSelector((store: AppStore) => store.user.token) || "";
+    const token =
+      useAppSelector((store: AppStore) => store.user?.token || "") || "";
 
     const strTableName = React.useMemo(
       () =>

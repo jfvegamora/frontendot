@@ -1,14 +1,13 @@
-import axios from "axios";
 import React from "react";
 import { table_head_pizarra } from "../utils";
 import { Text } from "@chakra-ui/react";
 import { Tooltip } from "@material-tailwind/react";
 import { signal } from "@preact/signals-react";
 import ModalPizarra from "./ModalPizarra";
-import { URLBackend } from "../utils/config";
 import { useAppDispatch } from "../../redux/store";
 import { fetchOT } from "../../redux/slices/OTSlice";
 import { toast } from "react-toastify";
+import { enumReporteAtencionPizarra } from "../views/mantenedores/MReporteAtencion";
 
 const showModal = signal(false);
 const startFetchOT = signal(false);
@@ -19,24 +18,15 @@ const dataOnClick = signal({
   paramsOT: "",
 });
 
-const enumPizarra = {
-  "Reporte Atencion": 0,
-  "Total de Trabajos": 1,
-  "Fecha de Entrega": 2,
-  "Area ID": 3,
-  Area: 4,
-  "Estado ID": 5,
-};
-
 export const reduceDataPizarra = (data: any) => {
   return data.reduce((acc: any, registro: any) => {
-    console.log(registro);
-    let area = registro[enumPizarra["Area"]];
-    let estado = registro[enumPizarra["Estado ID"]];
-    let reporteAtencion = registro[enumPizarra["Reporte Atencion"]];
-    let conteoOT = registro[enumPizarra["Total de Trabajos"]];
-    let areaID = registro[enumPizarra["Area ID"]];
-    let fechaEntrega = registro[enumPizarra["Fecha de Entrega"]];
+    let area = registro[enumReporteAtencionPizarra["Area"]];
+    let estado = registro[enumReporteAtencionPizarra["Estado ID"]];
+    let reporteAtencion =
+      registro[enumReporteAtencionPizarra["Reporte Atencion"]];
+    let conteoOT = registro[enumReporteAtencionPizarra["Total de Trabajos"]];
+    let areaID = registro[enumReporteAtencionPizarra["Area ID"]];
+    let fechaEntrega = registro[enumReporteAtencionPizarra["Fecha de Entrega"]];
 
     if (!acc[reporteAtencion]) {
       acc[reporteAtencion] = {
@@ -62,7 +52,6 @@ export const reduceDataPizarra = (data: any) => {
     acc[reporteAtencion][area][estado] = conteoOT;
 
     acc[reporteAtencion].totalOT += conteoOT;
-    console.log(acc);
     return acc;
   }, {});
 };
@@ -75,14 +64,6 @@ export const renderTextCell = (
   color?: any,
   lowArmazonesStock?: any
 ) => {
-  //   const cellStyle: any = {
-  //     textAlign: alignment,
-  //     color: rowData && color2 && handleColorEstado(rowData[5]),
-  //     // color: rowData && color2 && "red",
-  //     backgroundColor:
-  //       rowData && color2 && handleColorEstado(rowData[5], "background"),
-  //   };
-
   return (
     <Text // Combina estilos inline y de objeto
       variant="small"
@@ -106,20 +87,22 @@ export const switchDataPizarra = (
   data: any,
   reporteAtencion: string
 ) => {
-  console.log(data);
+  const { total, area, ...newObj } = data;
   return (
     data &&
-    Object.entries(data).map(([key, value], index) => {
-      // let procesadas = [];
+    Object.entries(newObj).map(([key, value], index) => {
       return (
-        <div key={index} className="items-center w-full  !flex !justify-around">
+        <div
+          key={index}
+          className="items-center w-[40%]  !mx-auto !flex !justify-around"
+        >
           {key === "fechaEntrega" ? (
             <Tooltip content="fechaEntrega">
               <div className="rounded-full border border-black w-[70%]">{`${value}`}</div>
             </Tooltip>
           ) : key === "10" ? (
             <Tooltip content="Ingreso">
-              <div
+              <Text
                 onClick={() => {
                   dataOnClick.value["reporteAtencion"] = reporteAtencion;
                   dataOnClick.value["estado"] = "10";
@@ -129,14 +112,14 @@ export const switchDataPizarra = (
                   ] = `_estado=${key}&_p2=1&_p3=${reporteAtencion}`;
                   startFetchOT.value = true;
                 }}
-                className="rounded-full cursor-pointer bg-blue-300 w-full text-white"
+                className=" rounded-full cursor-pointer bg-blue-300 w-full text-white !mx-auto"
               >
                 {value as any}
-              </div>
+              </Text>
             </Tooltip>
           ) : key === "15" ? (
             <Tooltip content="Stand-By">
-              <div
+              <Text
                 onClick={() => {
                   dataOnClick.value["reporteAtencion"] = reporteAtencion;
                   dataOnClick.value["estado"] = "15";
@@ -149,7 +132,7 @@ export const switchDataPizarra = (
                 className="rounded-full cursor-pointer bg-blue-600 w-full text-white"
               >
                 {value as any}
-              </div>
+              </Text>
             </Tooltip>
           ) : key === "40" ? (
             <Tooltip content="Derivada">
@@ -262,9 +245,6 @@ export const switchDataPizarra = (
 };
 
 export const renderAreaReduce = (area: string, data: any) => {
-  console.log(data && data);
-  console.log(data && data["Resolución"]);
-
   return (
     <>
       <td className="text-black">
@@ -285,8 +265,6 @@ export const renderAreaReduce = (area: string, data: any) => {
 };
 
 export const renderTbodyPizarraData = (data: any) => {
-  console.log(data);
-
   const ordersArray = Object.entries(data).map(([key, value]: any) => ({
     key,
     ...value,
@@ -298,36 +276,14 @@ export const renderTbodyPizarraData = (data: any) => {
   );
   const finalArray = ObjectEntries.map(({ key, ...rest }) => [key, rest]);
 
-  console.log(ObjectEntries);
-  console.log(finalArray);
-
-  console.log(Object.entries(data));
-
   return (
     data &&
     finalArray.map((registro: any) => {
-      // ObjectEntries?.map((registro: any) => {
-      console.log(registro);
-      console.log(registro[1]);
       return (
         <tr className="!text-black" key={registro[0]}>
           <td className="text-black">{registro[0]}</td>
-          {/* <td className="text-black">{registro[1]}</td> */}
 
           {renderAreaReduce("totalOT", registro[1])}
-          {/* {renderAreaReduce("Resolución", registro[1])}
-          {renderAreaReduce("Compras", registro[1])}
-          {renderAreaReduce("Cálculo", registro[1])}
-          {renderAreaReduce("Lab.", registro[1])}
-          {renderAreaReduce("Ingreso", registro[1])}
-          {renderAreaReduce("Control Prod.", registro[1])}
-          {renderAreaReduce("Bodega Insumos", registro[1])}
-          {renderAreaReduce("Taller Biselado 1", registro[1])}
-          {renderAreaReduce("Taller Biselado 2", registro[1])}
-          {renderAreaReduce("Taller Montaje", registro[1])}
-          {renderAreaReduce("Control Calidad", registro[1])}
-          {renderAreaReduce("Bod. Prod. Terminados", registro[1])}
-          {renderAreaReduce("Empaque", registro[1])} */}
 
           <td className="text-black">{registro[1]["fechaEntrega"]}</td>
           {renderAreaReduce("Ingreso", registro[1])}
@@ -349,44 +305,26 @@ export const renderTbodyPizarraData = (data: any) => {
   );
 };
 
-const TablePizarra: React.FC = () => {
+interface ITablePizzara {
+  data?: any;
+}
+
+const TablePizarra: React.FC<ITablePizzara> = ({ data }) => {
   const dispatch = useAppDispatch();
   const [dataTable, setDataTable] = React.useState({});
 
-  const fetchPizarraData = async () => {
-    try {
-      const { data } = await axios(
-        // "https://gestionprod.mtoopticos.cl/api/proyectopizarra/listado/?query=01"
-        `${URLBackend}/api/proyectopizarra/listado/?query=01`
-      );
-      console.log(data);
-      const reduceData = reduceDataPizarra(data);
-      console.log(reduceData);
-      setDataTable(reduceData);
-    } catch (error) {
-      console.log(error);
-      return error;
-    }
-  };
-
   React.useEffect(() => {
-    fetchPizarraData();
-  }, []);
-
-  console.log(dataTable);
-
-  console.log(showModal.value);
+    if (data) {
+      const reduceData = reduceDataPizarra(data);
+      setDataTable(reduceData);
+    }
+  }, [data]);
 
   React.useEffect(() => {
     if (!showModal) {
       dataOnClick.value["reporteAtencion"] = "";
     }
-
     if (dataOnClick.value["reporteAtencion"] !== "") {
-      console.log(dataOnClick.value["reporteAtencion"]);
-      console.log(dataOnClick.value["estado"]);
-
-      console.log(dataOnClick.value["area"]);
       const toastLoading = toast.loading("Cargando....");
       dispatch(
         fetchOT({
@@ -399,12 +337,8 @@ const TablePizarra: React.FC = () => {
       });
     }
   }, [startFetchOT.value, dataOnClick.value["reporteAtencion"]]);
-
-  console.log(dataOnClick.value["reporteAtencion"]);
-  console.log(startFetchOT.value);
   return (
     <div className="">
-      <h1>TablePizarre</h1>
       <table className="gridContainer !h-1/2 st">
         <thead className="gridTop">
           {table_head_pizarra &&

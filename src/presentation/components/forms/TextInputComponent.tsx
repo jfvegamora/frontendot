@@ -125,7 +125,14 @@ const TextInputComponent: React.FC<ITextInputProps> = ({
               }}
             />
             {error && (
-              <p className="absolute top-0 right-[50%] labelErr">
+              <p
+                // className={`${
+                //   classNameError ? classNameError : "right-[50%]"
+                // }  absolute top-0  labelErr`}
+                className={`${
+                  name === "dp_2" ? "!right-0" : "right-[50%]"
+                }  absolute top-0  labelErr`}
+              >
                 {error.message}
               </p>
             )}

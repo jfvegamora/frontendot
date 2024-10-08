@@ -267,6 +267,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
   const onChangeCheckLab = (_e: any, name: any) => {
     let destino;
     let estado: any;
+    let situacion = "1";
 
     switch (casoEjecutar) {
       case "ProcesarTB_1":
@@ -344,7 +345,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         : `cristales1_od_validado="${cristalStock_a1od.value}", cristales1_od_opcion_vta="${cristalStock_a1od.value}" ,cristales1_oi_validado="${cristalStock_a1oi.value}",cristales1_oi_opcion_vta="${cristalStock_a1oi.value}" `;
 
     let observaciones;
-    let situacion;
+
     let data: any = {
       folio: OT[OTGrillaEnum.folio],
       tipo_anteojo: parseInt(OT[OTGrillaEnum.tipo_anteojo_id]),
@@ -1037,7 +1038,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         case "ProcesarTB_1":
           destino = OTAreas["areaSiguiente"];
           estado = "15";
-          situacion = "0";
+          situacion = "1";
           console.log("render");
           updateOT(
             jsondata,
@@ -1088,7 +1089,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
               ? "30"
               : OTAreasEnum["Taller Biselado 2"];
           estado = "15";
-          situacion = "0";
+          situacion = "1";
           console.log("render");
           updateOT(
             jsondata,

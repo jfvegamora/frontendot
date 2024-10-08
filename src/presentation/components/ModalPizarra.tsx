@@ -54,13 +54,15 @@ const ModalPizarra: React.FC<IModalPizarra> = ({ onClose, data }) => {
       <div className="absolute right-0 userFormBtnCloseContainer">
         <h1 className=" flex  !w-[80vw]  text-4xl text-white  mb-5 translate-x-[20vw]">
           Reporte:
-          <span className="text-orange-300 mr-10">
+          <span className="text-orange-300 ml-2 mr-10">
             {data && data["reporteAtencion"]}
           </span>
           Total:
-          <span className="text-orange-300 mr-10">{TotalOT}</span>
+          <span className="text-orange-300 mr-10 ml-2">{TotalOT}</span>
           Area:
-          <span className="text-orange-300">{OTAreasEnum[data["area"]]}</span>
+          <span className="text-orange-300 ml-2">
+            {OTAreasEnum[data["area"]]}
+          </span>
         </h1>
         <button
           onClick={() => {
@@ -68,7 +70,7 @@ const ModalPizarra: React.FC<IModalPizarra> = ({ onClose, data }) => {
             // handleClose();
             onClose();
           }}
-          className="userFormBtnClose mr-4"
+          className=" cursor-pointer userFormBtnClose mr-4"
         >
           X
         </button>

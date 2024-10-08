@@ -994,7 +994,8 @@ export const updateOT = async (
     console.log(_estado);
     const strP1 =
       tipo_evento === "Derivar"
-        ? `area="${_destino}", estado="${_estado}",ubicacion="0"`
+        ? `area="${_destino}", estado="${_estado}",
+        `
         : `area="${_destino}", estado="${_estado}"`;
 
     console.log(user);

@@ -168,6 +168,11 @@ const navListMenuOT = [
     link: "/bitacora",
     id: "44",
   },
+  {
+    title: "Reporte Atencion",
+    link: "/reporteatencion",
+    id: "46",
+  },
 ];
 
 const subMenuParametrizacionBodega = [

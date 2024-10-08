@@ -136,6 +136,10 @@ const MInformeCristales = lazy(
   () => import("../presentation/views/mantenedores/MInformeCristales")
 );
 
+const MReporteAtencion = lazy(
+  () => import("../presentation/views/mantenedores/MReporteAtencion")
+);
+
 export const PublicRoutes = {
   LOGIN: "login",
   RESETPASSWORD: "resetpassword/:token",
@@ -154,6 +158,7 @@ export const PrivateRoutes = {
   OT: "ot",
   CLIENTES: "clientes",
   BITACORA: "bitacora",
+  REPORTEATENCION: "reporteatencion",
 
   ESTABLECIMIENTOS: "establecimientos",
   PUNTOS_VENTA: "puntosventa",
@@ -288,6 +293,12 @@ export const privateRoutes = [
     path: PrivateRoutes.MOTIVOS_OT_ANULADA,
     component: MMotivosOTAnulada,
     requiredPermissions: ["view_" + PrivateRoutes.MOTIVOS_OT_ANULADA],
+  },
+  {
+    id: "46",
+    path: PrivateRoutes.REPORTEATENCION,
+    component: MReporteAtencion,
+    requiredPermissions: ["view_" + PrivateRoutes.REPORTEATENCION],
   },
 
   //BODEGA

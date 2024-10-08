@@ -427,7 +427,7 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         case "ProcesarTB_1":
           destino = OTAreas["areaSiguiente"];
           estado = "15";
-          situacion = "0";
+          situacion = "2";
 
           updateOT(
             jsondata,
@@ -472,7 +472,7 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         case "ProcesarTB_2":
           destino = OTAreasEnum["Taller Biselado 2"];
           estado = "15";
-          situacion = "0";
+          situacion = "2";
 
           updateOT(
             jsondata,

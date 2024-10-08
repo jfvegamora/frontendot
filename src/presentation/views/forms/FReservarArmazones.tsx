@@ -66,7 +66,8 @@ export const codProyecto = signal("");
 
 export const armazonesLocalData = signal<any>([]);
 export const codPuntoVenta = signal("");
-const codDP = signal("");
+const codDP1 = signal("");
+const codDP2 = signal("");
 const rutBeneficiarioSignal = signal("");
 const emptyBeneficiariosData = signal(true);
 
@@ -181,7 +182,7 @@ const FReservarArmazones = () => {
     setValue("diametro", value);
   };
 
-  const userID: any = useAppSelector((store: AppStore) => store.user?.id);
+  const userID: any = useAppSelector((store: AppStore) => store.user.id);
   const hiddenInputRef = React.useRef<any>(null);
 
   // const userAgent = navigator.userAgent
@@ -207,6 +208,7 @@ const FReservarArmazones = () => {
     defaultValues: {
       tipo_de_anteojo: "1",
       diametro: "+",
+      // dp_2: "0",
     },
   });
 
@@ -253,10 +255,16 @@ const FReservarArmazones = () => {
     // const urlbase2 = `${URLBackend}/api/armazones/listado/?query=02`;
 
     let json_data = [{}];
-
-    if (codDP.value === "") {
-      codDP.value = "0";
+    if (tipo_de_anteojo.value === "3" && tipo_de_anteojo.value === "4") {
+      if (codDP2.value === "") {
+        codDP2.value = "0";
+      }
+    } else {
+      if (codDP1.value === "") {
+        codDP1.value = "0";
+      }
     }
+
     console.log(selectedOption);
     if (isOnline.value === true) {
       switch (armazon) {
@@ -267,7 +275,7 @@ const FReservarArmazones = () => {
               armazon: (codArmazon || "").trim(),
               proyecto: codProyecto.value,
               punto_venta: codPuntoVenta.value,
-              dp: codDP.value,
+              dp: codDP1.value,
               diametro: selectedOption === "+" ? "65" : "70",
               validar_parametrizacion: 1,
               solo_consulta: esRequeridoDP === true ? 2 : 3,
@@ -283,7 +291,10 @@ const FReservarArmazones = () => {
               armazon: (codArmazon || "").trim(),
               proyecto: codProyecto.value,
               punto_venta: codPuntoVenta.value,
-              dp: codDP.value,
+              dp:
+                tipo_de_anteojo.value === "3" && tipo_de_anteojo.value === "4"
+                  ? codDP2.value
+                  : codDP1.value,
               diametro: selectedOption === "+" ? "65" : "70",
               validar_parametrizacion: 1,
               solo_consulta:
@@ -304,7 +315,7 @@ const FReservarArmazones = () => {
               armazon: (codArmazon || "").trim(),
               proyecto: codProyecto.value,
               punto_venta: codPuntoVenta.value,
-              dp: codDP.value,
+              dp: codDP1.value,
               diametro: selectedOption === "+" ? "65" : "70",
               validar_parametrizacion: 1,
               solo_consulta:
@@ -371,7 +382,8 @@ const FReservarArmazones = () => {
         codArmazon,
         punto_venta: codPuntoVenta.value,
         proyecto: codProyecto.value,
-        dp: codDP.value,
+        dp1: codDP1.value,
+        dp2: codDP2.value,
       };
       console.log(codPuntoVenta.value);
       console.log(punto_venta.value);
@@ -429,7 +441,8 @@ const FReservarArmazones = () => {
 
   const clearTextInputs = () => {
     setValue("rut_beneficiario", "");
-    setValue("dp", "");
+    setValue("dp_1", "");
+    setValue("dp_2", "");
     setValue("Armazon1", "");
     setValue("Armazon2", "");
     setValue("Armazon3", "");
@@ -478,7 +491,14 @@ const FReservarArmazones = () => {
           proyecto: jsonData["proyecto"] || codProyecto.value || "",
           punto_venta: `${codPuntoVenta.value}` || "",
           tipo_anteojo: jsonData["tipo_anteojo"] || "",
-          dp: jsonData["dp"] || "",
+          dp1: jsonData["dp_1"] || "",
+          dp2:
+            jsonData["tipo_de_anteojo"] === 3 ||
+            jsonData["tipo_de_anteojo"] === 4 ||
+            jsonData["tipo_de_anteojo"] === 5 ||
+            jsonData["tipo_de_anteojo"] === 6
+              ? jsonData["dp_2"] || "0"
+              : "0",
           armazon_1: codArmazon1.value || "",
           armazon_2: codArmazon2.value || "",
           armazon_3: codArmazon3.value || "",
@@ -763,6 +783,7 @@ const FReservarArmazones = () => {
         const response = await axios(
           `${URLBackend}/api/proyectos/listado/?query=07&_p1=${userID}`
         );
+        console.log(response);
         if (response.data[0][0]) {
           codProyecto.value = response.data[0][0];
         }
@@ -804,10 +825,9 @@ const FReservarArmazones = () => {
     clearTextInputs();
     setValue("rut_beneficiario", "");
   }, [clearRutCliente]);
-
   return (
     <form
-      className=" w-screen mx-auto px-6 !overflow-x-hidden form-container-reserva "
+      className=" w-screen mx-auto px-6 !overflow-x-hidden !overflow-y-scroll form-container-reserva "
       onSubmit={handleSubmit((data) => handleSaveChange(data))}
     >
       <div className="translate-y-[30vw] h-screen !mx-auto ">
@@ -855,7 +875,7 @@ const FReservarArmazones = () => {
               Descargar Muestrario
             </Button>
           )}
-        <div className="w-full h-[150vh] overflow-scroll">
+        <div className="w-full h-[160vh] overflow-scroll">
           <input
             ref={hiddenInputRef}
             style={{ position: "absolute", left: -1000 }}
@@ -943,7 +963,7 @@ const FReservarArmazones = () => {
             </div>
           </div>
           <div className="w-[94vw]  !mt-5  flex rowForm">
-            <div className="w-[65%]  text-xl !-ml-4">
+            <div className="w-[55%]  text-xl !-ml-4">
               <TextInputComponent
                 type="text"
                 // isOT={false}
@@ -956,17 +976,17 @@ const FReservarArmazones = () => {
                 control={control}
                 handleChange={handleChange}
                 textAlign="text-right !text-[1.7rem] !h-[3.9rem]"
-                customWidth={"!text-[2rem] w-[54vw]"}
+                customWidth={"!text-[1.5rem] w-[54vw]"}
                 error={errors.rut_beneficiario}
               />
             </div>
-            <div className="w-[30%] !ml-8   ">
+            <div className="w-[20%]   ">
               <TextInputComponent
                 type="number"
                 label="DP"
-                name="dp"
+                name="dp_1"
                 handleChange={(e: any) => {
-                  codDP.value = e.value;
+                  codDP1.value = e.value;
                   setValue("Armazon1", "");
                   codArmazon1.value = "";
                   setValue("Armazon2", "");
@@ -974,12 +994,42 @@ const FReservarArmazones = () => {
                   codArmazon3.value = "";
                   setValue("Armazon3", "");
                 }}
-                data={formValues && formValues["dp"]}
+                data={formValues && formValues["dp_1"]}
                 isOT={true}
                 control={control}
                 customWidth={"w-[28vw]"}
-                textAlign="text-right !text-[2rem] -translate-x-6 !h-[3.9rem]"
-                error={errors.dp}
+                textAlign="text-right !text-[1.8rem]  !h-[3.9rem]"
+                error={errors.dp_1}
+                // classNameError={"!right-0 !translate-x-[5vw]"}
+              />
+            </div>
+            <div className="w-[20%] ">
+              <TextInputComponent
+                type="number"
+                label="DP"
+                name="dp_2"
+                handleChange={(e: any) => {
+                  codDP2.value = e.value;
+                  setValue("Armazon1", "");
+                  codArmazon1.value = "";
+                  setValue("Armazon2", "");
+                  codArmazon2.value = "";
+                  codArmazon3.value = "";
+                  setValue("Armazon3", "");
+                  setValue("dp_2", e.value);
+                }}
+                data={formValues && formValues["dp_2"]}
+                isOT={true}
+                control={control}
+                customWidth={"w-[28vw]"}
+                isOptional={true}
+                // onlyRead={
+                //   tipo_de_anteojo.value !== "3" &&
+                //   tipo_de_anteojo.value !== "4" &&
+                //   tipo_de_anteojo.value !== "5"
+                // }
+                textAlign="text-right !text-[1.8rem]  !h-[3.9rem]"
+                error={errors.dp_2}
               />
             </div>
           </div>

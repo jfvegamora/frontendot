@@ -24,13 +24,17 @@ const idMenu = 44;
 
 export enum EnumGrid {
   fecha_hora = 1,
-  usuario = 2,
-  origen = 3,
-  destino = 4,
-  folio = 5,
-  estado = 6,
-  situacion = 7,
-  observaciones = 8,
+  usuario_id = 2,
+  usuario = 3,
+  origen_id = 4,
+  origen = 5,
+  destino_id = 6,
+  destino = 7,
+  folio = 8,
+  estado_id = 9,
+  estado = 10,
+  situacion = 11,
+  observaciones = 12,
 }
 
 const MOTBitacora: React.FC = () => {

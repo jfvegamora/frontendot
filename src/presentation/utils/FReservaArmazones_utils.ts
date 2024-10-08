@@ -179,8 +179,8 @@ export const fetchReservaBeneficiario = async (rut: string) => {
       codigoProyecto.value = proyecto_codigo;
       punto_venta.value =
         response["data"][0][ReservaArmazonesEnum["punto_venta_id"]];
-      A1_DP.value = response["data"][0][ReservaArmazonesEnum["dp"]];
-      validation_A1_DP(response["data"][0][ReservaArmazonesEnum["dp"]]);
+      A1_DP.value = response["data"][0][ReservaArmazonesEnum["dp1"]];
+      validation_A1_DP(response["data"][0][ReservaArmazonesEnum["dp1"]]);
 
       //?VALIDACIONES ARMAZONES:
       validar_parametrizacion.value = "2";

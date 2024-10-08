@@ -15,7 +15,7 @@ export const handleActionOTButtons = async (
   let _p3 =
     tipo_evento === "Pausada"
       ? `area="${destino}", estado="${estado}"`
-      : `area="${destino}", estado="${estado}",ubicacion=""`;
+      : `area="${destino}", estado="${estado}",ubicacion="0"`;
   try {
     const query = {
       query: "16",
