@@ -3041,8 +3041,15 @@ export const table_head_reserva_armazones = [
     alignment: "text-center",
   },
   {
-    cell: "DP",
-    key: "dp",
+    cell: "DP 1",
+    key: "dp1",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[4rem]",
+  },
+  {
+    cell: "DP2",
+    key: "dp2",
     visible: true,
     alignment: "text-center",
     width: "w-[4rem]",
