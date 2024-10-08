@@ -11,7 +11,7 @@ import { validationCristalesSchema } from "../../utils/validationFormSchemas";
 // import { Enu } from "../mantenedores/MCristales";
 // impport CristalesEnum
 import { MODAL, SUCCESS_MESSAGES, TITLES } from "../../utils";
-import { useCrud } from "../../hooks";
+import { useCrud, useEntityUtils } from "../../hooks";
 import { useModal } from "../../hooks/useModal";
 import useCustomToast from "../../hooks/useCustomToast";
 import SelectInputTiposComponent from "../../components/forms/SelectInputTiposComponent";
@@ -174,6 +174,8 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
       focusFirstInput,
       focusSecondInput,
     } = useCrud(strBaseUrl);
+
+    const { setSelectedRows } = useEntityUtils(strBaseUrl, "01");
     const [blnKeep, setblnKeep] = useState(false);
     const intId = data && data[CristalesEnum.codigo];
     const {
@@ -257,6 +259,7 @@ const FCristales: React.FC<IUserFormPrps> = React.memo(
         }
 
         if (isEditting) {
+          setSelectedRows([]);
           await updateNewEntity();
           toastSuccess(isEditting);
           closeModal();
