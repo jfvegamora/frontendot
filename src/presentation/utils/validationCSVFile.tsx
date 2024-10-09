@@ -180,7 +180,7 @@ export const handleFileUpload = (
   return new Promise<ExcelUploadResult>((resolve, reject) => {
     const reader = new FileReader();
     const errors: any = [];
-    const numeroPaginas = 200;
+    const numeroPaginas = 100;
 
     reader.onload = (e) => {
       const target = e.target;
@@ -221,15 +221,9 @@ export const handleFileUpload = (
         const encabezado2 = filteredRows.slice(0, 2);
         const dataExcel = filteredRows.slice(3);
 
-        console.log(filteredRows);
-        console.log(encabezado);
-        console.log(encabezado2);
-        console.log(dataExcel);
-
         const numeroParticiones = Math.ceil(
           filteredRows.length / numeroPaginas
         );
-        console.log(numeroParticiones);
 
         let desde = 0;
 
@@ -237,9 +231,6 @@ export const handleFileUpload = (
           let hasta = desde + numeroPaginas;
 
           const chunk = dataExcel.slice(desde, hasta);
-
-          console.log(chunk);
-          console.log([...encabezado, ...chunk]);
 
           // Crear un nuevo libro de trabajo para cada partición
           const modifiedWorkbook = XLSX.utils.book_new();
