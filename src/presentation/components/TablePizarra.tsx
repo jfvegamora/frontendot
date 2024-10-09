@@ -7,7 +7,7 @@ import ModalPizarra from "./ModalPizarra";
 import { useAppDispatch } from "../../redux/store";
 import { fetchOT } from "../../redux/slices/OTSlice";
 import { toast } from "react-toastify";
-import { enumReporteAtencionPizarra } from "../views/mantenedores/MReporteAtencion";
+import { enumReporteAtencionPizarra } from "../views/mantenedores/MPizarra";
 
 const showModal = signal(false);
 const startFetchOT = signal(false);
@@ -118,7 +118,7 @@ export const switchDataPizarra = (
               </Text>
             </Tooltip>
           ) : key === "15" ? (
-            <Tooltip content="Stand-By">
+            <Tooltip content="Standby">
               <Text
                 onClick={() => {
                   dataOnClick.value["reporteAtencion"] = reporteAtencion;
@@ -152,7 +152,7 @@ export const switchDataPizarra = (
               </div>
             </Tooltip>
           ) : key === "20" ? (
-            <Tooltip content="En Proceso">
+            <Tooltip content="En proceso">
               <div
                 onClick={() => {
                   // reporteAtencionSignal.value = reporteAtencion;
@@ -187,7 +187,7 @@ export const switchDataPizarra = (
               </div>
             </Tooltip>
           ) : key === "82" ? (
-            <Tooltip content="Marcado">
+            <Tooltip content="En marcado">
               <div
                 onClick={() => {
                   dataOnClick.value["reporteAtencion"] = reporteAtencion;
@@ -204,7 +204,7 @@ export const switchDataPizarra = (
               </div>
             </Tooltip>
           ) : key === "84" ? (
-            <Tooltip content="Bloqueo">
+            <Tooltip content="En bloqueo">
               <div
                 onClick={() => {
                   dataOnClick.value["reporteAtencion"] = reporteAtencion;
@@ -221,7 +221,7 @@ export const switchDataPizarra = (
               </div>
             </Tooltip>
           ) : key === "86" ? (
-            <Tooltip content="Biselado">
+            <Tooltip content="En biselado">
               <div
                 onClick={() => {
                   dataOnClick.value["reporteAtencion"] = reporteAtencion;

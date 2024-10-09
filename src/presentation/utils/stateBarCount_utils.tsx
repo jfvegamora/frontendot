@@ -78,7 +78,7 @@ export const renderBitacoraStateCountBar = (state: any) => {
   console.log(state[1]["total"]);
   const render = state && Object.entries(state);
   console.log(render);
-  let a = state && state[0];
+  // let a = state && state[0];
   let b = state && state[1];
 
   if (b["total"]) {
@@ -98,8 +98,10 @@ export const renderBitacoraStateCountBar = (state: any) => {
 
   return (
     <div className="flex mx-2 px-2">
-      <Tooltip content={"2"}>
-        <span>{a}</span>
+      {/* <Tooltip content={"2"}>
+        <span>
+          {a}: {""}
+        </span>
       </Tooltip>
       <span>
         {state && state[1]["total"] ? (
@@ -107,7 +109,7 @@ export const renderBitacoraStateCountBar = (state: any) => {
         ) : (
           <div>{state[1]}</div>
         )}
-      </span>
+      </span> */}
     </div>
   );
 };

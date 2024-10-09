@@ -46,6 +46,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { URLBackend } from "../../utils/config";
 import { EnumGrid } from "../mantenedores/MProyectos";
+import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 // import { PublicRoutes } from "../../../interfaces";
 
@@ -194,9 +195,9 @@ const FReservarArmazones = () => {
 
   const hiddenInputRef = React.useRef<any>(null);
 
-  // const userAgent = navigator.userAgent
-  // const isMobile = /Mobi/.test(userAgent)
-  // const navigate = useNavigate()
+  const userAgent = navigator.userAgent;
+  const isMobile = /Mobi/.test(userAgent);
+  const navigate = useNavigate();
 
   const inputsRef = {
     armazon_1: React.useRef<any>(null),
@@ -234,11 +235,11 @@ const FReservarArmazones = () => {
     isRequired();
   }, [getValues("proyecto")]);
 
-  // React.useEffect(()=>{
-  //   if(!isMobile){
-  //     navigate('/landing')
-  //   }
-  // },[])
+  React.useEffect(() => {
+    if (!isMobile) {
+      navigate("/landing");
+    }
+  }, []);
 
   const formValues = getValues();
 
