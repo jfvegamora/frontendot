@@ -180,7 +180,7 @@ export const handleFileUpload = (
   return new Promise<ExcelUploadResult>((resolve, reject) => {
     const reader = new FileReader();
     const errors: any = [];
-    const numeroPaginas = 50;
+    const numeroPaginas = 200;
 
     reader.onload = (e) => {
       const target = e.target;
