@@ -37,6 +37,7 @@ import FOTFactura from "../views/forms/FOTFactura";
 import { usePermissionBotonesUser } from "../hooks/usePermissionBotonesUser";
 import FOTValidateArmazones from "../views/forms/FOTValidateArmazones";
 import { EnumGrid } from "../views/mantenedores/MOTHistorica";
+import { filterToggle } from "./FilterButton";
 // import { OTAreasEnum } from '../Enums/OTAreasEnum';
 // import { OTGrillaEnum } from '../Enums';
 // import { CR1_OD_LAB, CR1_OI_LAB, CR2_OD_LAB, CR2_OI_LAB } from '../utils/FOTCristales_utils';
@@ -1164,6 +1165,12 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         return error;
       }
     };
+
+    React.useEffect(() => {
+      if (filterToggle.value === false) {
+        focusFirstInput("searchOT", searchOTRef);
+      }
+    }, [filterToggle.value]);
 
     return (
       <div className="flex items-center   ml-[4rem] !w-full">

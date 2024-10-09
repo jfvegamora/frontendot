@@ -29,7 +29,7 @@ const MPizarra: React.FC = () => {
   console.log(entities);
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width50">
+      <div className="mantenedorHead width60">
         <div className="w-[100%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
@@ -43,7 +43,8 @@ const MPizarra: React.FC = () => {
                 selectUrl: "/api/proyectos/",
                 styles: {
                   styles: "labelInput inputStyles w-[25vw]",
-                  container: "!w-[30vw]  text-[1vw] translate-x-[0.5vw] translate-y-[0.5vw] ",
+                  container:
+                    "!w-[30vw]  text-[1vw] translate-x-[0.5vw] translate-y-[0.5vw] ",
                   labelProps: "labelInput",
                 },
               },
@@ -64,7 +65,7 @@ const MPizarra: React.FC = () => {
           />
         </div>
       </div>
-      <div className="overflow-x-scroll h-[32vw]">
+      <div className="overflow-x-scroll h-[77%]">
         <TablePizarra data={entities} />
       </div>
     </div>
