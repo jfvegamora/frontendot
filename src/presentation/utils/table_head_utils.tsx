@@ -621,14 +621,28 @@ export const table_head_pizarra = [
     alignment: "flex justify-center  items-center ",
   },
   {
-    cell: "TOTAL TRABAJOS",
-    key: "nombre",
+    cell: "FECHA REPORTE",
+    key: "fechareporte",
     visible: true,
     alignment: "text-center",
     width: "w-[6vw]",
   },
   {
     cell: "FECHA ENTREGA",
+    key: "nombre",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6vw]",
+  },
+  {
+    cell: "DIAS FALTANTES",
+    key: "dias faltantes",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6vw]",
+  },
+  {
+    cell: "TOTAL TRABAJOS",
     key: "nombre",
     visible: true,
     alignment: "text-center",
@@ -721,13 +735,6 @@ export const table_head_pizarra = [
     visible: true,
     alignment: "text-center",
     width: "w-[8rem]",
-  },
-  {
-    cell: "ARCHIVO OT",
-    key: "archivoOT",
-    visible: true,
-    alignment: "text-center",
-    width: "w-[16rem]",
   },
 ];
 export const table_head_clientes = [

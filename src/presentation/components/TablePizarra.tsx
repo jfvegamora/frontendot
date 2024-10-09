@@ -19,6 +19,7 @@ const dataOnClick = signal({
 });
 
 export const reduceDataPizarra = (data: any) => {
+  console.log(data);
   return data.reduce((acc: any, registro: any) => {
     let area = registro[enumReporteAtencionPizarra["Area"]];
     let estado = registro[enumReporteAtencionPizarra["Estado ID"]];
@@ -27,12 +28,17 @@ export const reduceDataPizarra = (data: any) => {
     let conteoOT = registro[enumReporteAtencionPizarra["Total de Trabajos"]];
     let areaID = registro[enumReporteAtencionPizarra["Area ID"]];
     let fechaEntrega = registro[enumReporteAtencionPizarra["Fecha de Entrega"]];
+    let fechaReporte = registro[enumReporteAtencionPizarra["Fecha Reporte"]];
+
+    let diasRestantes = registro[enumReporteAtencionPizarra["Dias Restantes"]];
 
     if (!acc[reporteAtencion]) {
       acc[reporteAtencion] = {
         totalOT: 0,
         reporteAtencion,
+        fechaReporte,
         fechaEntrega,
+        diasRestantes,
       };
     }
 
@@ -283,9 +289,11 @@ export const renderTbodyPizarraData = (data: any) => {
         <tr className="!text-black" key={registro[0]}>
           <td className="text-black">{registro[0]}</td>
 
+          <td className="text-black">{registro[1]["fechaReporte"]}</td>
+          <td className="text-black">{registro[1]["fechaEntrega"]}</td>
+          <td className="text-black">{registro[1]["diasRestantes"]}</td>
           {renderAreaReduce("totalOT", registro[1])}
 
-          <td className="text-black">{registro[1]["fechaEntrega"]}</td>
           {renderAreaReduce("Ingreso", registro[1])}
           {renderAreaReduce("Control Prod.", registro[1])}
           {renderAreaReduce("Bodega Insumos", registro[1])}

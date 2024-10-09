@@ -8,13 +8,15 @@ import { useEntityUtils } from "../../hooks";
 const strBaseUrl = "/api/proyectopizarra/";
 // const idMenu = 47;
 
-export const enumReporteAtencionPizarra = {
+export const enumReporteAtencionPizarra: any = {
   "Reporte Atencion": 0,
-  "Total de Trabajos": 1,
+  "Fecha Reporte": 1,
   "Fecha de Entrega": 2,
-  "Area ID": 3,
-  Area: 4,
-  "Estado ID": 5,
+  "Dias Restantes": 3,
+  "Total de Trabajos": 4,
+  "Area ID": 5,
+  Area: 6,
+  "Estado ID": 7,
 };
 
 const MPizarra: React.FC = () => {

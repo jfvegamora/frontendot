@@ -218,7 +218,7 @@ export const handleFileUpload = (
         const blobs = [];
 
         const encabezado = filteredRows.slice(0, 3);
-        const encabezado2 = filteredRows.slice(0, 2);
+        // const encabezado2 = filteredRows.slice(0, 2);
         const dataExcel = filteredRows.slice(3);
 
         const numeroParticiones = Math.ceil(
