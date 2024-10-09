@@ -46,6 +46,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { URLBackend } from "../../utils/config";
 import { EnumGrid } from "../mantenedores/MProyectos";
+// import { useNavigate } from "react-router-dom";
+// import { PublicRoutes } from "../../../interfaces";
 
 // import { useNavigate } from 'react-router-dom';
 // import { focusFirstInput } from '../../components/OTForms/FOTValidarBodega';
@@ -181,8 +183,15 @@ const FReservarArmazones = () => {
     const value = option === "+" ? "65" : "70";
     setValue("diametro", value);
   };
+  // const navigate = useNavigate();
+  const userID: any = useAppSelector((store: AppStore) => store.user);
 
-  const userID: any = useAppSelector((store: AppStore) => store.user.id);
+  // if (userID?.id) {
+  //   // navigate(`/${PublicRoutes.LOGIN}`);
+  //   console.log("render");
+  //   navigate(`/login`);
+  // }
+
   const hiddenInputRef = React.useRef<any>(null);
 
   // const userAgent = navigator.userAgent
@@ -208,7 +217,7 @@ const FReservarArmazones = () => {
     defaultValues: {
       tipo_de_anteojo: "1",
       diametro: "+",
-      // dp_2: "0",
+      // dp2: "0",
     },
   });
 
@@ -441,8 +450,8 @@ const FReservarArmazones = () => {
 
   const clearTextInputs = () => {
     setValue("rut_beneficiario", "");
-    setValue("dp_1", "");
-    setValue("dp_2", "");
+    setValue("dp1", "");
+    setValue("dp2", "");
     setValue("Armazon1", "");
     setValue("Armazon2", "");
     setValue("Armazon3", "");
@@ -491,18 +500,18 @@ const FReservarArmazones = () => {
           proyecto: jsonData["proyecto"] || codProyecto.value || "",
           punto_venta: `${codPuntoVenta.value}` || "",
           tipo_anteojo: jsonData["tipo_anteojo"] || "",
-          dp1: jsonData["dp_1"] || "",
+          dp1: jsonData["dp1"] || "",
           dp2:
             jsonData["tipo_de_anteojo"] === 3 ||
             jsonData["tipo_de_anteojo"] === 4 ||
             jsonData["tipo_de_anteojo"] === 5 ||
             jsonData["tipo_de_anteojo"] === 6
-              ? jsonData["dp_2"] || "0"
+              ? jsonData["dp2"] || "0"
               : "0",
           armazon_1: codArmazon1.value || "",
           armazon_2: codArmazon2.value || "",
           armazon_3: codArmazon3.value || "",
-          usuario: `${userID}` || "",
+          usuario: `${userID.id}` || "",
           diametro: `${jsonData["diametro"]}` || "",
         },
       ];
@@ -599,7 +608,7 @@ const FReservarArmazones = () => {
                 codPuntoVenta.value === ""
                   ? punto_venta.value
                   : codPuntoVenta.value;
-              await setReservaBeneficiario(db, jsonData, userID);
+              await setReservaBeneficiario(db, jsonData, userID.id);
               await getArmazones(db);
               toast.success("Reserva guardada correctamente");
               clearTextInputs();
@@ -629,7 +638,7 @@ const FReservarArmazones = () => {
       fetchReservaArmazones(
         codPuntoVenta.value,
         codProyecto.value,
-        userID,
+        userID.id,
         true
       );
     }
@@ -720,7 +729,7 @@ const FReservarArmazones = () => {
       jsonData07 = armazonesData.map((reserva: any) => {
         return {
           punto_venta: reserva["punto_venta"],
-          usuario: `${userID}`,
+          usuario: `${userID.id}`,
           armazon: reserva["cod_armazon"],
           reservado: reserva["stock_reservado"],
           disponible: reserva["stock_disponible"],
@@ -735,7 +744,8 @@ const FReservarArmazones = () => {
               proyecto: reserva["proyecto"],
               punto_venta: `${codPuntoVenta.value}`,
               tipo_anteojo: reserva["tipo_anteojo"],
-              dp: reserva["dp"],
+              dp1: reserva["dp1"],
+              dp2: reserva["dp2"],
               armazon_1: reserva["armazon_1"],
               armazon_2: reserva["armazon_2"],
               armazon_3: reserva["armazon_3"],
@@ -781,7 +791,7 @@ const FReservarArmazones = () => {
       // https://gestiondev.mtoopticos.cl/api/proyectos/listado/?query=07&_p1=98
       try {
         const response = await axios(
-          `${URLBackend}/api/proyectos/listado/?query=07&_p1=${userID}`
+          `${URLBackend}/api/proyectos/listado/?query=07&_p1=${userID.id}`
         );
         console.log(response);
         if (response.data[0][0]) {
@@ -818,13 +828,15 @@ const FReservarArmazones = () => {
   const reservaJSON = {
     proyecto: codProyecto.value,
     punto_venta: codPuntoVenta.value,
-    usuario: userID,
+    usuario: userID.id,
   };
 
   React.useEffect(() => {
     clearTextInputs();
     setValue("rut_beneficiario", "");
   }, [clearRutCliente]);
+
+  console.log(errors);
   return (
     <form
       className=" w-screen mx-auto px-6 !overflow-x-hidden !overflow-y-scroll form-container-reserva "
@@ -894,7 +906,7 @@ const FReservarArmazones = () => {
               // readOnly={true}
               isOT={true}
               control={control}
-              entidad={["/api/proyectos/", "07", userID]}
+              entidad={["/api/proyectos/", "07", userID.id]}
               customWidth={"w-[93vw]"}
               onlyFirstOption={true}
             />
@@ -915,7 +927,7 @@ const FReservarArmazones = () => {
                 "/api/puntosventa/",
                 "06",
                 codProyecto.value,
-                `_p2=${userID}`,
+                `_p2=${userID.id}`,
               ]}
               customWidth={"w-[93vw]"}
             />
@@ -984,7 +996,7 @@ const FReservarArmazones = () => {
               <TextInputComponent
                 type="number"
                 label="DP"
-                name="dp_1"
+                name="dp1"
                 handleChange={(e: any) => {
                   codDP1.value = e.value;
                   setValue("Armazon1", "");
@@ -994,12 +1006,12 @@ const FReservarArmazones = () => {
                   codArmazon3.value = "";
                   setValue("Armazon3", "");
                 }}
-                data={formValues && formValues["dp_1"]}
+                data={formValues && formValues["dp1"]}
                 isOT={true}
                 control={control}
                 customWidth={"w-[28vw]"}
                 textAlign="text-right !text-[1.8rem]  !h-[3.9rem]"
-                error={errors.dp_1}
+                error={errors.dp1}
                 // classNameError={"!right-0 !translate-x-[5vw]"}
               />
             </div>
@@ -1007,7 +1019,7 @@ const FReservarArmazones = () => {
               <TextInputComponent
                 type="number"
                 label="DP"
-                name="dp_2"
+                name="dp2"
                 handleChange={(e: any) => {
                   codDP2.value = e.value;
                   setValue("Armazon1", "");
@@ -1016,9 +1028,9 @@ const FReservarArmazones = () => {
                   codArmazon2.value = "";
                   codArmazon3.value = "";
                   setValue("Armazon3", "");
-                  setValue("dp_2", e.value);
+                  setValue("dp2", e.value);
                 }}
-                data={formValues && formValues["dp_2"]}
+                data={formValues && formValues["dp2"]}
                 isOT={true}
                 control={control}
                 customWidth={"w-[28vw]"}
@@ -1029,7 +1041,7 @@ const FReservarArmazones = () => {
                 //   tipo_de_anteojo.value !== "5"
                 // }
                 textAlign="text-right !text-[1.8rem]  !h-[3.9rem]"
-                error={errors.dp_2}
+                error={errors.dp2}
               />
             </div>
           </div>
@@ -1121,6 +1133,7 @@ const FReservarArmazones = () => {
                   </div>
                 ))} */}
           </div>
+          {/* {errors && <p>{errors}</p>} */}
           {isScanning && <Scanner setIsScanning={setIsScanning} />}
           {(tipo_de_anteojo.value === "3"
             ? codArmazon1.value !== "" && codArmazon2.value !== ""

@@ -136,8 +136,8 @@ const MInformeCristales = lazy(
   () => import("../presentation/views/mantenedores/MInformeCristales")
 );
 
-const MReporteAtencion = lazy(
-  () => import("../presentation/views/mantenedores/MReporteAtencion")
+const MPizarra = lazy(
+  () => import("../presentation/views/mantenedores/MPizarra")
 );
 
 export const PublicRoutes = {
@@ -158,7 +158,7 @@ export const PrivateRoutes = {
   OT: "ot",
   CLIENTES: "clientes",
   BITACORA: "bitacora",
-  REPORTEATENCION: "reporteatencion",
+  PIZARRA: "pizarrareportes",
 
   ESTABLECIMIENTOS: "establecimientos",
   PUNTOS_VENTA: "puntosventa",
@@ -295,10 +295,10 @@ export const privateRoutes = [
     requiredPermissions: ["view_" + PrivateRoutes.MOTIVOS_OT_ANULADA],
   },
   {
-    id: "46",
-    path: PrivateRoutes.REPORTEATENCION,
-    component: MReporteAtencion,
-    requiredPermissions: ["view_" + PrivateRoutes.REPORTEATENCION],
+    id: "47",
+    path: PrivateRoutes.PIZARRA,
+    component: MPizarra,
+    requiredPermissions: ["view_" + PrivateRoutes.PIZARRA],
   },
 
   //BODEGA

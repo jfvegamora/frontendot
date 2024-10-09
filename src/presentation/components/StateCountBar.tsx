@@ -37,7 +37,10 @@ const StateCountBar: React.FC<IStateCountBar> = React.memo(
           {totalCountBar.length > 0 &&
             totalCountBar?.map((registro, index) => {
               return (
-                <div className={`h-[5vh] flex mr-4 mt-1 ml-4 `} key={index}>
+                <div
+                  className={`h-[5vh] flex mr-4 mt-1 ml-4 w-[25%] `}
+                  key={index}
+                >
                   {idMenu === 44
                     ? renderBitacoraStateCountBar(registro)
                     : renderStateCountBar(registro)}

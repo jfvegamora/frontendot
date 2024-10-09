@@ -857,6 +857,13 @@ export const table_head_OT_bitacora_consulta = [
     width: "w-[15rem]",
   },
   {
+    cell: "Usuario id",
+    key: "usuario id",
+    visible: false,
+    alignment: "text-left",
+    width: "w-[15rem]",
+  },
+  {
     cell: "Usuario",
     key: "usuario",
     visible: true,
@@ -864,9 +871,23 @@ export const table_head_OT_bitacora_consulta = [
     width: "w-[15rem]",
   },
   {
+    cell: "Origen id",
+    key: "origen id",
+    visible: false,
+    alignment: "text-center",
+    width: "w-[10rem]",
+  },
+  {
     cell: "Origen",
     key: "origen",
     visible: true,
+    alignment: "text-center",
+    width: "w-[10rem]",
+  },
+  {
+    cell: "Destino id",
+    key: "destino",
+    visible: false,
     alignment: "text-center",
     width: "w-[10rem]",
   },
@@ -883,6 +904,13 @@ export const table_head_OT_bitacora_consulta = [
     visible: true,
     alignment: "text-center",
     width: "w-[6rem]",
+  },
+  {
+    cell: "Estado id",
+    key: "estado",
+    visible: false,
+    alignment: "text-center",
+    width: "w-[8rem]",
   },
   {
     cell: "Estado",

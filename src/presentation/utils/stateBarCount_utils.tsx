@@ -24,22 +24,20 @@ export const hanldeBitacoraStateCountBar = (entities: any) => {
       };
     }
 
+    if (origen === 50) {
+      console.log(estado);
+    }
+
     acc["Total"] = (acc["Total"] ?? 0) + 1;
     const isFinished = estadoTerminado[estado];
 
     if (isFinished && origen !== destino) {
       acc["Total Produccion"].total += 1;
-    } else if (
-      origen === 60 &&
-      estado !== 15 &&
-      isFinished &&
-      destino !== origen
-    ) {
+    } else if (origen === 60 && estado !== 15 && destino !== origen) {
       acc["Total Produccion"].total += 1;
-    } else if ((origen === 70 || origen === 75) && isFinished) {
+    } else if (origen === 70 || (origen === 75 && isFinished)) {
       acc["Total Produccion"].total += 1;
     }
-
     // acc[registroArea] = (acc[registroArea] ?? 0) + 1;
 
     console.log(acc);
@@ -75,19 +73,41 @@ export const hanldeBitacoraStateCountBar = (entities: any) => {
 
 export const renderBitacoraStateCountBar = (state: any) => {
   console.log(state);
+  console.log(state[0]);
+  console.log(state[1]);
+  console.log(state[1]["total"]);
   const render = state && Object.entries(state);
   console.log(render);
+  let a = state && state[0];
+  let b = state && state[1];
 
+  if (b["total"]) {
+    console.log(state[1]);
+    b = state[1]["total"].total;
+    console.log(state[1].total);
+    console.log(b);
+  } else {
+    console.log(state[1]);
+    b = state[1];
+  }
+
+  console.log(b);
   // let registro_name = render[0][0];
   // let registro_count = render[0][1];
   // let registro_name_completo = render[1][1];
 
   return (
-    <div>
+    <div className="flex mx-2 px-2">
       <Tooltip content={"2"}>
-        <span>{"3"}: </span>
+        <span>{a}</span>
       </Tooltip>
-      <span>{"2"}</span>
+      <span>
+        {state && state[1]["total"] ? (
+          <div>{state[1].total}</div>
+        ) : (
+          <div>{state[1]}</div>
+        )}
+      </span>
     </div>
   );
 };
