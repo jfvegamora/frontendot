@@ -19,7 +19,7 @@ import {
   CR2_OI_LAB,
 } from "./FOTCristales_utils";
 import { URLBackend } from "./config";
-import { OTPkToDelete, paramsOT } from "../views/mantenedores/MOT";
+import { OTPkToDelete } from "../views/mantenedores/MOT";
 
 export const dioptrias: any = signal<any>({
   ESF: [""],
@@ -823,10 +823,10 @@ export const validateFiltros = (validateSameProject?: boolean) => {
     return toast.error("No hay OT seleccionada.");
   }
 
-  if (paramsOT.value.length === 0) {
-    toast.error("Debe seleccionar filtros de Busqueda");
-    return true;
-  }
+  // if (paramsOT.value.length === 0) {
+  //   toast.error("Debe seleccionar filtros de Busqueda");
+  //   return true;
+  // }
   if (validateSameProject === false) {
     return false;
   } else {

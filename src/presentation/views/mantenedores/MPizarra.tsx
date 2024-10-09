@@ -51,7 +51,7 @@ const MPizarra: React.FC = () => {
 
               {
                 name: "_p1",
-                label: "Reporte Atencion",
+                label: "Reporte Atención",
                 type: "text",
                 styles: {
                   styles: "!w-[10vw] labelInput inputStyles ",

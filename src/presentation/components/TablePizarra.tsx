@@ -289,8 +289,8 @@ export const renderTbodyPizarraData = (data: any) => {
           {renderAreaReduce("Ingreso", registro[1])}
           {renderAreaReduce("Control Prod.", registro[1])}
           {renderAreaReduce("Bodega Insumos", registro[1])}
-          {renderAreaReduce("Taller Biselado 1", registro[1])}
-          {renderAreaReduce("Taller Biselado 2", registro[1])}
+          {renderAreaReduce("Taller 1", registro[1])}
+          {renderAreaReduce("Taller 2", registro[1])}
           {renderAreaReduce("Taller Montaje", registro[1])}
           {renderAreaReduce("Control Calidad", registro[1])}
           {renderAreaReduce("Bod. Prod. Terminados", registro[1])}
