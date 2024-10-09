@@ -37,8 +37,19 @@ const MReporteAtencion: React.FC = () => {
             setEntities={setEntities}
             primaryKeyInputs={[
               {
+                name: "_p2",
+                label: "Proyecto",
+                type: "select",
+                selectUrl: "/api/proyectos/",
+                styles: {
+                  styles: "labelInput inputStyles w-[19vw]",
+                  container: "!w-[19vw]  text-[1vw] ",
+                  labelProps: "labelInput",
+                },
+              },
+              {
                 name: "_p1",
-                label: "Reporte Atencion",
+                label: "Reporte Atención",
                 type: "text",
                 styles: {
                   styles: "!w-[10vw] labelInput inputStyles ",
@@ -46,6 +57,7 @@ const MReporteAtencion: React.FC = () => {
                   labelProps: "labelInput",
                 },
               },
+
             ]}
             classNameSearchButton=" mr-10"
             jsonSearch={false}

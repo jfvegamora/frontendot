@@ -18,7 +18,7 @@ import { IconButton, Tooltip } from "@material-tailwind/react";
 import { FaRegFileLines } from "react-icons/fa6";
 import JsBarcode from "jsbarcode";
 // import { AppStore, useAppSelector } from "../../redux/store";
-import TablePizarra from "../components/TablePizarra";
+// import TablePizarra from "../components/TablePizarra";
 // import FOTValidateCristales from "../views/forms/FOTValidateCristales";
 // import FOTValidateCristales from "../views/forms/FOTValidateCristales";
 // import FOTValidateCristales from "../views/forms/FOTValidateCristales";
@@ -281,9 +281,9 @@ const LandingPage: React.FC = () => {
             Bienvenido {user.nombre} al Sistema Gestión de OT.
           </h1>
         )} */}
-        <div className="!h-[40vw] overflow-y-scroll ">
+        {/* <div className="!h-[40vw] overflow-y-scroll ">
           <TablePizarra />
-        </div>
+        </div> */}
 
         {/* <FOTValidateCristales /> */}
         {/* <WhastappForm/> */}
