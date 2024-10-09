@@ -9,7 +9,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { AppStore, useAppDispatch, useAppSelector } from "../../redux/store";
 import { fetchOT } from "../../redux/slices/OTSlice";
-import { paramsOT, switchFetchOT } from "../views/mantenedores/MOT";
+import {
+  isInsertCSV,
+  paramsOT,
+  switchFetchOT,
+} from "../views/mantenedores/MOT";
 import axios from "axios";
 
 import {
@@ -146,8 +150,10 @@ const ImportToCsv: React.FC<ImportProps> = ({ strEntidad }) => {
         if (strEntidad === "Ordenen de Trabajo") {
           isModalOT.value = true;
         }
+
         const url = `${URLBackend.value}/api/excel/import/`;
         try {
+          isInsertCSV.value = true;
           const response = await axios.post(url, formData);
 
           jsonResponse.push(response.data);
@@ -190,6 +196,7 @@ const ImportToCsv: React.FC<ImportProps> = ({ strEntidad }) => {
       console.log(jsonResponse);
       switchFetchOT.value = true;
       isFetchCompleted.value = false;
+      isInsertCSV.value = false;
       return jsonResponse;
 
       //?==============================================METODO OT =====================================================

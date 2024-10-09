@@ -57,6 +57,7 @@ export enum OptionValuesEstado {
 export const checkCount = signal(0);
 export const totoalTrabajosSeleccionados = signal(0);
 export const areaActualOTSignal = signal(0);
+export const isInsertCSV = signal(false);
 
 // const idMenu = 1;
 export const paramsOT = signal("");
@@ -249,6 +250,9 @@ const MOT: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      if (isInsertCSV.value === true) {
+        return;
+      }
       if (switchFetchOT.value === true) {
         // console.log('params:', params[0])
         if (params[0] !== "") {
@@ -443,7 +447,7 @@ const MOT: React.FC = () => {
           labelProps: "labelInput",
         },
       },
-      
+
       {
         name: "_p2",
         label: "Tipo Doc",
