@@ -37,12 +37,24 @@ const MPizarra: React.FC = () => {
             setEntities={setEntities}
             primaryKeyInputs={[
               {
+                name: "_p2",
+                label: "Proyecto",
+                type: "select",
+                selectUrl: "/api/proyectos/",
+                styles: {
+                  styles: "labelInput inputStyles w-[25vw]",
+                  container: "!w-[30vw]  text-[1vw] translate-x-[0.5vw] translate-y-[0.5vw] ",
+                  labelProps: "labelInput",
+                },
+              },
+
+              {
                 name: "_p1",
                 label: "Reporte Atencion",
                 type: "text",
                 styles: {
                   styles: "!w-[10vw] labelInput inputStyles ",
-                  container: "!w-[10vw] translate-x-[-2.5vw] !ml-8  ",
+                  container: "!w-[10vw] translate-x-[2vw] !ml-8  ",
                   labelProps: "labelInput",
                 },
               },
