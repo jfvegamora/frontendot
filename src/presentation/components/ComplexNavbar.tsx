@@ -169,7 +169,7 @@ const navListMenuOT = [
     id: "44",
   },
   {
-    title: "Pizarra Reportes",
+    title: "Pizarra OT Diaria",
     link: "/pizarrareportes",
     id: "47",
   },

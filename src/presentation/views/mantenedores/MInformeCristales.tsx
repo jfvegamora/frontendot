@@ -54,11 +54,24 @@ const MCargos: React.FC = () => {
   } = useEntityUtils(strBaseUrl, strQuery);
 
   const [pkToDelete, setPkToDelete] = useState<string[]>([]);
-  const strParamsToDelete = "_p1"; // _p3/_p1/_pkToDelete
+  const strParamsToDelete = "_pkToDelete"; // _p3/_p1/_pkToDelete
 
   useEffect(() => {
+    // const newPkToDelete = selectedRows.map(
+    //   (row: number) => `${entities[row][EnumGrid.ID]}`
+    // );
     const newPkToDelete = selectedRows.map(
-      (row: number) => `${entities[row][EnumGrid.ID]}`
+      (row: number) =>
+        `{"desde":"${row}", 
+         "hasta":"${entities[row][EnumGrid.ID]}"
+         "origen":"${entities[row][EnumGrid.ID]}"
+         "diseno":""
+         "indice":""
+         "material":""
+         "color":""
+         "tratamiento":""
+         "diametro":""
+         }`
     );
     const combinedPks = newPkToDelete.join(",");
 
@@ -77,7 +90,7 @@ const MCargos: React.FC = () => {
               {
                 name: "desde",
                 label: "Desde",
-                type: "text",
+                type: "date",
                 styles: {
                   styles: "!w-[10vw] labelInput inputStyles ",
                   container: "!w-[10vw] translate-x-[-2.5vw] !ml-8  ",
@@ -87,7 +100,7 @@ const MCargos: React.FC = () => {
               {
                 name: "hasta",
                 label: "Hasta",
-                type: "text",
+                type: "date",
                 styles: {
                   styles: "!w-[10vw] labelInput inputStyles",
                   container: "translate-x-[-6.5vw] !w-[10vw] ml-8",
