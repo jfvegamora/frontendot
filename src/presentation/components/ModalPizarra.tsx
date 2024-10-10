@@ -104,6 +104,10 @@ const ModalPizarra: React.FC<IModalPizarra> = ({ onClose, data }) => {
               onlyRead={true}
               isMOT={false}
               idMenu={200}
+              permisos_ot_historica={{
+                permisoPostVenta: false,
+                permisoAnular: false,
+              }}
             />
           </div>
         )}

@@ -287,7 +287,7 @@ const FOT: React.FC<IFOTProps> = ({
   const [selectedTab, setSelectedTab] = useState(0);
   const { showModal, CustomModal } = useModal();
 
-  const { escritura_lectura } = usePermission(28);
+  const { escritura_lectura } = usePermission(idMenu);
   const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
   const OTSlice: any = useAppSelector((store: AppStore) => store.OTS);
   const User: any = useAppSelector((store: AppStore) => store.user);
@@ -377,6 +377,7 @@ const FOT: React.FC<IFOTProps> = ({
 
   if (!isMOT) {
     const permisosAreas = OTAreaActual && (permissions(OTAreaActual)[7] as any);
+    console.log(permisosAreas);
     permiso_areas_armazones =
       permisosAreas && permisosAreas[0] === "1" ? true : false;
     permiso_areas_cristales =
@@ -1726,6 +1727,22 @@ const FOT: React.FC<IFOTProps> = ({
 
   // console.log(validationNivel1.value);
 
+  console.log(
+    isEditting &&
+      data?.[EnumGrid.area_id] === 110 &&
+      permiso_usuario_btn_postVenta &&
+      isMOT &&
+      escritura_lectura &&
+      permisos_ot_historica.permisoPostVenta
+  );
+
+  console.log(isEditting);
+  console.log(data?.[EnumGrid.area_id] === 110);
+  console.log(permiso_usuario_btn_postVenta);
+  console.log(isMOT);
+  console.log(escritura_lectura);
+  console.log(permisos_ot_historica.permisoPostVenta);
+
   return (
     <div className="useFormContainerOT top-[0%]  w-full h-[100%] !z-40">
       <Tabs
@@ -2050,6 +2067,7 @@ const FOT: React.FC<IFOTProps> = ({
               permiso_usuario_btn_postVenta &&
               isMOT &&
               escritura_lectura &&
+              isMOT &&
               permisos_ot_historica.permisoPostVenta && (
                 // isMotivo    &&  (
                 <div className="mx-auto">

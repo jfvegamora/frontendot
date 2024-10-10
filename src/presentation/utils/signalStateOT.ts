@@ -990,8 +990,6 @@ export const updateOT = async (
   if (isMasivo) {
     // const amrazones =
     //   data.tipo_anteojo === 3 ? data.armazones : data.armazones.shift();
-    console.log(_destino);
-    console.log(_estado);
     const strP1 =
       tipo_evento === "Derivar"
         ? `area="${_destino}", estado="${_estado}",
@@ -1058,13 +1056,12 @@ export const updateOT = async (
 
   let estado_validacion = validation_Complete === true ? 2 : 1;
 
+  console.log(estado_validacion);
+  console.log(validation_Complete);
+
   let _p3 = "";
 
   const toastLoading = toast.loading("Cargando...");
-
-  console.log(_formValues);
-  console.log(_formValues["cristal1_material_od_id"]);
-  console.log(parseInt(_formValues["cristal1_material_od_id"]));
 
   const fields = [
     `motivo=${motivo}`,
@@ -1409,9 +1406,9 @@ export const updateOT = async (
         : data && data[EnumGrid.cristal2_od_diametro]
     }"`,
     `cristales2_od="${
-      A2_CR_OD.value.trim() === ""
+      A2_CR_OD.value === ""
         ? ""
-        : A2_CR_OD.value.trim() ||
+        : A2_CR_OD.value ||
           (_formValues["cristales"] &&
             parseInt(_formValues["cristales"]["cristal2_od"]))
     }"`,
@@ -1472,9 +1469,9 @@ export const updateOT = async (
         : data && data[EnumGrid.cristal2_oi_diametro]
     }"`,
     `cristales2_oi="${
-      A2_CR_OI.value.trim() === ""
+      A2_CR_OI.value === ""
         ? ""
-        : A2_CR_OI.value.trim() ||
+        : A2_CR_OI.value ||
           (_formValues["cristales"] &&
             parseInt(_formValues["cristales"]["cristal2_oi"]))
     }"`,

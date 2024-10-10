@@ -43,8 +43,6 @@ import {
   dataOTSignal,
   isValidateArmazon1,
   isValidateArmazon2,
-  isValidateCR1OD,
-  isValidateCR1OI,
   resultValidarBodega,
   structureCristalesBodega,
   valueConfirmOT,
@@ -664,13 +662,13 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       if (OT.length === 0) {
         return;
       }
-      if (isValidateCR1OD.value === true && isValidateCR1OI.value === true) {
-        validation_cristal1_od.value = " ";
-        validation_cristal1_oi.value = " ";
+      // if (isValidateCR1OD.value === true && isValidateCR1OI.value === true) {
+      //   validation_cristal1_od.value = " ";
+      //   validation_cristal1_oi.value = " ";
 
-        handleValidationCristales();
-        console.log("render");
-      }
+      //   handleValidationCristales();
+      //   console.log("render");
+      // }
 
       let jsondata: any = [];
       let origen = OTAreas["areaActual"];
@@ -1248,115 +1246,117 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     reiniciarValidationNivel3BodegaCristales();
   }, []);
 
-  const handleValidationCristales = async () => {
-    console.log(OT && OT[OTGrillaEnum.folio]);
-    try {
-      console.log(validation_cristal1_od.value);
-      let jsondata: any = [];
-      let origen = OTAreas["areaActual"];
-      let cristalOri = cristales;
-      let armazonOri = armazones;
-      let user = UsuarioID;
-      let validarBodega = false;
-      let isMasivo = true;
-      let cristalStock = "1";
-      let estadoValidacionCristal = "1";
+  // const handleValidationCristales = async () => {
+  //   console.log(OT && OT[OTGrillaEnum.folio]);
+  //   try {
+  //     console.log(validation_cristal1_od.value);
+  //     let jsondata: any = [];
+  //     let origen = OTAreas["areaActual"];
+  //     let cristalOri = cristales;
+  //     let armazonOri = armazones;
+  //     let user = UsuarioID;
+  //     let validarBodega = false;
+  //     let isMasivo = true;
+  //     let cristalStock = "1";
+  //     let estadoValidacionCristal = "1";
 
-      let _p2 = "1";
+  //     let _p2 = "1";
 
-      let destino =
-        casoEjecutar === "ProcesarTB_1"
-          ? OTAreas["areaSiguiente"]
-          : OTAreasEnum["Taller Biselado 2"];
-      let estado = "40";
+  //     // let destino =
+  //     //   casoEjecutar === "ProcesarTB_1"
+  //     //     ? OTAreas["areaSiguiente"]
+  //     //     : OTAreasEnum["Taller Biselado 2"];
 
-      let observaciones;
-      let situacion;
-      let data = {
-        folio: OT[OTGrillaEnum.folio],
-        tipo_anteojo: parseInt(OT[OTGrillaEnum.tipo_anteojo_id]),
-        proyecto_codigo: OT[OTGrillaEnum.proyecto_titulo],
-        punto_venta: OT[OTGrillaEnum.punto_venta],
-        cristales: [
-          {
-            codigo:
-              validation_cristal1_od.value !== ""
-                ? validation_cristal1_od.value
-                : "",
-            opcion_vta: cristalStock,
-            estado: estadoValidacionCristal,
-          },
-          {
-            codigo:
-              validation_cristal1_oi.value !== ""
-                ? validation_cristal1_oi.value
-                : "",
-            opcion_vta: cristalStock,
-            estado: estadoValidacionCristal,
-          },
-          {
-            codigo:
-              validation_cristal2_od.value !== ""
-                ? validation_cristal2_od.value
-                : "",
-            opcion_vta: cristalStock,
-            estado: estadoValidacionCristal,
-          },
-          {
-            codigo:
-              validation_cristal2_oi.value !== ""
-                ? validation_cristal2_oi.value
-                : "",
-            opcion_vta: cristalStock,
-            estado: estadoValidacionCristal,
-          },
-        ],
-        armazones: [],
-      };
+  //     let destino = "10";
+  //     let estado = "40";
 
-      updateOT(
-        jsondata,
-        origen,
-        destino,
-        estado,
-        [],
-        data,
-        cristalOri,
-        armazonOri,
-        user,
-        observaciones,
-        isMasivo,
-        situacion,
-        validarBodega,
-        "",
-        false,
-        "",
-        _p2
-      )
-        .then(() => {
-          // handleClose     ();
-          // toast.dismiss(toastLoading);
-          // toast.success("OT Procesada Correctamente.");
-          dispatch(
-            fetchOT({
-              OTAreas: OTAreas["areaActual"],
-              searchParams: paramsOT.value,
-            })
-          );
-          valueConfirmOT.value = "";
-          resetFields();
-        })
-        .catch((e) => {
-          console.log(e);
-          console.log("error");
-          resetFields();
-          // toast.dismiss(toastLoading);
-        });
-    } catch (error) {
-      console.log(error);
-      return error;
-    }
-  };
+  //     let observaciones;
+  //     let situacion;
+  //     let data = {
+  //       folio: OT[OTGrillaEnum.folio],
+  //       tipo_anteojo: parseInt(OT[OTGrillaEnum.tipo_anteojo_id]),
+  //       proyecto_codigo: OT[OTGrillaEnum.proyecto_titulo],
+  //       punto_venta: OT[OTGrillaEnum.punto_venta],
+  //       cristales: [
+  //         {
+  //           codigo:
+  //             validation_cristal1_od.value !== ""
+  //               ? validation_cristal1_od.value
+  //               : "",
+  //           opcion_vta: cristalStock,
+  //           estado: estadoValidacionCristal,
+  //         },
+  //         {
+  //           codigo:
+  //             validation_cristal1_oi.value !== ""
+  //               ? validation_cristal1_oi.value
+  //               : "",
+  //           opcion_vta: cristalStock,
+  //           estado: estadoValidacionCristal,
+  //         },
+  //         {
+  //           codigo:
+  //             validation_cristal2_od.value !== ""
+  //               ? validation_cristal2_od.value
+  //               : "",
+  //           opcion_vta: cristalStock,
+  //           estado: estadoValidacionCristal,
+  //         },
+  //         {
+  //           codigo:
+  //             validation_cristal2_oi.value !== ""
+  //               ? validation_cristal2_oi.value
+  //               : "",
+  //           opcion_vta: cristalStock,
+  //           estado: estadoValidacionCristal,
+  //         },
+  //       ],
+  //       armazones: [],
+  //     };
+
+  //     updateOT(
+  //       jsondata,
+  //       origen,
+  //       destino,
+  //       estado,
+  //       [],
+  //       data,
+  //       cristalOri,
+  //       armazonOri,
+  //       user,
+  //       observaciones,
+  //       isMasivo,
+  //       situacion,
+  //       validarBodega,
+  //       "",
+  //       false,
+  //       "",
+  //       _p2
+  //     )
+  //       .then(() => {
+  //         // handleClose     ();
+  //         // toast.dismiss(toastLoading);
+  //         // toast.success("OT Procesada Correctamente.");
+  //         dispatch(
+  //           fetchOT({
+  //             OTAreas: OTAreas["areaActual"],
+  //             searchParams: paramsOT.value,
+  //           })
+  //         );
+  //         valueConfirmOT.value = "";
+  //         resetFields();
+  //       })
+  //       .catch((e) => {
+  //         console.log(e);
+  //         console.log("error");
+  //         resetFields();
+  //         // toast.dismiss(toastLoading);
+  //       });
+  //   } catch (error) {
+  //     console.log(error);
+  //     return error;
+  //   }
+  // };
 
   const handleDerivacionValidarCristales = async () => {
     const formValues = getValues();

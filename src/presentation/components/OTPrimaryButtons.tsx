@@ -1034,8 +1034,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
 
           if (
             dataOT &&
-            dataOT[0][OTGrillaEnum.cr1_od].trim() === "" &&
-            dataOT[0][OTGrillaEnum.cr1_oi].trim() === ""
+            dataOT[0][OTGrillaEnum.cr1_od] === "" &&
+            dataOT[0][OTGrillaEnum.cr1_oi] === ""
           ) {
             console.log("render validar crsitales");
             isValidateCR1OD.value = true;

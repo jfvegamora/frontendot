@@ -785,6 +785,10 @@ const MOT: React.FC = () => {
             onlyRead={lectura}
             isMOT={false}
             idMenu={idMenu}
+            permisos_ot_historica={{
+              permisoPostVenta: false,
+              permisoAnular: false,
+            }}
           />
         )}
       </Suspense>

@@ -345,6 +345,7 @@ const MOTHistorica: React.FC = () => {
   useEffect(() => {
     dispatch(updateActualArea(110 as any));
     const permiso = areaActual && permissions(areaActual);
+    console.log(permiso && permiso[6]);
     permissionsOTArchivo.value = permiso && permiso[6];
   }, [permissionsOTArchivo.value]);
 
@@ -871,6 +872,7 @@ const MOTHistorica: React.FC = () => {
             setEntities={setEntities}
             params={params}
             isEditting={false}
+            idMenu={idMenu}
             isMOT={false}
             // permisos_ot_historica={{
             //   permiso_documentacion,
@@ -890,6 +892,7 @@ const MOTHistorica: React.FC = () => {
             closeModal={closeModal}
             isEditting={true}
             isMOT={true}
+            idMenu={idMenu}
             permisos_ot_historica={{
               permisoPostVenta:
                 permissionsOTArchivo.value[PermisosBotones.postVenta] === "1"

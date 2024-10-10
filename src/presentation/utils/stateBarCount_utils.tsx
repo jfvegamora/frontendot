@@ -17,99 +17,54 @@ export const hanldeBitacoraStateCountBar = (entities: any) => {
     let estado = registro[9];
     // let folio = registro[8];
 
-    console.log(registro);
-    if (!acc["Total Produccion"]) {
-      acc["Total Produccion"] = {
-        total: 0,
+    if (!acc["Total Producción"]) {
+      acc["Total Producción"] = {
+        totalProd: 0,
+        totalOT: 0,
       };
     }
 
-    if (origen === 50) {
-      console.log(estado);
-    }
-
-    acc["Total"] = (acc["Total"] ?? 0) + 1;
     const isFinished = estadoTerminado[estado];
 
-    if (isFinished && origen !== destino) {
-      acc["Total Produccion"].total += 1;
-    } else if (origen === 60 && estado !== 15 && destino !== origen) {
-      acc["Total Produccion"].total += 1;
-    } else if (origen === 70 || (origen === 75 && isFinished)) {
-      acc["Total Produccion"].total += 1;
-    }
-    // acc[registroArea] = (acc[registroArea] ?? 0) + 1;
+    // if(origen ==)
 
-    console.log(acc);
+    // acc["Total"] = (acc["Total"] ?? 0) + 1;
+
+    acc["Total Producción"].totalOT += 1; // Incrementa totalOT en cada iteración
+
+    if (isFinished && origen !== destino) {
+      acc["Total Producción"].totalProd += 1;
+    } else if (origen === 60 && estado !== 15 && destino !== origen) {
+      acc["Total Producción"].totalProd += 1;
+      // } else if (origen === 70 || (origen === 75 && isFinished)) {
+    } else if (origen === 70 && destino === origen && isFinished) {
+      acc["Total Producción"].totalProd += 1;
+    }
+
+    // acc[registroArea] = (acc[registroArea] ?? 0) + 1;
 
     return acc;
   }, {});
   const ObjectReduce = Object.entries(reduceEntities);
 
-  console.log(ObjectReduce);
-  const resultStateCountBar = ObjectReduce.map((registro: any) => {
-    // let nombre = registro[0].slice(0, 3);
-    console.log(registro[0]);
-    console.log(registro[1]);
-
-    let key = registro[0];
-    let value = registro[1];
-
-    const obj: any = {};
-
-    if (!obj[key]) {
-      obj[key] = value;
-    } else {
-      obj[key] += value;
-    }
-
-    return obj;
-  });
-
-  console.log(resultStateCountBar);
-
   return ObjectReduce;
 };
 
 export const renderBitacoraStateCountBar = (state: any) => {
-  console.log(state);
-  console.log(state[0]);
-  console.log(state[1]);
-  console.log(state[1]["total"]);
   const render = state && Object.entries(state);
-  console.log(render);
-  // let a = state && state[0];
-  let b = state && state[1];
-
-  if (b["total"]) {
-    console.log(state[1]);
-    b = state[1]["total"].total;
-    console.log(state[1].total);
-    console.log(b);
-  } else {
-    console.log(state[1]);
-    b = state[1];
-  }
-
-  console.log(b);
-  // let registro_name = render[0][0];
-  // let registro_count = render[0][1];
-  // let registro_name_completo = render[1][1];
-
   return (
-    <div className="flex mx-2 px-2">
-      {/* <Tooltip content={"2"}>
-        <span>
-          {a}: {""}
-        </span>
-      </Tooltip>
-      <span>
-        {state && state[1]["total"] ? (
-          <div>{state[1].total}</div>
-        ) : (
-          <div>{state[1]}</div>
-        )}
-      </span> */}
+    <div className="flex mx-2 px-2  w-[50%] ">
+      <div className=" w-[100%]">
+        Total OT:
+        <span>{"  "}</span>
+        <span>{render[1][1]["totalOT"]}</span>
+      </div>
+
+      <div className="bg-green-500 w-[100%] rounded-full mb-[0.6rem] text-white px-4">
+        Total Produccion
+        <span>{"  "}</span>
+        <span>{render[1][1]["totalProd"]}</span>
+      </div>
     </div>
   );
 };
@@ -134,4 +89,26 @@ export const handleStateCountBar = (entities: any) => {
   }, {});
 
   return [reduceEntities];
+};
+
+export const isTrabajoTerminado = (rowData: any) => {
+  if (!rowData) {
+    return false;
+  }
+  console.log(rowData);
+  let origen = rowData[4];
+  let estado = rowData[9];
+  let destino = rowData[6];
+
+  const isFinished = estadoTerminado[estado];
+
+  if (isFinished && origen !== destino) {
+    return true;
+  } else if (origen === 60 && estado !== 15 && destino !== origen) {
+    return true;
+  } else if (origen === 70 && destino === origen && isFinished) {
+    return true;
+  }
+
+  return false;
 };
