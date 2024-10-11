@@ -10,7 +10,7 @@ import {
   TableComponent,
 } from "../../components";
 import { TITLES, table_head_informe_cristales } from "../../utils";
-import FCargos from "../forms/FCargos";
+// import FCargos from "../forms/FCargos";
 import { handleContainerClick } from "../../pages/LandingPage";
 
 const strEntidad = "Informe Cristales ";
@@ -24,7 +24,7 @@ export enum EnumGrid {
   nombre = 2,
 }
 
-const MCargos: React.FC = () => {
+const MInformeCristales: React.FC = () => {
   const [params, setParams] = useState([]);
   const { escritura_lectura } = usePermission(idMenu || 0);
 
@@ -54,24 +54,11 @@ const MCargos: React.FC = () => {
   } = useEntityUtils(strBaseUrl, strQuery);
 
   const [pkToDelete, setPkToDelete] = useState<string[]>([]);
-  const strParamsToDelete = "_pkToDelete"; // _p3/_p1/_pkToDelete
+  const strParamsToDelete = "_p1"; // _p3/_p1/_pkToDelete
 
   useEffect(() => {
-    // const newPkToDelete = selectedRows.map(
-    //   (row: number) => `${entities[row][EnumGrid.ID]}`
-    // );
     const newPkToDelete = selectedRows.map(
-      (row: number) =>
-        `{"desde":"${row}", 
-         "hasta":"${entities[row][EnumGrid.ID]}"
-         "origen":"${entities[row][EnumGrid.ID]}"
-         "diseno":""
-         "indice":""
-         "material":""
-         "color":""
-         "tratamiento":""
-         "diametro":""
-         }`
+      (row: number) => `${entities[row][EnumGrid.ID]}`
     );
     const combinedPks = newPkToDelete.join(",");
 
@@ -80,7 +67,7 @@ const MCargos: React.FC = () => {
 
   return (
     <div className="mantenedorContainer" onClick={handleContainerClick}>
-      <div className="mantenedorHead width90">
+      <div className="mantenedorHead width100">
         <div className="w-[100%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
@@ -88,110 +75,122 @@ const MCargos: React.FC = () => {
             setEntities={setEntities}
             primaryKeyInputs={[
               {
-                name: "desde",
-                label: "Desde",
-                type: "date",
-                styles: {
-                  styles: "!w-[10vw] labelInput inputStyles ",
-                  container: "!w-[10vw] translate-x-[-2.5vw] !ml-8  ",
-                  labelProps: "labelInput",
-                },
-              },
-              {
-                name: "hasta",
-                label: "Hasta",
-                type: "date",
-                styles: {
-                  styles: "!w-[10vw] labelInput inputStyles",
-                  container: "translate-x-[-6.5vw] !w-[10vw] ml-8",
-                  labelProps: "labelInput",
-                },
-              },
-              {
-                name: "origen",
+                name: "_origen",
                 label: "",
                 type: "checkbox",
                 options: ["Inventario", "Consumo"],
                 styles: {
                   styles: " labelInput inputStyles ",
-                  container: "!translate-x-[-6vw] ",
+                  container: "!translate-x-[0] ",
                   labelProps: "labelInput",
                 },
               },
               {
-                name: "diseno",
+                name: "_desde",
+                label: "Desde",
+                type: "date",
+                styles: {
+                  styles: "labelInput inputStyles w-[10vw] mt-4 ",
+                  container: "!w-[10vw]   text-[1vw] translate-x-[0]",
+                  labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_hasta",
+                label: "Hasta",
+                type: "date",
+                styles: {
+                  styles: "labelInput inputStyles w-[10vw] mt-4 ",
+                  container: "!w-[10vw]   text-[1vw] translate-x-[0]",
+                  labelProps: "labelInput",
+                },
+              },
+              {
+                name: "_marca",
+                label: "Marca",
+                type: "select",
+                selectUrl: "/api/marcas/",
+                styles: {
+                  styles: "labelInput inputStyles w-[15vw] mt-4 ",
+                  container: "!w-[15vw]   text-[1vw] translate-x-[0]",
+                  labelProps: "labelInput",
+                },
+                _p1: "2",
+              },
+            {
+                name: "_diseno",
                 label: "Diseño",
                 type: "select",
                 selectUrl: "/api/tipos/",
                 tipos: "CristalesDisenos",
                 styles: {
                   styles: "labelInput inputStyles w-[15vw] mt-4 ",
-                  container: "!w-[15vw]   text-[1vw] translate-x-[-2vw]",
+                  container: "!w-[15vw]   text-[1vw] translate-x-[0]",
                   labelProps: "labelInput",
                 },
               },
               {
-                name: "indice",
+                name: "_indice",
                 label: "Indice",
                 type: "select",
                 selectUrl: "/api/tipos/",
                 tipos: "CristalesIndices",
                 styles: {
-                  styles: "labelInput inputStyles w-[15vw] ml-4",
-                  container: "!w-[15vw]  text-[1vw]  translate-x-[-6vw] mt-4",
+                  styles: "labelInput inputStyles w-[15vw] mt-4 ",
+                  container: "!w-[15vw]   text-[1vw] translate-x-[0]",
                   labelProps: "labelInput",
                 },
               },
 
               {
-                name: "material",
+                name: "_material",
                 label: "Material",
                 type: "select",
                 selectUrl: "/api/tipos/",
                 tipos: "CristalesMateriales",
                 styles: {
-                  styles: "labelInput inputStyles w-[13vw]  ",
-                  container: "!w-[13vw]   text-[1vw]",
+                  styles: "labelInput inputStyles w-[15vw] mt-4 ",
+                  container: "!w-[15vw]   text-[1vw] translate-x-[0]",
                   labelProps: "labelInput",
                 },
               },
               {
-                name: "color",
+                name: "_color",
                 label: "Color",
                 type: "select",
                 selectUrl: "/api/tipos/",
                 tipos: "CristalesColores",
                 styles: {
-                  styles: "labelInput inputStyles w-[13vw]",
-                  container: "!w-[13vw]   text-[1vw] translate-x-[-4vw]",
+                  styles: "labelInput inputStyles w-[15vw] mt-4 ",
+                  container: "!w-[15vw]   text-[1vw] translate-x-[0]",
                   labelProps: "labelInput",
                 },
               },
               {
-                name: "tratamiento",
+                name: "_tratamiento",
                 label: "Tratamiento",
                 type: "select",
                 selectUrl: "/api/tipos/",
                 tipos: "CristalesTratamientos",
                 styles: {
-                  styles: "labelInput inputStyles w-[21vw]",
-                  container: "!w-[13vw]   text-[1vw] translate-x-[-8vw]",
+                  styles: "labelInput inputStyles w-[15vw] mt-4 ",
+                  container: "!w-[15vw]   text-[1vw] translate-x-[0]",
                   labelProps: "labelInput",
                 },
               },
               {
-                name: "diametro",
+                name: "_diametro",
                 label: "Diametro",
-                type: "text",
+                type: "number",
                 styles: {
-                  styles: "!w-[13vw] labelInput inputStyles",
-                  container: "!w-[13vw]  translate-x-[-3vw]",
+                  styles: "labelInput inputStyles w-[6vw] mt-4 ",
+                  container: "!w-[6vw]   text-[1vw] translate-x-[-10vh]",
                   labelProps: "labelInput",
                 },
               },
             ]}
-            classNameSearchButton="translate-x-[-2vw] translate-y-[3vw]"
-            jsonSearch={true}
+            classNameSearchButton="translate-x-[2vw] translate-y-[3vw]"
+            jsonSearch={false}
           />
         </div>
 
@@ -213,7 +212,7 @@ const MCargos: React.FC = () => {
         </div>
       </div>
 
-      <div className="width100 scroll overflow-x-hidden !h-[25vw]">
+      <div className="width100 scroll overflow-x-hidden !h-[65%]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}
@@ -232,7 +231,7 @@ const MCargos: React.FC = () => {
         />
       </div>
 
-      {isModalInsert && (
+      {/* {isModalInsert && (
         <FCargos
           label={`${TITLES.ingreso} ${strEntidad}`}
           closeModal={closeModal}
@@ -255,9 +254,9 @@ const MCargos: React.FC = () => {
           isEditting={true}
           escritura_lectura={escritura_lectura}
         />
-      )}
+      )} */}
     </div>
   );
 };
 
-export default MCargos;
+export default MInformeCristales;
