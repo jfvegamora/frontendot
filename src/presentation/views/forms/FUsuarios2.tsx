@@ -362,7 +362,7 @@ const FUsuarios2: React.FC<IUserFormPrps> = React.memo(
     const schema = validationUsusariosSchema();
     const { showModal, CustomModal } = useModal();
     const { show } = useCustomToast();
-    const { escritura_lectura } = usePermission(24 || 0);
+    const { escritura_lectura } = usePermission(24);
     // const [formValues, setFormValues] = useState<any>();
 
     const {

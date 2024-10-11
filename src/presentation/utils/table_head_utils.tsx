@@ -869,6 +869,8 @@ export const table_head_OT_bitacora_consulta = [
     key: "date",
     visible: true,
     width: "w-[15rem]",
+    background: true,
+    color: true,
   },
   {
     cell: "Usuario id",

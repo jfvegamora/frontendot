@@ -45,6 +45,8 @@ import { inputOnlyReadReserva } from "../../utils/FReservaArmazones_utils";
 import { signal } from "@preact/signals-react";
 // import { areaActualOT } from "../OTAreasButtons";
 import { URLBackend } from "../../utils/config";
+import { usePermissionOT } from "../../hooks/usePermissionOT";
+import { usePermissionAreasUsuario } from "../../hooks/usePermissionAreasUsuario";
 
 interface IArmazones {
   control: any;
@@ -890,6 +892,12 @@ const FOTArmazones: React.FC<IArmazones> = ({
   }, []);
 
   //    console.log(a1_armazon.value)
+
+  console.log(permiso_areas_armazones);
+  console.log(permiso_usuario_armazones);
+  const { permisosAreasUsuario_resolucion } = usePermissionAreasUsuario();
+
+  console.log(permisosAreasUsuario_resolucion);
   return (
     <form>
       <div className="frameOTForm h-[84vh]">
@@ -1049,7 +1057,9 @@ const FOTArmazones: React.FC<IArmazones> = ({
                       onlyRead={
                         !(
                           !isEditting ||
-                          (permiso_usuario_armazones && permiso_areas_armazones)
+                          (permisosAreasUsuario_resolucion &&
+                            permiso_usuario_armazones &&
+                            permiso_areas_armazones)
                         ) || inputOnlyReadReserva.value
                       }
                       // isOT={true}
@@ -1182,7 +1192,9 @@ const FOTArmazones: React.FC<IArmazones> = ({
                     onlyRead={
                       !(
                         !isEditting ||
-                        (permiso_usuario_armazones && permiso_areas_armazones)
+                        (permisosAreasUsuario_resolucion &&
+                          permiso_usuario_armazones &&
+                          permiso_areas_armazones)
                       ) || inputOnlyReadReserva.value
                     }
                     // isOT={true}
