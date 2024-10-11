@@ -3,13 +3,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useState, useEffect } from "react";
-import { useEntityUtils, usePermission } from "../../hooks";
+import { useEntityUtils } from "../../hooks";
 import {
   PrimaryButtonsComponent,
   PrimaryKeySearch,
   TableComponent,
 } from "../../components";
-import { TITLES, table_head_informe_cristales } from "../../utils";
+import { table_head_informe_cristales } from "../../utils";
 // import FCargos from "../forms/FCargos";
 import { handleContainerClick } from "../../pages/LandingPage";
 
@@ -26,7 +26,7 @@ export enum EnumGrid {
 
 const MInformeCristales: React.FC = () => {
   const [params, setParams] = useState([]);
-  const { escritura_lectura } = usePermission(idMenu || 0);
+  // const { escritura_lectura } = usePermission(idMenu || 0);
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
@@ -35,15 +35,11 @@ const MInformeCristales: React.FC = () => {
   const {
     //Entities State
     entities,
-    entity,
     setEntities,
     selectedRows,
     setSelectedRows,
     //Modal Methds
     openModal,
-    closeModal,
-    isModalInsert,
-    isModalEdit,
     toggleEditModal,
 
     //Check/Buttons Methods

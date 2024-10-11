@@ -15,7 +15,7 @@ export const hanldeBitacoraStateCountBar = (entities: any) => {
     // let origen = registro[4];
     // let destino = registro[6];
     let estado = registro[9];
-    // let situacion = registro[11];
+    let situacion = registro[11];
     // let folio = registro[8];
 
     if (!acc["Total Producción"]) {
@@ -72,7 +72,9 @@ export const hanldeBitacoraStateCountBar = (entities: any) => {
       // }
 
       if (isFinished) {
-        acc["Total Producción"].totalProd += 1;
+        if (situacion !== "Cristal") {
+          acc["Total Producción"].totalProd += 1;
+        }
       }
     }
 

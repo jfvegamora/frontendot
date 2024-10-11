@@ -162,8 +162,8 @@ export const PrivateRoutes = {
   OT: "ot",
   CLIENTES: "clientes",
   BITACORA: "bitacora",
-  PIZARRADIARIA: "pizarrareportesdiaria",
-  PIZARRARCHIVO: "pizarrareportesarchivo",
+  PIZARRADIARIA: "pizarraotdiaria",
+  PIZARRARCHIVO: "pizarraotarchivo",
 
   ESTABLECIMIENTOS: "establecimientos",
   PUNTOS_VENTA: "puntosventa",

@@ -1,5 +1,4 @@
 import React from "react";
-import { table_head_pizarra } from "../utils";
 import { Text } from "@chakra-ui/react";
 import { Tooltip } from "@material-tailwind/react";
 import { signal } from "@preact/signals-react";
@@ -192,6 +191,81 @@ export const switchDataPizarra = (
                 {value as any}
               </div>
             </Tooltip>
+          ) : key === "50" ? (
+            <div
+              onClick={() => {
+                dataOnClick.value["reporteAtencion"] = reporteAtencion;
+                dataOnClick.value["estado"] = "82";
+                dataOnClick.value["area"] = data["area"];
+                dataOnClick.value[
+                  "paramsOT"
+                ] = `_estado=${key}&_p2=1&_p3=${reporteAtencion}`;
+                startFetchOT.value = true;
+              }}
+              className="rounded-full cursor-pointer bg-white border border-[#ED7D31] w-full text-[#ED7D31]"
+            >
+              {value as any}
+            </div>
+          ) : key === "60" ? (
+            <div
+              onClick={() => {
+                dataOnClick.value["reporteAtencion"] = reporteAtencion;
+                dataOnClick.value["estado"] = "82";
+                dataOnClick.value["area"] = data["area"];
+                dataOnClick.value[
+                  "paramsOT"
+                ] = `_estado=${key}&_p2=1&_p3=${reporteAtencion}`;
+                startFetchOT.value = true;
+              }}
+              className="rounded-full cursor-pointer bg-white border border-[#4CAF50] w-full text-[#4CAF50]"
+            >
+              {value as any}
+            </div>
+          ) : key === "70" ? (
+            <div
+              onClick={() => {
+                dataOnClick.value["reporteAtencion"] = reporteAtencion;
+                dataOnClick.value["estado"] = "82";
+                dataOnClick.value["area"] = data["area"];
+                dataOnClick.value[
+                  "paramsOT"
+                ] = `_estado=${key}&_p2=1&_p3=${reporteAtencion}`;
+                startFetchOT.value = true;
+              }}
+              className="rounded-full cursor-pointer bg-white border border-[#9900FF] w-full text-[#9900FF]"
+            >
+              {value as any}
+            </div>
+          ) : key === "75" ? (
+            <div
+              onClick={() => {
+                dataOnClick.value["reporteAtencion"] = reporteAtencion;
+                dataOnClick.value["estado"] = "82";
+                dataOnClick.value["area"] = data["area"];
+                dataOnClick.value[
+                  "paramsOT"
+                ] = `_estado=${key}&_p2=1&_p3=${reporteAtencion}`;
+                startFetchOT.value = true;
+              }}
+              className="rounded-full cursor-pointer bg-white border border-[#A50021] w-full text-[#A50021]"
+            >
+              {value as any}
+            </div>
+          ) : key === "80" ? (
+            <div
+              onClick={() => {
+                dataOnClick.value["reporteAtencion"] = reporteAtencion;
+                dataOnClick.value["estado"] = "82";
+                dataOnClick.value["area"] = data["area"];
+                dataOnClick.value[
+                  "paramsOT"
+                ] = `_estado=${key}&_p2=1&_p3=${reporteAtencion}`;
+                startFetchOT.value = true;
+              }}
+              className="rounded-full cursor-pointer bg-[#808080] border border-[#808080] w-full text-[#FFFFFF]"
+            >
+              {value as any}
+            </div>
           ) : key === "82" ? (
             <Tooltip content="En marcado">
               <div
@@ -315,9 +389,11 @@ export const renderTbodyPizarraData = (data: any) => {
 
 interface ITablePizzara {
   data?: any;
+  tableHead?: any;
+  idMenu?: any;
 }
 
-const TablePizarra: React.FC<ITablePizzara> = ({ data }) => {
+const TablePizarra: React.FC<ITablePizzara> = ({ data, tableHead }) => {
   const dispatch = useAppDispatch();
   const [dataTable, setDataTable] = React.useState({});
 
@@ -349,8 +425,8 @@ const TablePizarra: React.FC<ITablePizzara> = ({ data }) => {
     <div className="">
       <table className="gridContainer !h-1/2 st">
         <thead className="gridTop">
-          {table_head_pizarra &&
-            table_head_pizarra.map((column: any, index: any) => {
+          {tableHead &&
+            tableHead.map((column: any, index: any) => {
               const isVisible = column.visible;
               return (
                 isVisible && (

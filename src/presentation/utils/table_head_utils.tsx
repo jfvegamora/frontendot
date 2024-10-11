@@ -612,7 +612,7 @@ export const table_head_OT_bitacora = [
     alignment: "items-center",
   },
 ];
-export const table_head_pizarra = [
+export const table_head_pizarra_diaria = [
   {
     cell: "N° REPORTE",
     key: "reporte",
@@ -735,6 +735,50 @@ export const table_head_pizarra = [
     visible: true,
     alignment: "text-center",
     width: "w-[8rem]",
+  },
+];
+export const table_head_pizarra_archivo = [
+  {
+    cell: "N° REPORTE",
+    key: "reporte",
+    visible: true,
+    width: "w-[6rem]",
+    alignment: "flex justify-center  items-center ",
+  },
+  {
+    cell: "FECHA REPORTE",
+    key: "fechareporte",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6vw]",
+  },
+  {
+    cell: "FECHA ENTREGA",
+    key: "nombre",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6vw]",
+  },
+  {
+    cell: "DIAS FALTANTES",
+    key: "dias faltantes",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6vw]",
+  },
+  {
+    cell: "TOTAL TRABAJOS",
+    key: "nombre",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[6vw]",
+  },
+  {
+    cell: "ARCHIVO OT",
+    key: "archivo ot",
+    visible: true,
+    alignment: "text-center",
+    width: "w-[20rem]",
   },
 ];
 export const table_head_clientes = [

@@ -2,10 +2,12 @@ import React from "react";
 import TablePizarra from "../../components/TablePizarra";
 import { PrimaryKeySearch } from "../../components";
 import { useEntityUtils } from "../../hooks";
+import { table_head_pizarra_archivo } from "../../utils";
 
 // const strEntidad = "Reporte de Atención";
 // const strEntidadExcel = "Informe_ot_reporte_atencion";
-const strBaseUrl = "/api/proyectopizarra/";
+const strBaseUrl = "/api/pizarraarchivo/";
+const idMenu = 48;
 // const idMenu = 47;
 
 export const enumReporteAtencionPizarra: any = {
@@ -68,7 +70,11 @@ const MPizarraArchivo: React.FC = () => {
         </div>
       </div>
       <div className="overflow-x-scroll h-[77%]">
-        <TablePizarra data={entities} />
+        <TablePizarra
+          data={entities}
+          tableHead={table_head_pizarra_archivo}
+          idMenu={idMenu}
+        />
       </div>
     </div>
   );
