@@ -45,7 +45,7 @@ import { inputOnlyReadReserva } from "../../utils/FReservaArmazones_utils";
 import { signal } from "@preact/signals-react";
 // import { areaActualOT } from "../OTAreasButtons";
 import { URLBackend } from "../../utils/config";
-import { usePermissionOT } from "../../hooks/usePermissionOT";
+// import { usePermissionOT } from "../../hooks/usePermissionOT";
 import { usePermissionAreasUsuario } from "../../hooks/usePermissionAreasUsuario";
 
 interface IArmazones {
@@ -174,7 +174,8 @@ const FOTArmazones: React.FC<IArmazones> = ({
     cristal2_color_oi_id,
     cristal2_tratamiento_oi_id,
     cristal2_oi_diametro,
-  } = (formValuesCompleto && formValuesCompleto["cristales"]) || {};
+  } = (formValuesCompleto && formValuesCompleto) || {};
+  console.log(formValuesCompleto);
 
   const _pkToDelete1_od = {
     marca: cristal1_marca_od_id || data?.[EnumGrid.cristal1_od_marca_id],
@@ -382,8 +383,7 @@ const FOTArmazones: React.FC<IArmazones> = ({
     try {
       console.log(dp);
       console.log(diametro);
-
-      // const {data} = await axios((validar_parametrizacion.value === '1' )
+      // const {data} = awai  t axios((validar_parametrizacion.value === '1' )
       //                                        ? (`${endpoint
       //                                                             }&_p1=${codArmazon && codArmazon.trim() !== '' ? codArmazon.trim() : ""
       //                                                             }&_p4=${
@@ -622,7 +622,7 @@ const FOTArmazones: React.FC<IArmazones> = ({
           console.log();
           validation_Cristal1_od("");
           validation_Cristal1_oi("");
-          toast.error(data[0][19]);
+          toast.error(data[0][20]);
         }
 
         if (inputName === "a2_armazon_id") {
@@ -637,13 +637,13 @@ const FOTArmazones: React.FC<IArmazones> = ({
               validation_Cristal2_od("");
             validation_Cristal2_oi("");
           }
-          toast.error(data[0][19]);
+          toast.error(data[0][20]);
         }
 
         if (inputName === "a3_armazon_id") {
           setArmazon3([]);
           setCodArmazon3(" ");
-          toast.error(data[0][19]);
+          toast.error(data[0][20]);
         }
         toast.dismiss(toastLoading);
         return;
@@ -895,9 +895,9 @@ const FOTArmazones: React.FC<IArmazones> = ({
 
   console.log(permiso_areas_armazones);
   console.log(permiso_usuario_armazones);
-  const { permisosAreasUsuario_resolucion } = usePermissionAreasUsuario();
+  const { permisosAreasUsuario_editar_armazon } = usePermissionAreasUsuario();
 
-  console.log(permisosAreasUsuario_resolucion);
+  console.log(permisosAreasUsuario_editar_armazon);
   return (
     <form>
       <div className="frameOTForm h-[84vh]">
@@ -925,7 +925,10 @@ const FOTArmazones: React.FC<IArmazones> = ({
                       onlyRead={
                         !(
                           !isEditting ||
-                          (permiso_usuario_armazones && permiso_areas_armazones)
+                          (permisosAreasUsuario_editar_armazon
+                            ? permiso_usuario_armazones &&
+                              permiso_areas_armazones
+                            : false)
                         ) || inputOnlyReadReserva.value
                       }
                       // isOT={true}
@@ -1057,9 +1060,10 @@ const FOTArmazones: React.FC<IArmazones> = ({
                       onlyRead={
                         !(
                           !isEditting ||
-                          (permisosAreasUsuario_resolucion &&
-                            permiso_usuario_armazones &&
-                            permiso_areas_armazones)
+                          (permisosAreasUsuario_editar_armazon
+                            ? permiso_usuario_armazones &&
+                              permiso_areas_armazones
+                            : false)
                         ) || inputOnlyReadReserva.value
                       }
                       // isOT={true}
@@ -1192,9 +1196,9 @@ const FOTArmazones: React.FC<IArmazones> = ({
                     onlyRead={
                       !(
                         !isEditting ||
-                        (permisosAreasUsuario_resolucion &&
-                          permiso_usuario_armazones &&
-                          permiso_areas_armazones)
+                        (permisosAreasUsuario_editar_armazon
+                          ? permiso_usuario_armazones && permiso_areas_armazones
+                          : false)
                       ) || inputOnlyReadReserva.value
                     }
                     // isOT={true}

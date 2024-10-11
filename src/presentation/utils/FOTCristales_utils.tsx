@@ -685,8 +685,6 @@ export const getGrupoCristales_od_A2 = async (
       // armazon_material: 0,
       cliente_sexo: 0,
       cliente_fecha_nac: new Date(),
-
-      optcion_vta: "",
     };
 
     // console.log(_pkToDelete1_od)
@@ -711,8 +709,6 @@ export const getGrupoCristales_od_A2 = async (
       // armazon_material: 0,
       cliente_sexo: 0,
       cliente_fecha_nac: new Date(),
-
-      optcion_vta: "",
     };
 
     try {
@@ -856,8 +852,6 @@ export const getGrupoCristales_oi_A2 = async (
       // armazon_material: 0,
       cliente_sexo: 0,
       cliente_fecha_nac: new Date(),
-
-      optcion_vta: "",
     };
 
     // console.log(_pkToDelete1_od)
@@ -882,8 +876,6 @@ export const getGrupoCristales_oi_A2 = async (
       // armazon_material: 0,
       cliente_sexo: 0,
       cliente_fecha_nac: new Date(),
-
-      optcion_vta: "",
     };
 
     try {

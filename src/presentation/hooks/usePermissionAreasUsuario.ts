@@ -4,7 +4,7 @@ export function usePermissionAreasUsuario() {
   const permisosAreasUsuario = useAppSelector(
     (store: AppStore) => store.user?.permisos_areas
   );
-  let permisosAreasUsuario_resolucion =
+  let permisosAreasUsuario_editar_armazon =
     permisosAreasUsuario && permisosAreasUsuario[0] === "1" ? true : false;
   let permisosAreasUsuario_compras =
     permisosAreasUsuario && permisosAreasUsuario[1] === "1" ? true : false;
@@ -34,7 +34,7 @@ export function usePermissionAreasUsuario() {
   console.log(permisosAreasUsuario);
 
   return {
-    permisosAreasUsuario_resolucion,
+    permisosAreasUsuario_editar_armazon,
     permisosAreasUsuario_compras,
     permisosAreasUsuario_calculo,
     permisosAreasUsuario_laboratorio,

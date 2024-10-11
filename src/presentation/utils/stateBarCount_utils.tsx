@@ -12,36 +12,72 @@ const estadoTerminado: any = {
 export const hanldeBitacoraStateCountBar = (entities: any) => {
   const reduceEntities = entities.reduce((acc: any, registro: any) => {
     // let registsroArea = registro[4];
-    let origen = registro[4];
-    let destino = registro[6];
+    // let origen = registro[4];
+    // let destino = registro[6];
     let estado = registro[9];
+    // let situacion = registro[11];
     // let folio = registro[8];
 
     if (!acc["Total Producción"]) {
       acc["Total Producción"] = {
         totalProd: 0,
         totalOT: 0,
+        totolPord2: 0,
+        totalDerivados: 0,
       };
     }
 
     const isFinished = estadoTerminado[estado];
 
-    // if(origen ==)
+    // if (estado === 40) {
+    //   acc["Total Producción"].totalDerivados += 1;
+    // } else {
+    //   if (isFinished && origen !== destino) {
+    //     acc["Total Producción"].totolPord2 += 1;
+    //   } else if (origen === 60 && estado !== 15 && destino !== origen) {
+    //     acc["Total Producción"].totolPord2 += 1;
+    //     // } else if (origen === 70 || (origen === 75 && isFinished)) {
+    //   } else if (
+    //     origen === 60 &&
+    //     estado !== 15 &&
+    //     destino === origen &&
+    //     situacion === "Armazón"
+    //   ) {
+    //     acc["Total Producción"].totolPord2 += 1;
+    //   } else if (origen === 70 && destino === origen && isFinished) {
+    //     acc["Total Producción"].totolPord2 += 1;
+    //   }
+    // }
 
     // acc["Total"] = (acc["Total"] ?? 0) + 1;
 
     acc["Total Producción"].totalOT += 1; // Incrementa totalOT en cada iteración
+    if (estado === 40) {
+      acc["Total Producción"].totalDerivados += 1;
+    } else {
+      // if (isFinished && origen !== destino) {
+      //   acc["Total Producción"].totalProd += 1;
+      // } else if (origen === 60 && estado !== 15 && destino !== origen) {
+      //   acc["Total Producción"].totalProd += 1;
+      //   // } else if (origen === 70 || (origen === 75 && isFinished)) {
+      // } else if (
+      //   origen === 60 &&
+      //   estado !== 15 &&
+      //   destino === origen &&
+      //   situacion === "Armazón"
+      // ) {
+      //   acc["Total Producción"].totalProd += 1;
+      // } else if (origen === 70 && destino === origen && isFinished) {
+      //   acc["Total Producción"].totalProd += 1;
+      // }
 
-    if (isFinished && origen !== destino) {
-      acc["Total Producción"].totalProd += 1;
-    } else if (origen === 60 && estado !== 15 && destino !== origen) {
-      acc["Total Producción"].totalProd += 1;
-      // } else if (origen === 70 || (origen === 75 && isFinished)) {
-    } else if (origen === 70 && destino === origen && isFinished) {
-      acc["Total Producción"].totalProd += 1;
+      if (isFinished) {
+        acc["Total Producción"].totalProd += 1;
+      }
     }
 
-    // acc[registroArea] = (acc[registroArea] ?? 0) + 1;
+    console.log(acc);
+    // acc[registroA  rea] = (acc[registroArea] ?? 0) + 1;
 
     return acc;
   }, {});
@@ -53,18 +89,25 @@ export const hanldeBitacoraStateCountBar = (entities: any) => {
 export const renderBitacoraStateCountBar = (state: any) => {
   const render = state && Object.entries(state);
   return (
-    <div className="flex mx-2 px-2  w-[50%] ">
+    <div className="flex  w-[90%] ">
       <div className=" w-[100%]">
-        Total OT:
+        Total:
         <span>{"  "}</span>
         <span>{render[1][1]["totalOT"]}</span>
       </div>
 
-      <div className="bg-green-500 w-[100%] rounded-full mb-[0.6rem] text-white px-4">
-        Total Produccion
+      <div className=" w-[100%] rounded-full mb-[0.6rem]">
+        Total Producción:
         <span>{"  "}</span>
         <span>{render[1][1]["totalProd"]}</span>
       </div>
+      {render[1][1]["totalDerivados"] !== 0 && (
+        <div className="bg-red-500 w-[65%] rounded-full mb-[0.6rem] text-white px-4">
+          Total Derivadas
+          <span>{"  "}</span>
+          <span>{render[1][1]["totalDerivados"]}</span>
+        </div>
+      )}
     </div>
   );
 };
@@ -91,22 +134,13 @@ export const handleStateCountBar = (entities: any) => {
   return [reduceEntities];
 };
 
-export const isTrabajoTerminado = (rowData: any) => {
+export const isTrabajoDerivado = (rowData: any) => {
   if (!rowData) {
     return false;
   }
-  console.log(rowData);
-  let origen = rowData[4];
   let estado = rowData[9];
-  let destino = rowData[6];
 
-  const isFinished = estadoTerminado[estado];
-
-  if (isFinished && origen !== destino) {
-    return true;
-  } else if (origen === 60 && estado !== 15 && destino !== origen) {
-    return true;
-  } else if (origen === 70 && destino === origen && isFinished) {
+  if (estado === 40) {
     return true;
   }
 

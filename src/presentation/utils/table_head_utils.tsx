@@ -870,7 +870,6 @@ export const table_head_OT_bitacora_consulta = [
     visible: true,
     width: "w-[15rem]",
     background: true,
-    color: true,
   },
   {
     cell: "Usuario id",
@@ -934,6 +933,7 @@ export const table_head_OT_bitacora_consulta = [
     visible: true,
     alignment: "text-center",
     width: "w-[8rem]",
+    color: true,
   },
   {
     cell: "Situación",

@@ -874,11 +874,10 @@ const MOTHistorica: React.FC = () => {
             isEditting={false}
             idMenu={idMenu}
             isMOT={false}
-            // permisos_ot_historica={{
-            //   permiso_documentacion,
-            //   permiso_post_venta,
-            //   permiso_anular,
-            // }}
+            permisos_ot_historica={{
+              permisoPostVenta: false,
+              permisoAnular: false,
+            }}
           />
         )}
 

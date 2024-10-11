@@ -26,7 +26,7 @@ import {
 } from "../Enums";
 
 import { Text } from "@chakra-ui/react";
-import { isTrabajoTerminado } from "../utils/stateBarCount_utils";
+import { isTrabajoDerivado } from "../utils/stateBarCount_utils";
 
 const OTGrillaButtons = React.lazy(() => import("./OTGrillaButtons"));
 const ExportToPDF = React.lazy(() => import("./ExportToPDF"));
@@ -173,19 +173,13 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
         color?: any,
         lowArmazonesStock?: any
       ) => {
-        console.log(rowData);
-        const isTerminado = isTrabajoTerminado(rowData);
-
-        console.log(isTerminado);
-        if (idMenu === 44 && color2) {
-          console.log(rowData);
-        }
+        const isDerivado = isTrabajoDerivado(rowData);
 
         const cellStyle: any = {
           textAlign: alignment,
           color: isOT
             ? rowData && color2 && handleColorEstado(rowData[5])
-            : idMenu === 44 && color2 && isTerminado
+            : idMenu === 44 && color2 && isDerivado
             ? "white"
             : entidad === "Informe Cristales "
             ? text && handleColorTextInformeCristales(text)
@@ -376,33 +370,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                           : ""
                         : "";
 
-                      console.log(row);
-                      console.log(col);
-                      if (col === 1) {
-                        console.log(row);
-
-                        console.log(color2);
-                        console.log(
-                          handleColorEstado(rowData[5], "background")
-                        );
-                        console.log(idMenu);
-                        console.log(
-                          isOT
-                            ? color2
-                              ? handleColorEstado(rowData[5], "background")
-                              : "!bg-black"
-                            : lowArmazonesStock && color2
-                            ? handleColorEstado(rowData[1])
-                            : idMenu === 46 && color2
-                            ? handleCellInformeColor(row)
-                            : idMenu === 44 && color2
-                            ? "green"
-                            : "2"
-                        );
-                      }
-                      let isTerminado = false;
+                      let isDerivado = false;
                       if (idMenu === 44) {
-                        isTerminado = isTrabajoTerminado(rowData);
+                        isDerivado = isTrabajoDerivado(rowData);
                       }
 
                       const type = color === "bg-black" ? 1 : 0;
@@ -424,8 +394,8 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
                                 ? handleColorEstado(rowData[1])
                                 : idMenu === 46 && color2
                                 ? handleCellInformeColor(row)
-                                : idMenu === 44 && color2 && isTerminado
-                                ? "#4caf50"
+                                : idMenu === 44 && color2 && isDerivado
+                                ? "#f44336"
                                 : "",
                             }}
                           >

@@ -770,6 +770,10 @@ const MOT: React.FC = () => {
             isEditting={false}
             isMOT={false}
             idMenu={idMenu}
+            permisos_ot_historica={{
+              permisoPostVenta: false,
+              permisoAnular: false,
+            }}
           />
         )}
 

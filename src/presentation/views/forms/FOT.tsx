@@ -1958,7 +1958,7 @@ const FOT: React.FC<IFOTProps> = ({
 
           <TabPanel>
             <FOTArmazones
-              formValuesCompleto={formValues}
+              formValuesCompleto={formValuesCompleto}
               setSelectedTab={setSelectedTab}
               permiso_areas_armazones={permiso_areas_armazones}
               isEditting={isEditting}
