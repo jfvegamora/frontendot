@@ -111,20 +111,20 @@ const MInformeCristales: React.FC = () => {
                 type: "select",
                 selectUrl: "/api/marcas/",
                 styles: {
-                  styles: "labelInput inputStyles w-[15vw] mt-4 ",
-                  container: "!w-[15vw]   text-[1vw] translate-x-[0]",
+                  styles: "labelInput inputStyles w-[15vw]",
+                  container: "!w-[15vw] text-[1vw] ",
                   labelProps: "labelInput",
                 },
                 _p1: "2",
               },
-            {
+              {
                 name: "_diseno",
                 label: "Diseño",
                 type: "select",
                 selectUrl: "/api/tipos/",
                 tipos: "CristalesDisenos",
                 styles: {
-                  styles: "labelInput inputStyles w-[15vw] mt-4 ",
+                  styles: "labelInput inputStyles w-[15vw]",
                   container: "!w-[15vw]   text-[1vw] translate-x-[0]",
                   labelProps: "labelInput",
                 },
@@ -136,8 +136,8 @@ const MInformeCristales: React.FC = () => {
                 selectUrl: "/api/tipos/",
                 tipos: "CristalesIndices",
                 styles: {
-                  styles: "labelInput inputStyles w-[15vw] mt-4 ",
-                  container: "!w-[15vw]   text-[1vw] translate-x-[0]",
+                  styles: "labelInput inputStyles w-[15vw]",
+                  container: "!w-[15vw]   text-[1vw] ",
                   labelProps: "labelInput",
                 },
               },
@@ -149,8 +149,8 @@ const MInformeCristales: React.FC = () => {
                 selectUrl: "/api/tipos/",
                 tipos: "CristalesMateriales",
                 styles: {
-                  styles: "labelInput inputStyles w-[15vw] mt-4 ",
-                  container: "!w-[15vw]   text-[1vw] translate-x-[0]",
+                  styles: "labelInput inputStyles w-[15vw]",
+                  container: "!w-[15vw]   text-[1vw] ",
                   labelProps: "labelInput",
                 },
               },
@@ -161,8 +161,8 @@ const MInformeCristales: React.FC = () => {
                 selectUrl: "/api/tipos/",
                 tipos: "CristalesColores",
                 styles: {
-                  styles: "labelInput inputStyles w-[15vw] mt-4 ",
-                  container: "!w-[15vw]   text-[1vw] translate-x-[0]",
+                  styles: "labelInput inputStyles w-[15vw]",
+                  container: "!w-[15vw]   text-[1vw] ",
                   labelProps: "labelInput",
                 },
               },
@@ -173,8 +173,8 @@ const MInformeCristales: React.FC = () => {
                 selectUrl: "/api/tipos/",
                 tipos: "CristalesTratamientos",
                 styles: {
-                  styles: "labelInput inputStyles w-[15vw] mt-4 ",
-                  container: "!w-[15vw]   text-[1vw] translate-x-[0]",
+                  styles: "labelInput inputStyles w-[15vw]",
+                  container: "!w-[15vw]   text-[1vw] ",
                   labelProps: "labelInput",
                 },
               },
@@ -183,7 +183,7 @@ const MInformeCristales: React.FC = () => {
                 label: "Diametro",
                 type: "number",
                 styles: {
-                  styles: "labelInput inputStyles w-[6vw] mt-4 ",
+                  styles: "labelInput inputStyles w-[6vw]  ",
                   container: "!w-[6vw]   text-[1vw] translate-x-[-10vh]",
                   labelProps: "labelInput",
                 },

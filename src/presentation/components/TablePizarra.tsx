@@ -7,7 +7,7 @@ import ModalPizarra from "./ModalPizarra";
 import { useAppDispatch } from "../../redux/store";
 import { fetchOT } from "../../redux/slices/OTSlice";
 import { toast } from "react-toastify";
-import { enumReporteAtencionPizarra } from "../views/mantenedores/MPizarra";
+import { enumReporteAtencionPizarra } from "../views/mantenedores/MPizarraDiaria";
 
 const showModal = signal(false);
 const startFetchOT = signal(false);

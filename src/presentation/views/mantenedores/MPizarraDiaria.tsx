@@ -19,7 +19,7 @@ export const enumReporteAtencionPizarra: any = {
   "Estado ID": 7,
 };
 
-const MPizarra: React.FC = () => {
+const MPizarraDiaria: React.FC = () => {
   const [_params, setParams] = React.useState([]);
 
   const { setEntities, entities } = useEntityUtils(strBaseUrl, "01");
@@ -74,4 +74,4 @@ const MPizarra: React.FC = () => {
   );
 };
 
-export default MPizarra;
+export default MPizarraDiaria;
