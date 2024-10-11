@@ -157,8 +157,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       if (/^-?\d+\.\d+$/.test(text)) {
         return;
       }
-      const parsedRow = parseInt(text);
-      return parsedRow <= 20 ? "white" : "black";
+      // const parsedRow = parseInt(text);
+      // return parsedRow <= 20 ? "white" : "black";
+      return "black";
     };
 
     const renderTextCell = useCallback(
@@ -272,8 +273,9 @@ const TableComponent: React.FC<ITableComponentProps<any>> = React.memo(
       if (/^-?\d+\.\d+$/.test(row)) {
         return;
       }
-      const parsedRow = parseInt(row);
-      return parsedRow <= 20 ? "red" : "";
+      // const parsedRow = parseInt(row);
+      // return parsedRow <= 20 ? "red" : "";
+      return "";
     };
 
     return (
