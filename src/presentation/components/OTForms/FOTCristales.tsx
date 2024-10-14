@@ -69,6 +69,7 @@ import {
 } from "../../utils/FOTCristales_utils";
 import { toast } from "react-toastify";
 import { disabledCristalDiseño } from "../../views/forms/FOT";
+import { usePermissionAreasUsuario } from "../../hooks/usePermissionAreasUsuario";
 // import { OTTextInputComponent } from '.';
 // import { validationNivel3 } from '../../views/forms/FOT';
 // import { AppStore, useAppSelector } from '../../../redux/store';
@@ -109,6 +110,7 @@ const FOTCristales: React.FC<ICristales> = ({
     firstInputRef: React.useRef<HTMLInputElement>(null),
     lastInputRef: React.useRef<HTMLInputElement>(null),
   });
+  const { permisoAreaUsuario } = usePermissionAreasUsuario();
 
   const handleInputChange = async (e: any) => {
     const { name, value } = e;
@@ -599,8 +601,10 @@ const FOTCristales: React.FC<ICristales> = ({
                         readOnly={
                           !(
                             !isEditting ||
-                            (permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria)
+                            (permisoAreaUsuario
+                              ? permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria
+                              : false)
                           ) || inputOnlyReadBodegaProcesado.value
                         }
                         inputRef={inputsRef.firstInputRef}

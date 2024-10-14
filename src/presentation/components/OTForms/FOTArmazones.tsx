@@ -895,9 +895,8 @@ const FOTArmazones: React.FC<IArmazones> = ({
 
   console.log(permiso_areas_armazones);
   console.log(permiso_usuario_armazones);
-  const { permisosAreasUsuario_editar_armazon } = usePermissionAreasUsuario();
-
-  console.log(permisosAreasUsuario_editar_armazon);
+  const { permisoAreaUsuario } = usePermissionAreasUsuario();
+  console.log(permisoAreaUsuario);
   return (
     <form>
       <div className="frameOTForm h-[84vh]">
@@ -925,7 +924,7 @@ const FOTArmazones: React.FC<IArmazones> = ({
                       onlyRead={
                         !(
                           !isEditting ||
-                          (permisosAreasUsuario_editar_armazon
+                          (permisoAreaUsuario
                             ? permiso_usuario_armazones &&
                               permiso_areas_armazones
                             : false)
@@ -1060,7 +1059,7 @@ const FOTArmazones: React.FC<IArmazones> = ({
                       onlyRead={
                         !(
                           !isEditting ||
-                          (permisosAreasUsuario_editar_armazon
+                          (permisoAreaUsuario
                             ? permiso_usuario_armazones &&
                               permiso_areas_armazones
                             : false)
@@ -1196,7 +1195,7 @@ const FOTArmazones: React.FC<IArmazones> = ({
                     onlyRead={
                       !(
                         !isEditting ||
-                        (permisosAreasUsuario_editar_armazon
+                        (permisoAreaUsuario
                           ? permiso_usuario_armazones && permiso_areas_armazones
                           : false)
                       ) || inputOnlyReadReserva.value
