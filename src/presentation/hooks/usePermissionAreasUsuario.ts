@@ -35,18 +35,12 @@ export function usePermissionAreasUsuario() {
   let permisosAreasUsuario_empaque =
     permisosAreasUsuario && permisosAreasUsuario[12] === "1" ? true : false;
 
-  console.log(permisosAreasUsuario);
-  console.log(permisosAreasUsuario_bodega_insumo);
-  if (areaActual) {
-    console.log(
-      permisosAreasUsuario && permisosAreasUsuario[EnumAreas[areaActual]]
-    );
-  }
-
   let permisoAreaUsuario =
     areaActual &&
     permisosAreasUsuario &&
-    permisosAreasUsuario[EnumAreas[areaActual]];
+    permisosAreasUsuario[EnumAreas[areaActual]] === "1"
+      ? true
+      : false;
   return {
     permisosAreasUsuario_resolucion,
     permisosAreasUsuario_compras,

@@ -526,6 +526,18 @@ const FOTCristales: React.FC<ICristales> = ({
       // setValue("cristal2_oi_diametro", "65");
     }
   }, []);
+
+  console.log(
+    !isEditting ||
+      (permisoAreaUsuario
+        ? permiso_areas_grupo_dioptria && permiso_usuario_grupo_dioptria
+        : false)
+  );
+
+  console.log(permisoAreaUsuario);
+  console.log(permiso_areas_grupo_dioptria);
+  console.log(permiso_usuario_grupo_dioptria);
+
   return (
     <form onKeyDown={handleKeyDown}>
       <div className="flex frameOTForm h-[85vh] ">
@@ -629,8 +641,10 @@ const FOTCristales: React.FC<ICristales> = ({
                         readOnly={
                           !(
                             !isEditting ||
-                            (permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria)
+                            (permisoAreaUsuario
+                              ? permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria
+                              : false)
                           ) || disabledCristalDiseño.value
                         }
                         customWidth={"labelInput inputStyles"}
@@ -658,8 +672,10 @@ const FOTCristales: React.FC<ICristales> = ({
                         readOnly={
                           !(
                             !isEditting ||
-                            (permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria)
+                            (permisoAreaUsuario
+                              ? permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria
+                              : false)
                           ) || inputOnlyReadBodegaProcesado.value
                         }
                         inputRef={inputsRef.firstInputRef}
@@ -685,8 +701,10 @@ const FOTCristales: React.FC<ICristales> = ({
                         readOnly={
                           !(
                             !isEditting ||
-                            (permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria)
+                            (permisoAreaUsuario
+                              ? permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria
+                              : false)
                           ) || disabledCristalDiseño.value
                         }
                         customWidth={"labelInput inputStyles"}
@@ -714,8 +732,10 @@ const FOTCristales: React.FC<ICristales> = ({
                         readOnly={
                           !(
                             !isEditting ||
-                            (permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria)
+                            (permisoAreaUsuario
+                              ? permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria
+                              : false)
                           ) || inputOnlyReadBodegaProcesado.value
                         }
                         customWidth={"labelInput inputStyles"}
@@ -742,8 +762,10 @@ const FOTCristales: React.FC<ICristales> = ({
                         readOnly={
                           !(
                             !isEditting ||
-                            (permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria)
+                            (permisoAreaUsuario
+                              ? permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria
+                              : false)
                           ) || inputOnlyReadBodegaProcesado.value
                         }
                       />
@@ -768,8 +790,10 @@ const FOTCristales: React.FC<ICristales> = ({
                         readOnly={
                           !(
                             !isEditting ||
-                            (permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria)
+                            (permisoAreaUsuario
+                              ? permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria
+                              : false)
                           ) || inputOnlyReadBodegaProcesado.value
                         }
                         customWidth={"labelInput inputStyles"}
@@ -797,8 +821,10 @@ const FOTCristales: React.FC<ICristales> = ({
                         readOnly={
                           !(
                             !isEditting ||
-                            (permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria)
+                            (permisoAreaUsuario
+                              ? permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria
+                              : false)
                           ) || inputOnlyReadBodegaProcesado.value
                         }
                       />
@@ -827,8 +853,10 @@ const FOTCristales: React.FC<ICristales> = ({
                         readOnly={
                           !(
                             !isEditting ||
-                            (permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria)
+                            (permisoAreaUsuario
+                              ? permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria
+                              : false)
                           ) || inputOnlyReadBodegaProcesado.value
                         }
                       />
@@ -853,8 +881,10 @@ const FOTCristales: React.FC<ICristales> = ({
                         readOnly={
                           !(
                             !isEditting ||
-                            (permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria)
+                            (permisoAreaUsuario
+                              ? permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria
+                              : false)
                           ) || inputOnlyReadBodegaProcesado.value
                         }
                       />
@@ -881,8 +911,10 @@ const FOTCristales: React.FC<ICristales> = ({
                         readOnly={
                           !(
                             !isEditting ||
-                            (permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria)
+                            (permisoAreaUsuario
+                              ? permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria
+                              : false)
                           ) || inputOnlyReadBodegaProcesado.value
                         }
                       />
@@ -907,8 +939,10 @@ const FOTCristales: React.FC<ICristales> = ({
                         readOnly={
                           !(
                             !isEditting ||
-                            (permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria)
+                            (permisoAreaUsuario
+                              ? permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria
+                              : false)
                           ) || inputOnlyReadBodegaProcesado.value
                         }
                       />
@@ -933,8 +967,10 @@ const FOTCristales: React.FC<ICristales> = ({
                       onlyRead={
                         !(
                           !isEditting ||
-                          (permiso_areas_grupo_dioptria &&
-                            permiso_usuario_grupo_dioptria)
+                          (permisoAreaUsuario
+                            ? permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria
+                            : false)
                         ) || inputOnlyReadBodegaProcesado.value
                       } // error={errors.fecha_nacimiento}
                       textAlign="text-center"
@@ -957,8 +993,10 @@ const FOTCristales: React.FC<ICristales> = ({
                       onlyRead={
                         !(
                           !isEditting ||
-                          (permiso_areas_grupo_dioptria &&
-                            permiso_usuario_grupo_dioptria)
+                          (permisoAreaUsuario
+                            ? permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria
+                            : false)
                         ) || inputOnlyReadBodegaProcesado.value
                       } // error={errors.fecha_nacimiento}
                       textAlign="text-center"
@@ -1060,8 +1098,10 @@ const FOTCristales: React.FC<ICristales> = ({
                       readOnly={
                         !(
                           !isEditting ||
-                          (permiso_areas_grupo_dioptria &&
-                            permiso_usuario_grupo_dioptria)
+                          (permisoAreaUsuario
+                            ? permiso_areas_grupo_dioptria &&
+                              permiso_usuario_grupo_dioptria
+                            : false)
                         ) || inputOnlyReadBodegaProcesado.value
                       }
                       isOptional={true}
@@ -1138,10 +1178,11 @@ const FOTCristales: React.FC<ICristales> = ({
                           readOnly={
                             !(
                               (!isEditting && tipo_de_anteojo.value === "3") ||
-                              (isEditting &&
-                                permiso_areas_grupo_dioptria &&
-                                permiso_usuario_grupo_dioptria &&
-                                tipo_de_anteojo.value === "3")
+                              (isEditting && permisoAreaUsuario
+                                ? permiso_areas_grupo_dioptria &&
+                                  permiso_usuario_grupo_dioptria &&
+                                  tipo_de_anteojo.value === "3"
+                                : false)
                             ) || inputOnlyReadBodegaProcesado.value
                           }
                           isFOTcristales={true}
@@ -1167,10 +1208,11 @@ const FOTCristales: React.FC<ICristales> = ({
                           readOnly={
                             !(
                               (!isEditting && tipo_de_anteojo.value === "3") ||
-                              (isEditting &&
-                                permiso_areas_grupo_dioptria &&
-                                permiso_usuario_grupo_dioptria &&
-                                tipo_de_anteojo.value === "3")
+                              (isEditting && permisoAreaUsuario
+                                ? permiso_areas_grupo_dioptria &&
+                                  permiso_usuario_grupo_dioptria &&
+                                  tipo_de_anteojo.value === "3"
+                                : false)
                             ) || disabledCristalDiseño.value
                           }
                           customWidth={"labelInput inputStyles"}
@@ -1196,10 +1238,11 @@ const FOTCristales: React.FC<ICristales> = ({
                           readOnly={
                             !(
                               (!isEditting && tipo_de_anteojo.value === "3") ||
-                              (isEditting &&
-                                permiso_areas_grupo_dioptria &&
-                                permiso_usuario_grupo_dioptria &&
-                                tipo_de_anteojo.value === "3")
+                              (isEditting && permisoAreaUsuario
+                                ? permiso_areas_grupo_dioptria &&
+                                  permiso_usuario_grupo_dioptria &&
+                                  tipo_de_anteojo.value === "3"
+                                : false)
                             ) || inputOnlyReadBodegaProcesado.value
                           }
                           isFOTcristales={true}
@@ -1225,10 +1268,11 @@ const FOTCristales: React.FC<ICristales> = ({
                           readOnly={
                             !(
                               (!isEditting && tipo_de_anteojo.value === "3") ||
-                              (isEditting &&
-                                permiso_areas_grupo_dioptria &&
-                                permiso_usuario_grupo_dioptria &&
-                                tipo_de_anteojo.value === "3")
+                              (isEditting && permisoAreaUsuario
+                                ? permiso_areas_grupo_dioptria &&
+                                  permiso_usuario_grupo_dioptria &&
+                                  tipo_de_anteojo.value === "3"
+                                : false)
                             ) || disabledCristalDiseño.value
                           }
                           customWidth={"labelInput inputStyles"}
@@ -1260,10 +1304,11 @@ const FOTCristales: React.FC<ICristales> = ({
                           readOnly={
                             !(
                               (!isEditting && tipo_de_anteojo.value === "3") ||
-                              (isEditting &&
-                                permiso_areas_grupo_dioptria &&
-                                permiso_usuario_grupo_dioptria &&
-                                tipo_de_anteojo.value === "3")
+                              (isEditting && permisoAreaUsuario
+                                ? permiso_areas_grupo_dioptria &&
+                                  permiso_usuario_grupo_dioptria &&
+                                  tipo_de_anteojo.value === "3"
+                                : false)
                             ) || inputOnlyReadBodegaProcesado.value
                           }
                         />
@@ -1289,10 +1334,11 @@ const FOTCristales: React.FC<ICristales> = ({
                           readOnly={
                             !(
                               (!isEditting && tipo_de_anteojo.value === "3") ||
-                              (isEditting &&
-                                permiso_areas_grupo_dioptria &&
-                                permiso_usuario_grupo_dioptria &&
-                                tipo_de_anteojo.value === "3")
+                              (isEditting && permisoAreaUsuario
+                                ? permiso_areas_grupo_dioptria &&
+                                  permiso_usuario_grupo_dioptria &&
+                                  tipo_de_anteojo.value === "3"
+                                : false)
                             ) || inputOnlyReadBodegaProcesado.value
                           }
                         />
@@ -1319,10 +1365,11 @@ const FOTCristales: React.FC<ICristales> = ({
                           readOnly={
                             !(
                               (!isEditting && tipo_de_anteojo.value === "3") ||
-                              (isEditting &&
-                                permiso_areas_grupo_dioptria &&
-                                permiso_usuario_grupo_dioptria &&
-                                tipo_de_anteojo.value === "3")
+                              (isEditting && permisoAreaUsuario
+                                ? permiso_areas_grupo_dioptria &&
+                                  permiso_usuario_grupo_dioptria &&
+                                  tipo_de_anteojo.value === "3"
+                                : false)
                             ) || inputOnlyReadBodegaProcesado.value
                           }
                         />
@@ -1348,10 +1395,11 @@ const FOTCristales: React.FC<ICristales> = ({
                           readOnly={
                             !(
                               (!isEditting && tipo_de_anteojo.value === "3") ||
-                              (isEditting &&
-                                permiso_areas_grupo_dioptria &&
-                                permiso_usuario_grupo_dioptria &&
-                                tipo_de_anteojo.value === "3")
+                              (isEditting && permisoAreaUsuario
+                                ? permiso_areas_grupo_dioptria &&
+                                  permiso_usuario_grupo_dioptria &&
+                                  tipo_de_anteojo.value === "3"
+                                : false)
                             ) || inputOnlyReadBodegaProcesado.value
                           }
                         />
@@ -1381,10 +1429,11 @@ const FOTCristales: React.FC<ICristales> = ({
                           readOnly={
                             !(
                               (!isEditting && tipo_de_anteojo.value === "3") ||
-                              (isEditting &&
-                                permiso_areas_grupo_dioptria &&
-                                permiso_usuario_grupo_dioptria &&
-                                tipo_de_anteojo.value === "3")
+                              (isEditting && permisoAreaUsuario
+                                ? permiso_areas_grupo_dioptria &&
+                                  permiso_usuario_grupo_dioptria &&
+                                  tipo_de_anteojo.value === "3"
+                                : false)
                             ) || inputOnlyReadBodegaProcesado.value
                           }
                         />
@@ -1412,10 +1461,11 @@ const FOTCristales: React.FC<ICristales> = ({
                           readOnly={
                             !(
                               (!isEditting && tipo_de_anteojo.value === "3") ||
-                              (isEditting &&
-                                permiso_areas_grupo_dioptria &&
-                                permiso_usuario_grupo_dioptria &&
-                                tipo_de_anteojo.value === "3")
+                              (isEditting && permisoAreaUsuario
+                                ? permiso_areas_grupo_dioptria &&
+                                  permiso_usuario_grupo_dioptria &&
+                                  tipo_de_anteojo.value === "3"
+                                : false)
                             ) || inputOnlyReadBodegaProcesado.value
                           }
                         />
@@ -1442,10 +1492,11 @@ const FOTCristales: React.FC<ICristales> = ({
                           readOnly={
                             !(
                               (!isEditting && tipo_de_anteojo.value === "3") ||
-                              (isEditting &&
-                                permiso_areas_grupo_dioptria &&
-                                permiso_usuario_grupo_dioptria &&
-                                tipo_de_anteojo.value === "3")
+                              (isEditting && permisoAreaUsuario
+                                ? permiso_areas_grupo_dioptria &&
+                                  permiso_usuario_grupo_dioptria &&
+                                  tipo_de_anteojo.value === "3"
+                                : false)
                             ) || inputOnlyReadBodegaProcesado.value
                           }
                         />
@@ -1473,10 +1524,11 @@ const FOTCristales: React.FC<ICristales> = ({
                           readOnly={
                             !(
                               (!isEditting && tipo_de_anteojo.value === "3") ||
-                              (isEditting &&
-                                permiso_areas_grupo_dioptria &&
-                                permiso_usuario_grupo_dioptria &&
-                                tipo_de_anteojo.value === "3")
+                              (isEditting && permisoAreaUsuario
+                                ? permiso_areas_grupo_dioptria &&
+                                  permiso_usuario_grupo_dioptria &&
+                                  tipo_de_anteojo.value === "3"
+                                : false)
                             ) || inputOnlyReadBodegaProcesado.value
                           }
                         />
@@ -1501,10 +1553,11 @@ const FOTCristales: React.FC<ICristales> = ({
                         onlyRead={
                           !(
                             (!isEditting && tipo_de_anteojo.value === "3") ||
-                            (isEditting &&
-                              permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria &&
-                              tipo_de_anteojo.value === "3")
+                            (isEditting && permisoAreaUsuario
+                              ? permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria &&
+                                tipo_de_anteojo.value === "3"
+                              : false)
                           ) || inputOnlyReadBodegaProcesado.value
                         }
                         textAlign="text-center"
@@ -1527,10 +1580,11 @@ const FOTCristales: React.FC<ICristales> = ({
                         onlyRead={
                           !(
                             (!isEditting && tipo_de_anteojo.value === "3") ||
-                            (isEditting &&
-                              permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria &&
-                              tipo_de_anteojo.value === "3")
+                            (isEditting && permisoAreaUsuario
+                              ? permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria &&
+                                tipo_de_anteojo.value === "3"
+                              : false)
                           ) || inputOnlyReadBodegaProcesado.value
                         }
                         textAlign="text-center"
@@ -1642,10 +1696,11 @@ const FOTCristales: React.FC<ICristales> = ({
                         readOnly={
                           !(
                             (!isEditting && tipo_de_anteojo.value === "3") ||
-                            (isEditting &&
-                              permiso_areas_grupo_dioptria &&
-                              permiso_usuario_grupo_dioptria &&
-                              tipo_de_anteojo.value === "3")
+                            (isEditting && permisoAreaUsuario
+                              ? permiso_areas_grupo_dioptria &&
+                                permiso_usuario_grupo_dioptria &&
+                                tipo_de_anteojo.value === "3"
+                              : false)
                           )
                         }
                         // FOTcristales={true}

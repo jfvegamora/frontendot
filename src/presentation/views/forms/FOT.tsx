@@ -626,9 +626,12 @@ const FOT: React.FC<IFOTProps> = ({
       !Number.isNaN(dioptrias_receta.value.a1_oi.eje)
         ? dioptrias_receta.value.a1_oi.eje
         : 0
-    },"${a1_oi_ad.value !== "" ? parseInt(a1_oi_ad.value) : 0}",${
-      A1_DP.value !== "" ? A1_DP.value : 0
-    },${
+    },"${
+      typeof dioptrias_receta.value.a1_oi.ad === "string" &&
+      !Number.isNaN(dioptrias_receta.value.a1_oi.ad)
+        ? dioptrias_receta.value.a1_oi.ad
+        : 0
+    }",${A1_DP.value !== "" ? A1_DP.value : 0},${
       formValues["receta"]["a1_alt"] > 0 ? formValues["receta"]["a1_alt"] : 0
     }, "${A1_GRUPO_OD.value.trim()}" ,"${A1_GRUPO_OI.value.trim()}" ,"${
       typeof a2_od_esf.value === "string" ? a2_od_esf.value : 0

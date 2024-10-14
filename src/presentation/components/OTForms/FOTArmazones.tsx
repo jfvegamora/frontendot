@@ -637,7 +637,7 @@ const FOTArmazones: React.FC<IArmazones> = ({
               validation_Cristal2_od("");
             validation_Cristal2_oi("");
           }
-          toast.error(data[0][20]);
+          toast.error(data[0][20] || data[0][19]);
         }
 
         if (inputName === "a3_armazon_id") {
