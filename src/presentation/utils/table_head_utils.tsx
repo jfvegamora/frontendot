@@ -635,7 +635,7 @@ export const table_head_pizarra_diaria = [
     width: "w-[6vw]",
   },
   {
-    cell: "DIAS FALTANTES",
+    cell: "DÍAS FALTANTES",
     key: "dias faltantes",
     visible: true,
     alignment: "text-center",
@@ -760,7 +760,7 @@ export const table_head_pizarra_archivo = [
     width: "w-[6vw]",
   },
   {
-    cell: "DIAS FALTANTES",
+    cell: "DÍAS FALTANTES",
     key: "dias faltantes",
     visible: true,
     alignment: "text-center",

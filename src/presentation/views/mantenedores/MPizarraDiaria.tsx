@@ -29,7 +29,6 @@ const MPizarraDiaria: React.FC = () => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
 
-  console.log(entities);
   return (
     <div className="mantenedorContainer">
       <div className="mantenedorHead width60">
@@ -68,7 +67,7 @@ const MPizarraDiaria: React.FC = () => {
           />
         </div>
       </div>
-      <div className="overflow-x-scroll h-[90%]">
+      <div className="overflow-x-scroll h-[78%]">
         <TablePizarra
           data={entities}
           tableHead={table_head_pizarra_diaria}

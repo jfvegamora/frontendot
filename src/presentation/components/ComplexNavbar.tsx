@@ -169,12 +169,12 @@ const navListMenuOT = [
     id: "44",
   },
   {
-    title: "Pizarra OT Diaria",
+    title: "Reportes en Producción",
     link: "/pizarraotdiaria",
     id: "47",
   },
-// {
-  //   title: "Pizarra OT Archivo",
+  // {
+  //   title: "Dashboard Reportes en Archivo",
   //   link: "/pizarraotarchivo",
   //   id: "48",
   // },

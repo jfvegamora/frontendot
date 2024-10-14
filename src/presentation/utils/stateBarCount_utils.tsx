@@ -105,7 +105,7 @@ export const renderBitacoraStateCountBar = (state: any) => {
       </div>
       {render[1][1]["totalDerivados"] !== 0 && (
         <div className="bg-red-500 w-[65%] rounded-full mb-[0.6rem] text-white px-4">
-          Total Derivadas
+          Total Derivadas:
           <span>{"  "}</span>
           <span>{render[1][1]["totalDerivados"]}</span>
         </div>

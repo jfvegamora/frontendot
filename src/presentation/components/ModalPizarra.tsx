@@ -47,12 +47,10 @@ const ModalPizarra: React.FC<IModalPizarra> = ({ onClose, data }) => {
     };
   }, [onClose]);
 
-  console.log(data);
-
   return (
-    <div className="!z-30 w-[65vw] h-[40vw] bg-[#676f9d] absolute top-[3vw] left-[15vw]">
+    <div className="!z-30 w-[65vw] h-[40vw] bg-[#676f9d] absolute top-[3vw] left-[15vw] rounded-2xl">
       <div className="absolute right-0 userFormBtnCloseContainer">
-        <h1 className=" flex  !w-[80vw]  text-4xl text-white  mb-5 translate-x-[20vw]">
+        <h1 className=" flex  !w-[50vw]  text-4xl text-white  mb-5 -translate-x-[10vw] mt-10">
           Reporte:
           <span className="text-orange-300 ml-2 mr-10">
             {data && data["reporteAtencion"]}
@@ -70,7 +68,7 @@ const ModalPizarra: React.FC<IModalPizarra> = ({ onClose, data }) => {
             // handleClose();
             onClose();
           }}
-          className=" cursor-pointer userFormBtnClose mr-4"
+          className=" cursor-pointer userFormBtnClose mr-8"
         >
           X
         </button>
