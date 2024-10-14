@@ -173,11 +173,11 @@ const navListMenuOT = [
     link: "/pizarraotdiaria",
     id: "47",
   },
-  {
-    title: "Pizarra OT Archivo",
-    link: "/pizarraotarchivo",
-    id: "48",
-  },
+// {
+  //   title: "Pizarra OT Archivo",
+  //   link: "/pizarraotarchivo",
+  //   id: "48",
+  // },
 ];
 
 const subMenuParametrizacionBodega = [

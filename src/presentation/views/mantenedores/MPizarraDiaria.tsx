@@ -68,7 +68,7 @@ const MPizarraDiaria: React.FC = () => {
           />
         </div>
       </div>
-      <div className="overflow-x-scroll h-[77%]">
+      <div className="overflow-x-scroll h-[90%]">
         <TablePizarra
           data={entities}
           tableHead={table_head_pizarra_diaria}
