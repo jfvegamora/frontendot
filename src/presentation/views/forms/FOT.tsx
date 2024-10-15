@@ -223,6 +223,8 @@ export const disabledCristalDiseño = signal(false);
 export const isLoadingOT = signal(false);
 export const isShowErrorModal = signal(false);
 export const dataErrorModal = signal({});
+export const isLoadingArmazonValidation = signal(false);
+export const isLoadingGetGrupoCristales = signal(false);
 
 const FOT: React.FC<IFOTProps> = ({
   closeModal,
@@ -1728,24 +1730,8 @@ const FOT: React.FC<IFOTProps> = ({
     return campoEncontrado && campoEncontrado.valor === 1;
   });
 
-  // console.log(validationNivel1.value);
-
-  console.log(
-    isEditting &&
-      data?.[EnumGrid.area_id] === 110 &&
-      permiso_usuario_btn_postVenta &&
-      isMOT &&
-      escritura_lectura &&
-      permisos_ot_historica.permisoPostVenta
-  );
-
-  console.log(isEditting);
-  console.log(data?.[EnumGrid.area_id] === 110);
-  console.log(permiso_usuario_btn_postVenta);
-  console.log(isMOT);
-  console.log(escritura_lectura);
-  console.log(permisos_ot_historica.permisoPostVenta);
-
+  console.log(isLoadingArmazonValidation);
+  console.log(!isLoadingArmazonValidation);
   return (
     <div className="useFormContainerOT top-[0%]  w-full h-[100%] !z-40">
       <Tabs
@@ -2115,6 +2101,8 @@ const FOT: React.FC<IFOTProps> = ({
               !isMOT &&
               isEditting &&
               escritura_lectura &&
+              !isLoadingArmazonValidation.value &&
+              !isLoadingGetGrupoCristales.value &&
               OTPermissions[PermisosBotones.pausar] === "1" &&
               permiso_usuario_btn_pausar && (
                 <div className="mx-auto">
@@ -2143,6 +2131,8 @@ const FOT: React.FC<IFOTProps> = ({
             {OTPermissions &&
               !isMOT &&
               isEditting &&
+              !isLoadingArmazonValidation.value &&
+              !isLoadingGetGrupoCristales.value &&
               escritura_lectura &&
               OTPermissions[PermisosBotones.derivar] === "1" &&
               OTAreas["areaActual"] !== 60 &&
@@ -2204,6 +2194,8 @@ const FOT: React.FC<IFOTProps> = ({
 
             {OTPermissions &&
               !isEditting &&
+              !isLoadingArmazonValidation.value &&
+              !isLoadingGetGrupoCristales.value &&
               // (!isEditting || (data && data[EnumGrid.area_id] === 40 && data && data[EnumGrid.motivo_garantia_id] === 2 ) )  &&
               escritura_lectura &&
               // OTPermissions[10] === "1" &&

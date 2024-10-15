@@ -181,7 +181,7 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       return;
     }
 
-    if (value && value.length >= 12) {
+    if (value && value.length >= 11) {
       const regex = /^0+/;
       formatValue = value.replace(regex, "");
 
@@ -221,10 +221,12 @@ const FOTValidateArmazones: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           successSound.play();
           validationA2_armazon.value = value;
         } else {
-          // if (value.lenght <= 11) {
-          //   return;
-          // } else {
-          // }
+          console.log(value);
+          console.log(value.length);
+          if (value.lenght <= 11) {
+            return;
+          } else {
+          }
           errorSound.play();
           validationA2_armazon.value = "";
           // errorSound.play();

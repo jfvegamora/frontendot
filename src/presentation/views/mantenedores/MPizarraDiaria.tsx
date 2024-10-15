@@ -1,7 +1,7 @@
 import React from "react";
 import TablePizarra from "../../components/TablePizarra";
 import { PrimaryKeySearch } from "../../components";
-import { useEntityUtils } from "../../hooks";
+import { useCrud, useEntityUtils } from "../../hooks";
 import { table_head_pizarra_diaria } from "../../utils";
 
 // const strEntidad = "Reporte de Atención";
@@ -22,12 +22,30 @@ export const enumReporteAtencionPizarra: any = {
 
 const MPizarraDiaria: React.FC = () => {
   const [_params, setParams] = React.useState([]);
+  const { ListEntity } = useCrud(strBaseUrl);
 
   const { setEntities, entities } = useEntityUtils(strBaseUrl, "01");
 
   const updateParams = (newParams: Record<string, never>) => {
     setParams(Object.keys(newParams).map((key) => newParams[key]));
   };
+
+  const fetchPizarraDiaria = async () => {
+    try {
+      const response = await ListEntity(strBaseUrl, "01");
+      setEntities(response);
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  };
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      fetchPizarraDiaria();
+    }, 15 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="mantenedorContainer">

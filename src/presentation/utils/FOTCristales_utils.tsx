@@ -32,6 +32,7 @@ import axios from "axios";
 import { signal } from "@preact/signals-react";
 import {
   dataErrorModal,
+  isLoadingGetGrupoCristales,
   isLoadingOT,
   isNotFetching,
   isShowErrorModal,
@@ -263,6 +264,7 @@ export const getGrupoCristales_od_A1 = async (
     };
     // const toastLoading = toast.loading("Cargando....");
     try {
+      isLoadingGetGrupoCristales.value = true;
       const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi]);
       const encodedJSON = encodeURIComponent(pkJSON);
 
@@ -347,7 +349,7 @@ export const getGrupoCristales_od_A1 = async (
         //     }
         //     return;
         //   }
-
+        isLoadingGetGrupoCristales.value = false;
         setErrorGrupoDioptriaA1(
           <div dangerouslySetInnerHTML={{ __html: cristalesDATA["MSG"] }} />
         );
@@ -390,6 +392,7 @@ export const getGrupoCristales_od_A1 = async (
         // toast.dismiss(toastLoading);
 
         // console.log(key)
+        isLoadingGetGrupoCristales.value = false;
         isLoadingOT.value = false;
         return cristalesDATA;
       }
@@ -523,6 +526,7 @@ export const getGrupoCristales_oi_A1 = async (
     };
     // const toastLoading = toast.loading("Cargando....");
     try {
+      isLoadingGetGrupoCristales.value = true;
       const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi]);
       const encodedJSON = encodeURIComponent(pkJSON);
 
@@ -570,7 +574,7 @@ export const getGrupoCristales_oi_A1 = async (
           validacionIncompleta.value.a1_od = true;
           validacionIncompleta.value.a1_oi = false;
         }
-
+        isLoadingGetGrupoCristales.value = false;
         setErrorGrupoDioptriaA1(
           <div dangerouslySetInnerHTML={{ __html: cristalesDATA["MSG"] }} />
         );
@@ -607,7 +611,7 @@ export const getGrupoCristales_oi_A1 = async (
         // setValue("cristal1_oi_diametro", cristalesDATA["CR_OI_DIAMETRO"]);
         // validation_Cristal1_od("32");
         validation_Cristal1_oi("32");
-
+        isLoadingGetGrupoCristales.value = false;
         setChangeboolean((prev: boolean) => !prev);
         // toast.dismiss(toastLoading);
 
@@ -712,6 +716,7 @@ export const getGrupoCristales_od_A2 = async (
     };
 
     try {
+      isLoadingGetGrupoCristales.value = true;
       const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi]);
       const encodedJSON = encodeURIComponent(pkJSON);
 
@@ -742,6 +747,7 @@ export const getGrupoCristales_od_A2 = async (
           // validation_Cristal2_oi(cristalesDATA["CR_OI"]);
           toast.error(cristalesDATA["MSG"]);
           validacionIncompleta.value.check = true;
+          isLoadingGetGrupoCristales.value = false;
 
           switch (cristalesDATA["ERROR"]) {
             case "ODOI":
@@ -781,7 +787,7 @@ export const getGrupoCristales_od_A2 = async (
           validation_Cristal2_od(cristalesDATA["CR_OD"]);
           // validation_Cristal2_oi(cristalesDATA["CR_OI"]);
         }
-
+        isLoadingGetGrupoCristales.value = false;
         setChangeboolean((prev: boolean) => !prev);
       }
     } catch (error) {
@@ -879,6 +885,7 @@ export const getGrupoCristales_oi_A2 = async (
     };
 
     try {
+      isLoadingGetGrupoCristales.value = true;
       const pkJSON = JSON.stringify([_pkToDelete1_od, _pkToDelete1_oi]);
       const encodedJSON = encodeURIComponent(pkJSON);
 
@@ -909,6 +916,7 @@ export const getGrupoCristales_oi_A2 = async (
           validation_Cristal2_oi(cristalesDATA["CR_OI"]);
           toast.error(cristalesDATA["MSG"]);
           validacionIncompleta.value.check = true;
+          isLoadingGetGrupoCristales.value = false;
 
           switch (cristalesDATA["ERROR"]) {
             case "ODOI":
@@ -947,7 +955,7 @@ export const getGrupoCristales_oi_A2 = async (
           // validation_Cristal2_od(cristalesDATA["CR_OD"]);
           validation_Cristal2_oi(cristalesDATA["CR_OI"]);
         }
-
+        isLoadingGetGrupoCristales.value = false;
         setChangeboolean((prev: boolean) => !prev);
       }
     } catch (error) {

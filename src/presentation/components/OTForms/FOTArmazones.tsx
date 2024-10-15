@@ -47,6 +47,7 @@ import { signal } from "@preact/signals-react";
 import { URLBackend } from "../../utils/config";
 // import { usePermissionOT } from "../../hooks/usePermissionOT";
 import { usePermissionAreasUsuario } from "../../hooks/usePermissionAreasUsuario";
+import { isLoadingArmazonValidation } from "../../views/forms/FOT";
 
 interface IArmazones {
   control: any;
@@ -263,7 +264,7 @@ const FOTArmazones: React.FC<IArmazones> = ({
     if (codArmazon && codArmazon.trim() === "") {
       return;
     }
-
+    isLoadingArmazonValidation.value = true;
     const toastLoading = toast.loading("Cargando...");
 
     switch (inputName) {
@@ -569,6 +570,7 @@ const FOTArmazones: React.FC<IArmazones> = ({
             }
             toast.error(data[0][20]);
             toast.dismiss(toastLoading);
+            isLoadingArmazonValidation.value = false;
             return;
           case "OI":
             switch (inputName) {
@@ -602,6 +604,7 @@ const FOTArmazones: React.FC<IArmazones> = ({
             }
             toast.error(data[0][20]);
             toast.dismiss(toastLoading);
+            isLoadingArmazonValidation.value = false;
             return;
           default:
             break;
@@ -646,6 +649,7 @@ const FOTArmazones: React.FC<IArmazones> = ({
           toast.error(data[0][20]);
         }
         toast.dismiss(toastLoading);
+        isLoadingArmazonValidation.value = false;
         return;
       } else {
         if (data[0]) {
@@ -717,6 +721,7 @@ const FOTArmazones: React.FC<IArmazones> = ({
           }
         }
       }
+      isLoadingArmazonValidation.value = false;
       toast.dismiss(toastLoading);
     } catch (error) {
       toast.dismiss(toastLoading);
@@ -893,10 +898,7 @@ const FOTArmazones: React.FC<IArmazones> = ({
 
   //    console.log(a1_armazon.value)
 
-  console.log(permiso_areas_armazones);
-  console.log(permiso_usuario_armazones);
   const { permisoAreaUsuario } = usePermissionAreasUsuario();
-  console.log(permisoAreaUsuario);
   return (
     <form>
       <div className="frameOTForm h-[84vh]">
