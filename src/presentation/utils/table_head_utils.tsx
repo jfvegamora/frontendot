@@ -2187,6 +2187,20 @@ export const table_head_muestrarios_armazones = [
     width: "w-[6rem]",
   },
   {
+    cell: "DP Mín ESF +",
+    key: "dp_minima",
+    alignment: "text-right",
+    visible: true,
+    width: "w-[6rem]",
+  },
+  {
+    cell: "DP Mín ESF -",
+    key: "dp_maxima",
+    alignment: "text-right",
+    visible: true,
+    width: "w-[6rem]",
+  },
+  {
     cell: "Stock Mínimo",
     key: "stock_minimo",
     visible: true,
@@ -2350,6 +2364,20 @@ export const table_head_vitrinas_armazones = [
     key: "uso",
     visible: true,
     alignment: "text-center",
+    width: "w-[6rem]",
+  },
+  {
+    cell: "DP Mín ESF +",
+    key: "dp_minima",
+    alignment: "text-right",
+    visible: true,
+    width: "w-[6rem]",
+  },
+  {
+    cell: "DP Mín ESF -",
+    key: "dp_maxima",
+    alignment: "text-right",
+    visible: true,
     width: "w-[6rem]",
   },
   {

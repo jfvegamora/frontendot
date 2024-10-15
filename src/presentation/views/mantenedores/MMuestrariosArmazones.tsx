@@ -38,8 +38,11 @@ export enum EnumGrid {
   brazo = 20,
   uso_id = 21,
   uso = 22,
-  stock_minimo = 23,
+  dp_minima = 23,
+  dp_maxima = 24,
+  stock_minimo = 25,
 }
+
 const strEntidad = "Parametrización de Muestrarios ";
 const strEntidadExcel = "Parametrizacion_de_muestrarios";
 const strBaseUrl = "/api/muestrariosarmazones/";
@@ -99,7 +102,7 @@ const MMuestrariosArmazones: React.FC = () => {
 
   return (
     <div className="mantenedorContainer">
-      <div className="mantenedorHead width80">
+      <div className="mantenedorHead width100">
         <div className="w-[75%] mantenedorHeadSub">
           <PrimaryKeySearch
             baseUrl={strBaseUrl}
@@ -123,11 +126,21 @@ const MMuestrariosArmazones: React.FC = () => {
                 type: "text",
                 styles: {
                   styles: "labelInput inputStyles",
-                  container: "!w-[20vw] translate-x-[7vw]",
+                  container: "!w-[16vw] translate-x-[2vw]",
                   labelProps: "labelInput",
                 },
               },
-              // { name: "_p3", label: "Código Licitacion", type: "text", styles:{with:" !w-[9rem]"}, },
+              {
+                name: "_p1",
+                label: "Estado",
+                type: "checkbox",
+                options: ["Disponible", "No disponible"],
+                styles: {
+                  styles: " labelInput inputStyles ",
+                  container: "!translate-x-[0] ",
+                  labelProps: "labelInput",
+                },
+              },
             ]}
             classNameSearchButton="translate-x-[0.5vw]"
           />
@@ -160,7 +173,7 @@ const MMuestrariosArmazones: React.FC = () => {
         -
       </div>
 
-      <div className="width100 overflow-y-auto h-[30vw]">
+      <div className="width100 overflow-y-auto h-[34vw]">
         <TableComponent
           handleSelectChecked={handleSelect}
           handleSelectedCheckedAll={handleSelectedAll}

@@ -74,7 +74,7 @@ const MInformeCristales: React.FC = () => {
                 name: "_origen",
                 label: "",
                 type: "checkbox",
-                options: ["Inventario", "Consumo"],
+                options: ["Invent.", "Venta", "Merma"],
                 styles: {
                   styles: " labelInput inputStyles ",
                   container: "!translate-x-[0] ",
