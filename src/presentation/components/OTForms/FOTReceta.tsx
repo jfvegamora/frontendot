@@ -40,6 +40,7 @@ import { transponer } from "../../utils/FOTReceta_utils";
 import TextInputInteractive from "../forms/TextInputInteractive";
 import { inputOnlyReadReserva } from "../../utils/FReservaArmazones_utils";
 import { disabledCristalDiseño } from "../../views/forms/FOT";
+import { usePermissionAreasUsuario } from "../../hooks/usePermissionAreasUsuario";
 
 // export const inputName = signal(0)
 
@@ -69,6 +70,7 @@ const FOTReceta: React.FC<IReceta> = ({
 
   const firstInputRef = useRef<HTMLInputElement | null>(null);
   const secondInputRef = useRef<HTMLInputElement | null>(null);
+  const { permisoAreaUsuario } = usePermissionAreasUsuario();
 
   const [inputsRef] = useState({
     firstInputRef: React.useRef<HTMLInputElement>(null),
@@ -327,7 +329,9 @@ const FOTReceta: React.FC<IReceta> = ({
                   onlyRead={
                     !(
                       !isEditting ||
-                      (permiso_usuario_receta && permiso_areas_receta)
+                      (permisoAreaUsuario
+                        ? permiso_usuario_receta && permiso_areas_receta
+                        : false)
                     )
                   }
                   textAlign="text-center"
@@ -351,7 +355,9 @@ const FOTReceta: React.FC<IReceta> = ({
                   onlyRead={
                     !(
                       !isEditting ||
-                      (permiso_usuario_receta && permiso_areas_receta)
+                      (permisoAreaUsuario
+                        ? permiso_usuario_receta && permiso_areas_receta
+                        : false)
                     )
                   }
                   textAlign="text-center"
@@ -370,7 +376,9 @@ const FOTReceta: React.FC<IReceta> = ({
                   onlyRead={
                     !(
                       !isEditting ||
-                      (permiso_usuario_receta && permiso_areas_receta)
+                      (permisoAreaUsuario
+                        ? permiso_usuario_receta && permiso_areas_receta
+                        : false)
                     )
                   }
                   textAlign="text-center"
@@ -390,7 +398,9 @@ const FOTReceta: React.FC<IReceta> = ({
                     !(
                       deshabilitarCampo.value.a1_ad &&
                       (!isEditting ||
-                        (permiso_usuario_receta && permiso_areas_receta))
+                        (permisoAreaUsuario
+                          ? permiso_usuario_receta && permiso_areas_receta
+                          : false))
                     )
                   }
                   textAlign="text-center"
@@ -418,7 +428,9 @@ const FOTReceta: React.FC<IReceta> = ({
                   onlyRead={
                     !(
                       !isEditting ||
-                      (permiso_usuario_receta && permiso_areas_receta)
+                      (permisoAreaUsuario
+                        ? permiso_usuario_receta && permiso_areas_receta
+                        : false)
                     )
                   }
                   textAlign="text-center"
@@ -440,7 +452,9 @@ const FOTReceta: React.FC<IReceta> = ({
                   onlyRead={
                     !(
                       !isEditting ||
-                      (permiso_usuario_receta && permiso_areas_receta)
+                      (permisoAreaUsuario
+                        ? permiso_usuario_receta && permiso_areas_receta
+                        : false)
                     )
                   }
                   textAlign="text-center"
@@ -462,7 +476,9 @@ const FOTReceta: React.FC<IReceta> = ({
                   onlyRead={
                     !(
                       !isEditting ||
-                      (permiso_usuario_receta && permiso_areas_receta)
+                      (permisoAreaUsuario
+                        ? permiso_usuario_receta && permiso_areas_receta
+                        : false)
                     )
                   }
                   textAlign="text-center"
@@ -482,7 +498,9 @@ const FOTReceta: React.FC<IReceta> = ({
                     !(
                       deshabilitarCampo.value.a1_ad &&
                       (!isEditting ||
-                        (permiso_usuario_receta && permiso_areas_receta))
+                        (permisoAreaUsuario
+                          ? permiso_usuario_receta && permiso_areas_receta
+                          : false))
                     )
                   }
                   textAlign="text-center"
@@ -506,7 +524,9 @@ const FOTReceta: React.FC<IReceta> = ({
                 onlyRead={
                   !(
                     !isEditting ||
-                    (permiso_usuario_receta && permiso_areas_receta)
+                    (permisoAreaUsuario
+                      ? permiso_usuario_receta && permiso_areas_receta
+                      : false)
                   )
                 }
                 textAlign="text-center"
@@ -526,7 +546,9 @@ const FOTReceta: React.FC<IReceta> = ({
                   !(
                     deshabilitarCampo.value.a1_alt &&
                     (!isEditting ||
-                      (permiso_usuario_receta && permiso_areas_receta))
+                      (permisoAreaUsuario
+                        ? permiso_usuario_receta && permiso_areas_receta
+                        : false))
                   )
                 }
                 textAlign="text-center"
@@ -548,7 +570,9 @@ const FOTReceta: React.FC<IReceta> = ({
                   !(
                     deshabilitarCampo.value.a2_dp &&
                     (!isEditting ||
-                      (permiso_usuario_receta && permiso_areas_receta))
+                      (permisoAreaUsuario
+                        ? permiso_usuario_receta && permiso_areas_receta
+                        : false))
                   )
                 }
                 customWidth={"!h-[3vw]  labelInput"}

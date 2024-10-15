@@ -1,10 +1,14 @@
 import { AppStore, useAppSelector } from "../../redux/store";
+import { EnumAreas } from "../components/OTPrimaryButtons";
 
 export function usePermissionAreasUsuario() {
   const permisosAreasUsuario = useAppSelector(
     (store: AppStore) => store.user?.permisos_areas
   );
-  let permisosAreasUsuario_editar_armazon =
+  const areaActual = useAppSelector(
+    (store: AppStore) => store.OTAreas.areaActual
+  );
+  let permisosAreasUsuario_resolucion =
     permisosAreasUsuario && permisosAreasUsuario[0] === "1" ? true : false;
   let permisosAreasUsuario_compras =
     permisosAreasUsuario && permisosAreasUsuario[1] === "1" ? true : false;
@@ -31,10 +35,14 @@ export function usePermissionAreasUsuario() {
   let permisosAreasUsuario_empaque =
     permisosAreasUsuario && permisosAreasUsuario[12] === "1" ? true : false;
 
-  console.log(permisosAreasUsuario);
-
+  let permisoAreaUsuario =
+    areaActual &&
+    permisosAreasUsuario &&
+    permisosAreasUsuario[EnumAreas[areaActual]] === "1"
+      ? true
+      : false;
   return {
-    permisosAreasUsuario_editar_armazon,
+    permisosAreasUsuario_resolucion,
     permisosAreasUsuario_compras,
     permisosAreasUsuario_calculo,
     permisosAreasUsuario_laboratorio,
@@ -47,5 +55,6 @@ export function usePermissionAreasUsuario() {
     permisosAreasUsuario_control_calidad,
     permisosAreasUsuario_bod_prod_term,
     permisosAreasUsuario_empaque,
+    permisoAreaUsuario,
   };
 }
