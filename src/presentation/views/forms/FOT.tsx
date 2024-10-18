@@ -164,6 +164,7 @@ import {
 import { URLBackend } from "../../utils/config";
 import { PermisosBotones } from "../../Enums";
 import { usePermissionBotonesUser } from "../../hooks/usePermissionBotonesUser";
+import { usePermissionAreasUsuario } from "../../hooks/usePermissionAreasUsuario";
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
 // import { usePermissionOT } from '../../hooks/usePermissionOT';
 // import { EnumAreas } from '../../components/OTPrimaryButtons';
@@ -297,6 +298,8 @@ const FOT: React.FC<IFOTProps> = ({
     useAppSelector((store: AppStore) => store.listBoxTipos.OTTipoAnteojo) || [];
 
   const dispatch = useAppDispatch();
+
+  const { permisosAreasUsuario_resolucion } = usePermissionAreasUsuario();
 
   // const { OTAreas, OTSlice, User, tipo_anteojo_array, permisosCampos } =
   //   useAppSelector((state: AppStore) => ({
@@ -1732,6 +1735,22 @@ const FOT: React.FC<IFOTProps> = ({
 
   console.log(isLoadingArmazonValidation);
   console.log(!isLoadingArmazonValidation);
+
+  console.log(
+    isMOT
+      ? permisos_ot_historica.permisoAnular &&
+          data?.[EnumGrid.area_id] === 110 &&
+          permiso_usuario_btn_anular
+      : permiso_usuario_btn_anular &&
+          idMenu !== 200 &&
+          OTPermissions[PermisosBotones.anular] === "1"
+  );
+
+  console.log(isMOT);
+  console.log(escritura_lectura);
+  console.log(permiso_usuario_btn_anular);
+  console.log(OTPermissions[PermisosBotones.anular]);
+
   return (
     <div className="useFormContainerOT top-[0%]  w-full h-[100%] !z-40">
       <Tabs
@@ -2163,32 +2182,33 @@ const FOT: React.FC<IFOTProps> = ({
               )}
 
             {/*************** BOTON ANULAR ***************/}
-            {escritura_lectura &&
-              (isMOT
-                ? permisos_ot_historica.permisoAnular &&
-                  data?.[EnumGrid.area_id] === 110 &&
-                  permiso_usuario_btn_anular
-                : permiso_usuario_btn_anular &&
-                  idMenu !== 200 &&
-                  OTPermissions[PermisosBotones.anular] === "1") && (
-                // sumatoriaNivel1 === validationNivel1.value.length && (
-                // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) &&
-                // <Button className=' translate-y-[-2.7vw] text-[1vw] w-[10vw] bg-black' onClick={()=>{
-                <div className="mx-auto">
-                  <Button
-                    className="w-[12rem] text-[1.3rem] bg-black otActionButtonForm hover:bg-gray-800"
-                    onClick={() => {
-                      setFOTBooleanStates((prev) => ({
-                        ...prev,
-                        showAnulacion: !prev.showAnulacion,
-                      }));
-                    }}
-                  >
-                    {" "}
-                    Anular
-                  </Button>
-                </div>
-              )}
+
+            {(escritura_lectura && isMOT
+              ? permisos_ot_historica.permisoAnular &&
+                data?.[EnumGrid.area_id] === 110 &&
+                permiso_usuario_btn_anular
+              : permiso_usuario_btn_anular &&
+                permisosAreasUsuario_resolucion &&
+                idMenu !== 200 &&
+                OTPermissions[PermisosBotones.anular] === "1") && (
+              // sumatoriaNivel1 === validationNivel1.value.length && (
+              // (data && data[EnumGrid.estado_id] === 30 || data && data[EnumGrid.estado_id] === 40 ) &&
+              // <Button className=' translate-y-[-2.7vw] text-[1vw] w-[10vw] bg-black' onClick={()=>{
+              <div className="mx-auto">
+                <Button
+                  className="w-[12rem] text-[1.3rem] bg-black otActionButtonForm hover:bg-gray-800"
+                  onClick={() => {
+                    setFOTBooleanStates((prev) => ({
+                      ...prev,
+                      showAnulacion: !prev.showAnulacion,
+                    }));
+                  }}
+                >
+                  {" "}
+                  Anular
+                </Button>
+              </div>
+            )}
 
             {/*************** BOTON INGRESAR ***************/}
 

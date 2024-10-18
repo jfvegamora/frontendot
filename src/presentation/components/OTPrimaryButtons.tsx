@@ -10,6 +10,7 @@ import {
   BUTTON_MESSAGES,
   clearAllCheck,
   reiniciarValidationNivel3,
+  reiniciarValidationNivel3BodegaCristales,
   updateOT,
   validateFiltros,
 } from "../utils";
@@ -1010,7 +1011,10 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           }
           const { data: dataFetchValidateCheckLAB } = await axios(
             `${URLBackend}/api/ot/listado/?query=01&_p1=${folio}`
-          );
+          ).then((data) => {
+            dataOTSignal.value = dataOT;
+            return data;
+          });
 
           if (dataFetchValidateCheckLAB && dataFetchValidateCheckLAB[0]) {
             if (
@@ -1031,7 +1035,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
           }
 
           // console.log(dataOT && dataOT[0][OTGrillaEnumm]);
-
+          console.log(dataOT);
           if (
             dataOT &&
             dataOT[0][OTGrillaEnum.cr1_od] === "" &&
@@ -1042,6 +1046,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             isValidateCR1OI.value = true;
           }
 
+          console.log(isValidateCR1OD.value);
+          console.log(isValidateCR1OI.value);
           if (
             dataOT &&
             dataOT[0][OTGrillaEnum.tipo_anteojo_id] === "3" &&
@@ -1058,6 +1064,8 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
               dataOT[0][OTGrillaEnum.folio]
             }`
           );
+
+          console.log(dataAproximarCristales);
 
           const keys = ["a1_od", "a1_oi", "a2_od", "a2_oi"];
           structureCristalesBodega.value = {
@@ -1136,9 +1144,10 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
             },
             structureCristalesBodega.value
           );
-
-          dataOTSignal.value = dataOT;
+          reiniciarValidationNivel3BodegaCristales();
+          dataOTSignal.value = dataOT[0];
           toast.dismiss(toastLoading);
+          setDataOT(dataOT[0]);
           setisFOTValidateBodegaCristales(true);
         } catch (error) {
           console.log(error);
@@ -2221,6 +2230,7 @@ const OTPrimaryButtons: React.FC<AreaButtonsProps> = React.memo(
         <Suspense>
           {isFOTValidateBodegaCristales && (
             <FOTValidateCristales
+              dataOT={dataOT}
               handleClose={() => {
                 setisFOTValidateBodegaCristales(false);
                 focusFirstInput(

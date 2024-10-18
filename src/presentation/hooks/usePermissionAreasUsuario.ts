@@ -41,6 +41,8 @@ export function usePermissionAreasUsuario() {
     permisosAreasUsuario[EnumAreas[areaActual]] === "1"
       ? true
       : false;
+
+  console.log(permisosAreasUsuario_resolucion);
   return {
     permisosAreasUsuario_resolucion,
     permisosAreasUsuario_compras,

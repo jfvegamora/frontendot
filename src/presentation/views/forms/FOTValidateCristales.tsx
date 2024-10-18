@@ -78,21 +78,29 @@ const cristalStock_a2oi = signal("1");
 interface IFOTValidarBodega {
   handleClose?: any;
   pkToDelete?: any;
+  dataOT?: any;
 }
 
-const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
+const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({
+  handleClose,
+  dataOT,
+}) => {
   const [formValues, setFormValues] = React.useState();
   const [isCheckLab, setIsCheckLab] = React.useState(false);
 
   const OTAreas: any = useAppSelector((store: AppStore) => store.OTAreas);
   const UsuarioID: any = useAppSelector((store: AppStore) => store.user?.id);
 
-  const [OT, setOT] = React.useState<any>(dataOTSignal.value);
+  const [OT, setOT] = React.useState<any>(dataOT || dataOTSignal.value);
   const [_concatValue, setConcatValue] = React.useState("");
 
   // const [inputValue, setInputValue] = React.useState("");
   // const [delayedValue, setDelayedValue] = React.useState("");
   // const [timeoutId, setTimeoutId] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    setOT(dataOT);
+  }, [dataOT]);
 
   const resetFields = () => {
     CR1_OD_LAB.value = false;
@@ -688,28 +696,28 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
       let situacion;
 
       let data: any = {
-        folio: OT[0][OTGrillaEnum.folio],
-        tipo_anteojo: parseInt(OT[0][OTGrillaEnum.tipo_anteojo_id]),
-        proyecto_codigo: OT[0][OTGrillaEnum.proyecto_titulo],
-        punto_venta: OT[0][OTGrillaEnum.punto_venta],
+        folio: OT[OTGrillaEnum.folio],
+        tipo_anteojo: parseInt(OT[OTGrillaEnum.tipo_anteojo_id]),
+        proyecto_codigo: OT[OTGrillaEnum.proyecto_titulo],
+        punto_venta: OT[OTGrillaEnum.punto_venta],
         cristales: [
           {
-            codigo: OT[0][OTGrillaEnum.cr1_od],
+            codigo: OT[OTGrillaEnum.cr1_od],
             opcion_vta: cristalStock,
             estado: estadoValidacionCristal,
           },
           {
-            codigo: OT[0][OTGrillaEnum.cr1_oi],
+            codigo: OT[OTGrillaEnum.cr1_oi],
             opcion_vta: cristalStock,
             estado: estadoValidacionCristal,
           },
           {
-            codigo: OT[0][OTGrillaEnum.cr2_od],
+            codigo: OT[OTGrillaEnum.cr2_od],
             opcion_vta: cristalStock,
             estado: estadoValidacionCristal,
           },
           {
-            codigo: OT[0][OTGrillaEnum.cr2_oi],
+            codigo: OT[OTGrillaEnum.cr2_oi],
             opcion_vta: cristalStock,
             estado: estadoValidacionCristal,
           },
@@ -725,7 +733,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         situacion = "5";
 
         _p3 =
-          OT[0][OTGrillaEnum.tipo_anteojo_id] === 3
+          OT[OTGrillaEnum.tipo_anteojo_id] === 3
             ? `cristales1_od_validado="1", cristales1_oi_validado="1",cristales2_od_validado="1",cristales2_oi_validado="1"`
             : `cristales1_od_validado"1", cristales1_oi_validado="1"`;
 
@@ -787,9 +795,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
         focusFirstInput("a2_oi", inputsRef["a2_oi"]);
       }
 
-      if (OT && OT[0][OTGrillaEnum.tipo_anteojo_id] === 3) {
-        console.log("lejos/cerca");
-        console.log(structureCristalesBodega.value);
+      if (OT && OT[OTGrillaEnum.tipo_anteojo_id] === 3) {
         if (
           structureCristalesBodega.value["a1_od"].estado === "1" &&
           structureCristalesBodega.value["a1_oi"].estado === "1" &&
@@ -807,11 +813,17 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
             validateBodegaCristal1_oi("32", true);
           }
           if (structureCristalesBodega.value["a2_od"].estado === "1") {
-            validateBodegaCristal2_od("32", true);
+            validateBodegaCristal2_od(
+              structureCristalesBodega.value["a2_od"].codigos.codigo,
+              true
+            );
           }
 
           if (structureCristalesBodega.value["a2_oi"].estado === "1") {
-            validateBodegaCristal2_oi("32", true);
+            validateBodegaCristal2_oi(
+              structureCristalesBodega.value["a2_oi"].codigos.codigo,
+              true
+            );
           }
         }
       } else {
@@ -826,12 +838,20 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           handleClose();
         } else {
           if (structureCristalesBodega.value["a1_od"].estado === "1") {
-            validateBodegaCristal1_od("32", true);
+            console.log("render");
+            console.log(structureCristalesBodega.value["a1_od"]);
+            validateBodegaCristal1_od(
+              structureCristalesBodega.value["a1_od"].codigos[0].codigo,
+              true
+            );
             focusFirstInput("a1_oi", inputsRef["a1_oi"]);
           }
 
           if (structureCristalesBodega.value["a1_oi"].estado === "1") {
-            validateBodegaCristal1_oi("32", true);
+            validateBodegaCristal1_oi(
+              structureCristalesBodega.value["a1_oi"].codigos[0].codigo,
+              true
+            );
           }
         }
       }
@@ -874,8 +894,8 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     ) {
       validateBodegaCristal1_od("32", true);
       validateBodegaCristal1_oi("32", true);
-      validateBodegaCristal2_od("32", true);
-      validateBodegaCristal2_oi("32", true);
+      validateBodegaCristal2_od(A2_CR_OD.value, true);
+      validateBodegaCristal2_oi(A2_CR_OI.value, true);
     }
     // focusFirstInput("a1_armazon", inputsRef["a1_armazon"]);
   }, [OT]);
@@ -889,7 +909,7 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         resetFields();
-
+        reiniciarValidationNivel3BodegaCristales();
         handleClose();
       }
     };
@@ -899,54 +919,67 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
     };
   }, [handleClose]);
 
-  React.useEffect(() => {
-    if (dataOTSignal.value.length === 0) {
-      // const data: any = [
-      //   0,
-      //   49617,
-      //   "c-10",
-      //   "Venta",
-      //   20,
-      //   "En proceso",
-      //   "1",
-      //   35,
-      //   "1801-2023",
-      //   "PROGRAMA JUNAEB BIO-BIO",
-      //   "COLEGIO MARINA DE CHILE",
-      //   "22782064-0",
-      //   "CRISTIAN EDUARDO RODRÍGUEZ PINTO",
-      //   "2024-06-21",
-      //   3,
-      //   "Lejos",
-      //   "4020000040208",
-      //   "4020000040024",
-      //   " ",
-      //   "100010011240",
-      //   "100010009970",
-      //   "100010011240",
-      //   "100010011240",
-      //   "2",
-      //   "0",
-      //   0,
-      //   9288,
-      //   "S",
-      //   "1801-6-SE24",
-      //   0,
-      //   0,
-      //   1,
-      //   0,
-      //   98,
-      //   0,
-      // ];
-      // setOT(data);
-    } else {
-      setOT(dataOTSignal.value[0]);
-    }
-  }, [dataOTSignal.value]);
+  // React.useEffect(() => {
+  //   if (dataOTSignal.value.length === 0) {
+  //     // const data: any = [
+  //     //   0,
+  //     //   49617,
+  //     //   "c-10",
+  //     //   "Venta",
+  //     //   20,
+  //     //   "En proceso",
+  //     //   "1",
+  //     //   35,
+  //     //   "1801-2023",
+  //     //   "PROGRAMA JUNAEB BIO-BIO",
+  //     //   "COLEGIO MARINA DE CHILE",
+  //     //   "22782064-0",
+  //     //   "CRISTIAN EDUARDO RODRÍGUEZ PINTO",
+  //     //   "2024-06-21",
+  //     //   3,
+  //     //   "Lejos",
+  //     //   "4020000040208",
+  //     //   "4020000040024",
+  //     //   " ",
+  //     //   "100010011240",
+  //     //   "100010009970",
+  //     //   "100010011240",
+  //     //   "100010011240",
+  //     //   "2",
+  //     //   "0",
+  //     //   0,
+  //     //   9288,
+  //     //   "S",
+  //     //   "1801-6-SE24",
+  //     //   0,
+  //     //   0,
+  //     //   1,
+  //     //   0,
+  //     //   98,
+  //     //   0,
+  //     // ];
+  //     // setOT(data);
+  //   } else {
+  //     setOT(dataOTSignal.value[0]);
+  //   }
+  // }, [dataOTSignal.value]);
+  console.log(formValues);
+  console.log(validationBodegaCristales.value);
+
+  console.log(structureCristalesBodega.value);
 
   React.useEffect(() => {
+    console.log(validationBodegaCristales.value);
+    console.log(validationBodegaCristales.value.length);
+    console.log(sumatoriaNivelCristalesBodega);
+    console.log(OT[OTGrillaEnum["tipo_anteojo_id"]]);
+
     if (
-      sumatoriaNivelCristalesBodega === validationBodegaCristales.value.length
+      // sumatoriaNivelCristalesBodega === validationBodegaCristales.value.length
+      OT[OTGrillaEnum["tipo_anteojo_id"]] === 3
+        ? sumatoriaNivelCristalesBodega === 4
+        : sumatoriaNivelCristalesBodega === 2 ||
+          sumatoriaNivelCristalesBodega === 4
     ) {
       //VALIDA QUE HAYA DATA EN TODOS LOS CAMPOS SINO RETORNA
 
@@ -1061,6 +1094,8 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
               handleClose();
               toast.dismiss(toastLoading);
               toast.success("OT Procesada Correctamente.");
+              resetFields();
+              reiniciarValidationNivel3BodegaCristales();
               dispatch(
                 fetchOT({
                   OTAreas: OTAreas["areaActual"],
@@ -1068,13 +1103,13 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
                 })
               );
               valueConfirmOT.value = "";
-              resetFields();
             })
             .catch((e) => {
               console.log(e);
               resetFields();
               console.log("error");
               toast.dismiss(toastLoading);
+              reiniciarValidationNivel3BodegaCristales();
             });
 
           break;
@@ -1225,25 +1260,43 @@ const FOTValidateCristales: React.FC<IFOTValidarBodega> = ({ handleClose }) => {
           break;
       }
     }
-  }, [sumatoriaNivelCristalesBodega]);
+  }, [sumatoriaNivelCristalesBodega, formValues]);
 
   React.useEffect(() => {
     const { a1_od, a1_oi, a2_oi, a2_od } = structureCristalesBodega.value;
 
-    if (a1_od.estado === "1") {
-      CR1_OD_LAB.value = true;
+    if (OT[OTGrillaEnum["tipo_anteojo_id"]] === 3) {
+      if (a1_od.estado === "1") {
+        CR1_OD_LAB.value = true;
+      }
+      if (a1_oi.estado === "1") {
+        CR1_OI_LAB.value = true;
+      }
+      if (a2_od.estado === "1") {
+        CR2_OD_LAB.value = true;
+      }
+      if (a2_oi.estado === "1") {
+        CR2_OI_LAB.value = true;
+      }
+      if (
+        CR1_OD_LAB.value === true &&
+        CR1_OI_LAB.value === true &&
+        CR2_OD_LAB.value === true &&
+        CR2_OI_LAB.value === true
+      ) {
+        reiniciarValidationNivel3BodegaCristales();
+      }
+    } else {
+      if (a1_od.estado === "1") {
+        CR1_OD_LAB.value = true;
+      }
+      if (a1_oi.estado === "1") {
+        CR1_OI_LAB.value = true;
+      }
+      if (CR1_OD_LAB.value === true && CR1_OI_LAB.value === true) {
+        reiniciarValidationNivel3BodegaCristales();
+      }
     }
-    if (a1_oi.estado === "1") {
-      CR1_OI_LAB.value = true;
-    }
-    if (a2_od.estado === "1") {
-      CR2_OD_LAB.value = true;
-    }
-    if (a2_oi.estado === "1") {
-      CR2_OI_LAB.value = true;
-    }
-
-    reiniciarValidationNivel3BodegaCristales();
   }, []);
 
   // const handleValidationCristales = async () => {

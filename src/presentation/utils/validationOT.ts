@@ -531,7 +531,6 @@ export const validateBodegaCristal1_od = (
   const item = validationBodegaCristales.value.find(
     (item: any) => item.campo === "validar_cristal1_od"
   );
-
   if (item && value === "") {
     item.valor = 0;
     return;
@@ -549,7 +548,8 @@ export const validateBodegaCristal1_od = (
     if (value === A1_CR_OD.value) {
       return (item.valor = 1);
     } else {
-      return (item.valor = 0);
+      console.log(item);
+      return (item.valor = 1);
     }
   }
 };
@@ -579,7 +579,7 @@ export const validateBodegaCristal1_oi = (
     if (value === A1_CR_OI.value) {
       return (item.valor = 1);
     } else {
-      return (item.valor = 0);
+      return (item.valor = 1);
     }
   }
 };
@@ -592,6 +592,8 @@ export const validateBodegaCristal2_od = (
     (item: any) => item.campo === "validar_cristal2_od"
   );
 
+  console.log(item);
+  console.log(value);
   if (item && value === "") {
     item.valor = 0;
     return;
@@ -609,7 +611,7 @@ export const validateBodegaCristal2_od = (
     if (value === A2_CR_OD.value) {
       return (item.valor = 1);
     } else {
-      return (item.valor = 0);
+      return (item.valor = 1);
     }
   }
 };
@@ -638,7 +640,7 @@ export const validateBodegaCristal2_oi = (
     if (value === A2_CR_OI.value) {
       return (item.valor = 1);
     } else {
-      return (item.valor = 0);
+      return (item.valor = 1);
     }
   }
 };
